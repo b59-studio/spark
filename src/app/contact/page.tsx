@@ -1,4 +1,4 @@
-import { sendContactEmail } from "./actions/sendContactEmail";
+import { sendContactEmail } from "@/app/actions/sendContactEmail";
 
 export default function Home() {
   return (
