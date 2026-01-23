@@ -1,3 +1,5 @@
+import { Html, Body, Container, Heading, Text } from '@react-email/components';
+
 type ContactEmailProps = {
   name: string;
   email: string;
@@ -10,12 +12,16 @@ export default function ContactEmail({
   message,
 }: ContactEmailProps) {
   return (
-    <div>
-      <h1>New Contact Form Submission</h1>
-      <p><strong>Name:</strong> {name}</p>
-      <p><strong>Email:</strong> {email}</p>
-      <p><strong>Message:</strong></p>
-      <p>{message}</p>
-    </div>
+    <Html>
+      <Body>
+        <Container>
+          <Heading>New Contact Form Submission</Heading>
+          <Text><strong>Name:</strong> {name}</Text>
+          <Text><strong>Email:</strong> {email}</Text>
+          <Text><strong>Message:</strong></Text>
+          <Text>{message}</Text>
+        </Container>
+      </Body>
+    </Html>
   );
 }
