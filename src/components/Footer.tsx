@@ -17,9 +17,9 @@ export default function Footer() {
           <div>
             <h4 className="footer-heading font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li><Link href="/about" className="footer-link">About</Link></li>
-              <li><Link href="/services" className="footer-link">Services</Link></li>
-              <li><Link href="/contact" className="footer-link">Contact</Link></li>
+              {/**
+              <li><Link href="/about/sitemap" className="footer-link">Sitemap</Link></li>
+               */}
               <li><Link href="/about/privacy" className="footer-link">Privacy Policy</Link></li>
               <li><Link href="/about/terms" className="footer-link">Terms of Use</Link></li>
 
@@ -40,7 +40,7 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-b59-gray/20 mt-8 pt-8 text-center footer-text">
-          © {new Date().getFullYear()} B-59 Studio LLC. All rights reserved.
+          © {new Date().getFullYear()} B<span className="text-b59-blue">-</span>59 Studio LLC. All rights reserved.
         </div>
       </div>
     </footer>

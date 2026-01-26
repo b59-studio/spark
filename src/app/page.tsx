@@ -5,13 +5,11 @@ export default function Home() {
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
           B<span className="text-b59-blue">-</span>59
         </h1>
-        <p className="text-xl text-b59-gray mb-8 max-w-2xl mx-auto">
+        <p className="heading-lg">
           Human<span className="text-b59-blue">-</span>Centered.
         </p>
+        <br/>
         <div className="flex gap-4 justify-center flex-wrap">
-          <a href="/contact" className="btn-primary">
-            Talk to Us
-          </a>
           <a href="/about" className="btn-secondary">
             Learn More
           </a>

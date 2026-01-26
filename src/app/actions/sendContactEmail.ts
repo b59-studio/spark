@@ -1,11 +1,9 @@
 "use server";
-
 import { resend } from "@/lib/resend";
 import { base } from "@/lib/airtable";
-// import ContactEmail from "@/emails/ContactEmail";
 import ConfirmationEmail from "@/emails/ConfirmationEmail";
 
-export async function sendContactEmail(formData: FormData) {
+export async function sendContactEmail(formData: FormData): Promise<void> {
   const fname = formData.get("fname") as string;
   const lname = formData.get("lname") as string;
   const email = formData.get("email") as string;
@@ -13,10 +11,6 @@ export async function sendContactEmail(formData: FormData) {
   const message = formData.get("message") as string;
 
   console.log('📝 Form data received:', { fname, lname, email, phone, message });
-  console.log('🔑 AIRTABLE_API_KEY exists?', !!process.env.AIRTABLE_API_KEY);
-  console.log('🔑 AIRTABLE_BASE_ID exists?', !!process.env.AIRTABLE_BASE_ID);
-  console.log('🔑 API Key starts with:', process.env.AIRTABLE_API_KEY?.substring(0, 10));
-  console.log('🔑 Base ID:', process.env.AIRTABLE_BASE_ID);
 
   try {
     // Save to Airtable
@@ -34,19 +28,18 @@ export async function sendContactEmail(formData: FormData) {
         },
       },  
     ]);
-    console.log('✅ Airtable save successful:', base('Submissions'));
+    console.log('✅ Airtable save successful');
 
     // Send confirmation to the customer
     await resend.emails.send({
       from: "contact@b-59.com",
-      to: email, // The email they submitted
+      to: email,
       subject: "Thanks for contacting B-59.",
       react: ConfirmationEmail({ fname, lname, email, phone, message }),
     });
     console.log('✅ Email sent successfully');
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Error:', error);
-    return { success: false, error: 'Failed to submit form.' };
+    throw new Error('Failed to submit form.');
   }
 }

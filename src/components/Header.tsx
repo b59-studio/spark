@@ -23,9 +23,11 @@ export default function Header() {
               <Link href="/about" className="nav-link">
                 About
               </Link>
-              <Link href="/services" className="nav-link">
-                Work With Us
+              {/** 
+              <Link href="/work" className="nav-link">
+                Work
               </Link>
+              */}
               <Link href="/contact" className="nav-link">
                 Contact
               </Link>
