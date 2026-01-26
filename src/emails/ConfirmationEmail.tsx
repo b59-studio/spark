@@ -1,20 +1,25 @@
 import { Html, Body, Container, Heading, Text } from '@react-email/components';
 
 type ContactEmailProps = {
-  name: string;
+  fname: string;
+  lname: string;
   email: string;
+  phone: string;
   message: string;
 };
 
-export default function ConfirmationEmail({ name, email, message }: ContactEmailProps) {
+export default function ConfirmationEmail({ fname, lname, email, phone, message }: ContactEmailProps) {
   return (
     <Html>
       <Body>
         <Container>
-          <Heading>Thanks for reaching out.</Heading>
-          <Text>
-            <strong>Hi </strong> {name} <strong>, We are glad to hear from you. Hope you get this email.</strong>
-          </Text>
+          <Heading>Thanks for reaching out, {fname}!</Heading>
+          <Text>We've received your message and will get back to you soon.</Text>
+          <Text><strong>Here's what you submitted:</strong></Text>
+          <Text>Name: {fname} {lname}</Text>
+          <Text>Email: {email}</Text>
+          <Text>Phone: {phone}</Text>
+          <Text>Message: {message}</Text>
         </Container>
       </Body>
     </Html>
