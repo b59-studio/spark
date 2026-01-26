@@ -3,10 +3,10 @@ export default function Home() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="text-center">
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          B<span className="text-b59-blue">-</span>59
+          Deliberate design <span className="text-b59-blue">for</span> imperfect systems
         </h1>
         <p className="heading-lg">
-          Human<span className="text-b59-blue">-</span>Centered.
+          Built for the gaps <span className="text-b59-blue">between</span> systems and reality
         </p>
         <br/>
         <div className="flex gap-4 justify-center flex-wrap">

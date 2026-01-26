@@ -10,7 +10,7 @@ export default function Footer() {
               B<span className="text-b59-blue">-</span>59
             </h3>
             <p className="footer-text">
-              <i>Human<span className="text-b59-blue">-</span>Centered</i>.
+              <i>Deliberate design <span className="text-b59-blue">for</span> imperfect systems</i>.
             </p>
           </div>
           
