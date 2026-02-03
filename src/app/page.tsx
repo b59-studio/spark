@@ -1,3 +1,18 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description:
+    "Deliberate design for imperfect systems. B-59 is a design and strategy studio building civic platforms, advising on complex decisions, and making things that matter. Human-centered. Public-first.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "B-59 — Deliberate design for imperfect systems",
+    description:
+      "Designing democracy. Digital infrastructure for public servants. We build civic technology and advise on complex decisions.",
+    url: "/",
+  },
+};
+
 export default function Home() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">

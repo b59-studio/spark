@@ -1,3 +1,18 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "B-59 designs and builds civic software that works—for voter access, courts, administrative processes, and public transparency. We modernize civic infrastructure thoughtfully. Learn our mission, how we work, and why we're named B-59.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About B-59",
+    description:
+      "We design and build civic software that actually works. Democracy isn't something you improvise—it's something you design. Mission, values, and the story behind the name.",
+    url: "/about",
+  },
+};
+
 export default function About() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">

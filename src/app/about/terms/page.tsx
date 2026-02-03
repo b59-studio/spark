@@ -1,3 +1,22 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of Use",
+  description:
+    "B-59 website terms of use. Use of the site, intellectual property, limitations of liability, and governing law. By using this site you agree to these terms.",
+  alternates: { canonical: "/about/terms" },
+  openGraph: {
+    title: "Terms of Use | B-59",
+    description:
+      "Terms of use for the B-59 website. Informational use, intellectual property, and contact information.",
+    url: "/about/terms",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
 export default function Terms() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">

@@ -1,3 +1,18 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Work",
+  description:
+    "B-59's work in civic technology—voting registration platforms, strategic design, and products that serve the public. See what we build and how to work with us.",
+  alternates: { canonical: "/work" },
+  openGraph: {
+    title: "Work | B-59",
+    description:
+      "We've built voting registration platforms and designed for complex systems. Explore our work in civic technology and learn how to work with us.",
+    url: "/work",
+  },
+};
+
 export default function Work() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">

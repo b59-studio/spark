@@ -1,3 +1,17 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sitemap",
+  description:
+    "Navigate B-59's website. Links to our home page, about us, work, contact, privacy policy, and terms of use. Human-centered design and civic technology.",
+  alternates: { canonical: "/about/sitemap" },
+  openGraph: {
+    title: "Sitemap | B-59",
+    description: "Find your way around B-59. Home, about, work, contact, and legal pages.",
+    url: "/about/sitemap",
+  },
+};
+
 export default function SiteMap() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">

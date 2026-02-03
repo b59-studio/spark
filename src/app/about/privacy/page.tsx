@@ -1,3 +1,22 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description:
+    "B-59 Studio LLC privacy policy. How we collect, use, and protect your information when you visit our website or contact us. We do not sell personal information.",
+  alternates: { canonical: "/about/privacy" },
+  openGraph: {
+    title: "Privacy Policy | B-59",
+    description:
+      "How B-59 collects, uses, and protects your information. We respect your privacy and do not sell personal data.",
+    url: "/about/privacy",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
 export default function Privacy() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">

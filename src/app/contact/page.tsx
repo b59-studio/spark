@@ -1,4 +1,18 @@
+import type { Metadata } from "next";
 import { sendContactEmail } from "@/app/actions/sendContactEmail";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Share your ideas with B-59. Get in touch about civic tech platforms, consulting, feedback, or partnerships. We build and operate civic technology and sometimes consult.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact | B-59",
+    description:
+      "Share your ideas. We build and operate civic technology platforms and sometimes consult. Have a platform idea, feedback, or a project to explore? We want to hear from you.",
+    url: "/contact",
+  },
+};
 
 export default function Contact() {
   return (
