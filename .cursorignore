@@ -1,0 +1,43 @@
+# .cursorignore
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+.env*.local
+
+# Secrets & Keys
+*.pem
+*.key
+*.p12
+*.pfx
+secret.json
+secrets.json
+
+# AWS credentials
+.aws/
+aws-credentials.json
+
+# Database files (if using SQLite locally)
+*.db
+*.sqlite
+*.sqlite3
+
+# Prisma migrations with real data
+prisma/migrations/*.sql
+
+# Build outputs
+.next/
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+.npm/
+
+# OS files
+.DS_Store
+Thumbs.db

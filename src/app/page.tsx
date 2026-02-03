@@ -2,17 +2,17 @@ export default function Home() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6">
+        <h1 className="heading-xl">
           Deliberate design <span className="text-b59-blue">for</span> imperfect systems
         </h1>
-        <p className="heading-lg">
-          Built for the gaps <span className="text-b59-blue">between</span> systems and reality
+        <p className="body-lg max-w-3xl mx-auto">
+          Designing democracy. Digital infrastructure for public servants.
         </p>
         <br/>
         <div className="flex gap-4 justify-center flex-wrap">
-          <a href="/about" className="btn-secondary">
-            Learn More
-          </a>
+<a href="/about" className="btn-primary">
+          Learn More
+        </a>
         </div>
       </div>
     </div>

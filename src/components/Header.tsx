@@ -96,13 +96,11 @@ export default function Header() {
               >
                 About
               </Link>
-              <Link
-                href="/services"
-                className="nav-mobile-link"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Work With Us
+              {/** Work link hidden until page is ready
+              <Link href="/work" className="nav-mobile-link" onClick={() => setMobileMenuOpen(false)}>
+                Work
               </Link>
+              */}
               <Link
                 href="/contact"
                 className="nav-mobile-link"
