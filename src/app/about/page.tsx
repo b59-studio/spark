@@ -69,7 +69,7 @@ export default function About() {
               In 1962, <a href="https://en.wikipedia.org/wiki/Soviet_submarine_B-59" className="text-link font-semibold">Soviet submarine B<span className="text-b59-blue">-</span>59</a> was pursued off the coast of Cuba by the US Navy. Cut off from communication and operating on faulty assumptions, the crew came close to launching a nuclear weapon. <a href="https://en.wikipedia.org/wiki/Vasily_Arkhipov" className="text-link font-semibold">Vice Admiral Vasili Arkhipov</a> chose restraint.
             </p>
             <p>
-              That single act of judgment changed the world. We took the name to honor him and to remind ourselves: systems fail, information is incomplete, and the most important decisions often happen under stress. Someone has to be the one who doesn&apos;t overreact <span className="text-b59-blue">—</span> and doesn&apos;t look away.
+              That single act of judgment changed the world. We took the name to honor him and to remind ourselves: systems fail, information is incomplete, and the most important decisions often happen under stress.
             </p>
           </div>
         </section>
