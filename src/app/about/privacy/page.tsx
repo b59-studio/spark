@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "B-59 Studio LLC privacy policy. How we collect, use, and protect your information when you visit our website or contact us. We do not sell personal information.",
+    "TX*Spark PAC privacy policy. How we collect, use, and protect your information when you visit our website or contact us. We do not sell personal information.",
   alternates: { canonical: "/about/privacy" },
   openGraph: {
-    title: "Privacy Policy | B-59",
+    title: "Privacy Policy | TX*Spark",
     description:
-      "How B-59 collects, uses, and protects your information. We respect your privacy and do not sell personal data.",
+      "How TX*Spark collects, uses, and protects your information. We respect your privacy and do not sell personal data.",
     url: "/about/privacy",
   },
   robots: {
@@ -26,11 +26,11 @@ export default function Privacy() {
 
       <div className="space-y-10">
         <p className="body-md text-secondary">
-          Last updated: January 25, 2026
+          Last updated: April 23, 2026
         </p>
 
         <p className="body-lg">
-          B<span className="text-b59-blue">-</span>59 Studio LLC ("B<span className="text-b59-blue">-</span>59," "we," "us," or "our") respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you visit our website.
+          TX*Spark PAC ("TX*Spark," "we," "us," or "our") respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you visit our website.
         </p>
 
         <section className="space-y-4">
@@ -55,7 +55,7 @@ export default function Privacy() {
             <li>Improve our website and services</li>
             <li>Maintain the security and integrity of our systems</li>
           </ul>
-          <p className="body-md heading-sm">
+          <p className="heading-sm">
             We do not sell personal information.
           </p>
         </section>
@@ -110,7 +110,7 @@ export default function Privacy() {
             Contact
           </h2>
           <p className="body-md mb-8">
-            Questions about this policy can be directed to: <a href="mailto:contact@b-59.com" className="text-link">contact@b-59.com</a>
+            Questions about this policy can be directed to: <a href="mailto:info@txspark.com" className="text-link">info@txspark.com</a>
           </p>
         </section>
 

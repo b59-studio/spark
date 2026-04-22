@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms of Use",
   description:
-    "B-59 website terms of use. Use of the site, intellectual property, limitations of liability, and governing law. By using this site you agree to these terms.",
+    "TX*Spark website terms of use. Use of the site, intellectual property, limitations of liability, and governing law. By using this site you agree to these terms.",
   alternates: { canonical: "/about/terms" },
   openGraph: {
-    title: "Terms of Use | B-59",
+    title: "Terms of Use | TX*Spark",
     description:
-      "Terms of use for the B-59 website. Informational use, intellectual property, and contact information.",
+      "Terms of use for the TX*Spark website. Informational use, intellectual property, and contact information.",
     url: "/about/terms",
   },
   robots: {
@@ -26,7 +26,7 @@ export default function Terms() {
 
       <div className="space-y-10">
         <p className="body-md text-secondary">
-          Last updated: January 25, 2026
+          Last updated: April 23, 2026
         </p>
 
         <p className="body-lg">
@@ -47,7 +47,7 @@ export default function Terms() {
             Intellectual Property
           </h2>
           <p className="body-md">
-            All content on this site, including text, graphics, logos, and software, is the property of B<span className="text-b59-blue">-</span>59 Studio LLC or its licensors and is protected by applicable laws. You may not reproduce or distribute content without permission.
+            All content on this site, including text, graphics, logos, and software, is the property of TX*Spark PAC or its licensors and is protected by applicable laws. You may not reproduce or distribute content without permission.
             </p>
         </section>
 
@@ -65,7 +65,7 @@ export default function Terms() {
             Limitation of Liability
           </h2>
           <p className="body-md">
-            B<span className="text-b59-blue">-</span>59 Studio is not liable for any damages arising from use of or inability to use this website.
+            TX*Spark is not liable for any damages arising from use of or inability to use this website.
           </p>
         </section>
 
@@ -100,7 +100,7 @@ export default function Terms() {
             Contact
           </h2>
           <p className="body-md mb-8">
-            Questions about this policy can be directed to: <a href="mailto:contact@b-59.com" className="text-link">contact@b-59.com</a>
+            Questions about this policy can be directed to: <a href="mailto:info@txspark.com" className="text-link">info@txspark.com</a>
           </p>
         </section>
 

@@ -1,0 +1,909 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=DM+Mono&family=Fira+Code:wght@400&family=Fraunces:ital,wght@0,700;1,700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Nunito:ital,wght@0,300;0,400;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap");
+
+/* ---- Page shell ---- */
+.branding-page {
+  --bp-text: #f8f4ed;
+  min-height: 100vh;
+  color: var(--bp-text);
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.branding-page em {
+  font-style: italic;
+}
+
+/* ---- Top navigation ---- */
+.top-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 1.25rem;
+  background: #0a1628;
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  position: sticky;
+  top: 5.75rem;
+  z-index: 40;
+}
+
+.nav-brand {
+  font-family: "Fira Code", monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(248, 244, 237, 0.55);
+}
+
+.nav-brand span {
+  color: #00c4a7;
+  font-weight: 600;
+}
+
+.deck-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.deck-tab {
+  font-family: "Fira Code", monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.45rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(248, 244, 237, 0.45);
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.deck-tab:hover {
+  color: rgba(248, 244, 237, 0.85);
+  border-color: rgba(0, 196, 167, 0.35);
+}
+
+.deck-tab.active {
+  color: #0a1628;
+  background: #00c4a7;
+  border-color: #00c4a7;
+}
+
+/* ---- Deck panels ---- */
+.deck-panel {
+  display: none;
+}
+
+.deck-panel.active {
+  display: block;
+}
+
+/* ---- Cover ---- */
+.cover {
+  position: relative;
+  min-height: 78vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cover-bg {
+  position: absolute;
+  inset: 0;
+  background: #0a1628;
+}
+
+.cover-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #f8f4ed;
+  border-radius: 50%;
+  opacity: var(--op, 0.6);
+  animation: bp-twinkle var(--d, 5s) ease-in-out infinite;
+  animation-delay: var(--dl, 0s);
+}
+
+@keyframes bp-twinkle {
+  0%,
+  100% {
+    opacity: var(--op, 0.6);
+    transform: scale(1);
+  }
+  50% {
+    opacity: calc(var(--op, 0.6) * 0.2);
+    transform: scale(0.85);
+  }
+}
+
+.cover-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 3rem 1.5rem 4rem;
+  max-width: 640px;
+}
+
+.cover-logo-wrap {
+  margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+.cover-eyebrow {
+  font-family: "Fira Code", monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(248, 244, 237, 0.35);
+  margin-bottom: 1rem;
+}
+
+.cover-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.75rem, 8vw, 4.25rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: #f8f4ed;
+  margin: 0 0 0.35rem;
+}
+
+.cover-subtitle {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #00c4a7;
+  margin-bottom: 1.25rem;
+}
+
+.cover-desc {
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(248, 244, 237, 0.55);
+  margin: 0 auto 1.75rem;
+  max-width: 52ch;
+}
+
+.cover-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.btn-deck {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.65rem 1.1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.btn-deck:hover {
+  transform: translateY(-1px);
+}
+
+.btn-deck-1 {
+  background: #00c4a7;
+  color: #0a1628;
+}
+
+.btn-deck-2 {
+  background: #e8854a;
+  color: #2c1a0e;
+}
+
+.btn-deck-3 {
+  background: #ff4020;
+  color: #0f0f0f;
+}
+
+#panel-0 {
+  background: #0a1628;
+  color: #f8f4ed;
+}
+
+/* ---- Shared sections ---- */
+.section {
+  padding: 3rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: "Fira Code", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #00c4a7;
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  font-weight: 600;
+  margin: 0 0 1rem;
+  line-height: 1.15;
+  color: #f8f4ed;
+}
+
+.section-desc {
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(248, 244, 237, 0.55);
+  margin: 0 0 1.5rem;
+  max-width: 70ch;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+}
+
+/* Deck 1 — Starfield Drifter: Night Sky #0A1628 primary background */
+#panel-1,
+#deck-1 {
+  background: #0a1628;
+}
+
+#deck-1 .section-label {
+  color: #00c4a7;
+}
+
+#deck-1 .section-title {
+  color: #f8f4ed;
+}
+
+/* ---- Deck hero ---- */
+.deck-hero {
+  display: flex;
+  align-items: flex-end;
+  min-height: 38vh;
+  padding: 3rem 1.5rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.deck-hero-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.deck-hero-number {
+  font-family: "Fira Code", monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(248, 244, 237, 0.35);
+  margin-bottom: 0.75rem;
+}
+
+.deck-hero-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  line-height: 1.08;
+  color: #f8f4ed;
+}
+
+.deck-hero-name em {
+  color: #00c4a7;
+  font-style: italic;
+}
+
+.deck-hero-tagline {
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(248, 244, 237, 0.55);
+  margin: 0;
+  max-width: 42rem;
+}
+
+#deck-1 .deck-hero {
+  background: #0a1628;
+  border-bottom: 1px solid rgba(0, 196, 167, 0.12);
+}
+
+/* Deck 2 */
+#deck-2 {
+  --bp-text: #fae8d0;
+  background: #2c1a0e;
+  color: var(--bp-text);
+}
+
+#deck-2 .deck-hero {
+  background: linear-gradient(155deg, #120805 0%, #2c1410 50%, #3d2014 100%);
+  border-bottom: 1px solid rgba(232, 133, 74, 0.15);
+}
+
+#deck-2 .deck-hero-name {
+  font-family: "Fraunces", serif;
+  color: #fae8d0;
+}
+
+#deck-2 .deck-hero-name em {
+  color: #e8854a;
+  font-style: italic;
+}
+
+#deck-2 .section-label {
+  color: #e8854a;
+}
+
+#deck-2 .section-title {
+  color: #fae8d0;
+}
+
+#deck-2 .section-desc {
+  color: rgba(250, 232, 208, 0.55);
+}
+
+/* Deck 3 */
+#deck-3 {
+  --bp-text: #f9f9f7;
+  background: #0f0f0f;
+  color: var(--bp-text);
+}
+
+#deck-3 .deck-hero {
+  background: linear-gradient(140deg, #050505 0%, #1a0a08 40%, #0f0f18 100%);
+  border-bottom: 1px solid rgba(255, 64, 32, 0.25);
+}
+
+#deck-3 .deck-hero-name {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(2.5rem, 7vw, 4rem);
+  letter-spacing: 0.06em;
+  font-weight: 400;
+  color: #f9f9f7;
+}
+
+#deck-3 .deck-hero-name em {
+  color: #ff4020;
+  font-style: normal;
+}
+
+#deck-3 .section-desc {
+  color: rgba(249, 249, 247, 0.55);
+}
+
+#deck-3 .section-title {
+  color: #f9f9f7;
+}
+
+#deck-2 .deck-hero-number {
+  color: rgba(250, 232, 208, 0.35);
+}
+
+#deck-3 .deck-hero-number {
+  color: rgba(249, 249, 247, 0.35);
+}
+
+/* ---- Positioning ---- */
+.positioning-block {
+  padding: 1.75rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.02);
+  margin-bottom: 1.25rem;
+}
+
+.pb-1 {
+  border-color: rgba(0, 196, 167, 0.12);
+  background: rgba(0, 196, 167, 0.04);
+}
+
+.pb-2 {
+  border-color: rgba(232, 133, 74, 0.15);
+  background: rgba(232, 133, 74, 0.05);
+}
+
+.pb-3 {
+  border-color: rgba(255, 64, 32, 0.2);
+  background: rgba(255, 64, 32, 0.05);
+}
+
+.positioning-word {
+  font-family: "Fira Code", monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-bottom: 0.75rem;
+}
+
+.positioning-statement {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.35rem;
+  line-height: 1.5;
+  margin: 0 0 1.25rem;
+  color: rgba(248, 244, 237, 0.88);
+}
+
+#deck-2 .positioning-statement {
+  font-family: "Fraunces", serif;
+  color: rgba(250, 232, 208, 0.9);
+}
+
+#deck-3 .positioning-statement {
+  font-family: "Lato", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: rgba(249, 249, 247, 0.88);
+}
+
+.positioning-pillars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.pillar-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+}
+
+/* ---- Color swatches ---- */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.color-swatch {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.swatch-color {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 10px;
+}
+
+.swatch-info {
+  padding: 0.85rem 1rem 1rem;
+}
+
+.swatch-name {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 0.2rem;
+}
+
+.swatch-hex {
+  font-family: "Fira Code", monospace;
+  font-size: 11px;
+  opacity: 0.45;
+  margin-bottom: 0.35rem;
+}
+
+.swatch-role {
+  font-size: 12px;
+  opacity: 0.45;
+  line-height: 1.4;
+}
+
+#deck-2 .swatch-hex,
+#deck-2 .swatch-role {
+  font-family: "DM Mono", monospace;
+}
+
+#deck-3 .swatch-hex,
+#deck-3 .swatch-role {
+  font-family: "Space Mono", monospace;
+}
+
+.d1-night {
+  background: #0a1628;
+}
+.d1-teal {
+  background: #00c4a7;
+}
+.d1-gold {
+  background: #f0b429;
+}
+.d1-paper {
+  background: #f8f4ed;
+}
+.d1-mist {
+  background: #a8c5d8;
+}
+.d1-slate {
+  background: #3d5068;
+}
+
+.d2-earth {
+  background: #2c1a0e;
+}
+.d2-rust {
+  background: #8b2a12;
+}
+.d2-dust {
+  background: #e8854a;
+}
+.d2-sage {
+  background: #5a8a4a;
+}
+.d2-limestone {
+  background: #f7f1e3;
+}
+.d2-sky {
+  background: #a4c8e0;
+}
+
+.d3-black {
+  background: #0f0f0f;
+}
+.d3-red {
+  background: #ff4020;
+}
+.d3-blue {
+  background: #0040ff;
+}
+.d3-white {
+  background: #f9f9f7;
+}
+.d3-mid {
+  background: #6b6b6b;
+}
+.d3-yellow {
+  background: #ffd600;
+}
+
+/* ---- Typography specimens ---- */
+.type-specimen {
+  padding: 1.35rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.02);
+  margin-bottom: 1rem;
+}
+
+.type-meta {
+  font-family: "Fira Code", monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-bottom: 0.85rem;
+  line-height: 1.5;
+}
+
+#deck-2 .type-meta {
+  font-family: "DM Mono", monospace;
+}
+
+#deck-3 .type-meta {
+  font-family: "Space Mono", monospace;
+}
+
+.type-sample-xl {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  line-height: 1.15;
+  margin-bottom: 0.65rem;
+}
+
+.type-sample-lg {
+  font-size: clamp(1.3rem, 3vw, 1.85rem);
+  line-height: 1.25;
+  margin-bottom: 0.65rem;
+}
+
+.type-sample-md {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin-bottom: 0.65rem;
+}
+
+.type-sample-sm {
+  font-size: 12px;
+  line-height: 1.55;
+  opacity: 0.45;
+}
+
+/* ---- Logo grid ---- */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.logo-card {
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.logo-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.75rem 1rem;
+  min-height: 140px;
+}
+
+.logo-info {
+  padding: 1rem 1.1rem 1.15rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.logo-info-name {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 0.35rem;
+}
+
+.logo-info-desc {
+  font-size: 12px;
+  opacity: 0.45;
+  line-height: 1.45;
+}
+
+/* ---- Tone ---- */
+.tone-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.tone-card {
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.tone-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.55rem;
+  border-radius: 4px;
+  margin-bottom: 0.65rem;
+}
+
+.tone-tag.tone-do {
+  background: rgba(0, 196, 167, 0.12);
+  color: #00c4a7;
+}
+
+#deck-2 .tone-tag.tone-do {
+  background: rgba(232, 133, 74, 0.12);
+  color: #e8854a;
+}
+
+.tone-tag.tone-dont {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(248, 244, 237, 0.45);
+}
+
+#deck-2 .tone-tag.tone-dont {
+  color: rgba(250, 232, 208, 0.45);
+}
+
+#deck-3 .tone-tag.tone-dont {
+  color: rgba(249, 249, 247, 0.45);
+}
+
+.tone-title {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 0.5rem;
+}
+
+.tone-body {
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.55;
+  margin-bottom: 0.75rem;
+}
+
+.tone-example {
+  font-size: 12px;
+  line-height: 1.55;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-left: 3px solid rgba(0, 196, 167, 0.45);
+  opacity: 0.85;
+}
+
+#deck-2 .tone-example {
+  border-left-color: rgba(232, 133, 74, 0.5);
+}
+
+#deck-3 .tone-example {
+  border-left-color: rgba(255, 64, 32, 0.45);
+}
+
+/* ---- Imagery ---- */
+.imagery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.imagery-card {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.imagery-thumb {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+}
+
+.photo-thumb-1 {
+  background: radial-gradient(circle at 50% 35%, rgba(0, 196, 167, 0.25) 0%, #0a1628 70%);
+}
+.photo-thumb-2 {
+  background: linear-gradient(160deg, #3d5068 0%, #0a1628 100%);
+}
+.photo-thumb-3 {
+  background: linear-gradient(180deg, #3d5068 0%, #0a1628 100%);
+}
+.photo-thumb-4 {
+  background: linear-gradient(135deg, #3d2014 0%, #e8854a33 50%, #2c1a0e 100%);
+}
+.photo-thumb-5 {
+  background: linear-gradient(120deg, #5a8a4a33 0%, #2c1a0e 70%);
+}
+.photo-thumb-6 {
+  background: linear-gradient(160deg, #8b2a1244 0%, #2c1a0e 100%);
+}
+.photo-thumb-7 {
+  background: linear-gradient(145deg, #1a1a1a 0%, #404040 40%, #0f0f0f 100%);
+}
+.photo-thumb-8 {
+  background: linear-gradient(135deg, #0040ff22 0%, #0f0f0f 60%);
+}
+.photo-thumb-9 {
+  background: linear-gradient(90deg, #0f0f0f 0%, #ff402033 50%, #0f0f0f 100%);
+}
+
+.imagery-info {
+  padding: 0.9rem 1rem 1rem;
+}
+
+.imagery-info-name {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 0.35rem;
+}
+
+.imagery-info-desc {
+  font-size: 12px;
+  opacity: 0.45;
+  line-height: 1.45;
+}
+
+/* ---- Do / don't ---- */
+.do-dont-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.do-card,
+.dont-card {
+  padding: 1.15rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.do-card {
+  border-left: 3px solid #00c4a7;
+  background: rgba(0, 196, 167, 0.04);
+}
+
+.dont-card {
+  border-left: 3px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.do-card .label,
+.dont-card .label {
+  display: block;
+  font-family: "Fira Code", monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+  color: #00c4a7;
+}
+
+.dont-card .label {
+  color: rgba(248, 244, 237, 0.35);
+}
+
+#deck-2 .dont-card .label {
+  color: rgba(250, 232, 208, 0.35);
+}
+
+#deck-3 .dont-card .label {
+  color: rgba(249, 249, 247, 0.35);
+}
+
+.dd-item {
+  font-size: 13px;
+  line-height: 1.55;
+  opacity: 0.55;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dd-item:last-child {
+  border-bottom: none;
+}
+
+/* ---- Components demo ---- */
+.component-label-row {
+  font-family: "Fira Code", monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  margin-bottom: 0.65rem;
+}
+
+.component-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: center;
+}
+
+/* ---- Footer ---- */
+.brand-footer {
+  text-align: center;
+  font-family: "Fira Code", monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2.5rem 1rem 3rem;
+  color: rgba(248, 244, 237, 0.25);
+  background: #0a1628;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}

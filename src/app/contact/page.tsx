@@ -4,12 +4,12 @@ import { sendContactEmail } from "@/app/actions/sendContactEmail";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Share your ideas with B-59. Get in touch about civic tech platforms, consulting, feedback, or partnerships. We build and operate civic technology and sometimes consult.",
+    "Grassroots Tech for Texans. Contact TX*Spark to share ideas, request resources, or connect around organizing tools and community-rooted civic action.",
   alternates: { canonical: "/contact" },
   openGraph: {
-    title: "Contact | B-59",
+    title: "Contact | TX*Spark",
     description:
-      "Share your ideas. We build and operate civic technology platforms and sometimes consult. Have a platform idea, feedback, or a project to explore? We want to hear from you.",
+      "Reach TX*Spark about tools, resources, events, and organizing support designed to help Texans take meaningful action year-round.",
     url: "/contact",
   },
 };
@@ -18,13 +18,13 @@ export default function Contact() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-4 py-20">
       <h1 className="heading-xl mb-6 text-center">
-        Share your ideas.
+        Connect with TX*Spark.
       </h1>
-      <p className="body-lg text-secondary text-center mb-4 max-w-2xl">
-        We build and operate civic technology platforms and sometimes consult.
+      <p className="body-lg text-center mb-4 max-w-2xl">
+        We are a community-rooted, pro-democracy organizer collective building practical tools and trusted support systems for Texans.
       </p>
-      <p className="body-lg text-secondary text-center mb-8 max-w-2xl">
-        Whether you have an idea for a new platform, feedback on something we've built, or a project you'd like to explore<span className="text-b59-blue">—</span>we want to hear from you.
+      <p className="body-lg text-center mb-8 max-w-2xl">
+        If you want to collaborate, request support, or share a civic organizing need, reach out<span className="text-spark-blue">—</span>we are here to help turn local energy into year-round action.
       </p>
       
       <form 
@@ -33,23 +33,26 @@ export default function Contact() {
       >
         <div>
           <label htmlFor="inquiry-type" className="form-label block mb-2">
-            I'm reaching out because...
+            I am reaching out because...
           </label>
           <select 
             name="inquiryType" 
             id="inquiry-type"
             required
             className="form-input w-full appearance-none cursor-pointer"
-            aria-label="I'm reaching out because..."
+            aria-label="I am reaching out because..."
           >
             <option value="">Select one...</option>
-            <option value="platform-idea">I have an idea for a civic tech platform or feature</option>
-            <option value="feedback">I have feedback on a platform you've built or operate</option>
-            <option value="customer-feedback">I'm a user/customer and want to share my experience</option>
-            <option value="consulting">My organization needs consulting or wants to partner</option>
-            <option value="civic-problem">I have a civic problem I'd like to explore solving together</option>
-            <option value="general">Something else</option>
+            <option value="coalition-support">Our coalition could use organizing support</option>
+            <option value="tool-request">We need a practical tool or resource</option>
+            <option value="event-collaboration">We want to collaborate on an event or training</option>
+            <option value="partnership">Our organization wants to partner with TX*Spark</option>
+            <option value="feedback">I have feedback on current TX*Spark resources</option>
+            <option value="general">General question or idea</option>
           </select>
+          <p className="form-error" aria-live="polite">
+            Please choose a reason for contacting us.
+          </p>
         </div>
 
         <div className="grid grid-cols-2 gap-5">
@@ -62,8 +65,14 @@ export default function Contact() {
               id="fname"
               placeholder="e.g. Jane"
               required 
+              minLength={2}
+              pattern="[A-Za-z][A-Za-z' -]{1,}"
+              title="First name must have at least 2 letters."
               className="form-input w-full"
             />
+            <p className="form-error" aria-live="polite">
+              First name must contain at least 2 letters.
+            </p>
           </div>
           <div>
             <label htmlFor="lname" className="form-label block mb-2">
@@ -74,8 +83,14 @@ export default function Contact() {
               id="lname"
               placeholder="e.g. Smith"
               required 
+              minLength={2}
+              pattern="[A-Za-z][A-Za-z' -]{1,}"
+              title="Last name must have at least 2 letters."
               className="form-input w-full"
             />
+            <p className="form-error" aria-live="polite">
+              Last name must contain at least 2 letters.
+            </p>
           </div>
         </div>
 
@@ -89,13 +104,17 @@ export default function Contact() {
             type="email" 
             placeholder="you@example.com"
             required 
+            title="Please enter a valid email address (example: you@example.com)."
             className="form-input w-full"
           />
+          <p className="form-error" aria-live="polite">
+            Please enter a valid email address (example: you@example.com).
+          </p>
         </div>
 
         <div>
           <label htmlFor="organization" className="form-label block mb-2">
-            Organization <span className="text-secondary font-normal">(optional)</span>
+            Organization <span className="font-normal">(optional)</span>
           </label>
           <input 
             name="organization" 
@@ -107,15 +126,21 @@ export default function Contact() {
 
         <div>
           <label htmlFor="phone" className="form-label block mb-2">
-            Phone <span className="text-secondary font-normal">(optional)</span>
+            Phone <span className="font-normal">(optional)</span>
           </label>
           <input 
             name="phone" 
             id="phone"
             type="tel" 
             placeholder="(555) 123-4567"
+            inputMode="tel"
+            pattern="^(\+?1[\s.-]?)?(\(?\d{3}\)?[\s.-]?)\d{3}[\s.-]?\d{4}$"
+            title="Please use a valid phone format, like (555) 123-4567."
             className="form-input w-full"
           />
+          <p className="form-error" aria-live="polite">
+            Please use a valid phone format, like (555) 123-4567.
+          </p>
         </div>
 
         <div>
@@ -127,9 +152,14 @@ export default function Contact() {
             id="message"
             placeholder="Your idea, feedback on a platform, or what you'd like to explore..."
             required 
+            minLength={10}
+            title="Please enter at least 10 characters so we can help effectively."
             rows={6}
             className="form-input w-full resize-y min-h-[8rem]"
           />
+          <p className="form-error" aria-live="polite">
+            Please add at least 10 characters to your message.
+          </p>
         </div>
 
         <button 

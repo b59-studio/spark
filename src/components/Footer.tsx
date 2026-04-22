@@ -7,10 +7,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-xl font-bold footer-heading mb-4">
-              B<span className="text-b59-blue">-</span>59
+              TX*Spark
             </h3>
             <p className="footer-text">
-              <i>Deliberate design <span className="text-b59-blue">for</span> imperfect systems</i>.
+              <i>Grassroots Tech for Texans</i>
             </p>
           </div>
           
@@ -30,8 +30,8 @@ export default function Footer() {
             <h4 className="footer-heading font-semibold mb-4">Contact</h4>
             <ul className="space-y-2">
               <li>
-                <a href="mailto:contact@b-59.com" className="footer-link">
-                  contact@b-59.com
+                <a href="mailto:info@txspark.com" className="footer-link">
+                  info@txspark.com
                 </a>
               </li>
               <li className="footer-text">Austin, TX, US</li>
@@ -39,8 +39,12 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-b59-gray/20 mt-8 pt-8 text-center footer-text">
-          © {new Date().getFullYear()} B<span className="text-b59-blue">-</span>59 Studio LLC. All rights reserved.
+        <div className="border-t border-spark-sage/20 mt-8 pt-8 text-center footer-text">
+          © 2026 TX*Spark PAC. Powered by{' '}
+          <a href="https://www.b-59.com" className="footer-link" target="_blank" rel="noopener noreferrer">
+            B-59 Studio
+          </a>
+          . All rights reserved.
         </div>
       </div>
     </footer>

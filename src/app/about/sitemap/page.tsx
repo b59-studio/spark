@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Sitemap",
   description:
-    "Navigate B-59's website. Links to our home page, about us, work, contact, privacy policy, and terms of use. Human-centered design and civic technology.",
+    "Grassroots Tech for Texans. Navigate TX*Spark pages for about, events, resources, contact, and legal information.",
   alternates: { canonical: "/about/sitemap" },
   openGraph: {
-    title: "Sitemap | B-59",
-    description: "Find your way around B-59. Home, about, work, contact, and legal pages.",
+    title: "Sitemap | TX*Spark",
+    description: "Find your way around TX*Spark pages for programs, resources, events, contact, and legal details.",
     url: "/about/sitemap",
   },
 };
@@ -17,10 +17,10 @@ export default function SiteMap() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div className="text-center">
         <h1 className="heading-xl">
-          B<span className="text-b59-blue">-</span>59
+          TX*Spark
         </h1>
         <p className="body-lg">
-          Human<span className="text-b59-blue">-</span>Centered.
+          Grassroots Tech for Texans
         </p>
         <br/>
         <div className="flex gap-4 justify-center flex-wrap">
