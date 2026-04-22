@@ -1,4 +1,4 @@
-import { Html, Body, Container, Heading, Text } from '@react-email/components';
+import { Html, Body, Container, Heading, Text } from 'react-email';
 
 type ContactEmailProps = {
   name: string;

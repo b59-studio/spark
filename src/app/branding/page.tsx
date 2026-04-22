@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react/no-unescaped-entities */
 
 import { useEffect, useRef, type CSSProperties } from "react";
 import "./branding.css";

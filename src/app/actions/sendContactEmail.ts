@@ -1,9 +1,17 @@
 "use server";
-import { resend } from "@/lib/resend";
-import { base } from "@/lib/airtable";
+import { getResendClient } from "@/lib/resend";
+import { getAirtableBase } from "@/lib/airtable";
 import ConfirmationEmail from "@/emails/ConfirmationEmail";
 
-export async function sendContactEmail(formData: FormData): Promise<void> {
+export type ContactFormState = {
+  status: "idle" | "success" | "error";
+  message: string;
+};
+
+export async function sendContactEmail(
+  _prevState: ContactFormState,
+  formData: FormData
+): Promise<ContactFormState> {
   const fname = formData.get("fname") as string;
   const lname = formData.get("lname") as string;
   const email = formData.get("email") as string;
@@ -13,6 +21,9 @@ export async function sendContactEmail(formData: FormData): Promise<void> {
   console.log('📝 Form data received:', { fname, lname, email, phone, message });
 
   try {
+    const resend = getResendClient();
+    const base = getAirtableBase();
+
     // Save to Airtable
     console.log('💾 Attempting to save to Airtable...');
     await base('Submissions').create([
@@ -38,8 +49,29 @@ export async function sendContactEmail(formData: FormData): Promise<void> {
       react: ConfirmationEmail({ fname, lname, email, phone, message }),
     });
     console.log('✅ Email sent successfully');
+    return {
+      status: "success",
+      message: "Thanks for reaching out. We got your message and will follow up soon.",
+    };
   } catch (error) {
     console.error('Error:', error);
-    throw new Error('Failed to submit form.');
+    const errorMessage = error instanceof Error ? error.message : "";
+    const isConfigurationError =
+      errorMessage.includes("not configured") ||
+      errorMessage.includes("Missing AIRTABLE") ||
+      errorMessage.includes("RESEND_API_KEY");
+
+    if (isConfigurationError) {
+      return {
+        status: "error",
+        message:
+          "Looks like you helped us find a bug. We are going to fix this soon - thanks for breaking it!",
+      };
+    }
+
+    return {
+      status: "error",
+      message: "Something went wrong while sending your message. Please try again shortly.",
+    };
   }
 }

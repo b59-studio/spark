@@ -30,7 +30,7 @@ export default function Privacy() {
         </p>
 
         <p className="body-lg">
-          TX*Spark PAC ("TX*Spark," "we," "us," or "our") respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you visit our website.
+          TX*Spark PAC (&quot;TX*Spark,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you visit our website.
         </p>
 
         <section className="space-y-4">
