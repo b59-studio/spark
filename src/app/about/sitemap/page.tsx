@@ -46,7 +46,7 @@ export default function SiteMap() {
       </div>
 
       <div className="max-w-4xl mx-auto grid gap-6 sm:grid-cols-2">
-        <section className="callout-blue ambient-gradient ambient-cool">
+        <section className="callout-blue">
           <h2 className="heading-md mb-4">Main Pages</h2>
           <ul className="space-y-2 body-md">
             {primaryRoutes.map((route) => (
@@ -59,7 +59,7 @@ export default function SiteMap() {
           </ul>
         </section>
 
-        <section className="callout-gray ambient-gradient ambient-violet">
+        <section className="callout-gray">
           <h2 className="heading-md mb-4">Programs & Tools</h2>
           <ul className="space-y-2 body-md">
             {resourceRoutes.map((route) => (
@@ -72,7 +72,7 @@ export default function SiteMap() {
           </ul>
         </section>
 
-        <section className="callout-alert ambient-gradient ambient-warm sm:col-span-2">
+        <section className="callout-alert sm:col-span-2">
           <h2 className="heading-md mb-4">Legal</h2>
           <ul className="space-y-2 body-md sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0">
             {legalRoutes.map((route) => (

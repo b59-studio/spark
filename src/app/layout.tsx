@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
+import HeroPhotoSync from "@/components/HeroPhotoSync";
 import Footer from "@/components/Footer";
+import MainFrame from "@/components/MainFrame";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://b-59.com";
 
@@ -74,9 +76,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Header />
-        <main className="flex-1 pt-24">
-          {children}
-        </main>
+        <HeroPhotoSync />
+        <MainFrame>{children}</MainFrame>
         <Footer />
       </body>
     </html>

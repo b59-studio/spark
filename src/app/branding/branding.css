@@ -260,7 +260,7 @@
 
 .divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
 /* Deck 1 — Starfield Drifter: Night Sky #0A1628 primary background */
@@ -337,7 +337,7 @@
 }
 
 #deck-2 .deck-hero {
-  background: linear-gradient(155deg, #120805 0%, #2c1410 50%, #3d2014 100%);
+  background-color: #2c1410;
   border-bottom: 1px solid rgba(232, 133, 74, 0.15);
 }
 
@@ -371,7 +371,7 @@
 }
 
 #deck-3 .deck-hero {
-  background: linear-gradient(140deg, #050505 0%, #1a0a08 40%, #0f0f18 100%);
+  background-color: #121212;
   border-bottom: 1px solid rgba(255, 64, 32, 0.25);
 }
 
@@ -552,16 +552,16 @@
   background: #8b2a12;
 }
 .d2-dust {
-  background: #e8854a;
+  background: #e88f5a;
 }
 .d2-sage {
-  background: #5a8a4a;
+  background: #c8856a;
 }
 .d2-limestone {
-  background: #f7f1e3;
+  background: #ede9fa;
 }
 .d2-sky {
-  background: #a4c8e0;
+  background: #6a9bad;
 }
 
 .d3-black {
@@ -772,35 +772,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  background-color: rgba(255, 255, 255, 0.025);
 }
 
 .photo-thumb-1 {
-  background: radial-gradient(circle at 50% 35%, rgba(0, 196, 167, 0.25) 0%, #0a1628 70%);
+  background-color: #0a1628;
 }
 .photo-thumb-2 {
-  background: linear-gradient(160deg, #3d5068 0%, #0a1628 100%);
+  background-color: #263548;
 }
 .photo-thumb-3 {
-  background: linear-gradient(180deg, #3d5068 0%, #0a1628 100%);
+  background-color: #243448;
 }
 .photo-thumb-4 {
-  background: linear-gradient(135deg, #3d2014 0%, #e8854a33 50%, #2c1a0e 100%);
+  background-color: #2c1a0e;
 }
 .photo-thumb-5 {
-  background: linear-gradient(120deg, #5a8a4a33 0%, #2c1a0e 70%);
+  background-color: #2c1a0e;
 }
 .photo-thumb-6 {
-  background: linear-gradient(160deg, #8b2a1244 0%, #2c1a0e 100%);
+  background-color: #2c1a0e;
 }
 .photo-thumb-7 {
-  background: linear-gradient(145deg, #1a1a1a 0%, #404040 40%, #0f0f0f 100%);
+  background-color: #252525;
 }
 .photo-thumb-8 {
-  background: linear-gradient(135deg, #0040ff22 0%, #0f0f0f 60%);
+  background-color: #0f0f0f;
 }
 .photo-thumb-9 {
-  background: linear-gradient(90deg, #0f0f0f 0%, #ff402033 50%, #0f0f0f 100%);
+  background-color: #0f0f0f;
 }
 
 .imagery-info {

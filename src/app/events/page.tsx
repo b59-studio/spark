@@ -31,7 +31,7 @@ export default function EventsPage() {
         organize with confidence and care.
       </p>
 
-      <section className="rounded-2xl border border-border/70 bg-background/75 shadow-sm p-6 sm:p-7 mb-8">
+      <section className="rounded-2xl border border-spark-dark/15 spark-glass shadow-sm p-6 sm:p-7 mb-8">
         <h2 className="heading-md mb-4">What to expect</h2>
         <ul className="space-y-3 body-md list-disc pl-5">
           <li>
@@ -49,7 +49,7 @@ export default function EventsPage() {
         </ul>
       </section>
 
-      <section className="rounded-2xl border border-border/70 bg-background/75 shadow-sm p-6 sm:p-7">
+      <section className="rounded-2xl border border-spark-dark/15 spark-glass shadow-sm p-6 sm:p-7">
         <h2 className="heading-md mb-3">Organization Calendar</h2>
         {isCalendarReady ? (
           <>
@@ -59,7 +59,7 @@ export default function EventsPage() {
               calendar.
             </p>
             {hasEmbedCalendar ? (
-              <div className="overflow-hidden rounded-xl border border-border/70 bg-white mb-5">
+              <div className="overflow-hidden rounded-xl border border-spark-dark/15 spark-glass mb-5">
                 <iframe
                   title="TX*SPARK organization calendar"
                   src={ORG_CALENDAR_EMBED_URL}
@@ -80,7 +80,7 @@ export default function EventsPage() {
             ) : null}
           </>
         ) : (
-          <div className="rounded-xl border border-dashed border-primary/35 bg-primary/5 px-4 py-5">
+          <div className="rounded-xl border border-dashed border-spark-dark/25 spark-glass px-4 py-5">
             <p className="body-md text-secondary">
               Calendar coming soon. We are working on publishing our
               organization event calendar so you can subscribe and stay updated.

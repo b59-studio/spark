@@ -60,7 +60,7 @@ export default function PalContent() {
 
       <section className="scroll-reveal" data-reveal>
         <h2 className="heading-lg mb-4">How does it work?</h2>
-        <div className="mb-8 rounded-lg border border-spark-sage/30 bg-white/60 p-5">
+        <div className="mb-8 rounded-lg border border-spark-dark/15 spark-glass p-5">
           <ul className="body-md list-disc space-y-3 pl-6">
             <li>
               <strong>Daily data pulls:</strong> Our automated system pulls fresh

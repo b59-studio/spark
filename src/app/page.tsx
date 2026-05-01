@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import HomeHero from "@/components/HomeHero";
 import HomeContent from "./HomeContent";
 
 export const metadata: Metadata = {
@@ -17,5 +18,15 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <HomeContent />;
+  return (
+    <>
+      <HomeHero>
+        <h1 className="home-hero-heading heading-xl text-balance">
+          Build Local Power.
+          <span className="block text-spark-sage">Win Year-Round.</span>
+        </h1>
+      </HomeHero>
+      <HomeContent />
+    </>
+  );
 }

@@ -27,7 +27,7 @@ export default function ResourcesPage() {
       </header>
 
       <section className="grid gap-6 md:grid-cols-3">
-        <article className="callout-blue ambient-gradient ambient-cool h-full flex flex-col">
+        <article className="callout-blue h-full flex flex-col">
           <h2 className="heading-md">GROW</h2>
           <p className="body-md mb-6 flex-1">
             Grassroots Resources for Organizing &amp; Winning. TX*SPARK toolkits
@@ -40,7 +40,7 @@ export default function ResourcesPage() {
           </Link>
         </article>
 
-        <article className="callout-gray ambient-gradient ambient-violet h-full flex flex-col">
+        <article className="callout-gray h-full flex flex-col">
           <h2 className="heading-md">PAL</h2>
           <p className="body-md mb-6 flex-1">
             People&apos;s Advocacy Lobby. Bill analysis and tracking tools support
@@ -51,7 +51,7 @@ export default function ResourcesPage() {
           </Link>
         </article>
 
-        <article className="callout-alert ambient-gradient ambient-warm h-full flex flex-col">
+        <article className="callout-alert h-full flex flex-col">
           <h2 className="heading-md">Partner Resources</h2>
           <p className="body-md mb-6 flex-1">
             Resources from our trusted partners who are also pushing democratic

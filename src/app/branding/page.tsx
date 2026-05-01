@@ -457,7 +457,7 @@ export default function BrandingPage() {
       </div>
     </div>
     <div className="imagery-card">
-      <div className="imagery-thumb" style={parseStyle("background:linear-gradient(135deg,#0A1628 0%,#3D5068 100%)")}>
+      <div className="imagery-thumb" style={parseStyle("background:#243448")}>
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="12" cy="28" r="6" fill="none" stroke="#A8C5D8" strokeWidth="0.8"/><circle cx="24" cy="24" r="5" fill="none" stroke="#00C4A7" strokeWidth="0.8"/><circle cx="32" cy="28" r="4" fill="none" stroke="#F0B429" strokeWidth="0.8"/></svg>
       </div>
       <div className="imagery-info">
@@ -546,8 +546,8 @@ export default function BrandingPage() {
     <div className="positioning-word">Positioning Statement</div>
     <p className="positioning-statement">"tx_spark is the neighbor with the data — built from the same community it serves, powered by people who've knocked doors, made calls, and know exactly what's at stake in this Texas moment."</p>
     <div className="positioning-pillars">
-      <span className="pillar-tag" style={parseStyle("background:rgba(232,133,74,0.15);color:#E8854A")}>Community-First</span>
-      <span className="pillar-tag" style={parseStyle("background:rgba(90,138,74,0.12);color:#7CBD5A")}>Grassroots</span>
+      <span className="pillar-tag" style={parseStyle("background:rgba(232,143,90,0.18);color:#E88F5A")}>Community-First</span>
+      <span className="pillar-tag" style={parseStyle("background:rgba(75,50,114,0.18);color:#C4B8DC")}>Grassroots</span>
       <span className="pillar-tag" style={parseStyle("background:rgba(250,241,227,0.08);color:rgba(250,241,227,0.6)")}>Earned Trust</span>
       <span className="pillar-tag" style={parseStyle("background:rgba(250,241,227,0.08);color:rgba(250,241,227,0.6)")}>Accessible</span>
       <span className="pillar-tag" style={parseStyle("background:rgba(250,241,227,0.08);color:rgba(250,241,227,0.6)")}>Warm</span>
@@ -573,31 +573,31 @@ export default function BrandingPage() {
     </div>
     <div className="color-swatch">
       <div className="swatch-color d2-dust" style={parseStyle("height:110px")}><span style={parseStyle("font-family:'Fira Code',monospace;font-size:10px;color:rgba(44,26,14,0.5)")}>SECONDARY</span></div>
-      <div className="swatch-info"><div className="swatch-name">Terracotta Dust</div><div className="swatch-hex">#E8854A</div><div className="swatch-role">Secondary / Warm Action</div></div>
+      <div className="swatch-info"><div className="swatch-name">Terracotta Dust</div><div className="swatch-hex">#E88F5A</div><div className="swatch-role">Primary Accent / Warm Action</div></div>
     </div>
     <div className="color-swatch">
       <div className="swatch-color d2-sage" style={parseStyle("height:110px")}><span style={parseStyle("font-family:'Fira Code',monospace;font-size:10px;color:rgba(44,26,14,0.4)")}>ACCENT</span></div>
-      <div className="swatch-info"><div className="swatch-name">Cedar Sage</div><div className="swatch-hex">#5A8A4A</div><div className="swatch-role">Accent / Progress</div></div>
+      <div className="swatch-info"><div className="swatch-name">Rust Clay</div><div className="swatch-hex">#C8856A</div><div className="swatch-role">Rust · Secondary / Muted</div></div>
     </div>
     <div className="color-swatch">
       <div className="swatch-color d2-limestone" style={parseStyle("height:110px;border:1px solid rgba(255,255,255,0.06)")}><span style={parseStyle("font-family:'Fira Code',monospace;font-size:10px;color:rgba(44,26,14,0.4)")}>LIGHT</span></div>
-      <div className="swatch-info"><div className="swatch-name">Limestone Cream</div><div className="swatch-hex">#F7F1E3</div><div className="swatch-role">Light Mode Base</div></div>
+      <div className="swatch-info"><div className="swatch-name">Surface Mist</div><div className="swatch-hex">#EDE9FA</div><div className="swatch-role">Light Surfaces (on site)</div></div>
     </div>
     <div className="color-swatch">
       <div className="swatch-color d2-sky" style={parseStyle("height:110px")}><span style={parseStyle("font-family:'Fira Code',monospace;font-size:10px;color:rgba(44,26,14,0.5)")}>COOL</span></div>
-      <div className="swatch-info"><div className="swatch-name">Bluebonnet Sky</div><div className="swatch-hex">#A4C8E0</div><div className="swatch-role">Cooling Balance</div></div>
+      <div className="swatch-info"><div className="swatch-name">Sky Blue</div><div className="swatch-hex">#6A9BAD</div><div className="swatch-role">Secondary Accent · Links / UI</div></div>
     </div>
   </div>
 
   <div style={parseStyle("padding:1.5rem;border:1px solid rgba(255,255,255,0.06);border-radius:12px;background:rgba(255,255,255,0.02)")}>
     <div className="component-label-row">Color Usage Ratios</div>
     <div style={parseStyle("display:flex;gap:4px;height:28px;border-radius:6px;overflow:hidden;margin-bottom:12px")}>
-      <div style={parseStyle("background:#F7F1E3;flex:5;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:'Fira Code',monospace;color:rgba(44,26,14,0.5)")}>50% Cream</div>
-      <div style={parseStyle("background:#E8854A;flex:2;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:'Fira Code',monospace;color:rgba(44,26,14,0.7)")}>20%</div>
+      <div style={parseStyle("background:#EDE9FA;flex:5;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:'Fira Code',monospace;color:rgba(44,26,14,0.5)")}>50% Surface</div>
+      <div style={parseStyle("background:#E88F5A;flex:2;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:'Fira Code',monospace;color:rgba(44,26,14,0.7)")}>20%</div>
       <div style={parseStyle("background:#2C1A0E;flex:2;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:'Fira Code',monospace;color:rgba(250,241,227,0.5)")}>20%</div>
-      <div style={parseStyle("background:#5A8A4A;flex:1;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:'Fira Code',monospace;color:rgba(44,26,14,0.5)")}>10%</div>
+      <div style={parseStyle("background:#4B3272;flex:1;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:'Fira Code',monospace;color:rgba(237,233,250,0.85)")}>10%</div>
     </div>
-    <p style={parseStyle("font-size:13px;opacity:0.5;line-height:1.5")}>Warm limestone cream as primary space · Terracotta for action · Deep earth for grounding · Sage for success and progress</p>
+    <p style={parseStyle("font-size:13px;opacity:0.5;line-height:1.5")}>Light surface as primary space · Warm accent for action · Deep earth for grounding · Purple depth for emphasis (live site uses #EDD9B0 page background)</p>
   </div>
 </div>
 
@@ -609,7 +609,7 @@ export default function BrandingPage() {
 
   <div className="type-specimen display">
     <div className="type-meta">DISPLAY — Fraunces 700 · Campaign titles, headlines, hero moments</div>
-    <div className="type-sample-xl" style={parseStyle("font-family:'Fraunces',serif;font-weight:700;color:#FAE8D0")}>Your Voice,<br /><em style={parseStyle("color:#E8854A")}>Their Vote.</em></div>
+    <div className="type-sample-xl" style={parseStyle("font-family:'Fraunces',serif;font-weight:700;color:#FAE8D0")}>Your Voice,<br /><em style={parseStyle("color:#E88F5A")}>Their Vote.</em></div>
     <div className="type-sample-sm" style={parseStyle("font-family:'DM Mono',monospace")}>Fraunces — Bold 700 · Optical size responsive · Use for: hero, campaign titles, statements</div>
   </div>
 
@@ -627,7 +627,7 @@ export default function BrandingPage() {
 
   <div className="type-specimen mono">
     <div className="type-meta">DATA — DM Mono 400 · Statistics, bill numbers, tracker data</div>
-    <div className="type-sample-sm" style={parseStyle("font-family:'DM Mono',monospace;font-size:14px;color:#E8854A")}>HB 0042 · Education · Committee: House Public Ed · Status: Referred · Action needed: CALL</div>
+    <div className="type-sample-sm" style={parseStyle("font-family:'DM Mono',monospace;font-size:14px;color:#E88F5A")}>HB 0042 · Education · Committee: House Public Ed · Status: Referred · Action needed: CALL</div>
     <div className="type-sample-sm" style={parseStyle("font-family:'DM Mono',monospace;margin-top:8px")}>DM Mono — Regular · Use for: bill IDs, data tables, action codes, legislative tracking</div>
   </div>
 </div>
@@ -643,10 +643,10 @@ export default function BrandingPage() {
       <div className="logo-preview" style={parseStyle("background:#1A0A03")}>
         <svg width="200" height="80" viewBox="0 0 200 80" fill="none">
           {/* Flame mark */}
-          <path d="M28 58 C28 42, 20 36, 24 24 C26 18, 30 16, 30 20 C30 24, 34 22, 36 16 C38 10, 40 6, 40 6 C40 6, 48 16, 44 28 C42 34, 46 32, 48 26 C52 38, 44 48, 44 58 Z" fill="#E8854A" opacity="0.9"/>
+          <path d="M28 58 C28 42, 20 36, 24 24 C26 18, 30 16, 30 20 C30 24, 34 22, 36 16 C38 10, 40 6, 40 6 C40 6, 48 16, 44 28 C42 34, 46 32, 48 26 C52 38, 44 48, 44 58 Z" fill="#E88F5A" opacity="0.9"/>
           <path d="M32 58 C32 46, 28 42, 30 34 C32 30, 34 30, 34 32 C36 42, 40 44, 40 58 Z" fill="#8B2A12" opacity="0.6"/>
           {/* Star */}
-          <polygon points="36,8 37.2,11.5 41,11.5 38,13.8 39.2,17.3 36,15 32.8,17.3 34,13.8 31,11.5 34.8,11.5" fill="#F7F1E3" opacity="0.9" transform="translate(0,-2)"/>
+          <polygon points="36,8 37.2,11.5 41,11.5 38,13.8 39.2,17.3 36,15 32.8,17.3 34,13.8 31,11.5 34.8,11.5" fill="#EDE9FA" opacity="0.9" transform="translate(0,-2)"/>
           {/* Wordmark */}
           <text x="58" y="34" fontFamily="Fraunces, serif" fontSize="22" fontWeight="700" fill="#FAE8D0" letterSpacing="-0.01em">tx_spark</text>
           <text x="58" y="52" fontFamily="'DM Mono', monospace" fontSize="9" fill="rgba(250,232,208,0.35)" letterSpacing="0.14em">SPARKING GRASSROOTS CHANGE</text>
@@ -657,9 +657,9 @@ export default function BrandingPage() {
     </div>
 
     <div className="logo-card">
-      <div className="logo-preview" style={parseStyle("background:#F7F1E3")}>
+      <div className="logo-preview" style={parseStyle("background:#EDE9FA")}>
         <svg width="100" height="120" viewBox="0 0 100 120" fill="none">
-          <path d="M50 90 C50 68, 38 60, 42 40 C45 30, 50 26, 50 30 C50 36, 56 34, 58 26 C62 14, 66 6, 66 6 C66 6, 78 26, 70 44 C66 54, 72 50, 74 40 C80 60, 68 76, 68 90 Z" fill="#E8854A" opacity="0.95"/>
+          <path d="M50 90 C50 68, 38 60, 42 40 C45 30, 50 26, 50 30 C50 36, 56 34, 58 26 C62 14, 66 6, 66 6 C66 6, 78 26, 70 44 C66 54, 72 50, 74 40 C80 60, 68 76, 68 90 Z" fill="#E88F5A" opacity="0.95"/>
           <path d="M54 90 C54 72, 48 66, 50 54 C52 48, 55 47, 55 50 C57 62, 62 66, 62 90 Z" fill="#8B2A12" opacity="0.5"/>
           <polygon points="58,9 60,14.5 66,14.5 61.5,18 63.5,23.5 58,20 52.5,23.5 54.5,18 50,14.5 56,14.5" fill="#2C1A0E" opacity="0.7"/>
           <text x="50" y="108" fontFamily="Fraunces, serif" fontSize="18" fontWeight="700" fill="#2C1A0E" textAnchor="middle">tx_spark</text>
@@ -671,10 +671,10 @@ export default function BrandingPage() {
     <div className="logo-card">
       <div className="logo-preview" style={parseStyle("background:#1A0A03")}>
         <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
-          <circle cx="35" cy="35" r="33" fill="rgba(232,133,74,0.08)" stroke="rgba(232,133,74,0.2)" strokeWidth="1"/>
-          <path d="M35 56 C35 42, 26 36, 29 26 C31 20, 35 18, 35 21 C35 25, 39 23, 40 17 C43 9, 46 4, 46 4 C46 4, 53 14, 49 24 C47 30, 50 28, 51 23 C55 33, 48 44, 48 56 Z" fill="#E8854A"/>
+          <circle cx="35" cy="35" r="33" fill="rgba(232,143,90,0.08)" stroke="rgba(232,143,90,0.2)" strokeWidth="1"/>
+          <path d="M35 56 C35 42, 26 36, 29 26 C31 20, 35 18, 35 21 C35 25, 39 23, 40 17 C43 9, 46 4, 46 4 C46 4, 53 14, 49 24 C47 30, 50 28, 51 23 C55 33, 48 44, 48 56 Z" fill="#E88F5A"/>
           <path d="M38 56 C38 46, 35 42, 36 36 C37 32, 39 32, 39 34 C40 42, 43 44, 43 56 Z" fill="#8B2A12" opacity="0.5"/>
-          <polygon points="40.5,6 41.8,10 46,10 42.5,12.5 43.8,16.5 40.5,14 37.2,16.5 38.5,12.5 35,10 39.2,10" fill="#F7F1E3" opacity="0.9"/>
+          <polygon points="40.5,6 41.8,10 46,10 42.5,12.5 43.8,16.5 40.5,14 37.2,16.5 38.5,12.5 35,10 39.2,10" fill="#EDE9FA" opacity="0.9"/>
         </svg>
       </div>
       <div className="logo-info"><div className="logo-info-name">Flame Mark</div><div className="logo-info-desc">Standalone icon for app, favicon, social avatar.</div></div>
@@ -690,19 +690,19 @@ export default function BrandingPage() {
 
   <div className="tone-grid">
     <div className="tone-card">
-      <div className="tone-tag" style={parseStyle("background:rgba(232,133,74,0.12);color:#E8854A")}>We Are</div>
+      <div className="tone-tag" style={parseStyle("background:rgba(232,143,90,0.12);color:#E88F5A")}>We Are</div>
       <div className="tone-title">Warm & Personal</div>
       <div className="tone-body">We speak to people, not at them. Every piece of communication should feel like it came from a trusted friend who happens to be really good with data.</div>
       <div className="tone-example">"We built this tool because we needed it ourselves. We hope it helps you too."</div>
     </div>
     <div className="tone-card">
-      <div className="tone-tag" style={parseStyle("background:rgba(90,138,74,0.12);color:#7CBD5A")}>We Are</div>
+      <div className="tone-tag" style={parseStyle("background:rgba(75,50,114,0.15);color:#C4B8DC")}>We Are</div>
       <div className="tone-title">Accessible & Patient</div>
       <div className="tone-body">We define our terms. We don't assume knowledge. We meet people where they are — and we make the complex feel manageable, never overwhelming.</div>
       <div className="tone-example">"The Texas Legislature meets every two years. Right now, your window to make a difference is open."</div>
     </div>
     <div className="tone-card">
-      <div className="tone-tag" style={parseStyle("background:rgba(232,133,74,0.12);color:#E8854A")}>We Are</div>
+      <div className="tone-tag" style={parseStyle("background:rgba(232,143,90,0.12);color:#E88F5A")}>We Are</div>
       <div className="tone-title">Honest & Specific</div>
       <div className="tone-body">We don't over-promise. We tell people specifically what action works, why it works, and what to expect — because that respect builds lasting trust.</div>
       <div className="tone-example">"Calling is more effective than emailing. Here's a script that takes 2 minutes."</div>
@@ -747,14 +747,14 @@ export default function BrandingPage() {
       <div className="imagery-info"><div className="imagery-info-name">Growth & Action</div><div className="imagery-info-desc">Seedlings, roots, hands in soil — organic growth metaphors</div></div>
     </div>
     <div className="imagery-card">
-      <div className="imagery-thumb" style={parseStyle("background:linear-gradient(135deg,#1A0A03 0%,#3a1a0a 60%,#A4C8E0 100%)")}></div>
+      <div className="imagery-thumb" style={parseStyle("background:#353428")}></div>
       <div className="imagery-info"><div className="imagery-info-name">Sky at Transition</div><div className="imagery-info-desc">Dawn, dusk — moments of change and possibility</div></div>
     </div>
   </div>
 
   <div className="do-dont-row">
-    <div className="do-card" style={parseStyle("border-left-color:#E8854A;background:rgba(232,133,74,0.04)")}>
-      <span className="label" style={parseStyle("color:#E8854A")}>Use</span>
+    <div className="do-card" style={parseStyle("border-left-color:#E88F5A;background:rgba(232,143,90,0.04)")}>
+      <span className="label" style={parseStyle("color:#E88F5A")}>Use</span>
       <div className="dd-item">Photography with warmth — golden hour, soft natural light</div>
       <div className="dd-item">Diverse Texans in authentic settings across the state</div>
       <div className="dd-item">Textures — limestone, wood grain, woven fabric, paper</div>
@@ -779,24 +779,24 @@ export default function BrandingPage() {
 
   <div className="component-label-row">Buttons</div>
   <div className="component-row">
-    <button style={parseStyle("padding:10px 22px;background:#E8854A;color:#2C1A0E;border:none;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:14px;cursor:pointer")}>Contact Rep</button>
-    <button style={parseStyle("padding:10px 22px;background:transparent;color:#E8854A;border:1.5px solid #E8854A;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:14px;cursor:pointer")}>Track Bill</button>
-    <button style={parseStyle("padding:10px 22px;background:#5A8A4A;color:#F7F1E3;border:none;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:14px;cursor:pointer")}>Get Involved</button>
-    <button style={parseStyle("padding:10px 22px;background:#F7F1E3;color:#2C1A0E;border:1px solid rgba(44,26,14,0.15);border-radius:8px;font-family:'Nunito',sans-serif;font-size:14px;cursor:pointer")}>Learn More</button>
+    <button style={parseStyle("padding:10px 22px;background:#E88F5A;color:#1A1130;border:none;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:14px;cursor:pointer")}>Contact Rep</button>
+    <button style={parseStyle("padding:10px 22px;background:transparent;color:#E88F5A;border:1.5px solid #E88F5A;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:14px;cursor:pointer")}>Track Bill</button>
+    <button style={parseStyle("padding:10px 22px;background:#4B3272;color:#EDE9FA;border:none;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:14px;cursor:pointer")}>Get Involved</button>
+    <button style={parseStyle("padding:10px 22px;background:#EDE9FA;color:#1A1130;border:1px solid rgba(26,17,48,0.15);border-radius:8px;font-family:'Nunito',sans-serif;font-size:14px;cursor:pointer")}>Learn More</button>
   </div>
 
   <div className="component-label-row" style={parseStyle("margin-top:1.5rem")}>Bill Tracker Card</div>
-  <div style={parseStyle("background:#F7F1E3;border-radius:12px;padding:1.5rem;border:1px solid rgba(44,26,14,0.08);margin-bottom:2rem;max-width:480px")}>
+  <div style={parseStyle("background:#EDE9FA;border-radius:12px;padding:1.5rem;border:1px solid rgba(44,26,14,0.08);margin-bottom:2rem;max-width:480px")}>
     <div style={parseStyle("display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px")}>
       <div>
         <div style={parseStyle("font-family:'DM Mono',monospace;font-size:11px;color:#8B2A12;letter-spacing:0.1em;margin-bottom:4px")}>HB 1247 · EDUCATION</div>
         <div style={parseStyle("font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:#2C1A0E;line-height:1.3")}>Public School Funding Reform Act</div>
       </div>
-      <span style={parseStyle("padding:4px 10px;background:#FEF0E7;border:1px solid rgba(232,133,74,0.3);border-radius:20px;font-family:'DM Mono',monospace;font-size:10px;color:#8B2A12;white-space:nowrap;margin-left:12px")}>ACTION NEEDED</span>
+      <span style={parseStyle("padding:4px 10px;background:#FEF0E7;border:1px solid rgba(232,143,90,0.3);border-radius:20px;font-family:'DM Mono',monospace;font-size:10px;color:#8B2A12;white-space:nowrap;margin-left:12px")}>ACTION NEEDED</span>
     </div>
     <p style={parseStyle("font-family:'Nunito',sans-serif;font-size:13px;color:rgba(44,26,14,0.65);line-height:1.6;margin-bottom:16px")}>This bill would increase per-pupil funding by 11% and add provisions for rural school districts facing population decline.</p>
     <div style={parseStyle("display:flex;gap:8px")}>
-      <button style={parseStyle("flex:1;padding:9px;background:#E8854A;color:#2C1A0E;border:none;border-radius:7px;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer")}>Call Your Rep</button>
+      <button style={parseStyle("flex:1;padding:9px;background:#E88F5A;color:#2C1A0E;border:none;border-radius:7px;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;cursor:pointer")}>Call Your Rep</button>
       <button style={parseStyle("flex:1;padding:9px;background:transparent;color:#2C1A0E;border:1px solid rgba(44,26,14,0.2);border-radius:7px;font-family:'Nunito',sans-serif;font-size:13px;cursor:pointer")}>Read Full Bill</button>
     </div>
   </div>
@@ -1033,7 +1033,7 @@ export default function BrandingPage() {
       <div className="imagery-info"><div className="imagery-info-name">Editorial Typography</div><div className="imagery-info-desc">Type-as-image moments, numbers as heroes, key stats isolated</div></div>
     </div>
     <div className="imagery-card">
-      <div className="imagery-thumb" style={parseStyle("background:linear-gradient(135deg,#0F0F0F 0%,#1a1a1a 40%,#FFD600 100%)")}></div>
+      <div className="imagery-thumb" style={parseStyle("background:#1a1a12")}></div>
       <div className="imagery-info"><div className="imagery-info-name">Moments of Action</div><div className="imagery-info-desc">Phone calls being made, canvassing, real campaign moments</div></div>
     </div>
   </div>

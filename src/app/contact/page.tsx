@@ -24,7 +24,7 @@ export default function Contact() {
         We are a community-rooted, pro-democracy organizer collective building practical tools and trusted support systems for Texans.
       </p>
       <p className="body-lg text-center mb-8 max-w-2xl">
-        If you want to collaborate, request support, or share a civic organizing need, reach out<span className="text-spark-blue">—</span>we are here to help turn local energy into year-round action.
+        If you want to collaborate, request support, or share a civic organizing need, reach out<span className="text-spark-sage">—</span>we are here to help turn local energy into year-round action.
       </p>
       
       <ContactForm />
