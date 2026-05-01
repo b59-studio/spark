@@ -23,10 +23,17 @@ export default function SiteMap() {
     { href: "/contact", label: "Contact" },
   ];
 
+  const aboutSubRoutes = [
+    { href: "/about/mission", label: "Mission" },
+    { href: "/about/people", label: "People" },
+    { href: "/about/partners", label: "Partners" },
+  ];
+
   const resourceRoutes = [
-    { href: "/grow", label: "GROW" },
-    { href: "/pal", label: "PAL" },
-    { href: "/partners", label: "Partner Resources" },
+    { href: "/resources/grow", label: "GROW" },
+    { href: "/resources/pal", label: "PAL" },
+    { href: "/resources/partners", label: "Partner Resources" },
+    { href: "/grow", label: "GROW toolkits" },
     { href: "/branding", label: "Brand Guidelines" },
   ];
 
@@ -60,6 +67,19 @@ export default function SiteMap() {
         </section>
 
         <section className="callout-gray">
+          <h2 className="heading-md mb-4">About</h2>
+          <ul className="space-y-2 body-md">
+            {aboutSubRoutes.map((route) => (
+              <li key={route.href}>
+                <Link href={route.href} className="text-link">
+                  {route.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="callout-blue">
           <h2 className="heading-md mb-4">Programs & Tools</h2>
           <ul className="space-y-2 body-md">
             {resourceRoutes.map((route) => (

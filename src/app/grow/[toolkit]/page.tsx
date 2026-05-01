@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getGrowToolkitBySlug, growToolkits } from "../toolkits";
+import GatedOutboundLinks from "@/components/GatedOutboundLinks";
+import {
+  getGrowToolkitBySlug,
+  getGrowToolkitNav,
+  growToolkits,
+} from "../toolkits";
 
 type ToolkitPageProps = {
   params: Promise<{ toolkit: string }>;
@@ -41,10 +46,19 @@ export default async function ToolkitPage({ params }: ToolkitPageProps) {
     notFound();
   }
 
+  const nav = getGrowToolkitNav(toolkit);
+  if (!nav) {
+    notFound();
+  }
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <h1 className="heading-xl mb-4">{currentToolkit.fullTitle}</h1>
-      <p className="body-lg mb-10">{currentToolkit.summary}</p>
+      <p className="body-sm text-secondary mb-3">
+        Toolkit {nav.number} of {nav.total}
+      </p>
+      <h1 className="heading-xl mb-10">{currentToolkit.fullTitle}</h1>
+
+      <p className="body-lg mb-8">{currentToolkit.summary}</p>
 
       <section className="mb-8">
         <h2 className="heading-sm mb-3">Target</h2>
@@ -81,6 +95,45 @@ export default async function ToolkitPage({ params }: ToolkitPageProps) {
           ))}
         </ul>
       </section>
+
+      <GatedOutboundLinks
+        heading="Toolkit packet"
+        intro="Click below to open the packet in a new tab. First-time visitors confirm their email in a short step so we can send toolkit updates when materials change."
+        links={[
+          {
+            label: "Toolkit packet",
+            href: currentToolkit.toolkitPacketHref,
+          },
+        ]}
+      />
+
+      <nav
+        className="mb-8 border-t border-b border-spark-dark/10 py-6"
+        aria-label="Previous and next toolkit"
+      >
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+          <div className="min-h-[2.75rem] flex items-center sm:justify-start">
+            {nav.prev ? (
+              <Link
+                href={`/grow/${nav.prev.slug}`}
+                className="btn-secondary inline-flex w-full sm:w-auto justify-center"
+              >
+                ← {nav.prev.shortLabel}
+              </Link>
+            ) : null}
+          </div>
+          <div className="min-h-[2.75rem] flex items-center sm:justify-end">
+            {nav.next ? (
+              <Link
+                href={`/grow/${nav.next.slug}`}
+                className="btn-secondary inline-flex w-full sm:w-auto justify-center"
+              >
+                {nav.next.shortLabel} →
+              </Link>
+            ) : null}
+          </div>
+        </div>
+      </nav>
 
       <div className="flex flex-wrap gap-3">
         <Link href="/grow" className="btn-secondary">

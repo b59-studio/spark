@@ -1,3 +1,5 @@
+/* Contact page temporarily disabled — restore below.
+
 import type { Metadata } from "next";
 import ContactForm from "@/app/contact/ContactForm";
 
@@ -26,8 +28,14 @@ export default function Contact() {
       <p className="body-lg text-center mb-8 max-w-2xl">
         If you want to collaborate, request support, or share a civic organizing need, reach out<span className="text-spark-sage">—</span>we are here to help turn local energy into year-round action.
       </p>
-      
+
       <ContactForm />
     </main>
   );
+}
+
+*/
+
+export default function Contact() {
+  return null;
 }

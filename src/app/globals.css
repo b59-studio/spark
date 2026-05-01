@@ -400,7 +400,8 @@ h2::before {
 .header-nav {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
+  /* visible so nested nav dropdown panels can extend below the bar */
+  overflow: visible;
   border-radius: 1rem;
   box-shadow:
     0 12px 40px -14px color-mix(in srgb, var(--color-spark-dark) 18%, transparent),
@@ -444,11 +445,13 @@ h2::before {
   /* Keep the JPEG crisp — readability from gradient only */
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  /* Stronger wash on the right where nav links sit (was ~16% white — illegible on busy photo). */
   background: linear-gradient(
     105deg,
-    rgba(255, 255, 255, 0.78) 0%,
-    rgba(255, 255, 255, 0.48) 42%,
-    rgba(255, 255, 255, 0.16) 100%
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.55) 38%,
+    rgba(255, 255, 255, 0.62) 70%,
+    rgba(255, 255, 255, 0.72) 100%
   );
 }
 
@@ -471,6 +474,14 @@ h2::before {
   max-width: min(11rem, 46vw);
 }
 
+.header-nav--photo-slice .nav-link,
+.header-nav--photo-slice .nav-mobile-link,
+.header-nav--photo-slice .mobile-menu-btn {
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0 12px rgba(255, 255, 255, 0.65);
+}
+
 .nav-link {
   color: var(--color-spark-dark);
   font-size: 1.2rem;
@@ -479,6 +490,36 @@ h2::before {
 
 .nav-link:hover {
   color: var(--color-spark-blue);
+}
+
+.nav-dropdown-link {
+  color: var(--color-spark-dark);
+  font-size: 1.05rem;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+}
+
+.nav-dropdown-link:hover {
+  color: var(--color-spark-blue);
+  background-color: color-mix(in srgb, var(--color-spark-blue) 8%, transparent);
+}
+
+.header-nav--photo-slice .nav-dropdown-link {
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.85),
+    0 0 10px rgba(255, 255, 255, 0.55);
+}
+
+.nav-dropdown-panel {
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--color-spark-dark) 14%, transparent);
+  background-color: color-mix(in srgb, white 94%, transparent);
+  box-shadow:
+    0 16px 40px -18px color-mix(in srgb, var(--color-spark-dark) 28%, transparent),
+    0 4px 14px -8px color-mix(in srgb, var(--color-spark-dark) 14%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .nav-mobile-link {
@@ -894,5 +935,16 @@ textarea.form-input:user-invalid + .form-error {
     transform: none;
     transition: none;
   }
+}
+
+.resource-gate-dialog {
+  border: none;
+  padding: 0;
+  background: transparent;
+  max-width: calc(100vw - 2rem);
+}
+
+.resource-gate-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.45);
 }
 

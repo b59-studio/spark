@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 const revealSelector = "[data-reveal]";
 
@@ -162,23 +163,18 @@ export default function HomeContent() {
         className="mt-10 rounded-2xl border border-spark-dark/15 spark-glass p-7 sm:p-8 text-center scroll-reveal"
         data-reveal
       >
-        <h2 className="heading-lg mb-3">See us in action</h2>
+        <h2 className="heading-lg mb-3">Stay in the loop</h2>
         <p className="body-md max-w-4xl mx-auto">
-          Meet-ups, canvasses, and hands-on trainings are where strategy turns
-          into momentum. Join TX*Spark events to build skills, connect with
-          neighbors, and put organizing plans into motion.
+          Get toolkit drops, PAL tracker updates, and TX*Spark event news in
+          your inbox.
         </p>
-        <div className="mt-6 mx-auto max-w-4xl rounded-2xl border border-dashed border-spark-dark/20 spark-glass p-4">
-          <div className="aspect-[16/7] rounded-xl spark-glass flex items-center justify-center px-4 border border-spark-dark/10">
-            <p className="body-sm">
-              Closing image placeholder: event photo with movement and energy
-              (group huddle, door knock launch, or training circle).
-            </p>
-          </div>
-        </div>
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <NewsletterSignup
+          variant="panel"
+          className="mt-6 max-w-xl mx-auto"
+        />
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link href="/events" className="btn-secondary">
-            Join an Event
+            Browse events
           </Link>
         </div>
       </section>

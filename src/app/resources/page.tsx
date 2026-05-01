@@ -35,7 +35,7 @@ export default function ResourcesPage() {
             with electoral and legislative calendars and focused on helping
             neighbors take meaningful action year-round.
           </p>
-          <Link href="/grow" className="btn-primary self-start">
+          <Link href="/resources/grow" className="btn-primary self-start">
             Explore GROW
           </Link>
         </article>
@@ -46,7 +46,7 @@ export default function ResourcesPage() {
             People&apos;s Advocacy Lobby. Bill analysis and tracking tools support
             organizing, advocacy, and rapid response strategies.
           </p>
-          <Link href="/pal" className="btn-primary self-start">
+          <Link href="/resources/pal" className="btn-primary self-start">
             Explore PAL
           </Link>
         </article>
@@ -57,7 +57,7 @@ export default function ResourcesPage() {
             Resources from our trusted partners who are also pushing democratic
             initiatives.
           </p>
-          <Link href="/partners" className="btn-primary self-start">
+          <Link href="/resources/partners" className="btn-primary self-start">
             Explore Partner Resources
           </Link>
         </article>

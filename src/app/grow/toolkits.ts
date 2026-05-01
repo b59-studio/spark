@@ -3,6 +3,8 @@ export type GrowToolkit = {
   shortLabel: string;
   fullTitle: string;
   summary: string;
+  /** Full URL for the toolkit packet when published (Drive, PDFs, etc.) */
+  toolkitPacketHref: string;
   target: string[];
   timeframe: string[];
   tools: string[];
@@ -15,7 +17,8 @@ export const growToolkits: GrowToolkit[] = [
     shortLabel: "GTKYP",
     fullTitle: "GTKYP - Get To Know Your Precinct",
     summary:
-      "Build knowledge about your precinct and set goals to turn your precinct bluer.",
+      "GTKYP is your precinct orientation: map zones and neighborhoods, capture apartments and community anchors, name your strongest volunteers, and tie it together with a Big Blue Goal that lines up with the rest of the GROW sequence (GTKYV through TYSM). Precinct guides, data dashboards, and goal-setting templates in the packet unpack the same work spelled out in Target through Tasks.",
+    toolkitPacketHref: "",
     target: ["Build knowledge about your precinct."],
     timeframe: [
       "Any time, ongoing, or as needed.",
@@ -41,7 +44,8 @@ export const growToolkits: GrowToolkit[] = [
     shortLabel: "GTKYV",
     fullTitle: "GTKYV - Get To Know Your Voters",
     summary:
-      "Connect with neighbors early, learn what matters to them, and strengthen organizing relationships.",
+      "GTKYV is relationship-first outreach—meet voters as neighbors before you make asks, surface what they care about, and fold people into organizing through hosted gatherings and structured canvassing. Scripts, contact sheets, leave-behinds, and hosting guides connect directly to the Tools and Tasks sections that follow.",
+    toolkitPacketHref: "",
     target: [
       "Connect with voters before approaching them with an ask.",
       "Introduce yourself to your neighbors.",
@@ -71,7 +75,8 @@ export const growToolkits: GrowToolkit[] = [
     shortLabel: "GOTVol",
     fullTitle: "GOTVol - Get Out The Volunteers",
     summary:
-      "Recruit and organize volunteers to support GOTVR and GOTV campaigns.",
+      "GOTVol builds the volunteer bench your registration and GOTV pushes need: clear plans, neighbor conversations, and steady follow-up so people are ready when GOTVR and GOTV ramp up. Planning templates, maps, VAN and Reach guidance, scripts, and leave-behinds flesh out the simple rhythm in Tasks—make a plan, talk to your neighbors, follow up.",
+    toolkitPacketHref: "",
     target: ["Recruit volunteers for GOTVR and GOTV campaigns."],
     timeframe: [
       "At least 3 months before Election Day (for example, begin in early August for an early November Election Day).",
@@ -92,7 +97,8 @@ export const growToolkits: GrowToolkit[] = [
     shortLabel: "GOTVR",
     fullTitle: "GOTVR - Get Our Texas Voters Registered",
     summary:
-      "Register Texans to vote at unregistered addresses and move voters toward registration deadlines.",
+      "GOTVR focuses outreach on eligible Texans who are not yet registered at their current address, with enough runway before the registration deadline to absorb surveying, turf choices, and repeat contacts. You will pick a slice of the list (unregistered, suspended, non-surveyed, partisan targets, or broad), set goals, match canvass windows to your team, then knock doors with scripts and maps until registrations move.",
+    toolkitPacketHref: "",
     target: [
       "Register Texans to vote at unregistered addresses in your area.",
     ],
@@ -122,7 +128,9 @@ export const growToolkits: GrowToolkit[] = [
     slug: "gotv",
     shortLabel: "GOTV",
     fullTitle: "GOTV - Get Out The Vote",
-    summary: "Mobilize voters to cast ballots in the upcoming election.",
+    summary:
+      "GOTV is the final sprint: turn confirmed supporters into voters through intentional planning, persistent neighbor contact, and reminders through Election Day. Same core toolkit stack as GOTVol and GOTVR—plans, dashboards, maps, VAN/Reach, scripts, and leave-behinds—applied to ballot casting instead of registration.",
+    toolkitPacketHref: "",
     target: ["Mobilize voters to vote in the upcoming election."],
     timeframe: [
       "At least 30 days before Election Day (for example, begin in early October for an early November Election Day).",
@@ -147,7 +155,8 @@ export const growToolkits: GrowToolkit[] = [
     shortLabel: "TYSM",
     fullTitle: "TYSM - Thank Y'all So Much",
     summary:
-      "Thank voters and volunteers, celebrate wins, gather feedback, and strengthen relationships for next cycle.",
+      "TYSM closes the loop after votes are counted: thank voters and volunteers, name wins large and small, collect honest feedback, and rekindle one-to-one ties so your team does not go cold before the next cycle. You still plan, reach out, and follow up—now with gratitude and reflection as the through-line rather than ballots or registration.",
+    toolkitPacketHref: "",
     target: [
       "Thank voters and volunteers for prior election-cycle contributions.",
       "Celebrate wins, no matter how small.",
@@ -177,4 +186,19 @@ export const growToolkits: GrowToolkit[] = [
 
 export function getGrowToolkitBySlug(slug: string) {
   return growToolkits.find((toolkit) => toolkit.slug === slug);
+}
+
+export function getGrowToolkitNav(slug: string) {
+  const index = growToolkits.findIndex((toolkit) => toolkit.slug === slug);
+  if (index < 0) {
+    return null;
+  }
+  const total = growToolkits.length;
+  return {
+    index,
+    number: index + 1,
+    total,
+    prev: index > 0 ? growToolkits[index - 1]! : null,
+    next: index < total - 1 ? growToolkits[index + 1]! : null,
+  };
 }

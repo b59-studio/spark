@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import GatedOutboundLinks from "@/components/GatedOutboundLinks";
 
 export default function PalContent() {
   useEffect(() => {
@@ -91,15 +92,19 @@ export default function PalContent() {
         </p>
       </section>
 
-      <div className="scroll-reveal text-center" data-reveal>
-        <a
-          href="https://docs.google.com/spreadsheets/d/1PNDImDDrnODRe87DVWCigsDuso01KszCNWKyWKAl5-M/edit?gid=1925380918#gid=1925380918"
-          className="btn-primary"
-          target="_blank"
-          rel="noreferrer"
-        >
-          2025 Special Session Tracker
-        </a>
+      <div className="scroll-reveal" data-reveal>
+        <GatedOutboundLinks
+          heading="PAL Bill Tracker"
+          intro="Click below to open the live spreadsheet. If you have not signed up on this device yet, you will confirm your email first."
+          links={[
+            {
+              label: "2025 Special Session Tracker",
+              href:
+                "https://docs.google.com/spreadsheets/d/1PNDImDDrnODRe87DVWCigsDuso01KszCNWKyWKAl5-M/edit?gid=1925380918#gid=1925380918",
+            },
+          ]}
+          linksClassName="justify-center"
+        />
       </div>
     </>
   );

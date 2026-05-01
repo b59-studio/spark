@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -87,6 +88,18 @@ export default function EventsPage() {
             </p>
           </div>
         )}
+      </section>
+
+      <section className="mt-12 rounded-2xl border border-spark-dark/15 spark-glass shadow-sm p-6 sm:p-8">
+        <h2 className="heading-md mb-3 text-center">Join our mailing list</h2>
+        <p className="body-md text-center max-w-xl mx-auto mb-6">
+          Hear about new trainings, toolkit releases, and advocacy updates—no
+          spam, unsubscribe anytime.
+        </p>
+        <NewsletterSignup
+          variant="panel"
+          className="max-w-xl mx-auto"
+        />
       </section>
     </div>
   );
