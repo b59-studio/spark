@@ -9,14 +9,11 @@ module.exports = {
     extend: {
       colors: {
         spark: {
-          dark: '#1A1130',
-          /* Rust — secondary accent */
-          sage: '#C8856A',
-          /* Sky blue — links & cool accents */
-          blue: '#6A9BAD',
-          red: '#E88F5A',
-          purple: '#4B3272',
-          background: '#EDD9B0',
+          bg: '#14081E',
+          bone: '#F4DCB6',
+          purple: '#2F0951',
+          red: '#D93802',
+          gold: '#EDC973',
         },
       },
     },

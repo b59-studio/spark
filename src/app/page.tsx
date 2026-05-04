@@ -23,7 +23,7 @@ export default function Home() {
       <HomeHero>
         <h1 className="home-hero-heading heading-xl text-balance">
           Build Local Power.
-          <span className="block text-spark-sage">Win Year-Round.</span>
+          <span className="block text-spark-gold">Win Year-Round.</span>
         </h1>
       </HomeHero>
       <HomeContent />

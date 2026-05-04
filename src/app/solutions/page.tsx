@@ -20,20 +20,33 @@ export default function SolutionsPage() {
       <header className="max-w-4xl mx-auto text-center">
         <h1 className="heading-xl mb-6">Solutions</h1>
         <p className="body-lg">
-          Explore TX*SPARK solutions designed to support grassroots action,
-          legislative advocacy, and collaboration with trusted partner
-          organizations.
+          Explore TX*SPARK solutions designed to support grassroots action, legislative advocacy, and collaboration with trusted partner organizations.
         </p>
       </header>
+
+      <section className="mt-12 max-w-4xl mx-auto text-left">
+        <div className="spark-panel rounded-2xl p-6 sm:p-8">
+          <h2 className="heading-md mb-3">Built on data you can trust</h2>
+          <p className="body-md text-secondary">
+            GROW and PAL are only as useful as the information behind them. We
+            invest in clean pipelines, timely updates, and clear presentation so
+            what you act on matches the Capitol and the field—not a stale
+            export. That is how these solutions stay practical week to week.
+          </p>
+          <Link
+            href="/about/data"
+            className="btn-secondary mt-5 inline-block"
+          >
+            How we keep information current
+          </Link>
+        </div>
+      </section>
 
       <section className="mt-14 grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
         <article className="callout-blue h-full flex flex-col">
           <h2 className="heading-md">GROW</h2>
           <p className="body-md mb-6 flex-1">
-            Grassroots Resources for Organizing &amp; Winning. TX*SPARK toolkits
-            offer customizable tools and resources based on a framework aligned
-            with electoral and legislative calendars and focused on helping
-            neighbors take meaningful action year-round.
+            Grassroots Resources for Organizing &amp; Winning. TX*SPARK toolkits offer customizable tools and resources based on a framework aligned with electoral and legislative calendars and focused on helping neighbors take meaningful action year-round.
           </p>
           <Link href="/solutions/grow" className="btn-primary self-start">
             Explore GROW
@@ -43,8 +56,7 @@ export default function SolutionsPage() {
         <article className="callout-gray h-full flex flex-col">
           <h2 className="heading-md">PAL</h2>
           <p className="body-md mb-6 flex-1">
-            People&apos;s Advocacy Lobby. Bill analysis and tracking tools support
-            organizing, advocacy, and rapid response strategies.
+            People&apos;s Advocacy Lobby. Bill analysis and tracking tools support organizing, advocacy, and rapid response strategies.
           </p>
           <Link href="/solutions/pal" className="btn-primary self-start">
             Explore PAL

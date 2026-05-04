@@ -55,7 +55,7 @@ function CarouselChevron({ direction }: { direction: "left" | "right" }) {
       viewBox="0 0 24 24"
       width="20"
       height="20"
-      className="text-spark-dark/85"
+      className="text-spark-bone/85"
       aria-hidden
     >
       <path
@@ -97,7 +97,7 @@ export default function GrowIndexToolkitCarousel() {
         <button
           type="button"
           onClick={() => goToAdjacentSlide(-1)}
-          className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full spark-carousel-nav-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-blue"
+          className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full spark-carousel-nav-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold"
           aria-label="Previous toolkit"
         >
           <CarouselChevron direction="left" />
@@ -107,7 +107,7 @@ export default function GrowIndexToolkitCarousel() {
         <button
           type="button"
           onClick={() => goToAdjacentSlide(1)}
-          className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full spark-carousel-nav-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-blue"
+          className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full spark-carousel-nav-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold"
           aria-label="Next toolkit"
         >
           <CarouselChevron direction="right" />
@@ -117,7 +117,7 @@ export default function GrowIndexToolkitCarousel() {
       <div
         ref={scrollerRef}
         className={[
-          "flex gap-0 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth pb-2 pt-1",
+          "flex gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth pb-2 pt-1 sm:gap-4",
           "snap-x snap-mandatory pl-11 pr-11 sm:pl-12 sm:pr-12",
           "scroll-pl-11 scroll-pr-11 sm:scroll-pl-12 sm:scroll-pr-12",
           "[scrollbar-width:thin]",
@@ -134,16 +134,16 @@ export default function GrowIndexToolkitCarousel() {
               ref={(node) => {
                 slideRefs.current[index] = node;
               }}
-              className="box-border flex min-w-0 shrink-0 snap-center snap-always flex-[0_0_100%] items-stretch justify-center"
+              className="box-border flex min-w-0 shrink-0 snap-center snap-always flex-[0_0_88%] items-stretch justify-center sm:flex-[0_0_86%]"
             >
               <article
-                className="grow-timeline-card w-full max-w-xl rounded-2xl p-6 sm:p-7"
+                className="grow-timeline-card w-full max-w-xl"
                 aria-labelledby={`grow-index-toolkit-${toolkit.slug}-title`}
               >
                 <span className="sr-only">{stepLabel}</span>
                 <Link
                   href={`/grow/${toolkit.slug}`}
-                  className="grow-toolkit-icon-slot spark-sky-panel mb-4 flex items-center justify-center overflow-hidden rounded-lg px-4 py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-blue"
+                  className="grow-toolkit-icon-slot mb-4 flex items-center justify-center overflow-hidden rounded-lg px-4 py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold"
                   aria-label={`Open ${toolkit.fullTitle} toolkit`}
                 >
                   <Image
@@ -156,16 +156,18 @@ export default function GrowIndexToolkitCarousel() {
                     priority={index === 0}
                   />
                 </Link>
-                <h2
-                  id={`grow-index-toolkit-${toolkit.slug}-title`}
-                  className="grow-toolkit-title heading-md mb-3 flex flex-wrap items-center gap-3"
-                >
-                  <span className="spark-sky-panel inline-flex h-11 min-w-11 items-center justify-center rounded-full px-3 text-2xl font-semibold leading-none text-spark-dark">
-                    {index + 1}
-                  </span>
-                  <span>{toolkit.fullTitle}</span>
-                </h2>
-                <p className="body-md mb-6">{toolkit.summary}</p>
+                <div className="spark-panel spark-carousel-slide-outline rounded-2xl p-6 sm:p-7">
+                  <h2
+                    id={`grow-index-toolkit-${toolkit.slug}-title`}
+                    className="grow-toolkit-title heading-md mb-3 flex flex-wrap items-center gap-3"
+                  >
+                    <span className="inline-flex h-11 min-w-11 shrink-0 items-center justify-center rounded-full border-2 border-spark-gold/50 bg-spark-purple/25 px-3 text-2xl font-semibold leading-none text-spark-bone">
+                      {index + 1}
+                    </span>
+                    <span>{toolkit.fullTitle}</span>
+                  </h2>
+                  <p className="body-md mb-0">{toolkit.summary}</p>
+                </div>
               </article>
             </div>
           );

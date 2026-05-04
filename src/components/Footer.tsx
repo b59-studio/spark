@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-2 text-center">
           <p className="footer-heading text-xl font-bold">
             TX*Spark{' '}
-            <span className="font-normal text-spark-dark">/</span>{' '}
+            <span className="font-normal text-spark-bone">/</span>{' '}
             <span className="font-normal italic">Grassroots Tech for Texans</span>
           </p>
 
@@ -19,33 +19,33 @@ export default function Footer() {
             <Link href="/about/sitemap" className="footer-link whitespace-nowrap">
               Sitemap
             </Link>
-            <span className="text-spark-sage/40" aria-hidden>
+            <span className="text-spark-red/40" aria-hidden>
               ·
             </span>
              */}
             <Link href="/about/privacy" className="footer-link whitespace-nowrap">
               Privacy Policy
             </Link>
-            <span className="text-spark-sage/40" aria-hidden>
+            <span className="text-spark-red/40" aria-hidden>
               ·
             </span>
             <Link href="/about/terms" className="footer-link whitespace-nowrap">
               Terms of Use
             </Link>
-            <span className="text-spark-sage/40" aria-hidden>
+            <span className="text-spark-red/40" aria-hidden>
               ·
             </span>
             <a href="mailto:info@txspark.com" className="footer-link whitespace-nowrap">
               info@txspark.com
             </a>
-            <span className="text-spark-sage/40" aria-hidden>
+            <span className="text-spark-red/40" aria-hidden>
               ·
             </span>
             <span className="whitespace-nowrap">Austin, TX, US</span>
           </nav>
         </div>
 
-        <div className="border-t border-spark-sage/20 mt-5 pt-4 text-center footer-text">
+        <div className="border-t border-spark-purple/20 mt-5 pt-4 text-center footer-text">
           © 2026 TX*Spark PAC. Powered by{' '}
           <a href="https://www.b-59.com" className="footer-link" target="_blank" rel="noopener noreferrer">
             B-59 Studio

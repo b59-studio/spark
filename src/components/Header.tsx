@@ -1,7 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useLayoutEffect, useState } from 'react';
+import { useState } from 'react';
 import { growToolkits } from '@/app/grow/toolkits';
 
 /** Shared section rows — reused by desktop dropdowns and mobile accordions. */
@@ -9,6 +8,7 @@ const ABOUT_SECTIONS = [
   { label: 'Mission', href: '/about/mission' },
   { label: 'People', href: '/about/people' },
   { label: 'Partners', href: '/about/partners' },
+  { label: 'Data', href: '/about/data' },
 ] as const;
 
 const GROW_NAV_SUMMARY =
@@ -76,7 +76,7 @@ function ChevronDown({ className }: { className?: string }) {
 }
 
 function navDropdownSummaryClassName() {
-  return 'mt-0.5 block text-[0.8125rem] leading-snug font-normal italic text-spark-dark/75';
+  return 'mt-0.5 block text-[0.8125rem] leading-snug font-normal italic text-spark-bone/75';
 }
 
 function NavDropdown({
@@ -122,7 +122,7 @@ function NavDropdown({
               return (
                 <div
                   key={item.href}
-                  className="border-b border-spark-dark/10 pb-2 mb-2 flex flex-row items-start gap-1 last:mb-0 last:border-b-0 last:pb-0 sm:gap-2"
+                  className="border-b border-spark-bone/10 pb-2 mb-2 flex flex-row items-start gap-1 last:mb-0 last:border-b-0 last:pb-0 sm:gap-2"
                 >
                   <div className="shrink-0 w-[min(11rem,32vw)] px-3 py-2 sm:w-[11.5rem] md:w-[12.25rem] sm:px-4">
                     <Link href={item.href} className="nav-dropdown-link block rounded-md py-1" role="menuitem">
@@ -131,7 +131,7 @@ function NavDropdown({
                     </Link>
                   </div>
                   <ul
-                    className="min-w-0 flex-1 space-y-0.5 border-l border-spark-dark/10 py-2 pl-3 pr-3 sm:pl-4"
+                    className="min-w-0 flex-1 space-y-0.5 border-l border-spark-bone/10 py-2 pl-3 pr-3 sm:pl-4"
                     role="none"
                   >
                     {item.children.map((child) => (
@@ -155,7 +155,7 @@ function NavDropdown({
             return (
               <div
                 key={item.href}
-                className="border-b border-spark-dark/10 pb-2 mb-2 flex flex-row items-start gap-1 last:mb-0 last:border-b-0 last:pb-0 sm:gap-2"
+                className="border-b border-spark-bone/10 pb-2 mb-2 flex flex-row items-start gap-1 last:mb-0 last:border-b-0 last:pb-0 sm:gap-2"
               >
                 <div className="shrink-0 w-[min(11rem,32vw)] px-3 py-2 sm:w-[11.5rem] md:w-[12.25rem] sm:px-4">
                   <Link href={item.href} className="nav-dropdown-link block rounded-md py-1" role="menuitem">
@@ -164,7 +164,7 @@ function NavDropdown({
                   </Link>
                 </div>
                 <div
-                  className="min-w-0 flex-1 border-l border-spark-dark/10 py-2 pl-3 pr-3 sm:pl-4"
+                  className="min-w-0 flex-1 border-l border-spark-bone/10 py-2 pl-3 pr-3 sm:pl-4"
                   aria-hidden
                 />
               </div>
@@ -177,41 +177,12 @@ function NavDropdown({
 }
 
 export default function Header() {
-  const pathname = usePathname();
-  const isHome = pathname === '/';
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
   const [mobileGrowToolkitsOpen, setMobileGrowToolkitsOpen] = useState(false);
-  const [homeScrollMerged, setHomeScrollMerged] = useState(false);
 
-  const heroMerged = !isHome || homeScrollMerged;
-
-  useLayoutEffect(() => {
-    if (!isHome) return;
-
-    const evaluate = () => {
-      const hero = document.getElementById('home-hero');
-      const threshold = hero ? hero.offsetHeight * 0.3 : 140;
-      setHomeScrollMerged(window.scrollY >= threshold);
-    };
-
-    evaluate();
-
-    window.addEventListener('scroll', evaluate, { passive: true });
-    window.addEventListener('resize', evaluate, { passive: true });
-    const onPageShow = () => evaluate();
-    window.addEventListener('pageshow', onPageShow);
-
-    return () => {
-      window.removeEventListener('scroll', evaluate);
-      window.removeEventListener('resize', evaluate);
-      window.removeEventListener('pageshow', onPageShow);
-    };
-  }, [isHome]);
-
-  const navTone =
-    isHome && !heroMerged ? 'header-nav header-nav--home-clear' : 'header-nav header-nav--photo-slice';
+  const navTone = 'header-nav header-nav--photo-slice';
 
   const closeMobile = () => {
     setMobileMenuOpen(false);
@@ -221,7 +192,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
+    <header className="fixed top-4 inset-x-0 z-50 mx-auto w-[95%] max-w-7xl">
       <nav className={navTone}>
         <div className="header-nav-photo-layer" aria-hidden />
         <div className="header-nav-frost">
@@ -269,14 +240,14 @@ export default function Header() {
 
             {/* Mobile Navigation */}
             {mobileMenuOpen && (
-              <div className="relative z-10 md:hidden py-4 space-y-1 border-t border-spark-sage/20 mt-2">
-                <div className="flex items-stretch gap-0 rounded-lg border border-spark-sage/15 overflow-hidden">
+              <div className="relative z-10 md:hidden py-4 space-y-1 border-t border-spark-purple/20 mt-2">
+                <div className="flex items-stretch gap-0 rounded-lg border border-spark-purple/15 overflow-hidden">
                   <Link href="/about" className="nav-mobile-link flex-1 rounded-none" onClick={closeMobile}>
                     About
                   </Link>
                   <button
                     type="button"
-                    className="mobile-menu-btn shrink-0 px-3 border-l border-spark-sage/15"
+                    className="mobile-menu-btn shrink-0 px-3 border-l border-spark-purple/15"
                     aria-expanded={mobileAboutOpen}
                     aria-label={mobileAboutOpen ? 'Collapse About sections' : 'Expand About sections'}
                     onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
@@ -287,7 +258,7 @@ export default function Header() {
                   </button>
                 </div>
                 {mobileAboutOpen && (
-                  <div className="pl-4 ml-2 border-l border-spark-sage/20 space-y-0.5 pb-1">
+                  <div className="pl-4 ml-2 border-l border-spark-purple/20 space-y-0.5 pb-1">
                     {ABOUT_SECTIONS.map((item) => (
                       <Link key={item.href} href={item.href} className="nav-mobile-link" onClick={closeMobile}>
                         {item.label}
@@ -300,13 +271,13 @@ export default function Header() {
                   Events
                 </Link>
 
-                <div className="flex items-stretch gap-0 rounded-lg border border-spark-sage/15 overflow-hidden">
+                <div className="flex items-stretch gap-0 rounded-lg border border-spark-purple/15 overflow-hidden">
                   <Link href="/solutions" className="nav-mobile-link flex-1 rounded-none" onClick={closeMobile}>
                     Solutions
                   </Link>
                   <button
                     type="button"
-                    className="mobile-menu-btn shrink-0 px-3 border-l border-spark-sage/15"
+                    className="mobile-menu-btn shrink-0 px-3 border-l border-spark-purple/15"
                     aria-expanded={mobileSolutionsOpen}
                     aria-label={mobileSolutionsOpen ? 'Collapse Solutions sections' : 'Expand Solutions sections'}
                     onClick={() => setMobileSolutionsOpen(!mobileSolutionsOpen)}
@@ -317,19 +288,19 @@ export default function Header() {
                   </button>
                 </div>
                 {mobileSolutionsOpen && (
-                  <div className="pl-4 ml-2 border-l border-spark-sage/20 space-y-2 pb-1">
+                  <div className="pl-4 ml-2 border-l border-spark-purple/20 space-y-2 pb-1">
                     {SOLUTION_SECTIONS.map((item) => {
                       const growWithKids = item.label === 'GROW' && item.children?.length;
                       if (growWithKids) {
                         return (
                           <div key={item.href} className="space-y-1">
-                            <div className="flex items-stretch gap-0 rounded-lg border border-spark-sage/15 overflow-hidden">
+                            <div className="flex items-stretch gap-0 rounded-lg border border-spark-purple/15 overflow-hidden">
                               <Link href={item.href} className="nav-mobile-link flex-1 rounded-none" onClick={closeMobile}>
                                 {item.label}
                               </Link>
                               <button
                                 type="button"
-                                className="mobile-menu-btn shrink-0 px-3 border-l border-spark-sage/15"
+                                className="mobile-menu-btn shrink-0 px-3 border-l border-spark-purple/15"
                                 aria-expanded={mobileGrowToolkitsOpen}
                                 aria-label={
                                   mobileGrowToolkitsOpen ? 'Collapse GROW toolkits' : 'Expand GROW toolkits'
@@ -342,19 +313,19 @@ export default function Header() {
                               </button>
                             </div>
                             {item.summary ? (
-                              <p className="px-4 text-[0.8125rem] italic text-spark-dark/80 leading-snug -mt-0.5">
+                              <p className="px-4 text-[0.8125rem] italic text-spark-bone/80 leading-snug -mt-0.5">
                                 {item.summary}
                               </p>
                             ) : null}
                             {mobileGrowToolkitsOpen && (
-                              <div className="pl-4 ml-2 border-l border-spark-sage/20 space-y-2">
+                              <div className="pl-4 ml-2 border-l border-spark-purple/20 space-y-2">
                                 {item.children!.map((child) => (
                                   <div key={child.href}>
                                     <Link href={child.href} className="nav-mobile-link py-1.5" onClick={closeMobile}>
                                       {child.label}
                                     </Link>
                                     {child.summary ? (
-                                      <p className="px-4 text-[0.75rem] italic text-spark-dark/75 leading-snug -mt-0.5">
+                                      <p className="px-4 text-[0.75rem] italic text-spark-bone/75 leading-snug -mt-0.5">
                                         {child.summary}
                                       </p>
                                     ) : null}
@@ -367,7 +338,7 @@ export default function Header() {
                       }
                       return (
                         <div key={item.href} className="space-y-1">
-                          <div className="flex items-stretch gap-0 rounded-lg border border-spark-sage/15 overflow-hidden">
+                          <div className="flex items-stretch gap-0 rounded-lg border border-spark-purple/15 overflow-hidden">
                             <Link
                               href={item.href}
                               className="nav-mobile-link flex-1 rounded-none"
@@ -376,14 +347,14 @@ export default function Header() {
                               {item.label}
                             </Link>
                             <div
-                              className="mobile-menu-btn shrink-0 flex items-center justify-center px-3 border-l border-spark-sage/15 self-stretch pointer-events-none"
+                              className="mobile-menu-btn shrink-0 flex items-center justify-center px-3 border-l border-spark-purple/15 self-stretch pointer-events-none"
                               aria-hidden
                             >
                               <ChevronDown className="h-4 w-4 shrink-0 invisible" />
                             </div>
                           </div>
                           {item.summary ? (
-                            <p className="px-4 text-[0.8125rem] italic text-spark-dark/80 leading-snug -mt-0.5">
+                            <p className="px-4 text-[0.8125rem] italic text-spark-bone/80 leading-snug -mt-0.5">
                               {item.summary}
                             </p>
                           ) : null}

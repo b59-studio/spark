@@ -198,13 +198,13 @@ export default function GatedOutboundLinks({
 
       <dialog
         ref={dialogRef}
-        className="resource-gate-dialog w-[min(26rem,calc(100vw-2rem))] text-spark-dark"
+        className="resource-gate-dialog w-[min(26rem,calc(100vw-2rem))] text-spark-bone"
         aria-labelledby={titleId}
         onClick={(e) => {
           if (e.target === dialogRef.current) closeModal();
         }}
       >
-        <div className="spark-sky-panel rounded-2xl p-6 sm:p-7">
+        <div className="spark-panel rounded-2xl p-6 sm:p-7">
           <h3 id={titleId} className="heading-md mb-2">
             You&apos;re almost there!
           </h3>
@@ -233,11 +233,11 @@ export default function GatedOutboundLinks({
                 required
                 placeholder="you@example.com"
                 disabled={modalLoading}
-                className="rounded-xl border border-spark-blue/35 bg-white px-4 py-3 text-spark-dark placeholder:text-secondary focus:border-spark-blue focus:outline-none focus:ring-2 focus:ring-spark-blue/25 invalid:border-red-300"
+                className="rounded-xl border border-spark-gold/35 bg-[color-mix(in_srgb,var(--color-spark-bone)_8%,var(--color-spark-bg))] px-4 py-3 text-spark-bone placeholder:text-secondary focus:border-spark-gold focus:outline-none focus:ring-2 focus:ring-spark-gold/25 invalid:border-spark-red"
               />
             </div>
             {modalError ? (
-              <p className="body-sm text-center text-red-800" role="alert">
+              <p className="body-sm text-center text-spark-red" role="alert">
                 {modalError}
               </p>
             ) : null}

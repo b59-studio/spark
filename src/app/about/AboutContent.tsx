@@ -24,6 +24,12 @@ const ABOUT_SECTIONS = [
     summary:
       "Trusted organizations and paths to connect—partner materials, events, and ways to build alongside communities across Texas.",
   },
+  {
+    title: "Data",
+    href: "/about/data",
+    summary:
+      "How we keep information current and actionable—clean pipelines and regular updates so you can trust what you see when organizing and advocating.",
+  },
 ] as const;
 
 export default function AboutContent() {
@@ -64,22 +70,19 @@ export default function AboutContent() {
         >
           <h1 className="heading-xl text-balance">About TX*Spark</h1>
           <p className="body-lg mt-5 max-w-3xl">
-            We are a pro-democracy political action committee and organizer
-            collective rooted in Austin, building practical tools and trusted
-            support systems so local leaders can turn civic energy into
-            year-round impact.
+            We are a pro-democracy political action committee and organizer collective rooted in Austin, building practical tools and trusted support systems so local leaders can turn civic energy into year-round impact.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            <div className="spark-sky-panel rounded-xl p-4">
-              <p className="text-3xl font-bold text-spark-dark">Year-round</p>
+            <div className="spark-panel rounded-xl p-4">
+              <p className="text-3xl font-bold text-spark-bone">Year-round</p>
               <p className="body-sm mt-1">Organizing support beyond elections.</p>
             </div>
-            <div className="spark-sky-panel rounded-xl p-4">
-              <p className="text-3xl font-bold text-spark-dark">Community-led</p>
+            <div className="spark-panel rounded-xl p-4">
+              <p className="text-3xl font-bold text-spark-bone">Community-led</p>
               <p className="body-sm mt-1">Built with partners, never for them.</p>
             </div>
-            <div className="spark-sky-panel rounded-xl p-4">
-              <p className="text-3xl font-bold text-spark-dark">Action-ready</p>
+            <div className="spark-panel rounded-xl p-4">
+              <p className="text-3xl font-bold text-spark-bone">Action-ready</p>
               <p className="body-sm mt-1">Tools people can use immediately.</p>
             </div>
           </div>
@@ -87,14 +90,14 @@ export default function AboutContent() {
 
         <section className="scroll-reveal" data-reveal aria-labelledby="about-sections-heading">
           <h2 id="about-sections-heading" className="heading-lg mb-6">
-            Mission, people &amp; partners
+            Mission, people, partners &amp; data
           </h2>
           <ul className="grid gap-4 md:gap-6">
             {ABOUT_SECTIONS.map((item) => (
               <li key={item.href}>
-                <div className="spark-sky-panel rounded-2xl p-6 sm:p-8 transition hover:-translate-y-0.5 hover:brightness-[0.97]">
-                  <span className="heading-md text-spark-dark">{item.title}</span>
-                  <p className="body-md mt-3 text-secondary">{item.summary}</p>
+                <div className="spark-framed spark-panel rounded-2xl p-6 sm:p-8 transition hover:-translate-y-0.5 hover:brightness-[0.97]">
+                  <span className="heading-md text-spark-bone">{item.title}</span>
+                  <p className="body-md mt-3">{item.summary}</p>
                   <Link
                     href={item.href}
                     className="btn-secondary mx-0 mt-4"

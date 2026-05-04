@@ -27,6 +27,7 @@ export default function SiteMap() {
     { href: "/about/mission", label: "Mission" },
     { href: "/about/people", label: "People" },
     { href: "/about/partners", label: "Partners" },
+    { href: "/about/data", label: "Data" },
   ];
 
   const solutionRoutes = [

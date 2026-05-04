@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
-import HeroPhotoSync from "@/components/HeroPhotoSync";
 import Footer from "@/components/Footer";
 import MainFrame from "@/components/MainFrame";
 
@@ -76,7 +75,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Header />
-        <HeroPhotoSync />
         <MainFrame>{children}</MainFrame>
         <Footer />
       </body>

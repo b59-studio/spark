@@ -26,41 +26,33 @@ export default function EventsPage() {
     <div className="spark-page-narrow">
       <h1 className="heading-xl mb-6">Events</h1>
       <p className="body-md mb-6">
-        TX*SPARK events bring neighbors together for practical, year-round civic
-        action aligned with electoral and legislative calendars. From skill
-        sharing to direct outreach, each event is designed to help local teams
-        organize with confidence and care.
+        TX*SPARK events bring neighbors together for practical, year-round civic action aligned with electoral and legislative calendars. From skill sharing to direct outreach, each event is designed to help local teams organize with confidence and care.
       </p>
 
-      <section className="rounded-2xl p-6 sm:p-7">
+      <section className="spark-panel rounded-2xl p-6 sm:p-8">
         <h2 className="heading-md mb-4">What to expect</h2>
         <ul className="space-y-3 body-md list-disc pl-5">
           <li>
-            <strong>Community meet-ups:</strong> connect with organizers,
-            partners, and neighbors building local momentum.
+            <strong>Community meet-ups:</strong> connect with organizers, partners, and neighbors building local momentum.
           </li>
           <li>
-            <strong>Canvasses and outreach:</strong> support direct voter and
-            community engagement efforts.
+            <strong>Canvasses and outreach:</strong> support direct voter and community engagement efforts.
           </li>
           <li>
-            <strong>Workshops:</strong> hands-on trainings and practical tools
-            for teams doing grassroots work.
+            <strong>Workshops:</strong> hands-on trainings and practical tools for teams doing grassroots work.
           </li>
         </ul>
       </section>
 
-      <section className="mt-14 rounded-2xl p-6 sm:p-7">
+      <section className="mt-14 spark-panel rounded-2xl p-6 sm:p-8">
         <h2 className="heading-md mb-3">Organization Calendar</h2>
         {isCalendarReady ? (
           <>
             <p className="body-md mb-5">
-              Stay up to date with upcoming TX*SPARK meet-ups, canvasses, and
-              workshops. You can view events here and add them to your personal
-              calendar.
+              Stay up to date with upcoming TX*SPARK meet-ups, canvasses, and workshops. You can view events here and add them to your personal calendar.
             </p>
             {hasEmbedCalendar ? (
-              <div className="spark-sky-panel overflow-hidden rounded-xl mb-5">
+              <div className="overflow-hidden rounded-xl border border-spark-gold/30 bg-[color-mix(in_srgb,var(--color-spark-bone)_6%,var(--color-spark-bg))] mb-5">
                 <iframe
                   title="TX*SPARK organization calendar"
                   src={ORG_CALENDAR_EMBED_URL}
@@ -81,22 +73,18 @@ export default function EventsPage() {
             ) : null}
           </>
         ) : (
-          <div className="spark-sky-panel rounded-xl px-4 py-5">
-            <p className="body-md text-secondary">
-              Calendar coming soon. We are working on publishing our
-              organization event calendar so you can subscribe and stay updated.
-            </p>
-          </div>
+          <p className="body-md text-secondary">
+            Calendar coming soon. We are working on publishing our organization event calendar so you can subscribe and stay updated.
+          </p>
         )}
       </section>
 
       <section className="mt-14">
         <h2 className="heading-md mb-3 text-center">Join our mailing list</h2>
-        <p className="body-md mx-auto mb-6 max-w-xl text-left">
-          Hear about new trainings, toolkit releases, and advocacy updates—no
-          spam, unsubscribe anytime.
+        <p className="body-md mb-6">
+          Hear about new trainings, toolkit releases, and advocacy updates—no spam, unsubscribe anytime.
         </p>
-        <NewsletterSignup variant="panel" className="max-w-xl" />
+        <NewsletterSignup variant="panel" />
       </section>
     </div>
   );

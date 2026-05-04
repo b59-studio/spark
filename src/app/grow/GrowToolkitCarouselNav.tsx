@@ -15,7 +15,7 @@ function CarouselChevron({ direction }: { direction: "left" | "right" }) {
       viewBox="0 0 24 24"
       width="20"
       height="20"
-      className="text-spark-dark/85"
+      className="text-spark-bone/85"
       aria-hidden
     >
       <path
@@ -72,7 +72,7 @@ export default function GrowToolkitCarouselNav({
           <button
             type="button"
             onClick={() => scrollByDir(-1)}
-            className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full spark-carousel-nav-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-blue"
+            className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full spark-carousel-nav-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold"
             aria-label="Scroll toolkits left"
           >
             <CarouselChevron direction="left" />
@@ -84,7 +84,7 @@ export default function GrowToolkitCarouselNav({
           <button
             type="button"
             onClick={() => scrollByDir(1)}
-            className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full spark-carousel-nav-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-blue"
+            className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full spark-carousel-nav-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold"
             aria-label="Scroll toolkits right"
           >
             <CarouselChevron direction="right" />
@@ -122,7 +122,7 @@ export default function GrowToolkitCarouselNav({
                   aria-current={isCurrent ? "page" : undefined}
                   className={[
                     "group relative flex snap-center flex-col items-center transition-[transform,opacity,width] duration-200",
-                    "opacity-80 hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-blue",
+                    "opacity-80 hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold",
                     isCurrent
                       ? "w-[min(52vw,14.5rem)] opacity-100 sm:w-[16.5rem]"
                       : "w-[min(30vw,8.25rem)] sm:w-[9.25rem]",
@@ -155,9 +155,9 @@ export default function GrowToolkitCarouselNav({
                     aria-hidden
                   >
                     <div className="flex items-center">
-                      <span className="h-px w-2.5 rounded-full bg-spark-dark/18 sm:w-3.5" />
-                      <span className="mx-0.5 size-1.5 shrink-0 rounded-full border border-spark-blue/50 bg-gradient-to-b from-white to-spark-blue/25 shadow-[0_0_0_1px_rgba(26,17,48,0.06)] sm:size-2" />
-                      <span className="h-px w-2.5 rounded-full bg-spark-dark/18 sm:w-3.5" />
+                      <span className="h-px w-2.5 rounded-full bg-spark-bone/18 sm:w-3.5" />
+                      <span className="mx-0.5 size-1.5 shrink-0 rounded-full border border-spark-gold/50 bg-gradient-to-b from-spark-bone to-spark-gold/25 shadow-[0_0_0_1px_color-mix(in_srgb,var(--color-spark-bg)_40%,transparent)] sm:size-2" />
+                      <span className="h-px w-2.5 rounded-full bg-spark-bone/18 sm:w-3.5" />
                     </div>
                   </div>
                 ) : null}

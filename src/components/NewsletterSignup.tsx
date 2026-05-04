@@ -70,14 +70,14 @@ export default function NewsletterSignup({
       <div
         className={[
           "mx-auto flex w-full flex-col items-center text-center",
-          isCompact ? "spark-sky-panel rounded-xl p-4" : "",
+          isCompact ? "spark-panel rounded-xl p-4" : "",
           className,
         ]
           .filter(Boolean)
           .join(" ")}
         role="status"
       >
-        <p className="body-sm text-spark-sage">{message}</p>
+        <p className="body-sm text-spark-red">{message}</p>
       </div>
     );
   }
@@ -114,7 +114,7 @@ export default function NewsletterSignup({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={status === "loading"}
-            className="w-full rounded-xl border border-spark-blue/35 bg-white px-4 py-3 text-spark-dark placeholder:text-secondary focus:border-spark-blue focus:outline-none focus:ring-2 focus:ring-spark-blue/25"
+            className="w-full rounded-xl border border-spark-gold/35 bg-[color-mix(in_srgb,var(--color-spark-bone)_8%,var(--color-spark-bg))] px-4 py-3 text-spark-bone placeholder:text-secondary focus:border-spark-gold focus:outline-none focus:ring-2 focus:ring-spark-gold/25"
           />
           <button
             type="submit"
@@ -127,7 +127,7 @@ export default function NewsletterSignup({
       </div>
       {status === "error" && message ? (
         <p
-          className="body-sm mx-auto mt-3 max-w-md text-center text-red-800"
+          className="body-sm mx-auto mt-3 max-w-md text-center text-spark-red"
           role="alert"
         >
           {message}

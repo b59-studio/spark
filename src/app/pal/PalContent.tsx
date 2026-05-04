@@ -41,8 +41,7 @@ export default function PalContent() {
           <span className="pal-hero-highlight">PAL makes it clear.</span>
         </h1>
         <p className="body-lg pal-hero-subtitle">
-          We turn complicated bill activity into plain-language tracking for
-          organizers, advocates, and communities taking action.
+          We turn complicated bill activity into plain-language tracking for organizers, advocates, and communities taking action.
         </p>
       </section>
 
@@ -50,9 +49,7 @@ export default function PalContent() {
         <section className="scroll-reveal" data-reveal>
           <h2 className="heading-lg mb-4">What is the People&apos;s Advocacy Lobby?</h2>
           <p className="body-md mb-4">
-            Our PAL Bill Tracker provides simplified bill summaries, real-time
-            status tracking, and filtering tools focused on legislation of concern
-            to progressive advocates.
+            Our PAL Bill Tracker provides simplified bill summaries, real-time status tracking, and filtering tools focused on legislation of concern to progressive advocates.
           </p>
           <p className="body-md mb-8">
             Due to the success of this project, we are planning an expansion for
@@ -62,21 +59,16 @@ export default function PalContent() {
 
         <section className="scroll-reveal" data-reveal>
           <h2 className="heading-lg mb-4">How does it work?</h2>
-          <div className="spark-sky-panel mb-8 rounded-lg p-5">
+          <div className="spark-panel mb-8 rounded-lg p-5">
             <ul className="body-md list-disc space-y-3 pl-6">
               <li>
-                <strong>Daily data pulls:</strong> Our automated system pulls fresh
-                bill data from Texas Legislature Online (TLO).
+                <strong>Daily data pulls:</strong> Our automated system pulls fresh bill data from Texas Legislature Online (TLO).
               </li>
               <li>
-                <strong>Human analysis:</strong> We review, label, and analyze bills
-                to identify legislation that is dangerous, misleading, or poorly
-                constructed.
+                <strong>Human analysis:</strong> We review, label, and analyze bills to identify legislation that is dangerous, misleading, or poorly constructed.
               </li>
               <li>
-                <strong>Clear public summaries:</strong> We compile everything into
-                easy-to-scan breakdowns so you can quickly understand bill content,
-                status, and likely social and economic impact.
+                <strong>Clear public summaries:</strong> We compile everything into easy-to-scan breakdowns so you can quickly understand bill content, status, and likely social and economic impact.
               </li>
             </ul>
           </div>
@@ -85,11 +77,7 @@ export default function PalContent() {
         <section className="scroll-reveal" data-reveal>
           <h2 className="heading-lg mb-4">How far does this tracker go back?</h2>
           <p className="body-md mb-8">
-            Our PAL Bill Tracker was launched in August 2025 as a way of helping
-            people stay informed about the Bills that were passing during the
-            Special Session. It is an open-source legislative tracking tool for the
-            Texas Legislature designed to empower everyday citizens to be informed
-            and organize against harmful legislation.
+            Our PAL Bill Tracker was launched in August 2025 as a way of helping people stay informed about the Bills that were passing during the Special Session. It is an open-source legislative tracking tool for the Texas Legislature designed to empower everyday citizens to be informed and organize against harmful legislation.
           </p>
         </section>
 

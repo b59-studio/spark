@@ -165,7 +165,7 @@ export default function ContactForm() {
         <p
           role="status"
           aria-live="polite"
-          className={`text-sm ${state.status === "error" ? "text-red-300" : "text-green-300"}`}
+          className={`text-sm ${state.status === "error" ? "text-spark-red" : "text-spark-gold"}`}
         >
           {state.message}
         </p>
