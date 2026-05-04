@@ -15,6 +15,12 @@ type GatedOutboundLinksProps = {
   links: OutboundLinkSpec[];
   className?: string;
   linksClassName?: string;
+  /** Override default heading-sm (e.g. heading-lg for page sections). */
+  headingClassName?: string;
+  /** Override default body-sm intro styling. */
+  introClassName?: string;
+  /** Override default body-sm loading line. */
+  loadingClassName?: string;
 };
 
 function readyHref(href: string) {
@@ -23,11 +29,14 @@ function readyHref(href: string) {
 }
 
 export default function GatedOutboundLinks({
-  heading = "Resources",
+  heading = "Solutions",
   intro,
   links,
   className = "",
   linksClassName = "",
+  headingClassName = "heading-sm mb-3",
+  introClassName = "body-sm text-secondary mb-5 max-w-prose",
+  loadingClassName = "body-sm text-secondary",
 }: GatedOutboundLinksProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleId = useId();
@@ -137,18 +146,16 @@ export default function GatedOutboundLinks({
     <>
       <section
         className={[
-          "rounded-2xl border border-spark-dark/15 spark-glass shadow-sm p-6 sm:p-7 mb-10",
+          "rounded-2xl p-6 sm:p-7 mb-10",
           className,
         ].join(" ")}
         aria-label={heading}
       >
-        <h2 className="heading-sm mb-3">{heading}</h2>
-        {intro ? (
-          <p className="body-sm text-secondary mb-5 max-w-prose">{intro}</p>
-        ) : null}
+        <h2 className={headingClassName}>{heading}</h2>
+        {intro ? <p className={introClassName}>{intro}</p> : null}
 
         {subscribed === null ? (
-          <p className="body-sm text-secondary">Loading…</p>
+          <p className={loadingClassName}>Loading…</p>
         ) : (
           <div
             className={["flex flex-wrap gap-3", linksClassName]
@@ -197,7 +204,7 @@ export default function GatedOutboundLinks({
           if (e.target === dialogRef.current) closeModal();
         }}
       >
-        <div className="spark-glass rounded-2xl border border-spark-dark/12 p-6 sm:p-7">
+        <div className="spark-sky-panel rounded-2xl p-6 sm:p-7">
           <h3 id={titleId} className="heading-md mb-2">
             You&apos;re almost there!
           </h3>
@@ -206,9 +213,15 @@ export default function GatedOutboundLinks({
             add you to our list and send a quick welcome note—you can unsubscribe
             anytime.
           </p>
-          <form onSubmit={handleModalSubmit} className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1.5">
-              <label htmlFor={emailInputId} className="body-sm font-medium">
+          <form
+            onSubmit={handleModalSubmit}
+            className="flex flex-col items-center gap-4"
+          >
+            <div className="mx-auto flex w-full max-w-sm flex-col gap-1.5">
+              <label
+                htmlFor={emailInputId}
+                className="body-sm font-medium text-center"
+              >
                 Email
               </label>
               <input
@@ -220,15 +233,15 @@ export default function GatedOutboundLinks({
                 required
                 placeholder="you@example.com"
                 disabled={modalLoading}
-                className="rounded-xl border border-spark-dark/20 bg-white/90 px-4 py-3 text-spark-dark placeholder:text-secondary focus:border-spark-blue focus:outline-none focus:ring-2 focus:ring-spark-blue/25 invalid:border-red-300"
+                className="rounded-xl border border-spark-blue/35 bg-white px-4 py-3 text-spark-dark placeholder:text-secondary focus:border-spark-blue focus:outline-none focus:ring-2 focus:ring-spark-blue/25 invalid:border-red-300"
               />
             </div>
             {modalError ? (
-              <p className="body-sm text-red-800" role="alert">
+              <p className="body-sm text-center text-red-800" role="alert">
                 {modalError}
               </p>
             ) : null}
-            <div className="flex flex-wrap gap-3 pt-1">
+            <div className="mx-auto flex w-full max-w-sm flex-wrap justify-center gap-3 pt-1">
               <button
                 type="submit"
                 disabled={modalLoading}

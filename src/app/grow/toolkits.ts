@@ -1,3 +1,13 @@
+/** Ordered `/public` artwork; index matches `growToolkits` (toolkits 1–6). */
+export const growToolkitCoverPaths = [
+  "/1-PRECINCT PLANNING.png",
+  "/2-VOLUNTEER RECRUITMENT.png",
+  "/3-VOTER ENGAGEMENT.png",
+  "/4-VOTER REGISTRATION.png",
+  "/5-VOTER MOBILIZATION.png",
+  "/6-VOTER APPRECIATION.png",
+] as const;
+
 export type GrowToolkit = {
   slug: string;
   shortLabel: string;
@@ -201,4 +211,12 @@ export function getGrowToolkitNav(slug: string) {
     prev: index > 0 ? growToolkits[index - 1]! : null,
     next: index < total - 1 ? growToolkits[index + 1]! : null,
   };
+}
+
+export function getGrowToolkitCoverPath(slug: string): string | null {
+  const nav = getGrowToolkitNav(slug);
+  if (!nav) {
+    return null;
+  }
+  return growToolkitCoverPaths[nav.index] ?? null;
 }

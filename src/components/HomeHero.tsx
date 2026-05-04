@@ -76,7 +76,7 @@ export default function HomeHero({ children }: { children?: ReactNode }) {
       />
 
       {children ? (
-        <div className="relative z-10 mt-auto flex justify-center px-4 pb-10 pt-28 sm:pb-12 sm:pt-36 lg:justify-start lg:px-8">
+        <div className="relative z-10 mt-auto flex w-full max-w-7xl mx-auto justify-center px-4 sm:px-6 lg:px-8 pb-10 pt-28 sm:pb-12 sm:pt-36 lg:justify-start">
           {children}
         </div>
       ) : null}

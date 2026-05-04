@@ -2,44 +2,50 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="footer-container border-top: 2px solid">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="text-xl font-bold footer-heading mb-4">
-              TX*Spark
-            </h3>
-            <p className="footer-text">
-              <i>Grassroots Tech for Texans</i>
-            </p>
-          </div>
-          
-          <div>
-            <h4 className="footer-heading font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {/**
-              <li><Link href="/about/sitemap" className="footer-link">Sitemap</Link></li>
-               */}
-              <li><Link href="/about/privacy" className="footer-link">Privacy Policy</Link></li>
-              <li><Link href="/about/terms" className="footer-link">Terms of Use</Link></li>
+    <footer className="footer-container">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+        <div className="flex flex-col items-center gap-2 text-center">
+          <p className="footer-heading text-xl font-bold">
+            TX*Spark{' '}
+            <span className="font-normal text-spark-dark">/</span>{' '}
+            <span className="font-normal italic">Grassroots Tech for Texans</span>
+          </p>
 
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="footer-heading font-semibold mb-4">Contact</h4>
-            <ul className="space-y-2">
-              <li>
-                <a href="mailto:info@txspark.com" className="footer-link">
-                  info@txspark.com
-                </a>
-              </li>
-              <li className="footer-text">Austin, TX, US</li>
-            </ul>
-          </div>
+          <nav
+            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 footer-text"
+            aria-label="Footer"
+          >
+            {/**
+            <Link href="/about/sitemap" className="footer-link whitespace-nowrap">
+              Sitemap
+            </Link>
+            <span className="text-spark-sage/40" aria-hidden>
+              ·
+            </span>
+             */}
+            <Link href="/about/privacy" className="footer-link whitespace-nowrap">
+              Privacy Policy
+            </Link>
+            <span className="text-spark-sage/40" aria-hidden>
+              ·
+            </span>
+            <Link href="/about/terms" className="footer-link whitespace-nowrap">
+              Terms of Use
+            </Link>
+            <span className="text-spark-sage/40" aria-hidden>
+              ·
+            </span>
+            <a href="mailto:info@txspark.com" className="footer-link whitespace-nowrap">
+              info@txspark.com
+            </a>
+            <span className="text-spark-sage/40" aria-hidden>
+              ·
+            </span>
+            <span className="whitespace-nowrap">Austin, TX, US</span>
+          </nav>
         </div>
-        
-        <div className="border-t border-spark-sage/20 mt-8 pt-8 text-center footer-text">
+
+        <div className="border-t border-spark-sage/20 mt-5 pt-4 text-center footer-text">
           © 2026 TX*Spark PAC. Powered by{' '}
           <a href="https://www.b-59.com" className="footer-link" target="_blank" rel="noopener noreferrer">
             B-59 Studio

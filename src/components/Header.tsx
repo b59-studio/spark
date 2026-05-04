@@ -2,25 +2,66 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLayoutEffect, useState } from 'react';
+import { growToolkits } from '@/app/grow/toolkits';
 
+/** Shared section rows — reused by desktop dropdowns and mobile accordions. */
 const ABOUT_SECTIONS = [
   { label: 'Mission', href: '/about/mission' },
   { label: 'People', href: '/about/people' },
   { label: 'Partners', href: '/about/partners' },
 ] as const;
 
-const RESOURCE_SECTIONS = [
-  { label: 'GROW', href: '/resources/grow' },
-  { label: 'PAL', href: '/resources/pal' },
-  { label: 'Partner Resources', href: '/resources/partners' },
+const GROW_NAV_SUMMARY =
+  'Six toolkits to help leaders plan for and connect with their communities.';
+
+const PAL_NAV_SUMMARY =
+  'Plain-language Texas bill tracking for organizers and advocates.';
+
+const SOLUTION_SECTIONS = [
+  {
+    label: 'PAL',
+    href: '/solutions/pal',
+    summary: PAL_NAV_SUMMARY,
+  },
+  {
+    label: 'GROW',
+    href: '/solutions/grow',
+    summary: GROW_NAV_SUMMARY,
+    children: growToolkits.map((t) => ({
+      label: t.shortLabel,
+      href: `/grow/${t.slug}`,
+      summary: t.target[0] ?? '',
+    })),
+  },
 ] as const;
+
+export type NavMegaSection = {
+  readonly label: string;
+  readonly href: string;
+  readonly summary?: string;
+  readonly children?: readonly { readonly label: string; readonly href: string; readonly summary?: string }[];
+};
+
+/** Primary desktop nav — discriminated union so mega panels (columns, promos) can attach per item later. */
+export type HeaderNavItem =
+  | { readonly kind: 'link'; readonly label: string; readonly href: string }
+  | {
+      readonly kind: 'dropdown';
+      readonly label: string;
+      readonly href: string;
+      readonly sections: readonly NavMegaSection[];
+    };
+
+const DESKTOP_NAV: readonly HeaderNavItem[] = [
+  { kind: 'dropdown', label: 'About', href: '/about', sections: ABOUT_SECTIONS },
+  { kind: 'link', label: 'Events', href: '/events' },
+  { kind: 'dropdown', label: 'Solutions', href: '/solutions', sections: SOLUTION_SECTIONS },
+];
 
 function ChevronDown({ className }: { className?: string }) {
   return (
     <svg
-      className={className}
-      width={16}
-      height={16}
+      className={className ?? 'h-4 w-4 shrink-0'}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -34,37 +75,101 @@ function ChevronDown({ className }: { className?: string }) {
   );
 }
 
+function navDropdownSummaryClassName() {
+  return 'mt-0.5 block text-[0.8125rem] leading-snug font-normal italic text-spark-dark/75';
+}
+
 function NavDropdown({
   label,
   href,
-  items,
+  sections,
 }: {
   label: string;
   href: string;
-  items: readonly { label: string; href: string }[];
+  sections: readonly NavMegaSection[];
 }) {
+  const wideMega = sections.some((s) => s.children?.length);
+
   return (
     <div className="relative group/nav-dd">
-      <Link href={href} className="nav-link inline-flex items-center gap-1.5">
+      <Link href={href} className="nav-link nav-link--mega inline-flex items-center gap-1">
         {label}
-        <ChevronDown className="opacity-65 transition-transform duration-200 group-hover/nav-dd:-rotate-180" />
+        <ChevronDown className="h-[0.85em] w-[0.85em] shrink-0 opacity-65 transition-transform duration-200 group-hover/nav-dd:-rotate-180" />
       </Link>
       <div
-        className="pointer-events-none invisible absolute left-1/2 top-full z-[60] w-max min-w-[13rem] -translate-x-1/2 pt-2 opacity-0 transition-[opacity,visibility] duration-150 group-hover/nav-dd:pointer-events-auto group-hover/nav-dd:visible group-hover/nav-dd:opacity-100 group-focus-within/nav-dd:pointer-events-auto group-focus-within/nav-dd:visible group-focus-within/nav-dd:opacity-100"
+        className={`pointer-events-none invisible absolute left-0 top-full z-[60] pt-2 opacity-0 transition-[opacity,visibility] duration-150 group-hover/nav-dd:pointer-events-auto group-hover/nav-dd:visible group-hover/nav-dd:opacity-100 group-focus-within/nav-dd:pointer-events-auto group-focus-within/nav-dd:visible group-focus-within/nav-dd:opacity-100 ${
+          wideMega ? 'w-[min(40rem,calc(100vw-2.5rem))]' : 'w-max min-w-[13rem]'
+        }`}
         role="menu"
         aria-label={`${label} sections`}
       >
         <div className="nav-dropdown-panel py-2">
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="nav-dropdown-link block px-4 py-2.5"
-              role="menuitem"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {sections.map((item) => {
+            const rich = Boolean(item.summary || item.children?.length);
+            if (!rich) {
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="nav-dropdown-link block px-4 py-2.5"
+                  role="menuitem"
+                >
+                  {item.label}
+                </Link>
+              );
+            }
+            if (item.children?.length) {
+              return (
+                <div
+                  key={item.href}
+                  className="border-b border-spark-dark/10 pb-2 mb-2 flex flex-row items-start gap-1 last:mb-0 last:border-b-0 last:pb-0 sm:gap-2"
+                >
+                  <div className="shrink-0 w-[min(11rem,32vw)] px-3 py-2 sm:w-[11.5rem] md:w-[12.25rem] sm:px-4">
+                    <Link href={item.href} className="nav-dropdown-link block rounded-md py-1" role="menuitem">
+                      <span className="font-medium">{item.label}</span>
+                      {item.summary ? <span className={navDropdownSummaryClassName()}>{item.summary}</span> : null}
+                    </Link>
+                  </div>
+                  <ul
+                    className="min-w-0 flex-1 space-y-0.5 border-l border-spark-dark/10 py-2 pl-3 pr-3 sm:pl-4"
+                    role="none"
+                  >
+                    {item.children.map((child) => (
+                      <li key={child.href} role="none">
+                        <Link
+                          href={child.href}
+                          className="nav-dropdown-link block rounded-md px-2 py-1.5 sm:px-3"
+                          role="menuitem"
+                        >
+                          <span className="text-[0.95rem]">{child.label}</span>
+                          {child.summary ? (
+                            <span className={navDropdownSummaryClassName()}>{child.summary}</span>
+                          ) : null}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            }
+            return (
+              <div
+                key={item.href}
+                className="border-b border-spark-dark/10 pb-2 mb-2 flex flex-row items-start gap-1 last:mb-0 last:border-b-0 last:pb-0 sm:gap-2"
+              >
+                <div className="shrink-0 w-[min(11rem,32vw)] px-3 py-2 sm:w-[11.5rem] md:w-[12.25rem] sm:px-4">
+                  <Link href={item.href} className="nav-dropdown-link block rounded-md py-1" role="menuitem">
+                    <span className="font-medium">{item.label}</span>
+                    {item.summary ? <span className={navDropdownSummaryClassName()}>{item.summary}</span> : null}
+                  </Link>
+                </div>
+                <div
+                  className="min-w-0 flex-1 border-l border-spark-dark/10 py-2 pl-3 pr-3 sm:pl-4"
+                  aria-hidden
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -76,7 +181,8 @@ export default function Header() {
   const isHome = pathname === '/';
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
-  const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
+  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
+  const [mobileGrowToolkitsOpen, setMobileGrowToolkitsOpen] = useState(false);
   const [homeScrollMerged, setHomeScrollMerged] = useState(false);
 
   const heroMerged = !isHome || homeScrollMerged;
@@ -110,7 +216,8 @@ export default function Header() {
   const closeMobile = () => {
     setMobileMenuOpen(false);
     setMobileAboutOpen(false);
-    setMobileResourcesOpen(false);
+    setMobileSolutionsOpen(false);
+    setMobileGrowToolkitsOpen(false);
   };
 
   return (
@@ -119,32 +226,28 @@ export default function Header() {
         <div className="header-nav-photo-layer" aria-hidden />
         <div className="header-nav-frost">
           <div className="relative z-10 px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-[4.8rem]">
-              <Link href="/" className="relative z-10 flex items-center shrink-0 min-w-0">
+            <div className="flex items-center h-[4.8rem] min-w-0 gap-5 lg:gap-7">
+              <Link href="/" className="relative z-10 flex items-center shrink-0 min-w-0 self-center">
                 <div className="logo-container header-logo-lockup" />
               </Link>
 
-              {/* Desktop Navigation */}
-              <div className="relative z-10 hidden md:flex items-center space-x-8">
-                <NavDropdown label="About" href="/about" items={ABOUT_SECTIONS} />
-                <Link href="/events" className="nav-link">
-                  Events
-                </Link>
-                <NavDropdown label="Resources" href="/resources" items={RESOURCE_SECTIONS} />
-                {/** 
-                <Link href="/work" className="nav-link">
-                  Work
-                </Link>
-                */}
-                {/** Contact page temporarily disabled
-                <Link href="/contact" className="nav-link">
-                  Contact
-                </Link>
-                */}
+              {/* Desktop primary nav — follows logo; mega-ready via DESKTOP_NAV */}
+              <div className="header-desktop-nav relative z-10 hidden md:flex items-center gap-5 lg:gap-7 min-w-0 self-stretch">
+                {DESKTOP_NAV.map((item) =>
+                  item.kind === 'link' ? (
+                    <Link key={item.href} href={item.href} className="nav-link nav-link--mega inline-flex items-center">
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <NavDropdown key={item.href} label={item.label} href={item.href} sections={item.sections} />
+                  ),
+                )}
               </div>
 
+              <div className="flex-1 min-w-0" aria-hidden />
+
               {/* Mobile menu */}
-              <div className="relative z-10 md:hidden flex items-center gap-2">
+              <div className="relative z-10 md:hidden flex items-center gap-2 shrink-0 self-center">
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   className="mobile-menu-btn"
@@ -179,7 +282,7 @@ export default function Header() {
                     onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
                   >
                     <ChevronDown
-                      className={`transition-transform duration-200 ${mobileAboutOpen ? '-rotate-180' : ''}`}
+                      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${mobileAboutOpen ? '-rotate-180' : ''}`}
                     />
                   </button>
                 </div>
@@ -198,28 +301,95 @@ export default function Header() {
                 </Link>
 
                 <div className="flex items-stretch gap-0 rounded-lg border border-spark-sage/15 overflow-hidden">
-                  <Link href="/resources" className="nav-mobile-link flex-1 rounded-none" onClick={closeMobile}>
-                    Resources
+                  <Link href="/solutions" className="nav-mobile-link flex-1 rounded-none" onClick={closeMobile}>
+                    Solutions
                   </Link>
                   <button
                     type="button"
                     className="mobile-menu-btn shrink-0 px-3 border-l border-spark-sage/15"
-                    aria-expanded={mobileResourcesOpen}
-                    aria-label={mobileResourcesOpen ? 'Collapse Resources sections' : 'Expand Resources sections'}
-                    onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
+                    aria-expanded={mobileSolutionsOpen}
+                    aria-label={mobileSolutionsOpen ? 'Collapse Solutions sections' : 'Expand Solutions sections'}
+                    onClick={() => setMobileSolutionsOpen(!mobileSolutionsOpen)}
                   >
                     <ChevronDown
-                      className={`transition-transform duration-200 ${mobileResourcesOpen ? '-rotate-180' : ''}`}
+                      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${mobileSolutionsOpen ? '-rotate-180' : ''}`}
                     />
                   </button>
                 </div>
-                {mobileResourcesOpen && (
-                  <div className="pl-4 ml-2 border-l border-spark-sage/20 space-y-0.5 pb-1">
-                    {RESOURCE_SECTIONS.map((item) => (
-                      <Link key={item.href} href={item.href} className="nav-mobile-link" onClick={closeMobile}>
-                        {item.label}
-                      </Link>
-                    ))}
+                {mobileSolutionsOpen && (
+                  <div className="pl-4 ml-2 border-l border-spark-sage/20 space-y-2 pb-1">
+                    {SOLUTION_SECTIONS.map((item) => {
+                      const growWithKids = item.label === 'GROW' && item.children?.length;
+                      if (growWithKids) {
+                        return (
+                          <div key={item.href} className="space-y-1">
+                            <div className="flex items-stretch gap-0 rounded-lg border border-spark-sage/15 overflow-hidden">
+                              <Link href={item.href} className="nav-mobile-link flex-1 rounded-none" onClick={closeMobile}>
+                                {item.label}
+                              </Link>
+                              <button
+                                type="button"
+                                className="mobile-menu-btn shrink-0 px-3 border-l border-spark-sage/15"
+                                aria-expanded={mobileGrowToolkitsOpen}
+                                aria-label={
+                                  mobileGrowToolkitsOpen ? 'Collapse GROW toolkits' : 'Expand GROW toolkits'
+                                }
+                                onClick={() => setMobileGrowToolkitsOpen(!mobileGrowToolkitsOpen)}
+                              >
+                                <ChevronDown
+                                  className={`h-4 w-4 shrink-0 transition-transform duration-200 ${mobileGrowToolkitsOpen ? '-rotate-180' : ''}`}
+                                />
+                              </button>
+                            </div>
+                            {item.summary ? (
+                              <p className="px-4 text-[0.8125rem] italic text-spark-dark/80 leading-snug -mt-0.5">
+                                {item.summary}
+                              </p>
+                            ) : null}
+                            {mobileGrowToolkitsOpen && (
+                              <div className="pl-4 ml-2 border-l border-spark-sage/20 space-y-2">
+                                {item.children!.map((child) => (
+                                  <div key={child.href}>
+                                    <Link href={child.href} className="nav-mobile-link py-1.5" onClick={closeMobile}>
+                                      {child.label}
+                                    </Link>
+                                    {child.summary ? (
+                                      <p className="px-4 text-[0.75rem] italic text-spark-dark/75 leading-snug -mt-0.5">
+                                        {child.summary}
+                                      </p>
+                                    ) : null}
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      }
+                      return (
+                        <div key={item.href} className="space-y-1">
+                          <div className="flex items-stretch gap-0 rounded-lg border border-spark-sage/15 overflow-hidden">
+                            <Link
+                              href={item.href}
+                              className="nav-mobile-link flex-1 rounded-none"
+                              onClick={closeMobile}
+                            >
+                              {item.label}
+                            </Link>
+                            <div
+                              className="mobile-menu-btn shrink-0 flex items-center justify-center px-3 border-l border-spark-sage/15 self-stretch pointer-events-none"
+                              aria-hidden
+                            >
+                              <ChevronDown className="h-4 w-4 shrink-0 invisible" />
+                            </div>
+                          </div>
+                          {item.summary ? (
+                            <p className="px-4 text-[0.8125rem] italic text-spark-dark/80 leading-snug -mt-0.5">
+                              {item.summary}
+                            </p>
+                          ) : null}
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
 

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-20">
+    <main className="spark-page-narrow min-h-screen flex flex-col items-center justify-center">
       <h1 className="heading-xl mb-6 text-center">
         Connect with TX*Spark.
       </h1>

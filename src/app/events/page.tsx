@@ -23,16 +23,16 @@ export default function EventsPage() {
   const isCalendarReady = hasEmbedCalendar || hasAddCalendarLink;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div className="spark-page-narrow">
       <h1 className="heading-xl mb-6">Events</h1>
-      <p className="body-md mb-10">
+      <p className="body-md mb-6">
         TX*SPARK events bring neighbors together for practical, year-round civic
         action aligned with electoral and legislative calendars. From skill
         sharing to direct outreach, each event is designed to help local teams
         organize with confidence and care.
       </p>
 
-      <section className="rounded-2xl border border-spark-dark/15 spark-glass shadow-sm p-6 sm:p-7 mb-8">
+      <section className="rounded-2xl p-6 sm:p-7">
         <h2 className="heading-md mb-4">What to expect</h2>
         <ul className="space-y-3 body-md list-disc pl-5">
           <li>
@@ -50,7 +50,7 @@ export default function EventsPage() {
         </ul>
       </section>
 
-      <section className="rounded-2xl border border-spark-dark/15 spark-glass shadow-sm p-6 sm:p-7">
+      <section className="mt-14 rounded-2xl p-6 sm:p-7">
         <h2 className="heading-md mb-3">Organization Calendar</h2>
         {isCalendarReady ? (
           <>
@@ -60,7 +60,7 @@ export default function EventsPage() {
               calendar.
             </p>
             {hasEmbedCalendar ? (
-              <div className="overflow-hidden rounded-xl border border-spark-dark/15 spark-glass mb-5">
+              <div className="spark-sky-panel overflow-hidden rounded-xl mb-5">
                 <iframe
                   title="TX*SPARK organization calendar"
                   src={ORG_CALENDAR_EMBED_URL}
@@ -81,7 +81,7 @@ export default function EventsPage() {
             ) : null}
           </>
         ) : (
-          <div className="rounded-xl border border-dashed border-spark-dark/25 spark-glass px-4 py-5">
+          <div className="spark-sky-panel rounded-xl px-4 py-5">
             <p className="body-md text-secondary">
               Calendar coming soon. We are working on publishing our
               organization event calendar so you can subscribe and stay updated.
@@ -90,16 +90,13 @@ export default function EventsPage() {
         )}
       </section>
 
-      <section className="mt-12 rounded-2xl border border-spark-dark/15 spark-glass shadow-sm p-6 sm:p-8">
+      <section className="mt-14">
         <h2 className="heading-md mb-3 text-center">Join our mailing list</h2>
-        <p className="body-md text-center max-w-xl mx-auto mb-6">
+        <p className="body-md mx-auto mb-6 max-w-xl text-left">
           Hear about new trainings, toolkit releases, and advocacy updates—no
           spam, unsubscribe anytime.
         </p>
-        <NewsletterSignup
-          variant="panel"
-          className="max-w-xl mx-auto"
-        />
+        <NewsletterSignup variant="panel" className="max-w-xl" />
       </section>
     </div>
   );

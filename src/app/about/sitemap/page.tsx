@@ -4,11 +4,11 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Sitemap",
   description:
-    "Grassroots Tech for Texans. Navigate TX*Spark pages for about, events, resources, contact, and legal information.",
+    "Grassroots Tech for Texans. Navigate TX*Spark pages for about, events, solutions, contact, and legal information.",
   alternates: { canonical: "/about/sitemap" },
   openGraph: {
     title: "Sitemap | TX*Spark",
-    description: "Find your way around TX*Spark pages for programs, resources, events, contact, and legal details.",
+    description: "Find your way around TX*Spark pages for programs, solutions, events, contact, and legal details.",
     url: "/about/sitemap",
   },
 };
@@ -18,7 +18,7 @@ export default function SiteMap() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/events", label: "Events" },
-    { href: "/resources", label: "Resources" },
+    { href: "/solutions", label: "Solutions" },
     { href: "/work", label: "Our Work" },
     { href: "/contact", label: "Contact" },
   ];
@@ -29,10 +29,9 @@ export default function SiteMap() {
     { href: "/about/partners", label: "Partners" },
   ];
 
-  const resourceRoutes = [
-    { href: "/resources/grow", label: "GROW" },
-    { href: "/resources/pal", label: "PAL" },
-    { href: "/resources/partners", label: "Partner Resources" },
+  const solutionRoutes = [
+    { href: "/solutions/grow", label: "GROW" },
+    { href: "/solutions/pal", label: "PAL" },
     { href: "/grow", label: "GROW toolkits" },
     { href: "/branding", label: "Brand Guidelines" },
   ];
@@ -44,15 +43,15 @@ export default function SiteMap() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <div className="max-w-4xl mx-auto text-center mb-12">
-        <h1 className="heading-xl">Sitemap</h1>
+    <div className="spark-page-wide">
+      <div className="max-w-4xl mx-auto text-center">
+        <h1 className="heading-xl mb-6">Sitemap</h1>
         <p className="body-lg">
           Browse all key TX*Spark pages in one place.
         </p>
       </div>
 
-      <div className="max-w-4xl mx-auto grid gap-6 sm:grid-cols-2">
+      <div className="max-w-4xl mx-auto mt-14 grid gap-6 sm:grid-cols-2">
         <section className="callout-blue">
           <h2 className="heading-md mb-4">Main Pages</h2>
           <ul className="space-y-2 body-md">
@@ -82,7 +81,7 @@ export default function SiteMap() {
         <section className="callout-blue">
           <h2 className="heading-md mb-4">Programs & Tools</h2>
           <ul className="space-y-2 body-md">
-            {resourceRoutes.map((route) => (
+            {solutionRoutes.map((route) => (
               <li key={route.href}>
                 <Link href={route.href} className="text-link">
                   {route.label}
@@ -106,7 +105,7 @@ export default function SiteMap() {
         </section>
       </div>
 
-      <div className="flex gap-4 justify-center flex-wrap mt-12">
+      <div className="flex gap-4 justify-center flex-wrap mt-14">
         <a href="/contact" className="btn-secondary">
           Talk to Us
         </a>

@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 
 export default function Privacy() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <h1 className="heading-xl mb-12 text-center">
+    <div className="spark-page-narrow">
+      <h1 className="heading-xl mb-6 text-center">
         Privacy Policy
       </h1>
 
@@ -109,19 +109,10 @@ export default function Privacy() {
           <h2 className="heading-lg">
             Contact
           </h2>
-          <p className="body-md mb-8">
+          <p className="body-md">
             Questions about this policy can be directed to: <a href="mailto:info@txspark.com" className="text-link">info@txspark.com</a>
           </p>
         </section>
-
-        <div className="flex gap-4 justify-center flex-wrap pt-8">
-          <a href="/contact" className="btn-secondary">
-            Talk to Us
-          </a>
-          <a href="/about" className="btn-primary">
-            Learn More
-          </a>
-        </div>
       </div>
     </div>
   );
