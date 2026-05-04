@@ -47,7 +47,12 @@ export default function Footer() {
 
         <div className="border-t border-spark-purple/20 mt-5 pt-4 text-center footer-text">
           © 2026 TX*Spark PAC. Powered by{' '}
-          <a href="https://www.b-59.com" className="footer-link" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://www.b-59.com"
+            className="footer-link footer-link--gold"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             B-59 Studio
           </a>
           . All rights reserved.

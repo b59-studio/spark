@@ -560,6 +560,10 @@ body:has(#home-hero) {
   color: var(--color-spark-gold);
 }
 
+.footer-link.footer-link--gold {
+  color: var(--color-spark-gold);
+}
+
 .footer-text {
   color: var(--color-spark-bone);
   font-size: 0.875rem;
