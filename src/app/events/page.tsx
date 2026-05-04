@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import NewsletterSignup from "@/components/NewsletterSignup";
 
 export const metadata: Metadata = {
@@ -23,25 +24,44 @@ export default function EventsPage() {
   const isCalendarReady = hasEmbedCalendar || hasAddCalendarLink;
 
   return (
-    <div className="spark-page-narrow">
+    <div className="mx-auto max-w-6xl px-3 py-12 sm:px-4 sm:py-16 lg:px-6 lg:py-20">
       <h1 className="heading-xl mb-6">Events</h1>
       <p className="body-md mb-6">
         TX*SPARK events bring neighbors together for practical, year-round civic action aligned with electoral and legislative calendars. From skill sharing to direct outreach, each event is designed to help local teams organize with confidence and care.
       </p>
 
-      <section className="spark-panel rounded-2xl p-6 sm:p-8">
-        <h2 className="heading-md mb-4">What to expect</h2>
-        <ul className="space-y-3 body-md list-disc pl-5">
-          <li>
-            <strong>Community meet-ups:</strong> connect with organizers, partners, and neighbors building local momentum.
-          </li>
-          <li>
-            <strong>Canvasses and outreach:</strong> support direct voter and community engagement efforts.
-          </li>
-          <li>
-            <strong>Workshops:</strong> hands-on trainings and practical tools for teams doing grassroots work.
-          </li>
-        </ul>
+      <section className="mb-8 grid gap-8 lg:grid-cols-[minmax(0,27rem)_minmax(0,1fr)] lg:items-start lg:gap-8">
+        <figure className="min-w-0">
+          <div className="overflow-hidden rounded-2xl">
+            <Image
+              src="/francescateaching.jpg"
+              alt="Founder Francesa Leahy leading a workshop with precinct chairs from Pflugerville."
+              width={2048}
+              height={1536}
+              className="h-auto w-full object-cover"
+              sizes="(max-width: 1023px) 100vw, 432px"
+              priority
+            />
+          </div>
+          <figcaption className="body-sm mt-3 italic text-spark-gold">
+            Founder Francesa Leahy working with precinct chairs from Pflugerville.
+          </figcaption>
+        </figure>
+
+        <div className="min-w-0 spark-panel rounded-2xl p-6 sm:p-8">
+          <h2 className="heading-md mb-4">What to expect</h2>
+          <ul className="space-y-3 body-md list-disc pl-5">
+            <li>
+              <strong>Community meet-ups:</strong> connect with organizers, partners, and neighbors building local momentum.
+            </li>
+            <li>
+              <strong>Canvasses and outreach:</strong> support direct voter and community engagement efforts.
+            </li>
+            <li>
+              <strong>Workshops:</strong> hands-on trainings and practical tools for teams doing grassroots work.
+            </li>
+          </ul>
+        </div>
       </section>
 
       <section className="mt-14 spark-panel rounded-2xl p-6 sm:p-8">
