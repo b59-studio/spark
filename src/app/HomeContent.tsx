@@ -360,21 +360,15 @@ export default function HomeContent() {
           <p className="body-md max-w-4xl mx-auto mt-6">
             TX*Spark gives organizers, volunteers, and coalition partners free, practical tools to move from civic frustration to coordinated action. From precinct organizing to bill tracking, we help Texans organize with clarity, consistency, and confidence.
           </p>
-        </div>
 
-        <div className="mt-10 grid gap-8 md:grid-cols-3 md:gap-6 text-left">
-          <article>
-            <p className="heading-sm mb-2">Free and practical</p>
-            <p className="body-sm">Ready-to-use templates, scripts, and field tools for real-world organizing conditions.</p>
-          </article>
-          <article>
-            <p className="heading-sm mb-2">Built for Texas timing</p>
-            <p className="body-sm">Aligned to election and legislative calendars so teams can act early, not just react late.</p>
-          </article>
-          <article>
-            <p className="heading-sm mb-2">Community-rooted approach</p>
-            <p className="body-sm">Co-designed with local partners to strengthen existing coalitions, not replace them.</p>
-          </article>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+            <Link href="/solutions" className="btn-primary">
+              Get Started
+            </Link>
+            <Link href="/about" className="btn-secondary">
+              Our Process
+            </Link>
+          </div>
         </div>
       </section>
 

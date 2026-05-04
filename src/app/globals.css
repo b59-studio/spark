@@ -325,7 +325,7 @@ h2::before {
 /* Logo SVGs use viewBox 0 0 1024 1024 with art offset ~84px right, so we pull the
    image left so the visible logo aligns with the container edge (not the SVG canvas). */
 .logo-container {
-  height: 144px;
+  height: 108px;
   width: auto;
   background-image: url('/wordmark2-g.png');
   background-size: contain;
@@ -438,11 +438,11 @@ body:has(#home-hero) {
   -webkit-backdrop-filter: none;
 }
 
-/* Header lockup: `.logo-container` default height is 144px; header constrains via these rules */
+/* Header lockup: `.logo-container` default height is 108px; header constrains via these rules */
 .header-logo-lockup {
-  height: 3.5625rem !important;
-  width: 13.75rem;
-  max-width: min(13.75rem, 57.5vw);
+  height: 3.75732421875rem !important;
+  width: 14.501953125rem;
+  max-width: min(14.501953125rem, 60.64453125vw);
 }
 
 .header-nav--photo-slice .nav-link,
@@ -509,6 +509,10 @@ body:has(#home-hero) {
 .nav-mobile-link:hover {
   background-color: color-mix(in srgb, var(--color-spark-red) 12%, transparent);
   color: var(--color-spark-red);
+}
+
+.nav-mobile-link.nav-mobile-sublink {
+  color: var(--color-spark-bone);
 }
 
 .mobile-menu-btn {
@@ -851,18 +855,6 @@ textarea.form-input:user-invalid + .form-error {
 
 .pal-hero {
   text-align: center;
-}
-
-.pal-kicker {
-  display: inline-block;
-  margin-bottom: 0.75rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-spark-bone);
-  background-color: color-mix(in srgb, var(--color-spark-purple) 22%, var(--color-spark-bg));
 }
 
 .pal-hero-title {

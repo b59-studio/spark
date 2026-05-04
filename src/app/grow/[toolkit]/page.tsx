@@ -47,39 +47,39 @@ export default async function ToolkitPage({ params }: ToolkitPageProps) {
       <GrowToolkitCarouselNav currentSlug={toolkit} />
       <h1 className="heading-xl mb-6">{currentToolkit.fullTitle}</h1>
 
-      <p className="body-lg mb-6">{currentToolkit.summary}</p>
+      <p className="body-md mb-6">{currentToolkit.summary}</p>
 
       <div className="space-y-14">
-        <section>
-          <h2 className="heading-sm mb-3">Target</h2>
-          <ul className="list-disc pl-5 space-y-2 body-md">
+        <section className="spark-panel spark-carousel-slide-outline rounded-2xl p-6 sm:p-7">
+          <h2 className="heading-md mb-4">Target</h2>
+          <ul className="body-md list-disc pl-6 space-y-2">
             {currentToolkit.target.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
         </section>
 
-        <section>
-          <h2 className="heading-sm mb-3">Timeframe</h2>
-          <ul className="list-disc pl-5 space-y-2 body-md">
+        <section className="spark-panel spark-carousel-slide-outline rounded-2xl p-6 sm:p-7">
+          <h2 className="heading-md mb-4">Timeframe</h2>
+          <ul className="body-md list-disc pl-6 space-y-2">
             {currentToolkit.timeframe.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
         </section>
 
-        <section>
-          <h2 className="heading-sm mb-3">Tools</h2>
-          <ul className="list-disc pl-5 space-y-2 body-md">
+        <section className="spark-panel spark-carousel-slide-outline rounded-2xl p-6 sm:p-7">
+          <h2 className="heading-md mb-4">Tools</h2>
+          <ul className="body-md list-disc pl-6 space-y-2">
             {currentToolkit.tools.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
         </section>
 
-        <section>
-          <h2 className="heading-sm mb-3">Tasks</h2>
-          <ul className="list-disc pl-5 space-y-2 body-md">
+        <section className="spark-panel spark-carousel-slide-outline rounded-2xl p-6 sm:p-7">
+          <h2 className="heading-md mb-4">Tasks</h2>
+          <ul className="body-md list-disc pl-6 space-y-2">
             {currentToolkit.tasks.map((item) => (
               <li key={item}>{item}</li>
             ))}
@@ -88,7 +88,11 @@ export default async function ToolkitPage({ params }: ToolkitPageProps) {
 
         <GatedOutboundLinks
           heading="Toolkit packet"
-          intro="Click below to open the packet in a new tab. First-time visitors confirm their email in a short step so we can send toolkit updates when materials change."
+          className="spark-panel spark-carousel-slide-outline"
+          headingClassName="heading-md mb-4"
+          intro="Get the whole toolkit for free below!"
+          introClassName="body-md mb-5 max-w-prose"
+          loadingClassName="body-md text-secondary"
           links={[
             {
               label: "Toolkit packet",

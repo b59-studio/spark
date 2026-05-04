@@ -205,10 +205,10 @@ export default function GatedOutboundLinks({
         }}
       >
         <div className="spark-panel rounded-2xl p-6 sm:p-7">
-          <h3 id={titleId} className="heading-md mb-2">
+          <h3 id={titleId} className="heading-md mb-2 text-spark-gold">
             You&apos;re almost there!
           </h3>
-          <p className="body-sm text-secondary mb-5">
+          <p className="body-md mb-5">
             Enter your email to receive access to this free resource. We&apos;ll
             add you to our list and send a quick welcome note—you can unsubscribe
             anytime.

@@ -9,6 +9,25 @@ type GrowToolkitCarouselNavProps = {
   currentSlug: string;
 };
 
+/** Scroll only the nav strip (never the page): align item center with scroller center. */
+function scrollNavItemToCenter(
+  scroller: HTMLDivElement,
+  item: HTMLElement,
+  behavior: ScrollBehavior,
+) {
+  const scRect = scroller.getBoundingClientRect();
+  const itemRect = item.getBoundingClientRect();
+  const itemCenter = itemRect.left + itemRect.width * 0.5;
+  const scrollerCenter = scRect.left + scRect.width * 0.5;
+  const delta = itemCenter - scrollerCenter;
+  const maxScroll = Math.max(0, scroller.scrollWidth - scroller.clientWidth);
+  const nextLeft = Math.min(
+    maxScroll,
+    Math.max(0, scroller.scrollLeft + delta),
+  );
+  scroller.scrollTo({ left: nextLeft, behavior });
+}
+
 function CarouselChevron({ direction }: { direction: "left" | "right" }) {
   return (
     <svg
@@ -38,18 +57,15 @@ export default function GrowToolkitCarouselNav({
 
   useLayoutEffect(() => {
     const index = growToolkits.findIndex((t) => t.slug === currentSlug);
-    const el = itemRefs.current[index];
-    if (!el) return;
+    const item = itemRefs.current[index];
+    const scroller = scrollerRef.current;
+    if (!item || !scroller) return;
 
     const prefersReduced =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    el.scrollIntoView({
-      behavior: prefersReduced ? "auto" : "smooth",
-      inline: "center",
-      block: "nearest",
-    });
+    scrollNavItemToCenter(scroller, item, prefersReduced ? "auto" : "smooth");
   }, [currentSlug]);
 
   const scrollByDir = useCallback((dir: -1 | 1) => {

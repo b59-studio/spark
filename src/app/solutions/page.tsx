@@ -24,25 +24,7 @@ export default function SolutionsPage() {
         </p>
       </header>
 
-      <section className="mt-12 max-w-4xl mx-auto text-left">
-        <div className="spark-panel rounded-2xl p-6 sm:p-8">
-          <h2 className="heading-md mb-3">Built on data you can trust</h2>
-          <p className="body-md text-secondary">
-            GROW and PAL are only as useful as the information behind them. We
-            invest in clean pipelines, timely updates, and clear presentation so
-            what you act on matches the Capitol and the field—not a stale
-            export. That is how these solutions stay practical week to week.
-          </p>
-          <Link
-            href="/about/data"
-            className="btn-secondary mt-5 inline-block"
-          >
-            How we keep information current
-          </Link>
-        </div>
-      </section>
-
-      <section className="mt-14 grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
+      <section className="mt-12 grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
         <article className="callout-blue h-full flex flex-col">
           <h2 className="heading-md">GROW</h2>
           <p className="body-md mb-6 flex-1">
@@ -62,6 +44,24 @@ export default function SolutionsPage() {
             Explore PAL
           </Link>
         </article>
+      </section>
+
+      <section className="mt-14 max-w-4xl mx-auto text-left">
+        <div className="spark-panel rounded-2xl border border-spark-gold/40 p-6 sm:p-8">
+          <h2 className="heading-md mb-3">Built on data you can trust</h2>
+          <p className="body-md">
+            GROW and PAL are only as useful as the information behind them. We
+            invest in clean pipelines, timely updates, and clear presentation so
+            what you act on matches the Capitol and the field—not a stale
+            export. That is how these solutions stay practical week to week.
+          </p>
+          <Link
+            href="/about/data"
+            className="btn-secondary mt-5 inline-block"
+          >
+            How we keep information current
+          </Link>
+        </div>
       </section>
     </div>
   );

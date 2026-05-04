@@ -20,7 +20,7 @@ export default function AboutDataPage() {
       <div className="space-y-12 sm:space-y-14">
         <section className="rounded-2xl p-6 sm:p-8">
           <h1 className="heading-xl mb-6">Data integrity</h1>
-          <p className="body-lg max-w-3xl text-balance">
+          <p className="body-md max-w-3xl text-balance">
             TX*Spark works to make sure you have the most up-to-date, actionable information in front of you—whether you are tracking bills, building outreach lists, or coordinating in the field. That reliability is a core part of our promise, because we know your work does not get done if you cannot trust the data you are working with.
           </p>
         </section>

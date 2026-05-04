@@ -260,7 +260,12 @@ export default function Header() {
                 {mobileAboutOpen && (
                   <div className="pl-4 ml-2 border-l border-spark-purple/20 space-y-0.5 pb-1">
                     {ABOUT_SECTIONS.map((item) => (
-                      <Link key={item.href} href={item.href} className="nav-mobile-link" onClick={closeMobile}>
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className="nav-mobile-link nav-mobile-sublink"
+                        onClick={closeMobile}
+                      >
                         {item.label}
                       </Link>
                     ))}
@@ -295,7 +300,11 @@ export default function Header() {
                         return (
                           <div key={item.href} className="space-y-1">
                             <div className="flex items-stretch gap-0 rounded-lg border border-spark-purple/15 overflow-hidden">
-                              <Link href={item.href} className="nav-mobile-link flex-1 rounded-none" onClick={closeMobile}>
+                              <Link
+                                href={item.href}
+                                className="nav-mobile-link nav-mobile-sublink flex-1 rounded-none"
+                                onClick={closeMobile}
+                              >
                                 {item.label}
                               </Link>
                               <button
@@ -321,7 +330,11 @@ export default function Header() {
                               <div className="pl-4 ml-2 border-l border-spark-purple/20 space-y-2">
                                 {item.children!.map((child) => (
                                   <div key={child.href}>
-                                    <Link href={child.href} className="nav-mobile-link py-1.5" onClick={closeMobile}>
+                                    <Link
+                                      href={child.href}
+                                      className="nav-mobile-link nav-mobile-sublink py-1.5"
+                                      onClick={closeMobile}
+                                    >
                                       {child.label}
                                     </Link>
                                     {child.summary ? (
@@ -341,7 +354,7 @@ export default function Header() {
                           <div className="flex items-stretch gap-0 rounded-lg border border-spark-purple/15 overflow-hidden">
                             <Link
                               href={item.href}
-                              className="nav-mobile-link flex-1 rounded-none"
+                              className="nav-mobile-link nav-mobile-sublink flex-1 rounded-none"
                               onClick={closeMobile}
                             >
                               {item.label}

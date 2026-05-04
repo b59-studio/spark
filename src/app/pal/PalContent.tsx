@@ -35,7 +35,6 @@ export default function PalContent() {
   return (
     <>
       <section className="pal-hero">
-        <p className="pal-kicker">People&apos;s Advocacy Lobby</p>
         <h1 className="heading-xl pal-hero-title">
           Texas Legislature Online is hard to navigate.
           <span className="pal-hero-highlight">PAL makes it clear.</span>

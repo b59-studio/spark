@@ -117,7 +117,7 @@ export default function GrowIndexToolkitCarousel() {
       <div
         ref={scrollerRef}
         className={[
-          "flex gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth pb-2 pt-1 sm:gap-4",
+          "flex items-stretch gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth pb-2 pt-1 sm:gap-4",
           "snap-x snap-mandatory pl-11 pr-11 sm:pl-12 sm:pr-12",
           "scroll-pl-11 scroll-pr-11 sm:scroll-pl-12 sm:scroll-pr-12",
           "[scrollbar-width:thin]",
@@ -134,16 +134,16 @@ export default function GrowIndexToolkitCarousel() {
               ref={(node) => {
                 slideRefs.current[index] = node;
               }}
-              className="box-border flex min-w-0 shrink-0 snap-center snap-always flex-[0_0_88%] items-stretch justify-center sm:flex-[0_0_86%]"
+              className="box-border flex min-h-0 min-w-0 shrink-0 snap-center snap-always flex-[0_0_88%] items-stretch justify-center sm:flex-[0_0_86%]"
             >
               <article
-                className="grow-timeline-card w-full max-w-xl"
+                className="grow-timeline-card flex h-full min-h-0 w-full max-w-xl flex-col"
                 aria-labelledby={`grow-index-toolkit-${toolkit.slug}-title`}
               >
                 <span className="sr-only">{stepLabel}</span>
                 <Link
                   href={`/grow/${toolkit.slug}`}
-                  className="grow-toolkit-icon-slot mb-4 flex items-center justify-center overflow-hidden rounded-lg px-4 py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold"
+                  className="grow-toolkit-icon-slot mb-4 flex shrink-0 items-center justify-center overflow-hidden rounded-lg px-4 py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold"
                   aria-label={`Open ${toolkit.fullTitle} toolkit`}
                 >
                   <Image
@@ -151,12 +151,12 @@ export default function GrowIndexToolkitCarousel() {
                     alt=""
                     width={500}
                     height={500}
-                    className="h-[7.5rem] w-[7.5rem] object-contain"
-                    sizes="120px"
+                    className="h-44 w-44 object-contain sm:h-48 sm:w-48"
+                    sizes="(max-width: 640px) 176px, 192px"
                     priority={index === 0}
                   />
                 </Link>
-                <div className="spark-panel spark-carousel-slide-outline rounded-2xl p-6 sm:p-7">
+                <div className="spark-panel spark-carousel-slide-outline flex min-h-0 flex-1 flex-col rounded-2xl p-6 sm:p-7">
                   <h2
                     id={`grow-index-toolkit-${toolkit.slug}-title`}
                     className="grow-toolkit-title heading-md mb-3 flex flex-wrap items-center gap-3"
