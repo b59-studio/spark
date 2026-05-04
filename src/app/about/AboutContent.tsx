@@ -69,10 +69,7 @@ export default function AboutContent() {
           data-reveal
         >
           <h1 className="heading-xl text-balance">About TX*Spark</h1>
-          <p className="body-lg mt-5 max-w-3xl">
-            We are a pro-democracy political action committee and organizer collective rooted in Austin, building practical tools and trusted support systems so local leaders can turn civic energy into year-round impact.
-          </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
             <div className="spark-panel rounded-xl p-4">
               <p className="text-3xl font-bold text-spark-bone">Year-round</p>
               <p className="body-sm mt-1">Organizing support beyond elections.</p>
@@ -86,6 +83,12 @@ export default function AboutContent() {
               <p className="body-sm mt-1">Tools people can use immediately.</p>
             </div>
           </div>
+          <p className="body-lg mt-8 max-w-3xl">
+            We are a pro-democracy political action committee and organizer collective rooted in Austin, building practical tools and trusted support systems so local leaders can turn civic energy into year-round impact.
+          </p>
+          <p className="body-lg mt-5 max-w-3xl">
+            TX*Spark gives organizers, volunteers, and coalition partners free, practical tools to move from civic frustration to coordinated action. From precinct organizing to bill tracking, we help Texans organize with clarity, consistency, and confidence.
+          </p>
         </section>
 
         <section className="scroll-reveal" data-reveal aria-labelledby="about-sections-heading">

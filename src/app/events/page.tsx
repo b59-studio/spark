@@ -43,8 +43,8 @@ export default function EventsPage() {
               priority
             />
           </div>
-          <figcaption className="body-sm mt-3 italic text-spark-gold">
-            Founder Francesa Leahy working with precinct chairs from Pflugerville.
+          <figcaption className="spark-figure-caption">
+            Founder Francesca Leahy working with precinct chairs from Pflugerville.
           </figcaption>
         </figure>
 

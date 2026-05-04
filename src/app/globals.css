@@ -35,6 +35,13 @@ body {
   .spark-page-home {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-16 sm:pb-20;
   }
+
+  /* Captions under hero / inline figures (matches events page Francesca image) */
+  .spark-figure-caption {
+    @apply mt-3 italic text-spark-gold;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
 }
 
 /* Legacy hook: content uses page background only (no frost wash). */

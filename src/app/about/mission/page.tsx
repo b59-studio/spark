@@ -55,7 +55,10 @@ export default function AboutMissionPage() {
 
         <section className="spark-framed rounded-2xl p-6 sm:p-8">
           <h2 className="heading-lg mb-4">What we believe</h2>
-          <blockquote className="quote">
+          <p className="body-md max-w-3xl">
+            People already have the motivation to act. What they need is trusted structure. TX*Spark turns civic energy into durable local power by giving communities the tools, strategy, and support to organize together all year.
+          </p>
+          <blockquote className="quote mt-6">
             Lasting civic power is built when local communities have the tools and confidence to organize on their own terms.
           </blockquote>
         </section>

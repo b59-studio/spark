@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { growToolkits, growToolkitCoverPaths } from "./toolkits";
 
 /** Scroll the carousel only (never the page): align slide center with scroller visible center. */
@@ -49,84 +49,64 @@ function nearestSlideIndex(
   return best;
 }
 
-function CarouselChevron({ direction }: { direction: "left" | "right" }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="20"
-      height="20"
-      className="text-spark-bone/85"
-      aria-hidden
-    >
-      <path
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d={direction === "left" ? "M15 6l-6 6 6 6" : "M9 6l6 6-6 6"}
-      />
-    </svg>
-  );
-}
-
 export default function GrowIndexToolkitCarousel() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  /** Discrete: adjacent toolkit, centered in the carousel (no window scroll). */
-  const goToAdjacentSlide = useCallback((dir: -1 | 1) => {
+  const syncActiveFromScroll = useCallback(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
+    setActiveIndex(nearestSlideIndex(scroller, slideRefs.current));
+  }, []);
+
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    syncActiveFromScroll();
+
+    const onScroll = () => {
+      syncActiveFromScroll();
+    };
+    scroller.addEventListener("scroll", onScroll, { passive: true });
+
+    const ro = new ResizeObserver(() => syncActiveFromScroll());
+    ro.observe(scroller);
+
+    return () => {
+      scroller.removeEventListener("scroll", onScroll);
+      ro.disconnect();
+    };
+  }, [syncActiveFromScroll]);
+
+  const goToSlide = useCallback((index: number) => {
+    const scroller = scrollerRef.current;
     const slides = slideRefs.current;
+    const target = slides[index];
+    if (!scroller || !target) return;
     const reduced =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const i = nearestSlideIndex(scroller, slides);
-    const next = Math.min(Math.max(0, i + dir), slides.length - 1);
-    const target = slides[next];
-    if (!target) return;
     scrollCarouselToSlide(scroller, target, reduced ? "auto" : "smooth");
   }, []);
 
   const n = growToolkits.length;
 
   return (
-    <div className="relative w-full">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 flex w-10 items-center justify-start sm:w-11">
-        <button
-          type="button"
-          onClick={() => goToAdjacentSlide(-1)}
-          className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full spark-carousel-nav-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold"
-          aria-label="Previous toolkit"
-        >
-          <CarouselChevron direction="left" />
-        </button>
-      </div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 flex w-10 items-center justify-end sm:w-11">
-        <button
-          type="button"
-          onClick={() => goToAdjacentSlide(1)}
-          className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full spark-carousel-nav-btn focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold"
-          aria-label="Next toolkit"
-        >
-          <CarouselChevron direction="right" />
-        </button>
-      </div>
-
+    <div className="w-full">
       <div
         ref={scrollerRef}
         className={[
-          "flex items-stretch gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth pb-2 pt-1 sm:gap-4",
-          "snap-x snap-mandatory pl-11 pr-11 sm:pl-12 sm:pr-12",
-          "scroll-pl-11 scroll-pr-11 sm:scroll-pl-12 sm:scroll-pr-12",
+          "flex items-stretch gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth pb-1 pt-1 sm:gap-4",
+          "snap-x snap-mandatory px-1 sm:px-0",
           "[scrollbar-width:thin]",
         ].join(" ")}
         role="region"
         aria-label="GROW toolkits overview"
       >
         {growToolkits.map((toolkit, index) => {
-          const stepLabel = `Step ${index + 1} of ${n}`;
+          const positionLabel = `Toolkit ${index + 1} of ${n}`;
 
           return (
             <div
@@ -134,42 +114,69 @@ export default function GrowIndexToolkitCarousel() {
               ref={(node) => {
                 slideRefs.current[index] = node;
               }}
-              className="box-border flex min-h-0 min-w-0 shrink-0 snap-center snap-always flex-[0_0_88%] items-stretch justify-center sm:flex-[0_0_86%]"
+              className="box-border flex min-h-0 min-w-0 shrink-0 snap-center snap-always flex-[0_0_100%] items-stretch justify-center sm:flex-[0_0_88%] md:flex-[0_0_86%]"
             >
               <article
                 className="grow-timeline-card flex h-full min-h-0 w-full max-w-xl flex-col"
                 aria-labelledby={`grow-index-toolkit-${toolkit.slug}-title`}
               >
-                <span className="sr-only">{stepLabel}</span>
+                <span className="sr-only">{positionLabel}</span>
                 <Link
                   href={`/grow/${toolkit.slug}`}
                   className="grow-toolkit-icon-slot mb-4 flex shrink-0 items-center justify-center overflow-hidden rounded-lg px-4 py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold"
-                  aria-label={`Open ${toolkit.fullTitle} toolkit`}
+                  aria-label={`Open ${toolkit.panelTitle} toolkit`}
                 >
                   <Image
                     src={encodeURI(growToolkitCoverPaths[index]!)}
                     alt=""
                     width={500}
                     height={500}
-                    className="h-44 w-44 object-contain sm:h-48 sm:w-48"
-                    sizes="(max-width: 640px) 176px, 192px"
+                    className="h-40 w-40 object-contain sm:h-48 sm:w-48"
+                    sizes="(max-width: 640px) 160px, 192px"
                     priority={index === 0}
                   />
                 </Link>
                 <div className="spark-panel spark-carousel-slide-outline flex min-h-0 flex-1 flex-col rounded-2xl p-6 sm:p-7">
                   <h2
                     id={`grow-index-toolkit-${toolkit.slug}-title`}
-                    className="grow-toolkit-title heading-md mb-3 flex flex-wrap items-center gap-3"
+                    className="grow-toolkit-title heading-md mb-3"
                   >
-                    <span className="inline-flex h-11 min-w-11 shrink-0 items-center justify-center rounded-full border-2 border-spark-gold/50 bg-spark-purple/25 px-3 text-2xl font-semibold leading-none text-spark-bone">
-                      {index + 1}
-                    </span>
-                    <span>{toolkit.fullTitle}</span>
+                    {toolkit.panelTitle}
                   </h2>
                   <p className="body-md mb-0">{toolkit.summary}</p>
                 </div>
               </article>
             </div>
+          );
+        })}
+      </div>
+
+      <div
+        className="mt-4 flex flex-wrap items-center justify-center gap-2.5"
+        role="group"
+        aria-label="Choose a toolkit to scroll into view"
+      >
+        {growToolkits.map((toolkit, index) => {
+          const selected = index === activeIndex;
+          return (
+            <button
+              key={toolkit.slug}
+              type="button"
+              aria-current={selected ? "true" : undefined}
+              onClick={() => goToSlide(index)}
+              className={[
+                "flex size-2.5 shrink-0 items-center justify-center rounded-full transition-[transform,background-color,box-shadow] duration-200",
+                "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold",
+                selected
+                  ? "scale-110 bg-spark-gold shadow-[0_0_0_2px_color-mix(in_srgb,var(--color-spark-bg)_55%,transparent)]"
+                  : "bg-spark-bone/35 hover:bg-spark-bone/55",
+              ].join(" ")}
+            >
+              <span className="sr-only">
+                {toolkit.panelTitle}
+                {selected ? " (current)" : ""}
+              </span>
+            </button>
           );
         })}
       </div>
