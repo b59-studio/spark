@@ -49,6 +49,23 @@ export default async function ToolkitPage({ params }: ToolkitPageProps) {
 
       <p className="body-md mb-6">{currentToolkit.summary}</p>
 
+      <GatedOutboundLinks
+        heading="Get the free toolkit"
+        className="spark-panel spark-carousel-slide-outline mb-14"
+        headingClassName="heading-md mb-4"
+        intro="Get the whole toolkit for free below!"
+        introClassName="body-md mb-5 max-w-prose"
+        loadingClassName="body-md text-secondary"
+        links={[
+          {
+            label: "Toolkit packet",
+            href: currentToolkit.toolkitPacketHref,
+          },
+        ]}
+      />
+
+      <h2 className="heading-lg mb-6">Summary</h2>
+
       <div className="space-y-14">
         <section className="spark-panel spark-carousel-slide-outline rounded-2xl p-6 sm:p-7">
           <h2 className="heading-md mb-4">Target</h2>
@@ -85,21 +102,6 @@ export default async function ToolkitPage({ params }: ToolkitPageProps) {
             ))}
           </ul>
         </section>
-
-        <GatedOutboundLinks
-          heading="Toolkit packet"
-          className="spark-panel spark-carousel-slide-outline"
-          headingClassName="heading-md mb-4"
-          intro="Get the whole toolkit for free below!"
-          introClassName="body-md mb-5 max-w-prose"
-          loadingClassName="body-md text-secondary"
-          links={[
-            {
-              label: "Toolkit packet",
-              href: currentToolkit.toolkitPacketHref,
-            },
-          ]}
-        />
       </div>
     </div>
   );

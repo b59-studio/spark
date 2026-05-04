@@ -1,8 +1,5 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
-import { isValidNewsletterEmail } from "@/lib/newsletter-email-validation";
-
 export type OutboundLinkSpec = {
   label: string;
   /** Empty until the live URL exists */
@@ -38,107 +35,9 @@ export default function GatedOutboundLinks({
   introClassName = "body-sm text-secondary mb-5 max-w-prose",
   loadingClassName = "body-sm text-secondary",
 }: GatedOutboundLinksProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const titleId = useId();
-  const emailInputId = useId();
-  const [subscribed, setSubscribed] = useState<boolean | null>(null);
-  const [pending, setPending] = useState<OutboundLinkSpec | null>(null);
-  const [modalLoading, setModalLoading] = useState(false);
-  const [modalError, setModalError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const el = dialogRef.current;
-    if (!el) return;
-    function onDialogClose() {
-      setPending(null);
-      setModalError(null);
-      setModalLoading(false);
-    }
-    el.addEventListener("close", onDialogClose);
-    return () => el.removeEventListener("close", onDialogClose);
-  }, []);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch("/api/newsletter/status")
-      .then((r) => r.json())
-      .then((data: { subscribed?: boolean }) => {
-        if (!cancelled) setSubscribed(Boolean(data.subscribed));
-      })
-      .catch(() => {
-        if (!cancelled) setSubscribed(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  function closeModal() {
-    dialogRef.current?.close();
-    setPending(null);
-    setModalError(null);
-    setModalLoading(false);
-  }
-
-  function openGate(link: OutboundLinkSpec) {
-    setPending(link);
-    setModalError(null);
-    setModalLoading(false);
-    dialogRef.current?.showModal();
-  }
-
   function handleResourceActivate(link: OutboundLinkSpec) {
-    if (subscribed === null) return;
-    if (subscribed) {
-      if (readyHref(link.href)) {
-        window.open(link.href.trim(), "_blank", "noopener,noreferrer");
-      }
-      return;
-    }
-    openGate(link);
-  }
-
-  async function handleModalSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (!pending) return;
-    const form = e.currentTarget;
-    if (!form.reportValidity()) return;
-
-    const raw = (
-      form.elements.namedItem("email") as HTMLInputElement | null
-    )?.value;
-    const email = raw ?? "";
-    if (!isValidNewsletterEmail(email)) {
-      setModalError("Please enter a valid email address.");
-      return;
-    }
-
-    const urlAfter = pending.href.trim();
-    setModalLoading(true);
-    setModalError(null);
-
-    try {
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = (await res.json()) as { error?: string };
-      if (!res.ok) {
-        setModalError(data.error ?? "Something went wrong. Try again shortly.");
-        setModalLoading(false);
-        return;
-      }
-      setSubscribed(true);
-      dialogRef.current?.close();
-      setPending(null);
-      setModalLoading(false);
-      if (readyHref(urlAfter)) {
-        window.open(urlAfter, "_blank", "noopener,noreferrer");
-      }
-    } catch {
-      setModalError("Network error. Check your connection and try again.");
-      setModalLoading(false);
+    if (readyHref(link.href)) {
+      window.open(link.href.trim(), "_blank", "noopener,noreferrer");
     }
   }
 
@@ -154,48 +53,44 @@ export default function GatedOutboundLinks({
         <h2 className={headingClassName}>{heading}</h2>
         {intro ? <p className={introClassName}>{intro}</p> : null}
 
-        {subscribed === null ? (
-          <p className={loadingClassName}>Loading…</p>
-        ) : (
-          <div
-            className={["flex flex-wrap gap-3", linksClassName]
-              .filter(Boolean)
-              .join(" ")}
-          >
-            {links.map((link) => {
-              const hasUrl = readyHref(link.href);
-              const waitingForUrl = subscribed === true && !hasUrl;
-              const loadingLock = subscribed === null;
-
-              if (waitingForUrl) {
-                return (
-                  <span
-                    key={link.label}
-                    className="btn-primary opacity-55 cursor-not-allowed pointer-events-none inline-flex"
-                    aria-disabled="true"
-                  >
-                    {link.label}
-                    <span className="sr-only"> (link coming soon)</span>
-                  </span>
-                );
-              }
-
+        <div
+          className={["flex flex-wrap gap-3", linksClassName]
+            .filter(Boolean)
+            .join(" ")}
+        >
+          {links.map((link) => {
+            const hasUrl = readyHref(link.href);
+            if (!hasUrl) {
               return (
-                <button
+                <span
                   key={link.label}
-                  type="button"
-                  disabled={loadingLock}
-                  className="btn-primary disabled:opacity-60"
-                  onClick={() => handleResourceActivate(link)}
+                  className="btn-primary opacity-55 cursor-not-allowed pointer-events-none inline-flex"
+                  aria-disabled="true"
                 >
                   {link.label}
-                </button>
+                  <span className="sr-only"> (link coming soon)</span>
+                </span>
               );
-            })}
-          </div>
-        )}
+            }
+
+            return (
+              <button
+                key={link.label}
+                type="button"
+                className="btn-primary"
+                onClick={() => handleResourceActivate(link)}
+              >
+                {link.label}
+              </button>
+            );
+          })}
+        </div>
+        {!links.some((link) => readyHref(link.href)) ? (
+          <p className={loadingClassName}>Resources are coming soon.</p>
+        ) : null}
       </section>
 
+      {/* Email gate is temporarily disabled for launch.
       <dialog
         ref={dialogRef}
         className="resource-gate-dialog w-[min(26rem,calc(100vw-2rem))] text-spark-bone"
@@ -261,6 +156,7 @@ export default function GatedOutboundLinks({
           </form>
         </div>
       </dialog>
+      */}
     </>
   );
 }

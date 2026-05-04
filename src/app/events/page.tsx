@@ -15,13 +15,19 @@ export const metadata: Metadata = {
   alternates: { canonical: "/events" },
 };
 
-const ORG_CALENDAR_EMBED_URL = "";
-const ORG_CALENDAR_ADD_URL = "";
+const ORG_CALENDAR_EMBED_URL =
+  "https://calendar.google.com/calendar/embed?src=c_fca2789d8a01a4c303fb3ca31b3e8835f7cdb3af9ddd4e1a4633de0a166b15a6%40group.calendar.google.com&ctz=America%2FChicago";
+const ORG_CALENDAR_ADD_URL =
+  "https://calendar.google.com/calendar/u/0/r?cid=c_fca2789d8a01a4c303fb3ca31b3e8835f7cdb3af9ddd4e1a4633de0a166b15a6%40group.calendar.google.com";
+const ORG_CALENDAR_ICAL_URL =
+  "https://calendar.google.com/calendar/ical/c_fca2789d8a01a4c303fb3ca31b3e8835f7cdb3af9ddd4e1a4633de0a166b15a6%40group.calendar.google.com/public/basic.ics";
 
 export default function EventsPage() {
   const hasEmbedCalendar = ORG_CALENDAR_EMBED_URL.trim().length > 0;
   const hasAddCalendarLink = ORG_CALENDAR_ADD_URL.trim().length > 0;
-  const isCalendarReady = hasEmbedCalendar || hasAddCalendarLink;
+  const hasIcalLink = ORG_CALENDAR_ICAL_URL.trim().length > 0;
+  const hasAnyAddOption = hasAddCalendarLink || hasIcalLink;
+  const isCalendarReady = hasEmbedCalendar || hasAddCalendarLink || hasIcalLink;
 
   return (
     <div className="mx-auto max-w-6xl px-3 py-12 sm:px-4 sm:py-16 lg:px-6 lg:py-20">
@@ -64,6 +70,14 @@ export default function EventsPage() {
         </div>
       </section>
 
+      <section className="mt-14">
+        <h2 className="heading-md mb-3 text-center">Join our mailing list</h2>
+        <p className="body-md mb-6">
+          Stay up to date on the most recent events, including upcoming meet-ups, canvasses, and workshops.
+        </p>
+        <NewsletterSignup variant="panel" />
+      </section>
+
       <section className="mt-14 spark-panel rounded-2xl p-6 sm:p-8">
         <h2 className="heading-md mb-3">Organization Calendar</h2>
         {isCalendarReady ? (
@@ -81,15 +95,34 @@ export default function EventsPage() {
                 />
               </div>
             ) : null}
-            {hasAddCalendarLink ? (
-              <a
-                href={ORG_CALENDAR_ADD_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="btn-primary inline-flex"
-              >
-                Add this calendar to Google Calendar
-              </a>
+            {hasAnyAddOption ? (
+              <details className="relative inline-block">
+                <summary className="btn-primary inline-flex cursor-pointer list-none items-center gap-2 [&::-webkit-details-marker]:hidden">
+                  Add to calendar
+                </summary>
+                <div className="absolute left-0 z-10 mt-2 min-w-64 rounded-xl border border-spark-gold/30 bg-[var(--color-spark-bg)] p-2 shadow-lg">
+                  {hasAddCalendarLink ? (
+                    <a
+                      href={ORG_CALENDAR_ADD_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="block rounded-lg px-3 py-2 body-sm hover:bg-[color-mix(in_srgb,var(--color-spark-bone)_10%,var(--color-spark-bg))]"
+                    >
+                      Google Calendar
+                    </a>
+                  ) : null}
+                  {hasIcalLink ? (
+                    <a
+                      href={ORG_CALENDAR_ICAL_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="block rounded-lg px-3 py-2 body-sm hover:bg-[color-mix(in_srgb,var(--color-spark-bone)_10%,var(--color-spark-bg))]"
+                    >
+                      iCal (.ics) for Apple/Outlook
+                    </a>
+                  ) : null}
+                </div>
+              </details>
             ) : null}
           </>
         ) : (
@@ -99,13 +132,6 @@ export default function EventsPage() {
         )}
       </section>
 
-      <section className="mt-14">
-        <h2 className="heading-md mb-3 text-center">Join our mailing list</h2>
-        <p className="body-md mb-6">
-          Hear about new trainings, toolkit releases, and advocacy updates—no spam, unsubscribe anytime.
-        </p>
-        <NewsletterSignup variant="panel" />
-      </section>
     </div>
   );
 }

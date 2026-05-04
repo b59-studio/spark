@@ -1,11 +1,11 @@
 /** Ordered `/public` artwork; index matches `growToolkits` (toolkits 1–6). */
 export const growToolkitCoverPaths = [
-  "/1-PRECINCT PLANNING.png",
-  "/2-VOLUNTEER RECRUITMENT.png",
-  "/3-VOTER ENGAGEMENT.png",
-  "/4-VOTER REGISTRATION.png",
-  "/5-VOTER MOBILIZATION.png",
-  "/6-VOTER APPRECIATION.png",
+  "/1-trans2.png",
+  "/2-trans2.png",
+  "/3-trans2.png",
+  "/4-trans2.png",
+  "/5-trans2.png",
+  "/6-trans2.png",
 ] as const;
 
 export type GrowToolkit = {
@@ -31,7 +31,8 @@ export const growToolkits: GrowToolkit[] = [
     panelTitle: "Precinct Planning",
     summary:
       "Map your precinct—zones, neighborhoods, and anchors—and name your strongest volunteers. Set a Big Blue Goal that lines up with the rest of GROW.",
-    toolkitPacketHref: "",
+    toolkitPacketHref:
+      "https://drive.google.com/drive/folders/1z6R9kkpy1U8mnBbjMz-dj9zjQbjSGIEV?usp=share_link",
     target: ["Build knowledge about your precinct."],
     timeframe: [
       "Any time, ongoing, or as needed.",
@@ -59,7 +60,8 @@ export const growToolkits: GrowToolkit[] = [
     panelTitle: "Volunteer Recruitment",
     summary:
       "Grow the volunteer bench your registration and GOTV pushes need. Plan, talk to neighbors, and follow up so people are ready when those programs ramp up.",
-    toolkitPacketHref: "",
+    toolkitPacketHref:
+      "https://drive.google.com/drive/folders/1qp8SgjEJf06QM77zg6s1YdeNA1PsCe2z?usp=share_link",
     target: ["Recruit volunteers for GOTVR and GOTV campaigns."],
     timeframe: [
       "At least 3 months before Election Day (for example, begin in early August for an early November Election Day).",
@@ -82,7 +84,8 @@ export const growToolkits: GrowToolkit[] = [
     panelTitle: "Voter Engagement",
     summary:
       "Meet voters as neighbors before the hard ask: learn what they care about and bring them in through hosted events and canvassing.",
-    toolkitPacketHref: "",
+    toolkitPacketHref:
+      "https://drive.google.com/drive/folders/18O7OSJpWOdOD76nesojPeFOP-1WtrYCV?usp=share_link",
     target: [
       "Connect with voters before approaching them with an ask.",
       "Introduce yourself to your neighbors.",
@@ -114,7 +117,8 @@ export const growToolkits: GrowToolkit[] = [
     panelTitle: "Voter Registration",
     summary:
       "Register eligible Texans who are not yet registered at their current address. Pick your audience and turf, set goals, and canvass with scripts and maps ahead of the deadline.",
-    toolkitPacketHref: "",
+    toolkitPacketHref:
+      "https://drive.google.com/drive/folders/1DhD6J00Vtvp9kRIklY1fkhUCee_G1v4l?usp=sharing",
     target: [
       "Register Texans to vote at unregistered addresses in your area.",
     ],
@@ -147,7 +151,8 @@ export const growToolkits: GrowToolkit[] = [
     panelTitle: "Voter Mobilization",
     summary:
       "Turn confirmed supporters into ballots with a tight plan and neighbor contact through Election Day—the same core tools as earlier phases, focused on voting instead of registration.",
-    toolkitPacketHref: "",
+    toolkitPacketHref:
+      "https://drive.google.com/drive/folders/1alBGDI9_bVJH1zFov8JQZRril71DDzEI?usp=sharing",
     target: ["Mobilize voters to vote in the upcoming election."],
     timeframe: [
       "At least 30 days before Election Day (for example, begin in early October for an early November Election Day).",
@@ -174,7 +179,8 @@ export const growToolkits: GrowToolkit[] = [
     panelTitle: "Voter Appreciation",
     summary:
       "After Election Day, thank voters and volunteers, note wins, gather feedback, and keep relationships warm for the next cycle.",
-    toolkitPacketHref: "",
+    toolkitPacketHref:
+      "https://drive.google.com/drive/folders/1LIYZJzlTgmCm4hdjApsyDVUwVLUsmFCJ?usp=sharing",
     target: [
       "Thank voters and volunteers for prior election-cycle contributions.",
       "Celebrate wins, no matter how small.",

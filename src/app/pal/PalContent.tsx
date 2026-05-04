@@ -85,7 +85,7 @@ export default function PalContent() {
             className="rounded-none p-0 mb-0 sm:p-0"
             heading="PAL Bill Tracker"
             headingClassName="heading-lg mb-4"
-            intro="Click below to open the live spreadsheet. If you have not signed up on this device yet, you will confirm your email first."
+            intro="Click below to open the live spreadsheet."
             introClassName="body-md mb-8 max-w-prose"
             loadingClassName="body-md text-secondary"
             links={[
