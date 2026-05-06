@@ -1,0 +1,255 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  phone     String?
+  createdAt DateTime @default(now())
+
+  roles       UserRole[]
+  contacts    ContactEvent[]
+  mapFeatures MapFeature[]
+}
+
+model Role {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  userRoles UserRole[]
+}
+
+model UserRole {
+  id          String  @id @default(uuid())
+  userId      String
+  roleId      Int
+  precinctId  Int?
+  blockId     Int?
+  permissions Json?
+
+  user     User      @relation(fields: [userId], references: [id])
+  role     Role      @relation(fields: [roleId], references: [id])
+  precinct Precinct? @relation(fields: [precinctId], references: [id])
+  block    Block?    @relation(fields: [blockId], references: [id])
+}
+
+model Precinct {
+  id     Int    @id @default(autoincrement())
+  name   String
+  county String
+  state  String
+
+  blocks      Block[]
+  households  Household[]
+  userRoles   UserRole[]
+  mapFeatures MapFeature[]
+}
+
+model Block {
+  id         Int    @id @default(autoincrement())
+  name       String
+  precinctId Int
+
+  precinct   Precinct @relation(fields: [precinctId], references: [id])
+  households Household[]
+  userRoles  UserRole[]
+}
+
+model Household {
+  id           String  @id @default(uuid())
+  address      String
+  city         String
+  state        String
+  zip          String
+  lat          Float?
+  lng          Float?
+  pollingPlace String?
+
+  precinctId Int
+  blockId    Int?
+
+  precinct Precinct @relation(fields: [precinctId], references: [id])
+  block    Block?   @relation(fields: [blockId], references: [id])
+
+  voters   Voter[]
+  contacts ContactEvent[]
+  summary  HouseholdContactSummary?
+}
+
+model Voter {
+  id        String  @id @default(uuid())
+  vuid      String  @unique
+  firstName String
+  lastName  String
+  gender    String?
+  age       Int?
+  race      String?
+  status    String?
+
+  householdId String
+  household   Household @relation(fields: [householdId], references: [id])
+
+  phones Json?
+  emails Json?
+
+  electionHistory VoterElectionHistory[]
+  scores          VoterScore?
+  contacts        ContactEvent[]
+}
+
+model Election {
+  id      Int    @id @default(autoincrement())
+  year    Int
+  type    String
+  subtype String
+
+  history VoterElectionHistory[]
+}
+
+model VoterElectionHistory {
+  voterId    String
+  electionId Int
+
+  voted  Boolean
+  party  String?
+  method String?
+
+  voter    Voter    @relation(fields: [voterId], references: [id])
+  election Election @relation(fields: [electionId], references: [id])
+
+  @@id([voterId, electionId])
+}
+
+model VoterScore {
+  voterId         String   @id
+  turnoutScore    Float?
+  persuasionScore Float?
+  partyConfidence Float?
+  updatedAt       DateTime @updatedAt
+
+  voter Voter @relation(fields: [voterId], references: [id])
+}
+
+model HouseholdContactSummary {
+  householdId     String    @id
+  lastContactAt   DateTime?
+  totalContacts   Int       @default(0)
+  lastResult      String?
+  sentimentScore  Float?
+  doNotContact    Boolean   @default(false)
+
+  household Household @relation(fields: [householdId], references: [id])
+}
+
+model Campaign {
+  id        String    @id @default(uuid())
+  name      String
+  startDate DateTime?
+  endDate   DateTime?
+
+  scripts        Script[]
+  contacts       ContactEvent[]
+  contributions  Contribution[]
+  expenses       Expense[]
+}
+
+model Script {
+  id         String   @id @default(uuid())
+  campaignId String
+  title      String
+  content    String
+  version    Int
+  createdAt  DateTime @default(now())
+
+  campaign Campaign @relation(fields: [campaignId], references: [id])
+}
+
+model ContactEvent {
+  id                 String  @id @default(uuid())
+  householdId        String
+  voterId            String?
+  userId             String
+  campaignId         String?
+
+  contactType          String
+  result               String
+  inaccessibleReason   String?
+  sentiment            String?
+  notes                String?
+
+  createdAt DateTime @default(now())
+
+  household Household @relation(fields: [householdId], references: [id])
+  voter     Voter?    @relation(fields: [voterId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+  campaign  Campaign? @relation(fields: [campaignId], references: [id])
+}
+
+model MapFeature {
+  id         String   @id @default(uuid())
+  precinctId Int
+  createdBy  String
+  type       String
+  geometry   Json
+  properties Json?
+
+  createdAt DateTime @default(now())
+
+  user     User     @relation(fields: [createdBy], references: [id])
+  precinct Precinct @relation(fields: [precinctId], references: [id])
+}
+
+model Donor {
+  id           String  @id @default(uuid())
+  name         String
+  email        String?
+  phone        String?
+  employer     String?
+  occupation   String?
+
+  contributions Contribution[]
+}
+
+model Contribution {
+  id            String   @id @default(uuid())
+  donorId       String
+  campaignId    String
+  amount        Float
+  date          DateTime
+  recurring     Boolean
+  paymentMethod String?
+
+  donor    Donor    @relation(fields: [donorId], references: [id])
+  campaign Campaign @relation(fields: [campaignId], references: [id])
+}
+
+model Expense {
+  id          String   @id @default(uuid())
+  campaignId  String
+  amount      Float
+  category    String
+  description String?
+  date        DateTime
+
+  campaign Campaign @relation(fields: [campaignId], references: [id])
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  action    String
+  tableName String
+  recordId  String?
+  oldValue  Json?
+  newValue  Json?
+
+  createdAt DateTime @default(now())
+}
