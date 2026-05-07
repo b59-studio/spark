@@ -9,13 +9,16 @@
     "start": "next start",
     "lint": "eslint",
     "postinstall": "prisma generate",
+    "env:pull": "vercel env pull .env",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
     "airtable": "^0.12.2",
+    "exceljs": "^4.4.0",
     "next": "^16.2.4",
+    "papaparse": "^5.5.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-email": "^6.0.0",
@@ -30,6 +33,10 @@
     "eslint-config-next": "^16.2.4",
     "prisma": "^6.19.3",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vercel": "^53.2.0"
+  },
+  "overrides": {
+    "postcss": ">=8.5.10"
   }
 }

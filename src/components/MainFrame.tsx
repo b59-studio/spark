@@ -11,6 +11,10 @@ export default function MainFrame({
   const isHome = pathname === "/";
 
   return (
-    <main className={`flex-1 overflow-x-hidden ${isHome ? "pt-0" : "pt-24"}`}>{children}</main>
+    <main
+      className={`min-w-0 flex-1 overflow-x-hidden ${isHome ? "pt-0" : "pt-24"}`}
+    >
+      {children}
+    </main>
   );
 }

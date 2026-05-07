@@ -94,11 +94,11 @@ export default function GrowIndexToolkitCarousel() {
   const n = growToolkits.length;
 
   return (
-    <div className="w-full">
+    <div className="min-w-0 max-w-full">
       <div
         ref={scrollerRef}
         className={[
-          "flex items-stretch gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth pb-1 pt-1 sm:gap-4",
+          "flex min-w-0 items-stretch gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth pb-1 pt-1 sm:gap-4",
           "snap-x snap-mandatory px-1 sm:px-0",
           "[scrollbar-width:thin]",
         ].join(" ")}

@@ -19,6 +19,7 @@
 
 # production
 /build
+/etl/dist/
 
 # misc
 .DS_Store
