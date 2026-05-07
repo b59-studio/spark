@@ -1,5 +1,8 @@
 /**
- * Server-side Mapbox helpers. Never import this from client components.
+ * Server-side Mapbox API calls (geocoding, directions, etc.).
+ *
+ * Env: **MAPBOX_ACCESS_TOKEN** — secret default token; never exposed as NEXT_PUBLIC_*.
+ * Client maps use NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN separately (see SparkMap).
  */
 
 const MAPBOX_ORIGIN = "https://api.mapbox.com";

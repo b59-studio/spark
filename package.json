@@ -11,12 +11,18 @@
     "postinstall": "prisma generate",
     "env:pull": "vercel env pull .env",
     "db:migrate": "prisma migrate dev",
-    "db:deploy": "prisma migrate deploy"
+    "db:deploy": "prisma migrate deploy",
+    "map:export": "tsx scripts/export-map-static.ts",
+    "map:import-boundary": "tsx scripts/import-boundary-layer.ts",
+    "cap:sync": "cap sync",
+    "cap:open:ios": "cap open ios",
+    "cap:open:android": "cap open android"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
     "airtable": "^0.12.2",
     "exceljs": "^4.4.0",
+    "mapbox-gl": "^3.23.1",
     "next": "^16.2.4",
     "papaparse": "^5.5.3",
     "react": "19.2.3",
@@ -25,7 +31,10 @@
     "resend": "^6.8.0"
   },
   "devDependencies": {
+    "@capacitor/cli": "^7.6.3",
+    "@capacitor/core": "^7.6.3",
     "@tailwindcss/postcss": "^4",
+    "@types/mapbox-gl": "^3.4.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -33,6 +42,7 @@
     "eslint-config-next": "^16.2.4",
     "prisma": "^6.19.3",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5",
     "vercel": "^53.2.0"
   },

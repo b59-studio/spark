@@ -11,6 +11,13 @@ export type KnownRoleName = (typeof ROLE_NAMES)[keyof typeof ROLE_NAMES];
 
 export type VolunteerPermissions = {
   canView?: boolean;
+  /**
+   * District overlay layer slugs this assignment may toggle on (see MapBoundaryLayer.slug).
+   * Ignored when `allBoundaryLayers` is true on any assignment.
+   */
+  boundaryLayerSlugs?: string[];
+  /** When true, user may load every boundary layer (regional staff / admin-style). */
+  allBoundaryLayers?: boolean;
 };
 
 export class ForbiddenError extends Error {
@@ -27,7 +34,7 @@ export type UserWithRoles = Prisma.UserGetPayload<{
   include: { roles: { include: { role: true } } };
 }>;
 
-function parseVolunteerPermissions(
+export function parseVolunteerPermissions(
   json: Prisma.JsonValue | null
 ): VolunteerPermissions {
   if (json === null || typeof json !== "object" || Array.isArray(json)) {
@@ -35,8 +42,22 @@ function parseVolunteerPermissions(
   }
   const o = json as Record<string, unknown>;
   const canView = o.canView;
+  const allBoundaryLayers = o.allBoundaryLayers;
+  const rawSlugs = o.boundaryLayerSlugs;
+  let boundaryLayerSlugs: string[] | undefined;
+  if (Array.isArray(rawSlugs)) {
+    boundaryLayerSlugs = rawSlugs.filter(
+      (x): x is string => typeof x === "string" && x.length > 0,
+    );
+    if (boundaryLayerSlugs.length === 0) {
+      boundaryLayerSlugs = undefined;
+    }
+  }
   return {
     canView: typeof canView === "boolean" ? canView : undefined,
+    allBoundaryLayers:
+      typeof allBoundaryLayers === "boolean" ? allBoundaryLayers : undefined,
+    boundaryLayerSlugs,
   };
 }
 

@@ -14,6 +14,7 @@ module.exports = {
           purple: '#2F0951',
           red: '#D93802',
           gold: '#EDC973',
+          void: '#14081E',
         },
       },
     },

@@ -23,6 +23,18 @@ export default function Footer() {
               ·
             </span>
              */}
+            <Link href="/map" className="footer-link whitespace-nowrap">
+              Map
+            </Link>
+            <span className="text-spark-red/40" aria-hidden>
+              ·
+            </span>
+            <Link href="/login" className="footer-link whitespace-nowrap">
+              Login
+            </Link>
+            <span className="text-spark-red/40" aria-hidden>
+              ·
+            </span>
             <Link href="/about/privacy" className="footer-link whitespace-nowrap">
               Privacy Policy
             </Link>

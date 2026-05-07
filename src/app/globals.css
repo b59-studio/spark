@@ -7,6 +7,8 @@
   --color-spark-purple: #2f0951;
   --color-spark-red: #d93802;
   --color-spark-gold: #edc973;
+  /* Dark ink for text on bone (e.g. primary buttons); matches spark-bg */
+  --color-spark-void: #14081e;
 }
 
 /* Global styles */

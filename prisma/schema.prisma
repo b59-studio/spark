@@ -14,9 +14,22 @@ model User {
   phone     String?
   createdAt DateTime @default(now())
 
-  roles       UserRole[]
-  contacts    ContactEvent[]
-  mapFeatures MapFeature[]
+  roles           UserRole[]
+  contacts        ContactEvent[]
+  mapFeatures     MapFeature[]
+  magicLinkTokens MagicLinkToken[]
+}
+
+/// Single-use magic login links (store only SHA-256 of the secret token).
+model MagicLinkToken {
+  id        String    @id @default(uuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  consumedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Role {
@@ -76,6 +89,8 @@ model Household {
   zip          String
   lat          Float?
   lng          Float?
+  /// PostGIS geography(WGS84 point). Synced from lat/lng via DB trigger.
+  locationGeom Unsupported("geography(Point,4326)")?
   pollingPlace String?
   // ADDED: TX*SPARK Address Code for cross-referencing future vendor exports
   sparkCode    String?
@@ -228,6 +243,27 @@ model MapFeature {
 
   user     User     @relation(fields: [createdBy], references: [id])
   precinct Precinct @relation(fields: [precinctId], references: [id])
+}
+
+/// One logical overlay source (e.g. US House TX, TX Senate). Features may overlap across layers.
+model MapBoundaryLayer {
+  id          String               @id @default(uuid())
+  slug        String               @unique
+  name        String
+  description String?
+  sortOrder   Int                  @default(0)
+  features    MapBoundaryFeature[]
+}
+
+model MapBoundaryFeature {
+  id          String @id @default(uuid())
+  layerId     String
+  externalKey String?
+  label       String?
+  /// Native geometry for PostGIS queries — populate via SQL import / Shapefile pipeline.
+  geom        Unsupported("geometry(MultiPolygon,4326)")
+
+  layer MapBoundaryLayer @relation(fields: [layerId], references: [id], onDelete: Cascade)
 }
 
 model Donor {
