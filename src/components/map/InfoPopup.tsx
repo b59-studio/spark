@@ -66,7 +66,9 @@ export function InfoPopup({ map, lngLat, results, onClose }: InfoPopupProps) {
       .addTo(map);
 
     popup.on("close", onClose);
-    return () => popup.remove();
+    return () => {
+      popup.remove();
+    };
   }, [lngLat, map, onClose, results]);
 
   return null;
