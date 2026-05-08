@@ -1,0 +1,24 @@
+# Copy relevant lines into `.env.local` / Vercel. Never commit real secrets.
+
+# --- Browser (Vercel / NEXT_PUBLIC): public base URL for GeoJSON files ---
+# Must match R2 public hostname + key prefix used at upload time.
+# Example: objects at https://pub-xxxxx.r2.dev/map/geo/v1/congressional.geojson
+#NEXT_PUBLIC_MAP_GEOJSON_CDN_BASE=https://pub-xxxxx.r2.dev/map/geo/v1
+
+# --- Server / CI only: R2 S3 API (snapshot script + GitHub Actions) ---
+# R2_ACCOUNT_ID=
+# R2_ACCESS_KEY_ID=
+# R2_SECRET_ACCESS_KEY=
+# R2_BUCKET_NAME=
+
+# Optional: object key prefix inside bucket (default map/geo/v1)
+# MAP_GEOJSON_R2_KEY_PREFIX=map/geo/v1
+
+# Dry-run snapshot without uploading (prints keys + byte sizes)
+# R2_SNAPSHOT_DRY_RUN=1
+
+# Optional: longer fetch timeout for huge layers (default 180000 ms)
+# MAP_SNAPSHOT_FETCH_TIMEOUT_MS=300000
+
+# After enabling public access: R2 bucket → Settings → CORS — allow GET from your site origin
+# (and localhost for dev) so Mapbox can load `{layerId}.geojson` from the public URL.

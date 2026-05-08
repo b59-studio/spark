@@ -4,8 +4,10 @@
     {
       "type": "Feature",
       "properties": {
+        "ISD_SLUG": "austin_isd",
+        "ISD_NAME": "Austin ISD",
         "DISTRICT": "1",
-        "TRUSTEE": "District 1"
+        "DISTRICT_NUM": 1
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4188,8 +4190,10 @@
     {
       "type": "Feature",
       "properties": {
+        "ISD_SLUG": "austin_isd",
+        "ISD_NAME": "Austin ISD",
         "DISTRICT": "2",
-        "TRUSTEE": "District 2"
+        "DISTRICT_NUM": 2
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17116,8 +17120,10 @@
     {
       "type": "Feature",
       "properties": {
+        "ISD_SLUG": "austin_isd",
+        "ISD_NAME": "Austin ISD",
         "DISTRICT": "3",
-        "TRUSTEE": "District 3"
+        "DISTRICT_NUM": 3
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -20660,8 +20666,10 @@
     {
       "type": "Feature",
       "properties": {
+        "ISD_SLUG": "austin_isd",
+        "ISD_NAME": "Austin ISD",
         "DISTRICT": "4",
-        "TRUSTEE": "District 4"
+        "DISTRICT_NUM": 4
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -24096,8 +24104,10 @@
     {
       "type": "Feature",
       "properties": {
+        "ISD_SLUG": "austin_isd",
+        "ISD_NAME": "Austin ISD",
         "DISTRICT": "5",
-        "TRUSTEE": "District 5"
+        "DISTRICT_NUM": 5
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -33928,8 +33938,10 @@
     {
       "type": "Feature",
       "properties": {
+        "ISD_SLUG": "austin_isd",
+        "ISD_NAME": "Austin ISD",
         "DISTRICT": "6",
-        "TRUSTEE": "District 6"
+        "DISTRICT_NUM": 6
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -37692,8 +37704,10 @@
     {
       "type": "Feature",
       "properties": {
+        "ISD_SLUG": "austin_isd",
+        "ISD_NAME": "Austin ISD",
         "DISTRICT": "7",
-        "TRUSTEE": "District 7"
+        "DISTRICT_NUM": 7
       },
       "geometry": {
         "type": "MultiPolygon",

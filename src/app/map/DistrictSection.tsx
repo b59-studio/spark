@@ -7,7 +7,7 @@ const DistrictMap = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-[min(70vh,560px)] min-h-[320px] items-center justify-center rounded-lg border border-spark-bone/15 bg-spark-bone/5 text-sm text-spark-bone/70">
+      <div className="flex h-[min(70vh,560px)] min-h-[320px] items-center justify-center rounded-lg border border-neutral-200 bg-neutral-50 text-sm text-gray-600">
         Loading district map…
       </div>
     ),

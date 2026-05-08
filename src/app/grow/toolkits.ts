@@ -1,12 +1,7 @@
+import { siteImages } from "@/lib/site-visuals";
+
 /** Ordered `/public` artwork; index matches `growToolkits` (toolkits 1–6). */
-export const growToolkitCoverPaths = [
-  "/1-trans2.png",
-  "/2-trans2.png",
-  "/3-trans2.png",
-  "/4-trans2.png",
-  "/5-trans2.png",
-  "/6-trans2.png",
-] as const;
+export const growToolkitCoverPaths = siteImages.growToolkitCovers;
 
 export type GrowToolkit = {
   slug: string;

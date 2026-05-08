@@ -6,17 +6,21 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { DISTRICT_LAYERS } from "../../data/layers.config";
 import { getMapModeConfig } from "../../data/map-modes.config";
 import { useMapLayers } from "../../hooks/useMapLayers";
-import { useDistrictLookup } from "../../hooks/useDistrictLookup";
+import { lookupDistrictsAtPoint } from "../../hooks/useDistrictLookup";
 import type { DistrictLayer, DistrictLookupResult } from "../../types/district.types";
 import { LayerPanel } from "@/components/map/LayerPanel";
 import { Legend } from "@/components/map/Legend";
 import { InfoPopup } from "@/components/map/InfoPopup";
+import { MapApplicationShell } from "@/components/map/MapApplicationShell";
+import { useMapFullscreen } from "@/hooks/useMapFullscreen";
+import { AUSTIN_DEFAULT_CENTER, AUSTIN_DEFAULT_ZOOM } from "@/lib/map/initial-view";
+import { resolveDistrictGeoJsonUrl } from "@/lib/map/geojson-cdn";
 
 const mapboxToken =
   process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 mapboxgl.accessToken = mapboxToken ?? "";
 
-// Travis County center
+// Travis County center (geocoding proximity bias)
 const TRAVIS_CENTER: [number, number] = [-97.7431, 30.1669];
 const TRAVIS_BOUNDS: [number, number, number, number] = [-98.4, 29.8, -97.0, 30.7];
 const ACTIVE_MODE = getMapModeConfig("explore");
@@ -24,24 +28,46 @@ const ACTIVE_MODE = getMapModeConfig("explore");
 const isValidPublicMapboxToken = (token?: string | null): token is string =>
   typeof token === "string" && token.trim().startsWith("pk.");
 
-const labelTextColorForLayer = (layerColor: string): string => {
-  const color = layerColor.toLowerCase();
-  if (color === "#e9c46a" || color === "#f4a261") {
-    return "#374151";
+/** Avoid stacking duplicate layer listeners when visible-layer effects re-run. */
+const districtLayerInteractionAttached = new WeakMap<mapboxgl.Map, Set<string>>();
+
+function attachDistrictLayerInteractionOnce(mapInstance: mapboxgl.Map, layerId: string) {
+  let attached = districtLayerInteractionAttached.get(mapInstance);
+  if (!attached) {
+    attached = new Set<string>();
+    districtLayerInteractionAttached.set(mapInstance, attached);
   }
-  return layerColor;
-};
+  if (attached.has(layerId)) return;
+  attached.add(layerId);
 
-const buildLabelFieldExpression = (layer: DistrictLayer): mapboxgl.Expression => {
-  const baseFields = [layer.labelProperty, ...(layer.labelPropertyFallbacks ?? [])];
-  const candidates = Array.from(
-    new Set(baseFields.flatMap((field) => [field, field.toUpperCase(), field.toLowerCase()])),
-  ).map((field) => ["get", field] as unknown as mapboxgl.Expression);
+  let hoveredId: string | number | null = null;
+  mapInstance.on("mousemove", `${layerId}-fill`, (e) => {
+    if (e.features?.length) {
+      if (hoveredId !== null) {
+        mapInstance.setFeatureState({ source: layerId, id: hoveredId }, { hover: false });
+      }
+      hoveredId = e.features[0].id ?? null;
+      if (hoveredId !== null) {
+        mapInstance.setFeatureState({ source: layerId, id: hoveredId }, { hover: true });
+      }
+      mapInstance.getCanvas().style.cursor = "pointer";
+    }
+  });
 
-  return [
-    "to-string",
-    ["coalesce", ...candidates, ""],
-  ] as unknown as mapboxgl.Expression;
+  mapInstance.on("mouseleave", `${layerId}-fill`, () => {
+    if (hoveredId !== null) {
+      mapInstance.setFeatureState({ source: layerId, id: hoveredId }, { hover: false });
+    }
+    hoveredId = null;
+    mapInstance.getCanvas().style.cursor = "";
+  });
+}
+
+const pointToXY = (point: mapboxgl.PointLike): { x: number; y: number } => {
+  if (Array.isArray(point)) {
+    return { x: point[0], y: point[1] };
+  }
+  return { x: point.x, y: point.y };
 };
 
 const fetchGeocodingPayload = async (
@@ -79,16 +105,45 @@ export const TravisCountyMap: React.FC = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const addressMarkerRef = useRef<mapboxgl.Marker | null>(null);
-  const addressPopupRef = useRef<mapboxgl.Popup | null>(null);
   const { visibleLayers, toggleLayer, selectExclusive, toggleCategory } = useMapLayers();
   const visibleLayersRef = useRef(visibleLayers);
-  const { lookupDistrictsAtPoint } = useDistrictLookup();
   const isTouchDeviceRef = useRef(false);
   const isPopupPinnedRef = useRef(false);
   const [popupInfo, setPopupInfo] = React.useState<{
+    map: mapboxgl.Map;
     lngLat: mapboxgl.LngLat;
     results: DistrictLookupResult[];
+    isPinned: boolean;
+    addressHeading: string | null;
+    /** False when the anchor point projects outside the map canvas (panned away). */
+    inViewport: boolean;
   } | null>(null);
+
+  const dismissPopup = React.useCallback(() => {
+    isPopupPinnedRef.current = false;
+    setPopupInfo(null);
+    addressMarkerRef.current?.remove();
+    addressMarkerRef.current = null;
+  }, []);
+
+  /** Let desktop users leave pinned selection (Esc or explicit control) and use hover labels again. */
+  React.useEffect(() => {
+    if (!popupInfo) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      const t = e.target;
+      if (
+        t instanceof Element &&
+        t.closest('input, textarea, select, [contenteditable="true"]')
+      ) {
+        return;
+      }
+      e.preventDefault();
+      dismissPopup();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [popupInfo, dismissPopup]);
   const [addressQuery, setAddressQuery] = React.useState("");
   const [addressSuggestions, setAddressSuggestions] = React.useState<
     Array<{ id: string; label: string; center: [number, number] }>
@@ -103,19 +158,20 @@ export const TravisCountyMap: React.FC = () => {
     center: [number, number];
   } | null>(null);
   const lastAddressLookupVisibleSignatureRef = React.useRef("");
-  const [addressLookupResults, setAddressLookupResults] = React.useState<{
-    addressLabel: string;
-    results: DistrictLookupResult[];
-  } | null>(null);
+  /** After Mapbox style loads; district GeoJSON is added lazily from visible layer toggles. */
+  const [mapStyleLoaded, setMapStyleLoaded] = React.useState(false);
+  /** Fine pointer + hover — map uses cursor-driven labels unless the user pins a click. */
+  const [desktopHoverLabels, setDesktopHoverLabels] = React.useState(false);
 
-  const escapeHtml = React.useCallback((value: string) => {
-    return value
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#39;");
+  React.useEffect(() => {
+    setDesktopHoverLabels(
+      typeof window !== "undefined" &&
+        !window.matchMedia("(hover: none), (pointer: coarse)").matches,
+    );
   }, []);
+
+  const { rootRef: mapRootRef, isFullscreen, toggleFullscreen: toggleMapFullscreen } =
+    useMapFullscreen(() => map.current?.resize());
 
   useEffect(() => {
     visibleLayersRef.current = visibleLayers;
@@ -124,10 +180,14 @@ export const TravisCountyMap: React.FC = () => {
   useEffect(() => {
     const query = addressQuery.trim();
     if (suppressSuggestions || query.length < 3) {
-      setAddressSuggestions([]);
-      setIsLoadingSuggestions(false);
-      setActiveSuggestionIndex(-1);
-      return;
+      const timeoutId = window.setTimeout(() => {
+        setAddressSuggestions([]);
+        setIsLoadingSuggestions(false);
+        setActiveSuggestionIndex(-1);
+      }, 0);
+      return () => {
+        window.clearTimeout(timeoutId);
+      };
     }
 
     const controller = new AbortController();
@@ -157,7 +217,7 @@ export const TravisCountyMap: React.FC = () => {
           }));
         setAddressSuggestions(suggestions);
         setActiveSuggestionIndex(suggestions.length > 0 ? 0 : -1);
-      } catch (error) {
+      } catch {
         if (!controller.signal.aborted) {
           setAddressSuggestions([]);
           setActiveSuggestionIndex(-1);
@@ -176,9 +236,66 @@ export const TravisCountyMap: React.FC = () => {
     };
   }, [addressQuery, suppressSuggestions]);
 
-  const modeLayers = DISTRICT_LAYERS.filter((layer) =>
-    ACTIVE_MODE.allowedCategories.includes(layer.category),
+  const modeLayers = React.useMemo(
+    () => DISTRICT_LAYERS.filter((layer) => ACTIVE_MODE.allowedCategories.includes(layer.category)),
+    [],
   );
+
+  const addDistrictLayer = React.useCallback((mapInstance: mapboxgl.Map, layer: DistrictLayer) => {
+    if (!mapInstance.getSource(layer.id)) {
+      mapInstance.addSource(layer.id, {
+        type: "geojson",
+        data: resolveDistrictGeoJsonUrl(layer.id, layer.sourceUrl),
+        generateId: true,
+      });
+    }
+
+    if (!mapInstance.getLayer(`${layer.id}-fill`)) {
+      mapInstance.addLayer({
+        id: `${layer.id}-fill`,
+        type: "fill",
+        source: layer.id,
+        layout: { visibility: "none" },
+        paint: {
+          "fill-color": layer.color,
+          "fill-opacity": 0.12,
+          "fill-opacity-transition": { duration: 300 },
+        },
+        minzoom: layer.minZoom ?? 0,
+        maxzoom: layer.maxZoom ?? 24,
+      });
+    }
+
+    if (!mapInstance.getLayer(`${layer.id}-line`)) {
+      mapInstance.addLayer({
+        id: `${layer.id}-line`,
+        type: "line",
+        source: layer.id,
+        layout: { visibility: "none" },
+        paint: {
+          "line-color": layer.color,
+          "line-width": 1.5,
+          "line-opacity": 0.8,
+        },
+        minzoom: layer.minZoom ?? 0,
+      });
+    }
+
+    if (!mapInstance.getLayer(`${layer.id}-hover`)) {
+      mapInstance.addLayer({
+        id: `${layer.id}-hover`,
+        type: "fill",
+        source: layer.id,
+        layout: { visibility: "none" },
+        paint: {
+          "fill-color": layer.color,
+          "fill-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 0.3, 0],
+        },
+      });
+    }
+
+    attachDistrictLayerInteractionOnce(mapInstance, layer.id);
+  }, []);
 
   // Initialize map
   useEffect(() => {
@@ -188,10 +305,11 @@ export const TravisCountyMap: React.FC = () => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/light-v11",
-      center: TRAVIS_CENTER,
-      zoom: 9.5,
+      center: AUSTIN_DEFAULT_CENTER,
+      zoom: AUSTIN_DEFAULT_ZOOM,
       minZoom: 7,
       maxZoom: 18,
+      renderWorldCopies: false,
       // Constrain to Travis County bounds
       maxBounds: [
         [TRAVIS_BOUNDS[0], TRAVIS_BOUNDS[1]],
@@ -208,42 +326,115 @@ export const TravisCountyMap: React.FC = () => {
       "top-right",
     );
 
-    map.current.on('load', () => {
-      // Load all district layers; never let one failed source block others.
-      modeLayers.forEach((layer) => {
-        try {
-          addDistrictLayer(map.current!, layer);
-        } catch (error) {
-          // Keep map usable even if one layer definition/source is unavailable.
-          console.error(`Failed to initialize layer ${layer.id}`, error);
-        }
-      });
+    map.current.on("load", () => {
+      setMapStyleLoaded(true);
 
-      const showDetailsAtPoint = (point: mapboxgl.PointLike, lngLat: mapboxgl.LngLat): boolean => {
-        const results = lookupDistrictsAtPoint(
-          map.current!,
-          point,
-          modeLayers,
-          visibleLayersRef.current,
-        );
-        if (results.length === 0) {
+      const lookupDetailsAtPoint = (point: mapboxgl.PointLike): DistrictLookupResult[] =>
+        lookupDistrictsAtPoint(map.current!, point, modeLayers, visibleLayersRef.current);
+
+      const snapToNearestDetails = (
+        point: mapboxgl.PointLike,
+        lngLat: mapboxgl.LngLat,
+      ): { lngLat: mapboxgl.LngLat; results: DistrictLookupResult[] } | null => {
+        const { x, y } = pointToXY(point);
+        const checkedPoints = new Set<string>();
+        const searchRadii = [0, 8, 16, 24, 32];
+
+        for (const radius of searchRadii) {
+          const offsets =
+            radius === 0
+              ? [[0, 0]]
+              : [
+                  [radius, 0],
+                  [-radius, 0],
+                  [0, radius],
+                  [0, -radius],
+                  [radius, radius],
+                  [radius, -radius],
+                  [-radius, radius],
+                  [-radius, -radius],
+                ];
+
+          for (const [dx, dy] of offsets) {
+            const snapPoint: [number, number] = [x + dx, y + dy];
+            const key = `${snapPoint[0]},${snapPoint[1]}`;
+            if (checkedPoints.has(key)) continue;
+            checkedPoints.add(key);
+
+            const results = lookupDetailsAtPoint(snapPoint);
+            if (results.length > 0) {
+              return {
+                lngLat: radius === 0 ? lngLat : map.current!.unproject(snapPoint),
+                results,
+              };
+            }
+          }
+        }
+
+        return null;
+      };
+
+      const showDetailsAtPoint = (
+        point: mapboxgl.PointLike,
+        lngLat: mapboxgl.LngLat,
+        options?: { snapToNearest?: boolean },
+      ): boolean => {
+        const mapInstance = map.current!;
+        const details = options?.snapToNearest
+          ? snapToNearestDetails(point, lngLat)
+          : { lngLat, results: lookupDetailsAtPoint(point) };
+        if (!details || details.results.length === 0) {
+          if (options?.snapToNearest) {
+            addressMarkerRef.current?.remove();
+            addressMarkerRef.current = null;
+          }
           setPopupInfo(null);
-          map.current!.getCanvas().style.cursor = "";
+          mapInstance.getCanvas().style.cursor = "";
           return false;
         }
-        setPopupInfo({ lngLat, results });
-        map.current!.getCanvas().style.cursor = "pointer";
+        if (options?.snapToNearest) {
+          addressMarkerRef.current?.remove();
+          addressMarkerRef.current = null;
+        }
+        setPopupInfo({
+          map: mapInstance,
+          lngLat: details.lngLat,
+          results: details.results,
+          isPinned: options?.snapToNearest === true,
+          addressHeading: null,
+          inViewport: true,
+        });
+        mapInstance.getCanvas().style.cursor = "pointer";
         return true;
       };
 
+      /** Geographic bounds.contains(lngLat) was falsely hiding popups; use screen projection instead. */
+      const syncPinnedPopupViewport = () => {
+        const mapInst = map.current;
+        if (!mapInst) return;
+        setPopupInfo((prev) => {
+          if (!prev?.isPinned) return prev;
+          const pt = mapInst.project(prev.lngLat);
+          const canvas = mapInst.getCanvas();
+          const w = canvas.clientWidth;
+          const h = canvas.clientHeight;
+          const pad = 24;
+          const inside = pt.x >= -pad && pt.x <= w + pad && pt.y >= -pad && pt.y <= h + pad;
+          if (inside === prev.inViewport) return prev;
+          return { ...prev, inViewport: inside };
+        });
+      };
+      map.current!.on("moveend", syncPinnedPopupViewport);
+      map.current!.on("resize", syncPinnedPopupViewport);
+
       if (isTouchDeviceRef.current) {
         map.current!.on("click", (event) => {
-          isPopupPinnedRef.current = true;
-          showDetailsAtPoint(event.point, event.lngLat);
+          const hasResults = showDetailsAtPoint(event.point, event.lngLat, { snapToNearest: true });
+          isPopupPinnedRef.current = hasResults;
         });
       } else {
         map.current!.on("click", (event) => {
-          const hasResults = showDetailsAtPoint(event.point, event.lngLat);
+          const hasResults = showDetailsAtPoint(event.point, event.lngLat, { snapToNearest: true });
           isPopupPinnedRef.current = hasResults;
         });
         map.current!.on("mousemove", (event) => {
@@ -259,14 +450,13 @@ export const TravisCountyMap: React.FC = () => {
     });
 
     return () => {
-      addressPopupRef.current?.remove();
-      addressPopupRef.current = null;
+      setMapStyleLoaded(false);
       addressMarkerRef.current?.remove();
       addressMarkerRef.current = null;
       map.current?.remove();
       map.current = null;
     };
-  }, []);
+  }, [modeLayers]);
 
   const runDistrictLookupForAddress = React.useCallback(
     async (
@@ -290,8 +480,6 @@ export const TravisCountyMap: React.FC = () => {
           window.setTimeout(finish, 1200);
         });
       }
-      addressPopupRef.current?.remove();
-      addressPopupRef.current = null;
       addressMarkerRef.current?.remove();
       const markerNode = document.createElement("button");
       markerNode.type = "button";
@@ -322,46 +510,17 @@ export const TravisCountyMap: React.FC = () => {
         await new Promise((resolve) => window.setTimeout(resolve, 220));
       }
       const addressName = addressLabel || fallbackLabel;
-      const details =
-        results.length === 0
-          ? "<div style='margin-top:6px;color:#6b7280;'>No district or zone data found at this location.</div>"
-          : `<div style='margin-top:6px;display:grid;gap:6px;'>${results
-              .map((result) => {
-                const propertyText =
-                  Object.keys(result.properties).length === 0
-                    ? "<div style='color:#6b7280;'>No details available.</div>"
-                    : `<div style='color:#6b7280;'>${Object.entries(result.properties)
-                        .map(([key, value]) => `${escapeHtml(key)}: ${escapeHtml(value)}`)
-                        .join(" • ")}</div>`;
-                return `<div>
-                  <div style='font-weight:700;'>${escapeHtml(result.layerLabel)}</div>
-                  <div style='font-size:12px;color:#111827;font-weight:600;margin-bottom:2px;'>${escapeHtml(result.featureLabel)}</div>
-                  ${propertyText}
-                </div>`;
-              })
-              .join("")}</div>`;
-      const popupHtml = `<div style='min-width:240px;max-width:320px;font-size:12px;line-height:1.35;color:var(--color-map-ui-text-primary);'>
-        <div style='font-weight:700;color:#111827;'>${escapeHtml(addressName)}</div>
-        ${details}
-      </div>`;
-      addressPopupRef.current = new mapboxgl.Popup({
-        closeButton: true,
-        closeOnClick: false,
-        maxWidth: "340px",
-        offset: 16,
-      })
-        .setLngLat(lngLat)
-        .setHTML(popupHtml);
-      addressMarkerRef.current.setPopup(addressPopupRef.current);
-      addressPopupRef.current.addTo(mapInstance);
       isPopupPinnedRef.current = true;
-      setPopupInfo(results.length > 0 ? { lngLat, results } : null);
-      setAddressLookupResults({
-        addressLabel: addressName,
+      setPopupInfo({
+        map: mapInstance,
+        lngLat,
         results,
+        isPinned: true,
+        addressHeading: addressName,
+        inViewport: true,
       });
     },
-    [escapeHtml, lookupDistrictsAtPoint, modeLayers],
+    [modeLayers],
   );
 
   const lookupAddress = React.useCallback(async () => {
@@ -389,7 +548,6 @@ export const TravisCountyMap: React.FC = () => {
       const center = feature?.center;
       if (!center || center.length !== 2) {
         setLookupError("No matching address found in the Travis County area.");
-        setAddressLookupResults(null);
         return;
       }
       setSuppressSuggestions(true);
@@ -409,7 +567,6 @@ export const TravisCountyMap: React.FC = () => {
     } catch (error) {
       setSuppressSuggestions(false);
       setLookupError(error instanceof Error ? error.message : "Address lookup failed.");
-      setAddressLookupResults(null);
     } finally {
       setIsLookingUpAddress(false);
     }
@@ -439,7 +596,6 @@ export const TravisCountyMap: React.FC = () => {
       } catch (error) {
         setSuppressSuggestions(false);
         setLookupError(error instanceof Error ? error.message : "Address lookup failed.");
-        setAddressLookupResults(null);
       } finally {
         setIsLookingUpAddress(false);
       }
@@ -464,134 +620,79 @@ export const TravisCountyMap: React.FC = () => {
     );
   }, [runDistrictLookupForAddress, selectedAddress, visibleLayers]);
 
-  const addDistrictLayer = (mapInstance: mapboxgl.Map, layer: DistrictLayer) => {
-    const labelFieldExpression = buildLabelFieldExpression(layer);
-    if (!mapInstance.getSource(layer.id)) {
-      mapInstance.addSource(layer.id, {
-        type: "geojson",
-        data: layer.sourceUrl,
-      });
-    }
-
-    if (!mapInstance.getLayer(`${layer.id}-fill`)) {
-      // Fill layer
-      mapInstance.addLayer({
-        id: `${layer.id}-fill`,
-        type: "fill",
-        source: layer.id,
-        layout: { visibility: layer.defaultVisible ? "visible" : "none" },
-        paint: {
-          "fill-color": layer.color,
-          "fill-opacity": 0.12,
-          "fill-opacity-transition": { duration: 300 },
-        },
-        minzoom: layer.minZoom ?? 0,
-        maxzoom: layer.maxZoom ?? 24,
-      });
-    }
-
-    // Stroke/border layer
-    if (!mapInstance.getLayer(`${layer.id}-line`)) {
-      mapInstance.addLayer({
-        id: `${layer.id}-line`,
-        type: "line",
-        source: layer.id,
-        layout: { visibility: layer.defaultVisible ? "visible" : "none" },
-        paint: {
-          "line-color": layer.color,
-          "line-width": 1.5,
-          "line-opacity": 0.8,
-        },
-        minzoom: layer.minZoom ?? 0,
-      });
-    }
-
-    if (!mapInstance.getLayer(`${layer.id}-label`)) {
-      mapInstance.addLayer({
-        id: `${layer.id}-label`,
-        type: "symbol",
-        source: layer.id,
-        layout: {
-          visibility: layer.defaultVisible ? "visible" : "none",
-          "text-field": labelFieldExpression,
-          "text-size": 11,
-          "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-          "text-anchor": "center",
-          "text-variable-anchor": ["center", "top", "bottom", "left", "right"],
-          "text-radial-offset": 0.3,
-          "text-justify": "auto",
-          "text-allow-overlap": true,
-          "text-ignore-placement": true,
-          "text-optional": true,
-        },
-        paint: {
-          "text-color": labelTextColorForLayer(layer.color),
-          "text-halo-color": "#ffffff",
-          "text-halo-width": 2,
-        },
-        minzoom: layer.minZoom ?? 0,
-      });
-    }
-
-    // Hover highlight
-    let hoveredId: string | number | null = null;
-    if (!mapInstance.getLayer(`${layer.id}-hover`)) {
-      mapInstance.addLayer({
-        id: `${layer.id}-hover`,
-        type: "fill",
-        source: layer.id,
-        layout: { visibility: layer.defaultVisible ? "visible" : "none" },
-        paint: {
-          "fill-color": layer.color,
-          "fill-opacity": ["case", ["boolean", ["feature-state", "hover"], false], 0.3, 0],
-        },
-      });
-    }
-
-    mapInstance.on("mousemove", `${layer.id}-fill`, (e) => {
-      if (e.features?.length) {
-        if (hoveredId !== null) {
-          mapInstance.setFeatureState({ source: layer.id, id: hoveredId }, { hover: false });
-        }
-        hoveredId = e.features[0].id ?? null;
-        if (hoveredId !== null) {
-          mapInstance.setFeatureState({ source: layer.id, id: hoveredId }, { hover: true });
-        }
-        mapInstance.getCanvas().style.cursor = "pointer";
-      }
-    });
-
-    mapInstance.on("mouseleave", `${layer.id}-fill`, () => {
-      if (hoveredId !== null) {
-        mapInstance.setFeatureState({ source: layer.id, id: hoveredId }, { hover: false });
-      }
-      hoveredId = null;
-      mapInstance.getCanvas().style.cursor = "";
-    });
-  };
-
-  // Sync visibility when toggles change
+  // Click-pinned popups capture their results at click time. When the user toggles
+  // layer filters afterwards, recompute results at the same location so newly-enabled
+  // layers contribute and disabled ones drop out.
   useEffect(() => {
-    if (!map.current || !map.current.isStyleLoaded()) return;
-    modeLayers.forEach(layer => {
+    const mapInstance = map.current;
+    if (!mapInstance || !mapStyleLoaded) return;
+
+    let cancelled = false;
+
+    const refreshClickPinnedResults = () => {
+      if (cancelled) return;
+      setPopupInfo((prev) => {
+        if (!prev?.isPinned || prev.addressHeading !== null) return prev;
+        const point = mapInstance.project(prev.lngLat);
+        const next = lookupDistrictsAtPoint(mapInstance, point, modeLayers, visibleLayers);
+        const sameAsPrev =
+          prev.results.length === next.length &&
+          prev.results.every(
+            (result, index) =>
+              result.layerId === next[index].layerId &&
+              result.featureLabel === next[index].featureLabel,
+          );
+        if (sameAsPrev) return prev;
+        return { ...prev, results: next };
+      });
+    };
+
+    refreshClickPinnedResults();
+
+    // Newly-enabled layer sources fetch GeoJSON asynchronously; refresh again once
+    // each visible source finishes loading so its district appears in the popup.
+    const handleSourceData = (event: mapboxgl.MapSourceDataEvent) => {
+      if (!event.isSourceLoaded || !event.sourceId) return;
+      if (!visibleLayers.has(event.sourceId)) return;
+      refreshClickPinnedResults();
+    };
+    mapInstance.on("sourcedata", handleSourceData);
+
+    return () => {
+      cancelled = true;
+      mapInstance.off("sourcedata", handleSourceData);
+    };
+  }, [visibleLayers, mapStyleLoaded, modeLayers]);
+
+  // GeoJSON is fetched when addSource runs — only mount sources for layers that are turned on.
+  useEffect(() => {
+    if (!map.current || !mapStyleLoaded || !map.current.isStyleLoaded()) return;
+    const mapInstance = map.current;
+    for (const layer of modeLayers) {
+      if (!visibleLayers.has(layer.id)) continue;
+      try {
+        addDistrictLayer(mapInstance, layer);
+      } catch (error) {
+        console.error(`Failed to initialize layer ${layer.id}`, error);
+      }
+    }
+    for (const layer of modeLayers) {
       const isVisible = visibleLayers.has(layer.id);
       const vis = isVisible ? "visible" : "none";
-      [`${layer.id}-fill`, `${layer.id}-line`, `${layer.id}-label`, `${layer.id}-hover`].forEach((lid) => {
-        if (map.current!.getLayer(lid)) {
-          map.current!.setLayoutProperty(lid, "visibility", vis);
+      for (const lid of [`${layer.id}-fill`, `${layer.id}-line`, `${layer.id}-hover`] as const) {
+        if (mapInstance.getLayer(lid)) {
+          mapInstance.setLayoutProperty(lid, "visibility", vis);
         }
-      });
-    });
-  }, [visibleLayers, modeLayers]);
+      }
+    }
+  }, [visibleLayers, modeLayers, mapStyleLoaded, addDistrictLayer]);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "min(70vh, 560px)",
-        minHeight: 320,
-      }}
+    <MapApplicationShell
+      rootRef={mapRootRef}
+      isFullscreen={isFullscreen}
+      onToggleFullscreen={toggleMapFullscreen}
+      showFullscreenControl={isValidPublicMapboxToken(mapboxToken)}
     >
       {!isValidPublicMapboxToken(mapboxToken) ? (
         <div
@@ -729,50 +830,27 @@ export const TravisCountyMap: React.FC = () => {
             {lookupError ? (
               <div style={{ marginTop: 6, fontSize: 12, color: "#991b1b" }}>{lookupError}</div>
             ) : null}
-            {addressLookupResults ? (
-              <div style={{ marginTop: 8, fontSize: 12 }}>
-                <div style={{ fontWeight: 600, marginBottom: 6 }}>{addressLookupResults.addressLabel}</div>
-                {addressLookupResults.results.length === 0 ? (
-                  <div style={{ color: "var(--color-map-ui-text-muted)" }}>
-                    No district or zone data found at this location.
-                  </div>
-                ) : (
-                  <div style={{ maxHeight: 180, overflowY: "auto", paddingRight: 4 }}>
-                    {addressLookupResults.results.map((result) => (
-                      <div key={result.layerId} style={{ marginBottom: 8 }}>
-                        <div style={{ fontWeight: 600 }}>{result.layerLabel}</div>
-                        {Object.keys(result.properties).length === 0 ? (
-                          <div style={{ color: "var(--color-map-ui-text-muted)" }}>No details available.</div>
-                        ) : (
-                          <div style={{ color: "var(--color-map-ui-text-muted)" }}>
-                            {Object.entries(result.properties)
-                              .map(([key, value]) => `${key}: ${value}`)
-                              .join(" • ")}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : null}
           </div>
         }
       />
       {ACTIVE_MODE.ui.showLegend ? (
         <Legend layers={modeLayers} visibleLayers={visibleLayers} title={`${ACTIVE_MODE.label} legend`} />
       ) : null}
-      {popupInfo && (
+      {popupInfo && (!popupInfo.isPinned || popupInfo.inViewport) ? (
         <InfoPopup
-          map={map.current!}
+          map={popupInfo.map}
           lngLat={popupInfo.lngLat}
           results={popupInfo.results}
-          onClose={() => {
-            isPopupPinnedRef.current = false;
-            setPopupInfo(null);
-          }}
+          isPinned={popupInfo.isPinned}
+          addressHeading={popupInfo.addressHeading}
+          resumeHoverAction={
+            desktopHoverLabels &&
+            popupInfo.isPinned &&
+            popupInfo.addressHeading === null
+          }
+          onClose={dismissPopup}
         />
-      )}
-    </div>
+      ) : null}
+    </MapApplicationShell>
   );
 };

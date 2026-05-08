@@ -1,27 +1,26 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+/**
+ * Minimal KML polygon parser for ISD trustee-style placemarks (Polygons + MultiPolygon output).
+ */
 
-const TRUSTEE_KML_URL =
-  "https://www.austinisd.org/modules/custom/schools/maps/Trustees_20241217.kml";
-const OUTPUT_PATH = resolve(process.cwd(), "public/data/aisd-trustee.geojson");
-
-type Position = [number, number];
+export type Position = [number, number];
 type Ring = Position[];
 type Polygon = Ring[];
 type MultiPolygon = Polygon[];
 
-type GeoJsonFeature = {
+export type TrusteeKmlFeatureProps = Record<string, string | number | null>;
+
+export type TrusteeGeoJsonFeature = {
   type: "Feature";
-  properties: Record<string, string | number | null>;
+  properties: TrusteeKmlFeatureProps;
   geometry: {
     type: "MultiPolygon";
     coordinates: MultiPolygon;
   };
 };
 
-type GeoJsonFeatureCollection = {
+export type TrusteeGeoJsonFeatureCollection = {
   type: "FeatureCollection";
-  features: GeoJsonFeature[];
+  features: TrusteeGeoJsonFeature[];
 };
 
 function decodeEntities(value: string): string {
@@ -56,9 +55,7 @@ function ensureClosedRing(ring: Position[]): Position[] {
 
 function collectPolygonsFromPlacemark(placemarkXml: string): MultiPolygon {
   const polygons: MultiPolygon = [];
-  const polygonBlocks = [...placemarkXml.matchAll(/<Polygon\b[\s\S]*?<\/Polygon>/g)].map(
-    (m) => m[0],
-  );
+  const polygonBlocks = [...placemarkXml.matchAll(/<Polygon\b[\s\S]*?<\/Polygon>/g)].map((m) => m[0]);
 
   for (const polygonXml of polygonBlocks) {
     const outerMatch = polygonXml.match(
@@ -83,9 +80,10 @@ function parseDistrictFromName(name: string): string {
   return match ? match[1] : name.trim();
 }
 
-function buildGeoJsonFromKml(kmlText: string): GeoJsonFeatureCollection {
+/** Builds GeoJSON features from AISD-style trustee KML (placemark names contain district info). */
+export function trusteeGeoJsonFromKml(kmlText: string): TrusteeGeoJsonFeatureCollection {
   const placemarks = [...kmlText.matchAll(/<Placemark\b[\s\S]*?<\/Placemark>/g)].map((m) => m[0]);
-  const features: GeoJsonFeature[] = [];
+  const features: TrusteeGeoJsonFeature[] = [];
 
   for (const placemark of placemarks) {
     const nameMatch = placemark.match(/<name>([\s\S]*?)<\/name>/);
@@ -111,26 +109,3 @@ function buildGeoJsonFromKml(kmlText: string): GeoJsonFeatureCollection {
 
   return { type: "FeatureCollection", features };
 }
-
-async function main() {
-  console.log("Downloading AISD trustee KML...");
-  const response = await fetch(TRUSTEE_KML_URL, { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error(`Failed to download KML (${response.status}).`);
-  }
-
-  const kmlText = await response.text();
-  const geojson = buildGeoJsonFromKml(kmlText);
-  if (geojson.features.length === 0) {
-    throw new Error("No trustee polygons found in source KML.");
-  }
-
-  await mkdir(dirname(OUTPUT_PATH), { recursive: true });
-  await writeFile(OUTPUT_PATH, JSON.stringify(geojson, null, 2), "utf8");
-  console.log(`Wrote ${geojson.features.length} trustee features -> ${OUTPUT_PATH}`);
-}
-
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});

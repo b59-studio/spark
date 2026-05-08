@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import { siteImages } from "@/lib/site-visuals";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -40,7 +41,7 @@ export default function EventsPage() {
         <figure className="min-w-0">
           <div className="overflow-hidden rounded-2xl">
             <Image
-              src="/francescateaching.jpg"
+              src={siteImages.content.francescaTeaching}
               alt="Founder Francesa Leahy leading a workshop with precinct chairs from Pflugerville."
               width={2048}
               height={1536}

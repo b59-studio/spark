@@ -109,5 +109,10 @@ export async function GET(req: Request) {
     })),
   };
 
-  return NextResponse.json(collection);
+  return NextResponse.json(collection, {
+    headers: {
+      // Short private cache speeds repeat visits / soft navigations without stale multi-user issues.
+      "Cache-Control": "private, max-age=30, stale-while-revalidate=120",
+    },
+  });
 }

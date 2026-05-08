@@ -1,0 +1,32 @@
+# Upload GeoJSON snapshots to Cloudflare R2 (`npm run snapshot:map-geojson:r2`).
+# Configure repository secrets before enabling schedule.
+
+name: Snapshot map GeoJSON to R2
+
+on:
+  workflow_dispatch:
+  # Uncomment after secrets are set:
+  # schedule:
+  #   - cron: "0 16 * * *"
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Upload layers to R2
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+          MAP_GEOJSON_R2_KEY_PREFIX: ${{ vars.MAP_GEOJSON_R2_KEY_PREFIX }}
+        run: npm run snapshot:map-geojson:r2

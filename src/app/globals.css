@@ -115,7 +115,8 @@ h2::before {
   width: 1.3em;
   height: 1.3em;
   flex-shrink: 0;
-  background-image: url("/sparkv1.png");
+  /* Paths mirror `siteImages.brand` in `site-visuals.ts`. */
+  background-image: url("/images/brand/sparkv1.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -336,7 +337,8 @@ h2::before {
 .logo-container {
   height: 108px;
   width: auto;
-  background-image: url('/wordmark2-g.png');
+  /* Path mirrors `siteImages.brand.wordmark` in `site-visuals.ts`. */
+  background-image: url('/images/brand/wordmark2-g.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left center;
@@ -347,8 +349,8 @@ h2::before {
    ============================================ */
 
 :root {
-  /* Shared with `src/lib/site-visuals.ts` */
-  --header-hero-photo: url("/hero-background.jpg");
+  /* Hero JPEG path — must match `siteImages.content.heroBackground` in `site-visuals.ts` (do not retune hero loading here without review). */
+  --header-hero-photo: url("/images/content/hero-background.jpg");
   /* Map UI contrast-safe tokens for light surfaces (panels, legends, popups). */
   --color-map-ui-text-primary: #1f2937;
   --color-map-ui-text-muted: #4b5563;

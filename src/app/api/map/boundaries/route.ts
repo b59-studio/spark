@@ -45,7 +45,11 @@ export async function GET(req: Request) {
       type: "FeatureCollection",
       features: [],
     };
-    return NextResponse.json(empty);
+    return NextResponse.json(empty, {
+      headers: {
+        "Cache-Control": "private, max-age=30, stale-while-revalidate=120",
+      },
+    });
   }
 
   const rows = await prisma.$queryRaw<
@@ -104,5 +108,9 @@ export async function GET(req: Request) {
     features,
   };
 
-  return NextResponse.json(collection);
+  return NextResponse.json(collection, {
+    headers: {
+      "Cache-Control": "private, max-age=30, stale-while-revalidate=120",
+    },
+  });
 }

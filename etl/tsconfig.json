@@ -5,12 +5,8 @@
     "lib": ["ES2022"],
     "module": "Node16",
     "moduleResolution": "Node16",
-    "noEmit": false,
-    "outDir": "./dist",
+    "noEmit": true,
     "rootDir": "./",
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
     "plugins": []
   },
   "include": ["**/*.ts"],

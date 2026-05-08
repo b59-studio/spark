@@ -34,5 +34,12 @@ export async function GET() {
       ? layers
       : layers.filter((l) => slugGate.slugs.has(l.slug));
 
-  return NextResponse.json({ layers: filtered });
+  return NextResponse.json(
+    { layers: filtered },
+    {
+      headers: {
+        "Cache-Control": "private, max-age=60, stale-while-revalidate=300",
+      },
+    },
+  );
 }

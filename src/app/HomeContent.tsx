@@ -5,8 +5,7 @@ import Link from "next/link";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import { useEffect, useId, useState } from "react";
 import NewsletterSignup from "@/components/NewsletterSignup";
-
-const TAB_SPARK_ICON = "/sparkv1.png";
+import { siteImages } from "@/lib/site-visuals";
 
 const HOME_VALUE_TABS = [
   {
@@ -33,7 +32,7 @@ const HOME_VALUE_TABS = [
     ],
     cta: { href: "/solutions", label: "Explore Free Tools" },
     sideImage: {
-      src: "/Election_Precinct_305.pdf.png",
+      src: siteImages.content.electionPrecinctMap,
       alt: "Map showing the boundaries and layout of Travis County Election Precinct 305, as passed by Commissioners Court on December 4, 2025.",
       width: 4224,
       height: 3264,
@@ -63,10 +62,11 @@ function TabIconBubble() {
       aria-hidden
     >
       <Image
-        src={TAB_SPARK_ICON}
+        src={siteImages.brand.sparkLogo}
         alt=""
         width={22}
         height={22}
+        sizes="28px"
         className="size-[1.1rem] object-contain sm:size-5 md:size-[1.35rem]"
       />
     </span>

@@ -1,0 +1,54 @@
+# Refreshes checked-in map GeoJSON and generated roster files (same pattern as legislator sync).
+# Set repository secret OPENSTATES_API_KEY so municipal mayor/council rosters populate from Open States.
+
+name: Refresh map data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 7 * * 1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: map-data-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Fetch GeoJSON & sync rosters
+        env:
+          OPENSTATES_API_KEY: ${{ secrets.OPENSTATES_API_KEY }}
+        run: |
+          npm run map:fetch:travis-municipal
+          npm run map:build:travis-isd-trustee-districts
+          npm run map:build:travis-municipal-council-districts
+          npm run map:sync:travis-municipal-rosters
+          npm run map:build:travis-city-government
+          npm run map:build:travis-census-vtd-tract
+          npm run map:build:travis-school-districts-layer
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/travis-municipal-full-purpose.geojson public/data/travis-isd-trustee-districts.geojson public/data/travis-municipal-council-districts.geojson public/data/travis-city-government.geojson public/data/travis-census-vtd-and-tracts.geojson public/data/travis-school-districts.geojson src/data/generated/municipal/travis-municipal-rosters.ts
+          if git diff --staged --quiet; then
+            echo "No changes."
+          else
+            git commit -m "chore(map): refresh Travis municipal GeoJSON and rosters"
+            git push
+          fi

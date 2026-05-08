@@ -1,7 +1,7 @@
-import { useCallback } from "react";
 import type mapboxgl from "mapbox-gl";
 import type { DistrictLayer, DistrictLookupResult } from "@/types/district.types";
 import { firstFeature, toDisplayProperties } from "@/utils/geojson.utils";
+import { enrichDistrictLookupResult } from "@/utils/enrichDistrictLookup";
 
 type Position = [number, number];
 type PolygonCoordinates = Position[][];
@@ -60,60 +60,68 @@ function getFeatureLabel(
   return "Unknown";
 }
 
-export function useDistrictLookup() {
-  const lookupDistrictsAtPoint = useCallback(
-    (
-      map: mapboxgl.Map,
-      point: mapboxgl.PointLike,
-      layers: DistrictLayer[],
-      visibleLayers: Set<string>,
-    ): DistrictLookupResult[] => {
-      const activeLayers = layers.filter((layer) => visibleLayers.has(layer.id));
-      const queryLayerIds = activeLayers.map((layer) => `${layer.id}-fill`);
-      if (queryLayerIds.length === 0) return [];
+/** Pure lookup — stable reference; safe to omit from hook dependency arrays. */
+export function lookupDistrictsAtPoint(
+  map: mapboxgl.Map,
+  point: mapboxgl.PointLike,
+  layers: DistrictLayer[],
+  visibleLayers: Set<string>,
+): DistrictLookupResult[] {
+  const activeLayers = layers.filter((layer) => visibleLayers.has(layer.id));
+  if (activeLayers.length === 0) return [];
 
-      const rendered = map.queryRenderedFeatures(point, { layers: queryLayerIds });
-      const pointLngLat = map.unproject(point);
-      const pointCoords: Position = [pointLngLat.lng, pointLngLat.lat];
+  // Only query layers that are already in the style. District fill layers are added in an
+  // effect that can run after visible-layer state updates, so IDs like `tx-state-senate-fill`
+  // may not exist yet — Mapbox throws if queryRenderedFeatures references a missing layer.
+  const fillLayerIds = activeLayers
+    .map((layer) => `${layer.id}-fill`)
+    .filter((id) => Boolean(map.getLayer(id)));
 
-      const firstFeatureBySource = new Map<string, mapboxgl.MapboxGeoJSONFeature>();
-      rendered.forEach((feature) => {
-        const sourceLayerId = String(feature.source);
-        if (!firstFeatureBySource.has(sourceLayerId)) {
-          firstFeatureBySource.set(sourceLayerId, feature);
+  const rendered =
+    fillLayerIds.length > 0
+      ? map.queryRenderedFeatures(point, { layers: fillLayerIds })
+      : [];
+  const pointLngLat = map.unproject(point);
+  const pointCoords: Position = [pointLngLat.lng, pointLngLat.lat];
+
+  const firstFeatureBySource = new Map<string, mapboxgl.MapboxGeoJSONFeature>();
+  rendered.forEach((feature) => {
+    const sourceLayerId = String(feature.source);
+    if (!firstFeatureBySource.has(sourceLayerId)) {
+      firstFeatureBySource.set(sourceLayerId, feature);
+    }
+  });
+
+  return activeLayers
+    .map((layer) => {
+      let feature = firstFeatureBySource.get(layer.id);
+      if (!feature) {
+        try {
+          const sourceMatches = map
+            .querySourceFeatures(layer.id)
+            .filter((candidate) => featureContainsPoint(candidate, pointCoords));
+          feature = firstFeature(sourceMatches) ?? undefined;
+        } catch {
+          feature = undefined;
         }
-      });
+      }
+      if (!feature) return null;
+      const featureProperties = feature.properties as RawProperties | undefined;
+      const base: DistrictLookupResult = {
+        layerId: layer.id,
+        layerLabel: layer.label,
+        featureLabel: getFeatureLabel(layer, featureProperties),
+        properties: toDisplayProperties(
+          featureProperties,
+          layer.popupProperties,
+          layer.popupPropertyAliases,
+        ),
+      };
+      return enrichDistrictLookupResult(layer, featureProperties, base);
+    })
+    .filter((entry): entry is DistrictLookupResult => entry !== null);
+}
 
-      return activeLayers
-        .map((layer) => {
-          let feature = firstFeatureBySource.get(layer.id);
-          if (!feature) {
-            try {
-              const sourceMatches = map
-                .querySourceFeatures(layer.id)
-                .filter((candidate) => featureContainsPoint(candidate, pointCoords));
-              feature = firstFeature(sourceMatches) ?? undefined;
-            } catch {
-              feature = undefined;
-            }
-          }
-          if (!feature) return null;
-          const featureProperties = feature.properties as RawProperties | undefined;
-          return {
-            layerId: layer.id,
-            layerLabel: layer.label,
-            featureLabel: getFeatureLabel(layer, featureProperties),
-            properties: toDisplayProperties(
-              featureProperties,
-              layer.popupProperties,
-              layer.popupPropertyAliases,
-            ),
-          } satisfies DistrictLookupResult;
-        })
-        .filter((entry): entry is DistrictLookupResult => entry !== null);
-    },
-    [],
-  );
-
+export function useDistrictLookup() {
   return { lookupDistrictsAtPoint };
 }

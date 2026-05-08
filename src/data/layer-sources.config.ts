@@ -27,26 +27,46 @@ export const LAYER_SOURCE_REFERENCES: LayerSourceReference[] = [
     notes: "Good local POC layer; not statewide.",
   },
   {
-    layerId: "tx-vtd-placeholder",
-    layerLabel: "TX Voting Districts (VTD Placeholder)",
-    publisher: "U.S. Census TIGERweb",
-    geography: "Texas statewide",
-    sourceFormat: "GeoJSON API",
-    recency: "Census 2020 VTD layer in TIGERweb Legislative service",
-    endpoint:
-      "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Legislative/MapServer/15/query?where=STATE%3D%2748%27&outFields=*&outSR=4326&f=geojson",
-    gap:
-      "This is a placeholder for statewide precinct-like geography (VTD), not official election-admin precinct boundaries for each election cycle.",
-  },
-  {
     layerId: "atx-council",
     layerLabel: "Austin City Council",
     publisher: "City of Austin Open Data",
-    geography: "City of Austin",
+    geography: "City of Austin council districts (granular polygons)",
     sourceFormat: "GeoJSON API",
-    recency: "Current city district dataset (verify after each redistricting cycle)",
+    recency: "Current district dataset — verify after redistricting",
     endpoint:
-      "https://data.austintexas.gov/resource/w3v2-cj58.geojson?$limit=50000",
+      "https://data.austintexas.gov/resource/w3v2-cj58.geojson?$limit=50000 (via /api/map/external-layer?layer=austin-city-council)",
+    notes: "Council member roster: src/data/atx-council-members.ts; mayor: src/data/atx-mayor.ts.",
+  },
+  {
+    layerId: "travis-city-government",
+    layerLabel: "Other cities & municipalities",
+    publisher: "Travis County GIS + optional ward manifests",
+    geography: "Non-Austin municipal limits + regional council wards when published",
+    sourceFormat: "GeoJSON API",
+    recency: "Checked-in build — no Austin polygons",
+    endpoint: "/data/travis-city-government.geojson (scripts/build-travis-city-government.ts)",
+    notes:
+      "Mayor/council for whole-city boundaries: Open States + seed + travis-municipal-rosters-overrides.ts.",
+  },
+  {
+    layerId: "travis-school-districts",
+    layerLabel: "School districts & trustees",
+    publisher: "Texas Education Agency + per-ISD trustee maps",
+    geography: "TEA districts intersecting Travis-area envelope + trustee polygons",
+    sourceFormat: "GeoJSON API",
+    recency: "Built file; extend scripts/data/travis-isd-trustee-sources.ts for more trustee maps",
+    endpoint: "/data/travis-school-districts.geojson (scripts/build-travis-school-districts-layer.ts)",
+    notes: "Outer boundaries show trustee roll call when roster rows exist; interior polygons show single-member trustees.",
+  },
+  {
+    layerId: "travis-census-vtd-and-tracts",
+    layerLabel: "Census tracts & voting tabulation districts",
+    publisher: "U.S. Census TIGERweb",
+    geography: "Travis County (combined VTD + tract queries)",
+    sourceFormat: "GeoJSON API",
+    recency: "Same vintages as Legislative / Tracts_Blocks services used in build script",
+    endpoint: "/data/travis-census-vtd-and-tracts.geojson (scripts/build-travis-census-vtd-tract.ts)",
+    gap: "Census statistical geographies—not election-admin precincts.",
   },
   {
     layerId: "tx-state-senate",
@@ -83,16 +103,6 @@ export const LAYER_SOURCE_REFERENCES: LayerSourceReference[] = [
       "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Legislative/MapServer/0/query?where=STATE%3D%2748%27&outFields=*&outSR=4326&f=geojson",
   },
   {
-    layerId: "isd-boundaries",
-    layerLabel: "School District Boundaries",
-    publisher: "Texas Education Agency",
-    geography: "Texas statewide",
-    sourceFormat: "GeoJSON API",
-    recency: "TEA School Districts 2025 service",
-    endpoint:
-      "https://services7.arcgis.com/ZodPOMBKsdAsTqF4/ArcGIS/rest/services/TEA_School_Districts_2025/FeatureServer/23/query?where=1%3D1&outFields=*&outSR=4326&f=geojson",
-  },
-  {
     layerId: "mud-districts",
     layerLabel: "MUD Districts",
     publisher: "Texas Commission on Environmental Quality",
@@ -101,16 +111,6 @@ export const LAYER_SOURCE_REFERENCES: LayerSourceReference[] = [
     recency: "Service-driven; verify quarterly/annual district updates",
     endpoint:
       "https://gisweb.tceq.texas.gov/arcgis/rest/services/Public/WaterDistricts/MapServer/0/query?where=TYPE%3D%27MUD%27&outFields=*&outSR=4326&f=geojson",
-  },
-  {
-    layerId: "census-tracts",
-    layerLabel: "Census Tracts",
-    publisher: "U.S. Census TIGERweb",
-    geography: "Texas statewide",
-    sourceFormat: "GeoJSON API",
-    recency: "Current tracts in TIGERweb Tracts_Blocks service (Jan 1, 2025 vintage)",
-    endpoint:
-      "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Tracts_Blocks/MapServer/0/query?where=STATE%3D%2748%27&outFields=*&outSR=4326&f=geojson",
   },
   {
     layerId: "fema-flood",
