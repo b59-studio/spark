@@ -349,6 +349,13 @@ h2::before {
 :root {
   /* Shared with `src/lib/site-visuals.ts` */
   --header-hero-photo: url("/hero-background.jpg");
+  /* Map UI contrast-safe tokens for light surfaces (panels, legends, popups). */
+  --color-map-ui-text-primary: #1f2937;
+  --color-map-ui-text-muted: #4b5563;
+  --color-map-ui-text-subtle: #6b7280;
+  --color-map-ui-emphasis: #0f766e;
+  --color-map-ui-warning: #b45309; /* gold-family fallback on white */
+  --color-map-ui-warning-strong: #c2410c;
 }
 
 /* Home: one anchor for hero `<Image>` object-position and header strip background — continuous field under the fixed nav */
