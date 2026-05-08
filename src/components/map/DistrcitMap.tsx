@@ -58,7 +58,7 @@ const fetchGeocodingPayload = async (
     };
   }
 
-  // Fallback for local/dev setups that only provide NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN.
+  // Fallback when the API route has no token but the browser bundle has a public token.
   if (apiResponse.status === 503 && isValidPublicMapboxToken(mapboxToken)) {
     const directUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
       params.get("q") ?? "",

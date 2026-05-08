@@ -2,7 +2,7 @@
 
 /**
  * Browser Mapbox GL map. Requires **NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN** (URL-restrict in Mapbox).
- * Server routes use MAPBOX_ACCESS_TOKEN only — see `src/lib/mapbox-server.ts`.
+ * Server routes prefer MAPBOX_ACCESS_TOKEN; see `src/lib/mapbox-server.ts` for fallback.
  */
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";

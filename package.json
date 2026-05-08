@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "@vercel/analytics": "^2.0.1",
     "airtable": "^0.12.2",
     "exceljs": "^4.4.0",
     "mapbox-gl": "^3.23.1",

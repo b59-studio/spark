@@ -1,15 +1,22 @@
 /**
  * Server-side Mapbox API calls (geocoding, directions, etc.).
  *
- * Env: **MAPBOX_ACCESS_TOKEN** — secret default token; never exposed as NEXT_PUBLIC_*.
- * Client maps use NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN separately (see SparkMap).
+ * Env: **MAPBOX_ACCESS_TOKEN** preferred (secret default token for server-only calls).
+ * If unset, falls back to **NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN** (or NEXT_PUBLIC_MAPBOX_TOKEN)
+ * so production matches local setups that only configure the public token. Client maps
+ * still need NEXT_PUBLIC_* for mapbox-gl; URL-restricted pk tokens may fail from
+ * serverless unless you add MAPBOX_ACCESS_TOKEN.
  */
 
 const MAPBOX_ORIGIN = "https://api.mapbox.com";
 
 export function getMapboxAccessToken(): string | null {
-  const token = process.env.MAPBOX_ACCESS_TOKEN;
-  return token && token.length > 0 ? token : null;
+  const secret = process.env.MAPBOX_ACCESS_TOKEN?.trim();
+  if (secret) return secret;
+  const pub =
+    process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN?.trim() ??
+    process.env.NEXT_PUBLIC_MAPBOX_TOKEN?.trim();
+  return pub && pub.length > 0 ? pub : null;
 }
 
 type MapboxFetchOptions = {
@@ -24,7 +31,10 @@ export async function fetchMapboxJson({ path, params }: MapboxFetchOptions) {
     return {
       ok: false as const,
       status: 503 as const,
-      body: { error: "Mapbox is not configured (missing MAPBOX_ACCESS_TOKEN)." },
+      body: {
+        error:
+          "Mapbox is not configured (set MAPBOX_ACCESS_TOKEN or NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN).",
+      },
     };
   }
 
