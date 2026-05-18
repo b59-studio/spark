@@ -1,7 +1,7 @@
 /**
  * AUTO-GENERATED — do not edit by hand.
  * Defaults + seed file only (no OPENSTATES_API_KEY).
- * Generated at (UTC): 2026-05-11T10:27:36.172Z
+ * Generated at (UTC): 2026-05-18T10:54:41.530Z
  */
 
 export type TravisMunicipalRoster = {
