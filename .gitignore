@@ -31,6 +31,8 @@ __pycache__/
 # Node artifacts if any helper tools are added
 node_modules/
 .npm/
+.next/
+out/
 
 # TX*Spark — local env and secrets
 .env
