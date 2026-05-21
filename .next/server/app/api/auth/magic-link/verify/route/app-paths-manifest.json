@@ -1,0 +1,3 @@
+{
+  "/api/auth/magic-link/verify/route": "app/api/auth/magic-link/verify/route.js"
+}

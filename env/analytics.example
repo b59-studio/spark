@@ -1,0 +1,11 @@
+# Neon Postgres for marketing analytics (newsletter signups, WooCommerce orders).
+# Can be the same Neon project as core with schema `analytics`, or a separate branch.
+
+ANALYTICS_DATABASE_URL=postgresql://user:pass@ep-xxx.us-east-2.aws.neon.tech/neondb?sslmode=require
+
+# Optional: read-only link to core `User` table for email → core_user_id on events.
+# Use the map-migration DATABASE_URL (same DB, public schema).
+# CORE_DATABASE_URL=
+
+# WooCommerce → POST /api/webhooks/woocommerce (configure in WP admin when tunneling)
+# WOOCOMMERCE_WEBHOOK_SECRET=local-dev-secret

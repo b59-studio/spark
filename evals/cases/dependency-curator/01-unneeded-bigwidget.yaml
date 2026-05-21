@@ -1,0 +1,38 @@
+description: dependency-curator should block an unnecessary heavy dependency and propose an alternative.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/dependency-curator.md }}"
+  input: |
+    Review this package.json diff:
+
+    ```diff
+    --- a/package.json
+    +++ b/package.json
+    @@ -10,6 +10,7 @@
+       "dependencies": {
+         "next": "^14.0.0",
+         "react": "^18.0.0",
+    +    "moment": "^2.29.4",
+         "@stripe/stripe-js": "^2.0.0"
+       }
+    ```
+
+    Context: the PR description says "needed for formatting dates in
+    the email template (1 place)". The project targets Node 20.
+
+assert:
+  - type: icontains
+    value: "moment"
+    metric: addresses-moment
+  - type: icontains-any
+    value: ["Intl.DateTimeFormat", "date-fns", "Temporal", "Block"]
+    metric: proposes-alternative-or-blocks
+  - type: llm-rubric
+    value: |
+      The response (1) recommends BLOCKING `moment` as an
+      unnecessary dependency; (2) cites that moment is in
+      maintenance mode AND that Node 20 has Intl.DateTimeFormat
+      built in; (3) explicitly mentions the bundle-size concern
+      (moment ~70KB gzipped for a single date format); (4)
+      proposes Intl.DateTimeFormat or date-fns as the alternative.
+    metric: blocks-with-alternative

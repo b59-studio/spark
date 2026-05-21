@@ -50,6 +50,7 @@ export default async function ToolkitPage({ params }: ToolkitPageProps) {
       <p className="body-md mb-6">{currentToolkit.summary}</p>
 
       <GatedOutboundLinks
+        signupSource={`grow-toolkit:${toolkit}`}
         heading="Get the free toolkit"
         className="spark-panel spark-carousel-slide-outline mb-14"
         headingClassName="heading-md mb-4"

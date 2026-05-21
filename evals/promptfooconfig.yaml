@@ -1,0 +1,59 @@
+description: Eval suite for the coding-standards subagents. One case per agent at Phase 2; grow to 3+ per agent over time.
+
+providers:
+  - id: anthropic:messages:claude-sonnet-4-5
+    config:
+      temperature: 0
+      max_tokens: 2048
+
+prompts:
+  - |
+    {{ agent_prompt }}
+
+    ---
+
+    User request:
+    {{ input }}
+
+# All cases — keep alphabetized by agent.
+tests:
+  - cases/a11y-reviewer/01-missing-alt-and-contrast.yaml
+  - cases/api-designer/01-verb-in-url.yaml
+  - cases/architecture-reviewer/01-review-design.yaml
+  - cases/chaos-tester/01-design-experiments.yaml
+  - cases/code-quality-reviewer/01-missing-tests.yaml
+  - cases/commit-message-author/01-strip-ai-attribution.yaml
+  - cases/dependency-curator/01-unneeded-bigwidget.yaml
+  - cases/design-system-reviewer/01-inline-tokens.yaml
+  - cases/doc-generator/01-draft-docstring.yaml
+  - cases/docs-reviewer/01-missing-docstring.yaml
+  - cases/e2e-test-author/01-accessible-selectors.yaml
+  - cases/incident-responder/01-stabilize.yaml
+  - cases/memory-curator/01-session-start.yaml
+  - cases/model-router/01-route-workflow.yaml
+  - cases/mutation-tester/01-classify-mutations.yaml
+  - cases/naming-reviewer/01-generic-names.yaml
+  - cases/observability-reviewer/01-missing-logs.yaml
+  - cases/onboarding-author/01-hands-on-onboarding.yaml
+  - cases/perf-reviewer/01-n-plus-one.yaml
+  - cases/pm-syncer/01-read-ticket.yaml
+  - cases/release-engineer/01-missing-rollback.yaml
+  - cases/requirements-analyst/01-fuzzy-prompt.yaml
+  - cases/schema-documenter/01-mermaid-er.yaml
+  - cases/security-tester/01-sql-injection.yaml
+  - cases/structure-reviewer/01-dependency-direction.yaml
+  - cases/system-documenter/01-c4-architecture.yaml
+  - cases/test-author/01-boundary-cases.yaml
+  - cases/test-runner/01-classify-failure.yaml
+  - cases/usability-reviewer/01-confusing-error.yaml
+  - cases/visual-regression-tester/01-intended-vs-unintended.yaml
+  - cases/workflow-orchestrator/01-pick-workflow.yaml
+
+outputPath: results/run-{{ now | replace(":", "-") }}.json
+
+defaultTest:
+  options:
+    provider:
+      id: anthropic:messages:claude-haiku-4-5-20251001
+      config:
+        temperature: 0

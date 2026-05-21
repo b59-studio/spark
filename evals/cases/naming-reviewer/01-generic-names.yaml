@@ -1,0 +1,35 @@
+description: naming-reviewer should flag generic, low-information names.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/naming-reviewer.md }}"
+  input: |
+    New file added: `src/billing/manager.py`
+
+    ```python
+    class Manager:
+        def __init__(self, data):
+            self.data = data
+            self.temp = {}
+
+        def process(self, info):
+            obj = self._helper(info)
+            return obj
+
+        def _helper(self, x):
+            return {"result": x}
+    ```
+
+assert:
+  - type: icontains-any
+    value: ["Manager", "data", "temp", "process", "helper", "obj"]
+    metric: identifies-generic-names
+
+  - type: llm-rubric
+    value: |
+      The response flags multiple generic names: at minimum the class
+      name `Manager`, the variables `data` / `temp` / `obj`, the
+      method `process`, and the helper `_helper`. It proposes
+      domain-specific alternatives (e.g., `InvoiceProcessor`,
+      `lineItems`, `taxBreakdown`). It does NOT bikeshed minor
+      preferences while ignoring the obvious smells.
+    metric: actionable-renames

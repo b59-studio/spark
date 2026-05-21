@@ -82,6 +82,7 @@ export default function PalContent() {
 
         <div className="scroll-reveal" data-reveal>
           <GatedOutboundLinks
+            signupSource="pal-tracker"
             className="rounded-none p-0 mb-0 sm:p-0"
             heading="PAL Bill Tracker"
             headingClassName="heading-lg mb-4"

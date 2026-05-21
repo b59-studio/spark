@@ -15,26 +15,6 @@ export default function Footer() {
             className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 footer-text"
             aria-label="Footer"
           >
-            {/**
-            <Link href="/about/sitemap" className="footer-link whitespace-nowrap">
-              Sitemap
-            </Link>
-            <span className="text-spark-red/40" aria-hidden>
-              ·
-            </span>
-             */}
-            <Link href="/map" className="footer-link whitespace-nowrap">
-              Map
-            </Link>
-            <span className="text-spark-red/40" aria-hidden>
-              ·
-            </span>
-            <Link href="/login" className="footer-link whitespace-nowrap">
-              Login
-            </Link>
-            <span className="text-spark-red/40" aria-hidden>
-              ·
-            </span>
             <Link href="/about/privacy" className="footer-link whitespace-nowrap">
               Privacy Policy
             </Link>

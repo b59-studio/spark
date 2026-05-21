@@ -1,0 +1,34 @@
+description: security-tester should flag string-concat SQL as CRITICAL with CWE reference.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/security-tester.md }}"
+  input: |
+    Quick triage: this code was just added. Should I run a fresh scan?
+
+    ```python
+    @app.get("/search")
+    def search(q: str):
+        cursor = db.cursor()
+        cursor.execute(f"SELECT * FROM products WHERE name LIKE '%{q}%'")
+        return cursor.fetchall()
+    ```
+
+assert:
+  - type: icontains-any
+    value: ["SQL injection", "CWE-89", "parameterized", "prepared statement"]
+    metric: identifies-sqli
+  - type: icontains-any
+    value: ["Critical", "CRITICAL"]
+    metric: severity-critical
+  - type: not-icontains-any
+    value: ["false positive", "likely safe"]
+    metric: no-dismissal
+  - type: llm-rubric
+    value: |
+      The response flags this as a CRITICAL SQL injection vulnerability
+      (CWE-89). It (1) explains the exploit vector (untrusted `q`
+      interpolated directly into SQL); (2) provides the parameterized-
+      query fix; (3) does NOT dismiss as a false positive; (4) ideally
+      mentions Bandit / Semgrep would catch this and recommends adding
+      one to CI if not present.
+    metric: complete-sqli-triage

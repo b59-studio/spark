@@ -1,42 +1,33 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Bundle-repo .gitignore (for the coding-standards repo itself).
+# These are files that may appear when developing the bundle but
+# shouldn't be tracked.
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-/etl/dist/
-
-# misc
+# OS clutter
 .DS_Store
-*.pem
+Thumbs.db
+desktop.ini
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
+# Editor scratch
+.idea/
+.vscode/
+*.swp
+*.swo
 
-# env files (can opt-in for committing if needed)
-.env*
+# Local-only notes (your personal scratchpad while editing the bundle)
+notes.local.md
+.scratch/
+.ai-notes/
+*.ai-tmp
 
-# vercel
-.vercel
+# Test outputs from the eval suite
+evals/results/
+evals/.cache/
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Python virtual envs if you run eval scripts here
+.venv/
+__pycache__/
+*.pyc
+
+# Node artifacts if any helper tools are added
+node_modules/
+.npm/

@@ -76,7 +76,7 @@ export default function EventsPage() {
         <p className="body-md mb-6">
           Stay up to date on the most recent events, including upcoming meet-ups, canvasses, and workshops.
         </p>
-        <NewsletterSignup variant="panel" />
+        <NewsletterSignup variant="panel" signupSource="events" />
       </section>
 
       <section className="mt-14 spark-panel rounded-2xl p-6 sm:p-8">

@@ -1,0 +1,24 @@
+description: requirements-analyst should turn a fuzzy prompt into a spec with success criteria and open questions.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/requirements-analyst.md }}"
+  input: |
+    User prompt: "The dashboard is slow. Can you make it faster?"
+
+assert:
+  - type: icontains-all
+    value: ["Success criteria", "Open questions"]
+    metric: spec-shape
+  - type: regex
+    value: "([Pp]95|[Pp]99|<[0-9]+ ?ms|[0-9]+ ?(?:ms|seconds))"
+    metric: testable-criteria
+  - type: llm-rubric
+    value: |
+      The response is a SPEC, not an answer. It contains: (1) a
+      "User problem" framing; (2) at least 2-3 TESTABLE success
+      criteria (e.g., "P95 page load under 2s on /dashboard"), NOT
+      vague ones like "feels faster"; (3) explicit open questions
+      back to the user (which page section? which user role?
+      acceptable degradation if 100% impossible?); (4) does NOT
+      propose a solution. The spec admits what it doesn't know.
+    metric: produces-spec-not-solution

@@ -1,0 +1,46 @@
+description: design-system-reviewer should flag inline hex colors and one-off button when system components exist.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/design-system-reviewer.md }}"
+  input: |
+    Review this component. The project has tokens at `src/design-system/tokens.ts`
+    (`tokens.color.brand.primary` = `#3b82f6`) and a `<Button>` component
+    at `src/design-system/Button.tsx`.
+
+    ```tsx
+    // src/pages/promo.tsx
+    export function Promo() {
+      return (
+        <div style={{ padding: 14 }}>
+          <h2 style={{ color: "#3b82f6" }}>Limited time offer</h2>
+          <button
+            style={{
+              background: "#3b82f6",
+              color: "white",
+              padding: "8px 16px",
+              borderRadius: 4,
+            }}
+          >
+            Shop now
+          </button>
+        </div>
+      );
+    }
+    ```
+
+assert:
+  - type: icontains-any
+    value: ["token", "tokens.color.brand", "#3b82f6"]
+    metric: flags-inline-color
+  - type: icontains-any
+    value: ["Button", "design system component", "existing component"]
+    metric: flags-custom-button
+  - type: llm-rubric
+    value: |
+      The response (1) flags `#3b82f6` used inline twice when a
+      brand-primary token exists; (2) flags the inline <button>
+      when a `<Button>` design-system component exists at
+      src/design-system/Button.tsx; (3) flags the padding 14 as
+      possibly off the spacing scale; (4) frames findings as
+      design-system drift, NOT a11y or usability — defers those.
+    metric: identifies-ds-drift
