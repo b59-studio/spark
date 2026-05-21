@@ -1,6 +1,6 @@
 -- Analytics schema: append-only events for newsletter + commerce.
 -- Run: npm run analytics:migrate
--- Safe to point ANALYTICS_DATABASE_URL at a dedicated Neon branch or the core DB.
+-- Safe to run against DATABASE_URL; only creates/alters schema analytics.
 
 CREATE SCHEMA IF NOT EXISTS analytics;
 

@@ -69,7 +69,7 @@ npm run cms:down
 2. Add to `.env.local`:
 
    ```
-   ANALYTICS_DATABASE_URL=postgresql://...
+   DATABASE_URL=postgresql://...
    ```
 
 3. Apply migrations:

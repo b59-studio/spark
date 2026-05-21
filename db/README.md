@@ -6,29 +6,29 @@ WooCommerce webhooks using **Kysely** (`src/lib/analytics-db.ts`).
 
 ## Connection
 
-Set in `.env.local` (see [`env/analytics.example`](../env/analytics.example)):
+Set `DATABASE_URL` in `.env.local` (same Neon Postgres as map/core users):
 
 ```bash
-ANALYTICS_DATABASE_URL=postgresql://user:pass@ep-xxx.region.aws.neon.tech/neondb?sslmode=require
+DATABASE_URL=postgresql://user:pass@ep-xxx.region.aws.neon.tech/neondb?sslmode=require
 ```
 
-Recommended: a **Neon branch** or project used only for analytics so migrations
-and experiments do not affect the map/core database.
+Analytics tables live in schema **`analytics`** on that database. Migrations
+only create or alter objects under `analytics` — they do not touch `public`
+tables or Prisma-managed map data.
 
-Optional cross-link to map users:
+See [`env/analytics.example`](../env/analytics.example) for webhook-related vars.
 
-```bash
-CORE_DATABASE_URL=postgresql://...   # read-only access to public.User if needed
-```
-
-Used by `src/lib/analytics/resolve-core-user-id.ts` to populate
-`core_user_id` on events when configured.
+**Core user linking** uses the same `DATABASE_URL`. When `public."User"` exists
+with columns `id` (UUID) and `email` (text), signup and order events populate
+`core_user_id` via case-insensitive email match. If the table is missing or no
+row matches, events still insert with `core_user_id = null`.
 
 ## Migrations
 
 | File | Purpose |
 | ---- | ------- |
 | `migrations/analytics/001_init.sql` | Creates `analytics` schema and three tables |
+| `migrations/analytics/002_plugin_external_ids.sql` | MailPoet subscriber id, WooCommerce customer id, payment method |
 
 Apply locally or in CI:
 
@@ -36,8 +36,9 @@ Apply locally or in CI:
 npm run analytics:migrate
 ```
 
-The script (`scripts/analytics-migrate.ts`) reads `ANALYTICS_DATABASE_URL`,
-executes the SQL file in order, and exits non-zero if the URL is missing.
+The script (`scripts/analytics-migrate.ts`) reads `DATABASE_URL`,
+executes all `NNN_*.sql` files in numeric order, and exits non-zero if the URL
+is missing.
 
 **Adding a migration:**
 
@@ -62,6 +63,7 @@ Records each successful signup (after MailPoet or fallback path).
 | `email_normalized` | Lowercased email for dedup/reporting |
 | `source`, `resource_label` | Attribution from the signup form |
 | `mailpoet_list_id` | List used when MailPoet is configured |
+| `mailpoet_subscriber_id` | MailPoet subscriber id when API returns it |
 | `core_user_id` | Optional UUID link to map `User` |
 | `payload` | JSONB for extra fields |
 | `created_at` | Event time |
@@ -77,7 +79,9 @@ Upserted from WooCommerce `order.*` webhooks.
 | Column | Notes |
 | ------ | ----- |
 | `woocommerce_order_id` | Unique external id |
+| `woocommerce_customer_id` | WooCommerce customer id from order payload |
 | `status`, `currency`, `total_cents` | Order summary |
+| `payment_method` | e.g. `stripe`, `cod` |
 | `customer_email_normalized` | For reporting |
 | `line_items`, `raw_payload` | JSONB |
 | `ordered_at`, `created_at`, `updated_at` | Timestamps |
@@ -105,7 +109,7 @@ import { getAnalyticsDb, isAnalyticsDbConfigured } from "@/lib/analytics-db";
 
 const db = getAnalyticsDb();
 if (!db) {
-  // ANALYTICS_DATABASE_URL not set — skip persistence
+  // DATABASE_URL not set — skip persistence
 }
 ```
 
@@ -122,5 +126,6 @@ schema prefix.
 ## Related docs
 
 - [`docs/architecture.md`](../docs/architecture.md) — how analytics fits the system
+- [`wordpress/CLOUDWAYS-GO-LIVE.md`](../wordpress/CLOUDWAYS-GO-LIVE.md) — CMS + webhook checklist
 - [`env/analytics.example`](../env/analytics.example) — env template
 - [`src/app/api/webhooks/woocommerce/route.ts`](../src/app/api/webhooks/woocommerce/route.ts) — webhook entrypoint

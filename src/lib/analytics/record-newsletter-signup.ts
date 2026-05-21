@@ -8,12 +8,13 @@ export type RecordNewsletterSignupInput = {
   source?: string;
   resourceLabel?: string;
   mailpoetListId?: number;
+  mailpoetSubscriberId?: number;
   payload?: Record<string, JsonValue>;
 };
 
 /**
  * Append-only newsletter signup event for metrics / exports.
- * No-op when ANALYTICS_DATABASE_URL is unset.
+ * No-op when DATABASE_URL is unset.
  */
 export async function recordNewsletterSignup(
   input: RecordNewsletterSignupInput
@@ -31,6 +32,7 @@ export async function recordNewsletterSignup(
       source: input.source ?? null,
       resource_label: input.resourceLabel ?? null,
       mailpoet_list_id: input.mailpoetListId ?? null,
+      mailpoet_subscriber_id: input.mailpoetSubscriberId ?? null,
       core_user_id: coreUserId,
       payload: input.payload ?? null,
     })

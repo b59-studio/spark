@@ -39,7 +39,7 @@ from `env/site.integrations.example`. See `wordpress/docker-compose.yml`.
 ### Analytics database (optional)
 
 ```bash
-# Set ANALYTICS_DATABASE_URL in .env.local (Neon — see env/analytics.example)
+# Set DATABASE_URL in .env.local (Neon — see env/analytics.example)
 npm run analytics:migrate
 ```
 

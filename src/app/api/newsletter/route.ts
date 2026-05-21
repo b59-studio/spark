@@ -59,6 +59,7 @@ export async function POST(req: Request) {
     source,
     resourceLabel,
     mailpoetListId: mailpoet?.listId,
+    mailpoetSubscriberId: result.mailpoetSubscriberId,
     payload: { site: "txspark-marketing" },
   }).catch((e) => {
     console.error(

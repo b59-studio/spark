@@ -1,7 +1,8 @@
 # Copy values into `.env` (local) or your host's secret store (Vercel, DO, Cloudways).
 # Never commit real secrets.
 
-# --- Headless WordPress (cms.txspark.org or similar) ---
+# --- Headless WordPress (Cloudways cms or local docker) ---
+# Use the same HTTPS origin for all three when MailPoet/Woo run on one WP install.
 WORDPRESS_API_URL=https://cms.example.org
 # Optional: Application Password for draft/preview fetches
 # WORDPRESS_APP_USER=api
@@ -25,7 +26,6 @@ NEWSLETTER_FROM_EMAIL=hello@txspark.org
 # NEWSLETTER_WEBHOOK_URL=
 # NEWSLETTER_WEBHOOK_SECRET=
 
-# --- Analytics (Neon) — see env/analytics.example ---
-# ANALYTICS_DATABASE_URL=
-# CORE_DATABASE_URL=
+# --- Neon Postgres (core + analytics schema) — see env/analytics.example ---
+# DATABASE_URL=postgresql://...
 # WOOCOMMERCE_WEBHOOK_SECRET=

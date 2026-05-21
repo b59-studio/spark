@@ -17,7 +17,7 @@ export type NewsletterSubscribeOptions = {
 export async function syncNewsletterSubscriber(
   email: string,
   options: NewsletterSubscribeOptions = {}
-): Promise<{ ok: boolean; error?: string }> {
+): Promise<{ ok: boolean; error?: string; mailpoetSubscriberId?: number }> {
   const normalized = email.trim().toLowerCase();
   if (!isValidNewsletterEmail(normalized)) {
     return { ok: false, error: "Invalid email address." };
@@ -41,6 +41,8 @@ export async function syncNewsletterSubscriber(
   }
 
   try {
+    let mailpoetSubscriberId: number | undefined;
+
     if (mailpoet) {
       const mp = await addMailPoetSubscriber(mailpoet, {
         email: normalized,
@@ -48,6 +50,7 @@ export async function syncNewsletterSubscriber(
         resourceLabel: options.resourceLabel,
       });
       if (!mp.ok) return mp;
+      mailpoetSubscriberId = mp.subscriberId;
     }
 
     if (apiKey) {
@@ -92,7 +95,7 @@ export async function syncNewsletterSubscriber(
       }
     }
 
-    return { ok: true };
+    return { ok: true, mailpoetSubscriberId };
   } catch (e) {
     const message = e instanceof Error ? e.message : "Unknown error";
     return { ok: false, error: message };

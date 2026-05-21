@@ -21,11 +21,11 @@ or Airtable (already a dependency elsewhere but weak for webhook replay).
   `npm run analytics:migrate`.
 - Access data with **Kysely** and hand-maintained types in
   `src/types/analytics-database.ts` (`.withSchema("analytics")`).
-- Make all writers **no-op** when `ANALYTICS_DATABASE_URL` is unset so local
+- Make all writers **no-op** when `DATABASE_URL` is unset so local
   and preview deploys work without a database.
 
-Optional `CORE_DATABASE_URL` links events to map `User` rows when the map DB
-is available.
+Events link to map `User` rows by email when `DATABASE_URL` points at a DB
+with `public."User"`.
 
 ## Consequences
 

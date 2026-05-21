@@ -24,7 +24,7 @@ type MailPoetSubscriberPayload = {
 export async function addMailPoetSubscriber(
   config: MailPoetConfig,
   input: MailPoetSubscribeInput
-): Promise<{ ok: boolean; error?: string }> {
+): Promise<{ ok: boolean; subscriberId?: number; error?: string }> {
   const listId = input.listId ?? config.listId;
   const tags: string[] = [];
   if (input.source) tags.push(`source:${input.source}`);
@@ -50,7 +50,10 @@ export async function addMailPoetSubscriber(
       body: JSON.stringify(body),
     });
 
-    if (res.ok) return { ok: true };
+    if (res.ok) {
+      const subscriberId = parseMailPoetSubscriberId(await res.json().catch(() => null));
+      return { ok: true, subscriberId };
+    }
 
     const text = await res.text();
     const duplicate =
@@ -67,4 +70,17 @@ export async function addMailPoetSubscriber(
     const message = e instanceof Error ? e.message : "Unknown error";
     return { ok: false, error: message };
   }
+}
+
+function parseMailPoetSubscriberId(body: unknown): number | undefined {
+  if (typeof body !== "object" || body === null) return undefined;
+
+  const record = body as Record<string, unknown>;
+  const data =
+    typeof record.data === "object" && record.data !== null
+      ? (record.data as Record<string, unknown>)
+      : record;
+
+  const id = Number(data.id);
+  return Number.isFinite(id) && id > 0 ? id : undefined;
 }
