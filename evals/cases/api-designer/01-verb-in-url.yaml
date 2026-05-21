@@ -1,0 +1,32 @@
+description: api-designer should flag verb-in-URL, missing pagination, and inconsistent error shape.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/api-designer.md }}"
+  input: |
+    Review this proposed REST endpoint:
+
+    ```
+    POST /api/getInvoices
+    Body: { "customer_id": 42 }
+    Response 200: [ { invoice }, { invoice }, ... ]
+    Response 500: { "msg": "something went wrong" }
+    ```
+
+assert:
+  - type: icontains
+    value: "verb"
+    metric: flags-verb-in-url
+  - type: icontains-any
+    value: ["pagination", "cursor", "page"]
+    metric: flags-no-pagination
+  - type: regex
+    value: "(Blocker|Should fix|Nit)"
+    metric: severity-classified
+  - type: llm-rubric
+    value: |
+      The response flags AT LEAST these issues: (1) `getInvoices` puts a
+      verb in the path — should be `GET /api/invoices?customer=42`; (2)
+      the response is an unpaginated array; (3) the error response uses
+      `msg` instead of the standard error envelope with `code` and
+      `message`. It proposes concrete fixes for each.
+    metric: identifies-rest-violations

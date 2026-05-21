@@ -1,0 +1,49 @@
+description: test-runner should classify a real test failure as a defect (not a flake) and surface the assertion.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/test-runner.md }}"
+  input: |
+    I ran `pytest tests/test_billing.py` and got this output:
+
+    ```
+    ===== test session starts =====
+    collected 4 items
+
+    tests/test_billing.py::test_apply_discount_welcome10_returns_invoice_with_10pct_off PASSED
+    tests/test_billing.py::test_apply_discount_vip50_returns_invoice_with_50pct_off FAILED
+    tests/test_billing.py::test_apply_discount_unknown_code_raises FAILED
+    tests/test_billing.py::test_calculate_tax_returns_correct_amount PASSED
+
+    =================================== FAILURES ===================================
+    _____ test_apply_discount_vip50_returns_invoice_with_50pct_off _____
+
+        def test_apply_discount_vip50_returns_invoice_with_50pct_off():
+            invoice = Invoice(total=100)
+    >       result = apply_discount(invoice, "VIP50")
+    E       AttributeError: 'Invoice' object has no attribute 'total'
+
+    tests/test_billing.py:24: AttributeError
+
+    ===== 2 failed, 2 passed in 0.31s =====
+    ```
+
+    Report what happened.
+
+assert:
+  - type: icontains-all
+    value: ["PASS", "FAIL"]
+    metric: status-summary
+  - type: icontains-any
+    value: ["AttributeError", "total"]
+    metric: surfaces-failure-detail
+  - type: not-icontains-any
+    value: ["flake", "retry", "rerun"]
+    metric: no-retry-recommendation
+  - type: llm-rubric
+    value: |
+      The response (1) reports a structured summary with 2 passed, 2
+      failed, 0 errors; (2) classifies the failures as defects (real
+      AttributeError, not a flake or environment issue); (3) surfaces
+      the failing assertion and the relevant excerpt; (4) does NOT
+      suggest re-running until green; (5) does NOT modify any file.
+    metric: structured-defect-report

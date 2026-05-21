@@ -13,7 +13,7 @@ export const siteImages = {
     electionPrecinctMap: "/images/content/Election_Precinct_305.pdf.png",
     francescaTeaching: "/images/content/francescateaching.jpg",
   },
-  /** Order matches `growToolkits` in `src/app/grow/toolkits.ts`. */
+  /** Order matches `growToolkits` in `src/data/grow-toolkits.ts`. */
   growToolkitCovers: [
     "/images/toolkits/1-trans2.png",
     "/images/toolkits/2-trans2.png",

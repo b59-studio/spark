@@ -1,0 +1,34 @@
+description: docs-reviewer should flag a new public function with no docstring.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/docs-reviewer.md }}"
+  input: |
+    Review the following Python module:
+
+    ```python
+    def calculate_tax(price, rate):
+        return price * rate
+
+    def apply_discount(invoice, code):
+        if code == "WELCOME10":
+            invoice.total *= 0.9
+        elif code == "VIP50":
+            invoice.total *= 0.5
+        return invoice
+    ```
+
+    These are both public functions exported from the module.
+
+assert:
+  - type: icontains
+    value: "docstring"
+    metric: mentions-docstring
+
+  - type: llm-rubric
+    value: |
+      The response flags BOTH `calculate_tax` and `apply_discount` as
+      missing docstrings on public functions. It correctly notes what
+      a docstring should include (summary, args, returns) per PEP 257.
+      The response does NOT suggest the docstrings are optional or
+      that the names are self-documenting.
+    metric: flags-both-missing-docs

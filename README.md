@@ -1,30 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TX*Spark
 
-## Getting Started
+Grassroots civic-tech for Texans — interactive district maps, organizing
+toolkits, and community resources. Built with Next.js, Mapbox, Kysely, and
+offline map-data pipelines.
 
-First, run the development server:
+## Quick start
 
 ```bash
+npm install
+npm run env:pull    # optional: pull Vercel env into .env
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project layout
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+spark/
+├── src/
+│   ├── app/           # Next.js routes & API handlers (keep thin)
+│   ├── components/    # UI — site chrome + map shell
+│   ├── data/          # layer config, rosters, generated sync output
+│   ├── emails/        # react-email templates
+│   ├── hooks/         # React hooks (map, lookup)
+│   ├── lib/           # auth, map logic, integrations (Kysely, R2, Resend)
+│   └── types/         # shared TypeScript types
+├── public/data/       # GeoJSON built by scripts (also published to R2)
+├── scripts/           # map layer builds, roster sync, R2 snapshot
+├── docs/              # feature docs (e.g. map mode matrix)
+├── env/               # committed env templates (copy into .env.local)
+└── standards/         # coding standards + 99-project-overrides.md
+```
 
-## Learn More
+Authoritative structure rules: [`standards/99-project-overrides.md`](standards/99-project-overrides.md).
 
-To learn more about Next.js, take a look at the following resources:
+### Common scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Script | Purpose |
+| ------ | ------- |
+| `npm run dev` | Next.js dev server |
+| `npm run map:build:travis-merged-layers` | Rebuild all Travis map GeoJSON |
+| `npm run sync:legislators` | Refresh legislator rosters into `src/data/generated/` |
+| `npm run check:map-upstreams` | Verify external layer URLs |
+| `npm run snapshot:map-geojson:r2` | Upload `public/data/` to R2 |

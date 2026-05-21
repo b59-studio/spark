@@ -34,7 +34,6 @@ export default function SiteMap() {
     { href: "/solutions/grow", label: "GROW" },
     { href: "/solutions/pal", label: "PAL" },
     { href: "/grow", label: "GROW toolkits" },
-    { href: "/branding", label: "Brand Guidelines" },
   ];
 
   const legalRoutes = [

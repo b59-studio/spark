@@ -1,0 +1,31 @@
+# Copy values into `.env` (local) or your host's secret store (Vercel, DO, Cloudways).
+# Never commit real secrets.
+
+# --- Headless WordPress (cms.txspark.org or similar) ---
+WORDPRESS_API_URL=https://cms.example.org
+# Optional: Application Password for draft/preview fetches
+# WORDPRESS_APP_USER=api
+# WORDPRESS_APP_PASSWORD=
+
+# --- MailPoet (runs on WordPress; API key in MailPoet → Settings → Advanced) ---
+MAILPOET_API_BASE_URL=https://cms.example.org
+MAILPOET_API_KEY=
+# Optional default list ID for new subscribers
+# MAILPOET_LIST_ID=3
+
+# --- WooCommerce (same WordPress host) ---
+WOOCOMMERCE_API_URL=https://cms.example.org
+WOOCOMMERCE_CONSUMER_KEY=ck_
+WOOCOMMERCE_CONSUMER_SECRET=cs_
+
+# --- Newsletter fallbacks (used when MailPoet is not configured) ---
+RESEND_API_KEY=
+NEWSLETTER_FROM_EMAIL=hello@txspark.org
+# RESEND_FROM_EMAIL=hello@txspark.org
+# NEWSLETTER_WEBHOOK_URL=
+# NEWSLETTER_WEBHOOK_SECRET=
+
+# --- Analytics (Neon) — see env/analytics.example ---
+# ANALYTICS_DATABASE_URL=
+# CORE_DATABASE_URL=
+# WOOCOMMERCE_WEBHOOK_SECRET=

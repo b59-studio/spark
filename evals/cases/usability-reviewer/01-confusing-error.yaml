@@ -1,0 +1,43 @@
+description: usability-reviewer should flag generic error messages and propose actionable wording.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/usability-reviewer.md }}"
+  input: |
+    Review the error states in this signup form:
+
+    ```tsx
+    function SignupForm() {
+      const [error, setError] = useState("");
+      async function submit() {
+        try {
+          await api.signup({ email, password });
+        } catch {
+          setError("Invalid input");
+        }
+      }
+      return (
+        <form onSubmit={submit}>
+          <input value={email} onChange={...} />
+          <input type="password" value={password} onChange={...} />
+          {error && <div>{error}</div>}
+          <button>Submit</button>
+        </form>
+      );
+    }
+    ```
+
+assert:
+  - type: icontains-any
+    value: ["Invalid input", "actionable", "what to fix", "specific"]
+    metric: flags-error-message
+  - type: llm-rubric
+    value: |
+      The response (1) flags "Invalid input" as too generic — the user
+      can't tell what to fix; (2) proposes more actionable wording
+      keyed to specific failure modes (e.g., "Email is required",
+      "Password must be at least 8 characters", "We couldn't reach the
+      server — please retry"); (3) ideally also calls out the catch-all
+      `try/catch` swallowing the real error class. It frames findings
+      from the user's perspective ("a user submitting this would not
+      know what to fix").
+    metric: identifies-ux-issue

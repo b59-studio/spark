@@ -1,0 +1,34 @@
+description: incident-responder in stabilize mode should recommend rollback as the fastest safe mitigation.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/incident-responder.md }}"
+  input: |
+    Production is broken right now. The checkout endpoint has been
+    returning 500s for the last 8 minutes, affecting ~40% of users.
+    A deploy went out 12 minutes ago. The deploy included a database
+    migration that added an optional column. No previous incidents
+    of this kind today.
+
+    Triage and recommend next steps.
+
+assert:
+  - type: icontains-any
+    value: ["SEV1", "SEV2", "severity"]
+    metric: severity-assigned
+  - type: icontains
+    value: "rollback"
+    metric: recommends-rollback
+  - type: not-icontains-any
+    value: ["postmortem", "5 whys", "5-whys"]
+    metric: no-premature-postmortem
+  - type: llm-rubric
+    value: |
+      The response is in STABILIZE mode (not learn mode). It (1)
+      assigns a severity that reflects ~40% of users affected, (2)
+      recommends rolling back the recent deploy as the fastest safe
+      mitigation (because the migration was additive/optional), (3)
+      does NOT dive into root cause yet — that's after stabilization,
+      (4) drafts a short status update for the team channel that
+      names the symptom and ETA. It does NOT recommend a hotfix as
+      the primary path while production is bleeding.
+    metric: stabilize-first

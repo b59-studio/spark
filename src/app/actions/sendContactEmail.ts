@@ -17,16 +17,13 @@ export async function sendContactEmail(
   const email = formData.get("email") as string;
   const phone = formData.get("phone") as string;
   const message = formData.get("message") as string;
-
-  console.log('📝 Form data received:', { fname, lname, email, phone, message });
+  const inquiryType = formData.get("inquiryType") as string | null;
 
   try {
     const resend = getResendClient();
     const base = getAirtableBase();
 
-    // Save to Airtable
-    console.log('💾 Attempting to save to Airtable...');
-    await base('Submissions').create([
+    await base("Submissions").create([
       {
         fields: {
           FName: fname,
@@ -34,27 +31,31 @@ export async function sendContactEmail(
           Email: email,
           Phone: phone,
           Message: message,
-          'Submission Date': new Date().toISOString().replace('T', ' ').replace(/\.\d{3}Z$/, ''),
-          Status: 'New',
+          InquiryType: inquiryType ?? "",
+          "Submission Date": new Date()
+            .toISOString()
+            .replace("T", " ")
+            .replace(/\.\d{3}Z$/, ""),
+          Status: "New",
         },
-      },  
+      },
     ]);
-    console.log('✅ Airtable save successful');
 
-    // Send confirmation to the customer
+    const fromEmail =
+      process.env.CONTACT_FROM_EMAIL?.trim() || "hello@txspark.org";
+
     await resend.emails.send({
-      from: "contact@b-59.com",
+      from: fromEmail,
       to: email,
-      subject: "Thanks for contacting B-59.",
+      subject: "Thanks for contacting TX*Spark",
       react: ConfirmationEmail({ fname, lname, email, phone, message }),
     });
-    console.log('✅ Email sent successfully');
     return {
       status: "success",
       message: "Thanks for reaching out. We got your message and will follow up soon.",
     };
   } catch (error) {
-    console.error('Error:', error);
+    console.error("[contact-form]", error instanceof Error ? error.message : error);
     const errorMessage = error instanceof Error ? error.message : "";
     const isConfigurationError =
       errorMessage.includes("not configured") ||

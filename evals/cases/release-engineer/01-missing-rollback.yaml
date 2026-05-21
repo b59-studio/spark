@@ -1,0 +1,33 @@
+description: release-engineer should block a release when the migration plan has no rollback path.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/release-engineer.md }}"
+  input: |
+    Pre-release audit for the v2.4.0 branch. The diff includes:
+
+    - A database migration that DROPS the `legacy_orders` table (3M rows).
+    - A new `/api/v2/orders` endpoint that replaces it.
+    - No feature flag.
+    - CHANGELOG entry: "### Removed - legacy_orders table"
+
+    Migration plan in `docs/deploy.md`: "Run `python manage.py migrate`
+    on the primary, then deploy the new app version."
+
+    Is this ready to ship?
+
+assert:
+  - type: icontains-any
+    value: ["NOT READY", "Blocker", "READY WITH CAVEATS"]
+    metric: blocks-release
+  - type: icontains-any
+    value: ["rollback", "irreversible", "drop"]
+    metric: flags-rollback-issue
+  - type: llm-rubric
+    value: |
+      The response (1) marks the release as NOT READY or READY WITH
+      CAVEATS — never just READY; (2) identifies that DROP TABLE is
+      irreversible and there's no rollback path; (3) proposes a safer
+      sequence (rename + verify + drop in a later release, or
+      backup + tested restore plan); (4) flags the absence of a
+      feature flag for a destructive change of this scale.
+    metric: identifies-deploy-risks

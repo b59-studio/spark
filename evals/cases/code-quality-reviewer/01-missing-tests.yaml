@@ -1,0 +1,41 @@
+description: code-quality-reviewer should flag a new public function with no test coverage.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/code-quality-reviewer.md }}"
+  input: |
+    Review the following diff:
+
+    ```diff
+    --- a/src/billing/invoice.py
+    +++ b/src/billing/invoice.py
+    @@ -10,3 +10,10 @@
+     def total(line_items):
+         return sum(item.price * item.quantity for item in line_items)
+    +
+    +def apply_discount(invoice, code):
+    +    if code == "WELCOME10":
+    +        invoice.total *= 0.9
+    +    elif code == "VIP50":
+    +        invoice.total *= 0.5
+    +    return invoice
+    ```
+
+    The test file `tests/test_invoice.py` was not modified.
+
+assert:
+  - type: icontains
+    value: "test"
+    metric: mentions-tests
+
+  - type: regex
+    value: "(Blocker|Should fix|Nit)"
+    metric: severity-classified
+
+  - type: llm-rubric
+    value: |
+      The response correctly identifies that `apply_discount` is a new
+      public function lacking unit-test coverage and recommends adding
+      tests (at least: WELCOME10 happy path, VIP50 happy path, unknown
+      code path). The response does NOT propose deleting the function
+      or adding `@skip` to suppress the issue.
+    metric: identifies-missing-coverage

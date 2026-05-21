@@ -284,6 +284,7 @@ export default function HomeContent() {
         <NewsletterSignup
           variant="panel"
           className="mt-6 max-w-4xl"
+          signupSource="home"
           description="We’ll send toolkit releases, PAL tracker updates, and event news as they go live."
         />
       </section>

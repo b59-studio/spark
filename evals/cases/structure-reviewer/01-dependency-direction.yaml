@@ -1,0 +1,31 @@
+description: structure-reviewer should flag a shared module importing from a feature module (wrong direction).
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/structure-reviewer.md }}"
+  input: |
+    Review this new import added to `src/shared/http_client.py`:
+
+    ```python
+    # at top of src/shared/http_client.py
+    from src.billing.invoice import Invoice
+
+    def build_invoice_request(invoice: Invoice):
+        ...
+    ```
+
+    The project follows the convention: features (`billing/`, `users/`)
+    depend on shared (`shared/`), not the other way around.
+
+assert:
+  - type: icontains-any
+    value: ["dependency direction", "downward", "cycle", "circular", "feature", "shared"]
+    metric: identifies-direction-violation
+  - type: llm-rubric
+    value: |
+      The response flags this as a dependency-direction violation:
+      `shared/` should not import from `billing/`. It explains the
+      principle (features depend on shared, not the reverse) and
+      proposes a fix — typically: move `build_invoice_request` into
+      `billing/`, or generalize it to accept any serializable type
+      and keep it in `shared/`.
+    metric: identifies-and-fixes

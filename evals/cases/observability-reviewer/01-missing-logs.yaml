@@ -1,0 +1,41 @@
+description: observability-reviewer should flag a new endpoint with no logs, no metrics, and no error reporting.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/observability-reviewer.md }}"
+  input: |
+    Review this new endpoint for production readiness:
+
+    ```python
+    @app.post("/webhooks/stripe")
+    async def stripe_webhook(payload: dict):
+        event = stripe.Webhook.construct_event(...)
+        if event.type == "invoice.paid":
+            mark_invoice_paid(event.data.object.id)
+        elif event.type == "invoice.payment_failed":
+            mark_invoice_failed(event.data.object.id)
+        return {"ok": True}
+    ```
+
+    The rest of the codebase uses `structlog` for structured logs and
+    Datadog for metrics. Sentry is configured.
+
+assert:
+  - type: icontains-any
+    value: ["log", "logger", "structlog"]
+    metric: flags-missing-logs
+  - type: icontains-any
+    value: ["metric", "counter", "histogram", "Datadog"]
+    metric: flags-missing-metrics
+  - type: regex
+    value: "(Blocker|Should-add|Should fix|NOT READY)"
+    metric: classified-as-not-ready
+  - type: llm-rubric
+    value: |
+      The response identifies AT LEAST: (1) no structured log on
+      receipt or completion of either event type; (2) no metrics
+      counting webhook events by type or status; (3) silent failure
+      mode if construct_event throws (Sentry capture missing or
+      assumed). It cites the project's existing tools (structlog,
+      Datadog) rather than recommending new ones. It does NOT just
+      say "looks fine."
+    metric: identifies-instrumentation-gaps

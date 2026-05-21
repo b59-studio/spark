@@ -1,62 +1,15 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
-import { growToolkits } from '@/app/grow/toolkits';
+import {
+  ABOUT_NAV_SECTIONS,
+  DESKTOP_NAV,
+  SOLUTION_NAV_SECTIONS,
+  type HeaderNavItem,
+  type NavMegaSection,
+} from '@/components/nav-config';
 
-/** Shared section rows — reused by desktop dropdowns and mobile accordions. */
-const ABOUT_SECTIONS = [
-  { label: 'Mission', href: '/about/mission' },
-  { label: 'People', href: '/about/people' },
-  { label: 'Partners', href: '/about/partners' },
-  { label: 'Data', href: '/about/data' },
-] as const;
-
-const GROW_NAV_SUMMARY =
-  'Six toolkits to help leaders plan for and connect with their communities.';
-
-const PAL_NAV_SUMMARY =
-  'Plain-language Texas bill tracking for organizers and advocates.';
-
-const SOLUTION_SECTIONS = [
-  {
-    label: 'PAL',
-    href: '/solutions/pal',
-    summary: PAL_NAV_SUMMARY,
-  },
-  {
-    label: 'GROW',
-    href: '/solutions/grow',
-    summary: GROW_NAV_SUMMARY,
-    children: growToolkits.map((t) => ({
-      label: t.shortLabel,
-      href: `/grow/${t.slug}`,
-      summary: t.target[0] ?? '',
-    })),
-  },
-] as const;
-
-export type NavMegaSection = {
-  readonly label: string;
-  readonly href: string;
-  readonly summary?: string;
-  readonly children?: readonly { readonly label: string; readonly href: string; readonly summary?: string }[];
-};
-
-/** Primary desktop nav — discriminated union so mega panels (columns, promos) can attach per item later. */
-export type HeaderNavItem =
-  | { readonly kind: 'link'; readonly label: string; readonly href: string }
-  | {
-      readonly kind: 'dropdown';
-      readonly label: string;
-      readonly href: string;
-      readonly sections: readonly NavMegaSection[];
-    };
-
-const DESKTOP_NAV: readonly HeaderNavItem[] = [
-  { kind: 'dropdown', label: 'About', href: '/about', sections: ABOUT_SECTIONS },
-  { kind: 'link', label: 'Events', href: '/events' },
-  { kind: 'dropdown', label: 'Solutions', href: '/solutions', sections: SOLUTION_SECTIONS },
-];
+export type { HeaderNavItem, NavMegaSection };
 
 function ChevronDown({ className }: { className?: string }) {
   return (
@@ -259,7 +212,7 @@ export default function Header() {
                 </div>
                 {mobileAboutOpen && (
                   <div className="pl-4 ml-2 border-l border-spark-purple/20 space-y-0.5 pb-1">
-                    {ABOUT_SECTIONS.map((item) => (
+                    {ABOUT_NAV_SECTIONS.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
@@ -294,7 +247,7 @@ export default function Header() {
                 </div>
                 {mobileSolutionsOpen && (
                   <div className="pl-4 ml-2 border-l border-spark-purple/20 space-y-2 pb-1">
-                    {SOLUTION_SECTIONS.map((item) => {
+                    {SOLUTION_NAV_SECTIONS.map((item) => {
                       const growWithKids = item.label === 'GROW' && item.children?.length;
                       if (growWithKids) {
                         return (

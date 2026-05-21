@@ -1,0 +1,33 @@
+# Local WordPress for headless CMS development.
+# Production: use infra/hosting templates (DigitalOcean or Cloudways).
+
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - wp_db:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:6-php8.3-apache
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+    depends_on:
+      - db
+
+volumes:
+  wp_db:
+  wp_data:

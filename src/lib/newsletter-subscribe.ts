@@ -1,33 +1,55 @@
 import { Resend } from "resend";
+import { addMailPoetSubscriber } from "@/lib/integrations/mailpoet/subscribe";
+import { getMailPoetConfig } from "@/lib/integrations/mailpoet/config";
 import { isValidNewsletterEmail } from "@/lib/newsletter-email-validation";
 
 export { isValidNewsletterEmail } from "@/lib/newsletter-email-validation";
 
+export type NewsletterSubscribeOptions = {
+  source?: string;
+  resourceLabel?: string;
+};
+
 /**
- * Sends the address to Resend Contacts (newsletter/audiences) and/or an optional webhook
- * for your own CRM or database (Zapier, Make, custom API, etc.).
+ * Syncs a subscriber to MailPoet (preferred when configured), Resend Contacts,
+ * and/or an optional webhook for CRM automation.
  */
-export async function syncNewsletterSubscriber(email: string): Promise<{
-  ok: boolean;
-  error?: string;
-}> {
+export async function syncNewsletterSubscriber(
+  email: string,
+  options: NewsletterSubscribeOptions = {}
+): Promise<{ ok: boolean; error?: string }> {
   const normalized = email.trim().toLowerCase();
   if (!isValidNewsletterEmail(normalized)) {
     return { ok: false, error: "Invalid email address." };
   }
 
+  const mailpoet = getMailPoetConfig();
   const apiKey = process.env.RESEND_API_KEY;
   const webhookUrl = process.env.NEWSLETTER_WEBHOOK_URL?.trim();
 
-  if (process.env.NODE_ENV === "production" && !apiKey && !webhookUrl) {
+  if (
+    process.env.NODE_ENV === "production" &&
+    !mailpoet &&
+    !apiKey &&
+    !webhookUrl
+  ) {
     return {
       ok: false,
       error:
-        "Newsletter signup is not configured. Set RESEND_API_KEY and/or NEWSLETTER_WEBHOOK_URL.",
+        "Newsletter signup is not configured. Set MAILPOET_* and/or RESEND_API_KEY and/or NEWSLETTER_WEBHOOK_URL.",
     };
   }
 
   try {
+    if (mailpoet) {
+      const mp = await addMailPoetSubscriber(mailpoet, {
+        email: normalized,
+        source: options.source,
+        resourceLabel: options.resourceLabel,
+      });
+      if (!mp.ok) return mp;
+    }
+
     if (apiKey) {
       const resend = new Resend(apiKey);
       const { error } = await resend.contacts.create({
@@ -57,7 +79,8 @@ export async function syncNewsletterSubscriber(email: string): Promise<{
         headers,
         body: JSON.stringify({
           email: normalized,
-          source: "txspark-site",
+          source: options.source ?? "txspark-site",
+          resourceLabel: options.resourceLabel,
           subscribedAt: new Date().toISOString(),
         }),
       });

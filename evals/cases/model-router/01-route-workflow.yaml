@@ -1,0 +1,44 @@
+description: model-router should pick Haiku for parsing, Sonnet for code, Opus for fuzzy reasoning — with cost estimate.
+
+vars:
+  agent_prompt: "{{ file:../../../.claude/agents/model-router.md }}"
+  input: |
+    Route this workflow plan:
+
+    Workflow: spec-driven-feature
+    Task: "Build PDF invoice export"
+
+    Steps:
+    0. pm-syncer reads the linked Linear ticket BIL-1234
+    1. requirements-analyst produces a spec (ticket has no acceptance criteria)
+    2. architecture-reviewer proposes design (PDF generation: sync vs async?)
+    3. test-author writes failing tests
+    4. main agent implements
+    5. test-runner runs the suite
+    6. code-quality-reviewer reviews the diff (~400 LOC)
+    7. doc-generator drafts docstrings + CHANGELOG
+    8. commit-message-author drafts commit + PR description
+    9. github (PR open via MCP)
+    10. pm-syncer updates ticket status
+
+    Recommend the model for each step and total estimated cost.
+
+assert:
+  - type: icontains-all
+    value: ["haiku", "sonnet", "opus"]
+    metric: uses-all-tiers
+  - type: icontains
+    value: "$"
+    metric: estimates-cost
+  - type: llm-rubric
+    value: |
+      The response (1) recommends Haiku for pm-syncer (steps 0,
+      10), test-runner (5), commit-message-author (8); (2)
+      recommends Sonnet for test-author (3), code-quality-
+      reviewer (6), doc-generator (7), and the main agent
+      implementation (4); (3) recommends Opus for requirements-
+      analyst (1) and architecture-reviewer (2); (4) provides a
+      cost estimate per tier and a total; (5) flags any deviations
+      from the defaults with a one-line rationale; (6) does NOT
+      put everything on Opus.
+    metric: correct-tier-assignment
