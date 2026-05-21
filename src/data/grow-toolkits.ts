@@ -25,7 +25,7 @@ export const growToolkits: GrowToolkit[] = [
     fullTitle: "GTKYP - Get To Know Your Precinct",
     panelTitle: "Precinct Planning",
     summary:
-      "Map your precinct—zones, neighborhoods, and anchors—and name your strongest volunteers. Set a Big Blue Goal that lines up with the rest of GROW.",
+      "Map your precinct: zones, neighborhoods, and anchors. Name your strongest volunteers. Set a Big Blue Goal that lines up with the rest of GROW.",
     toolkitPacketHref:
       "https://drive.google.com/drive/folders/1z6R9kkpy1U8mnBbjMz-dj9zjQbjSGIEV?usp=share_link",
     target: ["Build knowledge about your precinct."],
@@ -145,7 +145,7 @@ export const growToolkits: GrowToolkit[] = [
     fullTitle: "GOTV - Get Out The Vote",
     panelTitle: "Voter Mobilization",
     summary:
-      "Turn confirmed supporters into ballots with a tight plan and neighbor contact through Election Day—the same core tools as earlier phases, focused on voting instead of registration.",
+      "Turn confirmed supporters into ballots with a tight plan and neighbor contact through Election Day. The same core tools as earlier phases, focused on voting instead of registration.",
     toolkitPacketHref:
       "https://drive.google.com/drive/folders/1alBGDI9_bVJH1zFov8JQZRril71DDzEI?usp=sharing",
     target: ["Mobilize voters to vote in the upcoming election."],

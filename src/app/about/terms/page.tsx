@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms of Use",
   description:
-    "TX*Spark website terms of use. Use of the site, intellectual property, limitations of liability, and governing law. By using this site you agree to these terms.",
+    "TX*SPARK website terms of use. Use of the site, intellectual property, limitations of liability, and governing law. By using this site you agree to these terms.",
   alternates: { canonical: "/about/terms" },
   openGraph: {
-    title: "Terms of Use | TX*Spark",
+    title: "Terms of Use | TX*SPARK",
     description:
-      "Terms of use for the TX*Spark website. Informational use, intellectual property, and contact information.",
+      "Terms of use for the TX*SPARK website. Informational use, intellectual property, and contact information.",
     url: "/about/terms",
   },
   robots: {
@@ -47,7 +47,7 @@ export default function Terms() {
             Intellectual Property
           </h2>
           <p className="body-md">
-            All content on this site, including text, graphics, logos, and software, is the property of TX*Spark PAC or its licensors and is protected by applicable laws. You may not reproduce or distribute content without permission.
+            All content on this site, including text, graphics, logos, and software, is the property of TX*SPARK PAC or its licensors and is protected by applicable laws. You may not reproduce or distribute content without permission.
             </p>
         </section>
 
@@ -65,7 +65,7 @@ export default function Terms() {
             Limitation of Liability
           </h2>
           <p className="body-md">
-            TX*Spark is not liable for any damages arising from use of or inability to use this website.
+            TX*SPARK is not liable for any damages arising from use of or inability to use this website.
           </p>
         </section>
 

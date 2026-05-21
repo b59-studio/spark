@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Grassroots Tech for Texans. Explore TX*Spark work across civic technology, organizing infrastructure, and practical tools for coalition-based action in Texas.",
+    "Grassroots Tech for Texans. Explore TX*SPARK work across civic technology, organizing infrastructure, and practical tools for coalition-based action in Texas.",
   alternates: { canonical: "/work" },
   openGraph: {
-    title: "Work | TX*Spark",
+    title: "Work | TX*SPARK",
     description:
-      "See how TX*Spark builds practical technology and support tools that help Texans organize, coordinate, and take meaningful civic action.",
+      "See how TX*SPARK builds practical technology and support tools that help Texans organize, coordinate, and take meaningful civic action.",
     url: "/work",
   },
 };

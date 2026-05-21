@@ -34,7 +34,7 @@ node_modules/
 .next/
 out/
 
-# TX*Spark — local env and secrets
+# TX*SPARK — local env and secrets
 .env
 .env.local
 .env*.local

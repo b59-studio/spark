@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
         <div className="flex flex-col items-center gap-2 text-center">
           <p className="footer-heading m-0 text-xl font-bold">
-            TX*Spark{' '}
+            TX*SPARK{' '}
             <span className="font-normal text-spark-bone">/</span>{' '}
             <span className="font-normal italic">Grassroots Tech for Texans</span>
           </p>
@@ -37,7 +37,7 @@ export default function Footer() {
           </nav>
 
           <div className="m-0 w-full border-t border-spark-purple/20 pt-0 text-center footer-text">
-            © 2026 TX*Spark PAC. Powered by{' '}
+            © 2026 TX*SPARK PAC. Powered by{' '}
             <a
               href="https://www.b-59.com"
               className="footer-link footer-link--gold"

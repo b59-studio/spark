@@ -6,11 +6,11 @@ import { siteImages } from "@/lib/site-visuals";
 export const metadata: Metadata = {
   title: "Events",
   description:
-    "Grassroots Tech for Texans. Join TX*Spark meet-ups, canvasses, and workshops that connect Texans to practical organizing support.",
+    "Grassroots Tech for Texans. Join TX*SPARK meet-ups, canvasses, and workshops. Practical, year-round civic action aligned with electoral and legislative calendars.",
   openGraph: {
-    title: "Events | TX*Spark",
+    title: "Events | TX*SPARK",
     description:
-      "Explore TX*Spark events that offer peer support, outreach materials, and hands-on opportunities for community-rooted action.",
+      "TX*SPARK events offer peer support, outreach materials, and hands-on opportunities for community-rooted action. Rebellious but trustworthy. No inside baseball.",
     url: "/events",
   },
   alternates: { canonical: "/events" },
@@ -34,7 +34,7 @@ export default function EventsPage() {
     <div className="mx-auto max-w-6xl px-3 py-12 sm:px-4 sm:py-16 lg:px-6 lg:py-20">
       <h1 className="heading-xl mb-6">Events</h1>
       <p className="body-md mb-6">
-        TX*SPARK events bring neighbors together for practical, year-round civic action aligned with electoral and legislative calendars. From skill sharing to direct outreach, each event is designed to help local teams organize with confidence and care.
+        TX*SPARK events bring neighbors together for practical, year-round civic action aligned with electoral and legislative calendars. From skill sharing to direct outreach, each event is designed to help local teams organize with confidence and care. Analog humanity inside modern systems, built to outlast any single campaign cycle.
       </p>
 
       <section className="mb-8 grid gap-8 lg:grid-cols-[minmax(0,27rem)_minmax(0,1fr)] lg:items-start lg:gap-8">
@@ -59,13 +59,13 @@ export default function EventsPage() {
           <h2 className="heading-md mb-4">What to expect</h2>
           <ul className="space-y-3 body-md list-disc pl-5">
             <li>
-              <strong>Community meet-ups:</strong> connect with organizers, partners, and neighbors building local momentum.
+              <strong>Community meet-ups:</strong> connect with organizers, partners, and neighbors building local momentum. Plain language, real relationships.
             </li>
             <li>
-              <strong>Canvasses and outreach:</strong> support direct voter and community engagement efforts.
+              <strong>Canvasses and outreach:</strong> support direct voter and community engagement efforts with tools you can actually use in the field.
             </li>
             <li>
-              <strong>Workshops:</strong> hands-on trainings and practical tools for teams doing grassroots work.
+              <strong>Workshops:</strong> hands-on trainings and practical tools for teams doing grassroots work. Understand your district without a political science degree.
             </li>
           </ul>
         </div>
@@ -74,7 +74,7 @@ export default function EventsPage() {
       <section className="mt-14">
         <h2 className="heading-md mb-3 text-center">Join our mailing list</h2>
         <p className="body-md mb-6">
-          Stay up to date on the most recent events, including upcoming meet-ups, canvasses, and workshops.
+          Stay up to date on the most recent events, including upcoming meet-ups, canvasses, and workshops. Practical updates, no clutter.
         </p>
         <NewsletterSignup variant="panel" signupSource="events" />
       </section>

@@ -1,11 +1,11 @@
-# Architecture — TX*Spark
+# Architecture — TX*SPARK
 
 > **Audience:** new contributors and contractors. Read this first.
 > **Maintenance:** update when containers, integrations, or major flows change.
 
 ## What this system does
 
-TX*Spark is a **Next.js** public site for grassroots civic organizing in
+TX*SPARK is a **Next.js** public site for grassroots civic organizing in
 Texas. It serves marketing pages, GROW toolkits, newsletter signup, and
 API routes that connect to **headless WordPress** (content, MailPoet,
 WooCommerce) and an **analytics** Postgres schema on **Neon**. A separate
@@ -23,7 +23,7 @@ GeoJSON on R2.
 graph TB
     visitor[Visitor / organizer]
     editor[CMS editor]
-    site[TX*Spark Next.js]
+    site[TX*SPARK Next.js]
     wp[WordPress CMS<br/>MailPoet + WooCommerce]
     neon[(Neon Postgres)]
     resend[Resend email]

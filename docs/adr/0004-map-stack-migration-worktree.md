@@ -5,7 +5,7 @@
 
 ## Context
 
-TX*Spark ships two map products: a public **district explorer** and an
+TX*SPARK ships two map products: a public **district explorer** and an
 authenticated **household spark** map. The codebase accumulated Mapbox,
 PostGIS, Prisma, ETL scripts, R2 GeoJSON publishing, and large `src/` map
 trees. The marketing site on `main` is moving toward WordPress + analytics

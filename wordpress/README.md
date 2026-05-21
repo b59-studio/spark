@@ -1,4 +1,4 @@
-# Headless WordPress (TX*Spark CMS)
+# Headless WordPress (TX*SPARK CMS)
 
 This folder documents the **WordPress.org** stack that powers content, MailPoet,
 and WooCommerce while the public site stays on Next.js.

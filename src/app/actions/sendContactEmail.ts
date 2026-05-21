@@ -47,7 +47,7 @@ export async function sendContactEmail(
     await resend.emails.send({
       from: fromEmail,
       to: email,
-      subject: "Thanks for contacting TX*Spark",
+      subject: "Thanks for contacting TX*SPARK",
       react: ConfirmationEmail({ fname, lname, email, phone, message }),
     });
     return {
