@@ -1,22 +1,46 @@
 @import "tailwindcss";
 
-/* Brand palette — only these five tokens */
+/*
+ * TX*SPARK brand tokens.
+ * Tailwind utilities use legacy spark-* names mapped to canonical tokens below.
+ */
 @theme {
-  --color-spark-bg: #14081e;
-  --color-spark-bone: #f4dcb6;
-  --color-spark-purple: #2f0951;
-  --color-spark-red: #d93802;
-  --color-spark-gold: #edc973;
-  /* Dark ink for text on bone (e.g. primary buttons); matches spark-bg */
+  /* Canonical palette */
   --color-spark-void: #14081e;
+  --color-spark-space: #2f0951;
+  --color-spark-star: #edc973;
+  --color-spark-earth: #f4dcb6;
+  --color-spark-sky: #a9c7cc;
+  --color-spark-alert: #d93802;
+
+  /* Legacy utility names → canonical tokens (prefer spark-star/earth/space in new code) */
+  --color-spark-bg: var(--color-spark-void);
+  --color-spark-bone: var(--color-spark-earth);
+  --color-spark-purple: var(--color-spark-space);
+  --color-spark-red: var(--color-spark-alert);
+  --color-spark-gold: var(--color-spark-star);
+
+  --font-heading: "Rockwell", "Rockwell Extra Bold", Georgia, serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* Global styles */
 body {
-  background-color: var(--color-spark-bg);
-  color: var(--color-spark-bone);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: var(--color-spark-void);
+  color: var(--color-spark-earth);
+  font-family: var(--font-body);
   font-size: 120%;
+}
+
+h1,
+h2,
+h3,
+.heading-xl,
+.heading-lg,
+.heading-md {
+  font-family: var(--font-heading);
+  /* Large display type — meets WCAG large-text threshold (≥24px / ≥18pt bold) */
+  color: var(--color-spark-star);
 }
 
 /* Shared page shells: same horizontal inset + vertical padding across routes */
@@ -40,9 +64,22 @@ body {
 
   /* Captions under hero / inline figures (matches events page Francesca image) */
   .spark-figure-caption {
-    @apply mt-3 italic text-spark-gold;
+    @apply mt-3 italic text-spark-star;
     font-size: 0.75rem;
     line-height: 1.5;
+  }
+
+  /* Reusable surfaces — prefer these over inline color-mix in components */
+  .spark-input-surface {
+    background-color: color-mix(in srgb, var(--color-spark-earth) 8%, var(--color-spark-void));
+  }
+
+  .spark-border-accent-soft {
+    border-color: color-mix(in srgb, var(--color-spark-star) 35%, transparent);
+  }
+
+  .spark-hover-accent {
+    background-color: color-mix(in srgb, var(--color-spark-star) 14%, var(--color-spark-void));
   }
 }
 
@@ -94,7 +131,6 @@ body {
   font-size: 3.5rem; /* 56px */
   font-weight: 700;
   line-height: 1.1;
-  color: var(--color-spark-bone);
   margin-bottom: 1rem;
 }
 
@@ -103,31 +139,11 @@ h1 {
   text-align: center;
 }
 
-/* Add spark mark before all H2 headings */
-h2 {
-  display: flex;
-  align-items: center;
-  gap: 0.25em;
-}
-
-h2::before {
-  content: "";
-  width: 1.3em;
-  height: 1.3em;
-  flex-shrink: 0;
-  /* Paths mirror `siteImages.brand` in `site-visuals.ts`. */
-  background-image: url("/images/brand/sparkv1.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
 /* Major Section Headings */
 .heading-lg {
   font-size: 2rem; /* 32px - was 40px */
   font-weight: 700;
   line-height: 1.2;
-  color: var(--color-spark-bone);
   margin-bottom: 0.75rem;
 }
 
@@ -136,7 +152,6 @@ h2::before {
   font-size: 1.5rem; /* 24px - was 32px */
   font-weight: 600;
   line-height: 1.3;
-  color: var(--color-spark-bone);
   margin-bottom: 0.5rem;
 }
 
@@ -145,7 +160,8 @@ h2::before {
   font-size: 1.125rem; /* 18px - was 24px */
   font-weight: 600;
   line-height: 1.4;
-  color: var(--color-spark-bone);
+  font-family: var(--font-body);
+  color: var(--color-spark-earth);
   margin-bottom: 0.5rem;
 }
 
@@ -168,9 +184,9 @@ h2::before {
   color: var(--color-spark-bone);
 }
 
-/* Subtext / Secondary Text */
+/* Subtext / Secondary Text — muted earth, not alert red */
 .text-secondary {
-  color: var(--color-spark-red);
+  color: color-mix(in srgb, var(--color-spark-earth) 72%, var(--color-spark-void));
 }
 
 /* Quotes / Callouts */
@@ -183,9 +199,9 @@ h2::before {
   padding-left: 1.5rem;
 }
 
-/* Links in body text */
+/* Links in body text — darker gold mix for 4.5:1 on void */
 .text-link {
-  color: var(--color-spark-gold);
+  color: var(--color-link-on-void);
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: opacity 0.2s;
@@ -193,6 +209,12 @@ h2::before {
 
 .text-link:hover {
   opacity: 0.8;
+}
+
+.text-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: 0.125rem;
 }
 
 /* ============================================
@@ -324,7 +346,7 @@ h2::before {
 
 .privacy-summary-description {
   font-size: 0.875rem;
-  color: var(--color-spark-red);
+  color: color-mix(in srgb, var(--color-spark-earth) 78%, var(--color-spark-void));
   line-height: 1.5;
 }
 
@@ -349,6 +371,14 @@ h2::before {
    ============================================ */
 
 :root {
+  /* Semantic aliases */
+  --color-bg-primary: var(--color-spark-void);
+  --color-bg-secondary: var(--color-spark-space);
+  --color-text-primary: var(--color-spark-earth);
+  --color-accent: var(--color-spark-star);
+  --color-highlight: var(--color-spark-sky);
+  --color-alert: var(--color-spark-alert);
+
   /* Hero JPEG path — must match `siteImages.content.heroBackground` in `site-visuals.ts` (do not retune hero loading here without review). */
   --header-hero-photo: url("/images/content/hero-background.jpg");
   /* Map UI contrast-safe tokens for light surfaces (panels, legends, popups). */
@@ -358,6 +388,14 @@ h2::before {
   --color-map-ui-emphasis: #0f766e;
   --color-map-ui-warning: #b45309; /* gold-family fallback on white */
   --color-map-ui-warning-strong: #c2410c;
+
+  /* Focus ring — WCAG 2.4.11 minimum; visible on void/space backgrounds */
+  --focus-ring-color: #f5e5a0;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* Accessible text on void — star is decorative at large sizes; links use a darker mix */
+  --color-link-on-void: color-mix(in srgb, var(--color-spark-star) 72%, var(--color-spark-space));
 }
 
 /* Home: one anchor for hero `<Image>` object-position and header strip background — continuous field under the fixed nav */
@@ -371,10 +409,12 @@ body:has(#home-hero) {
 }
 
 .home-hero-heading {
+  font-size: 2.625rem; /* 75% of heading-xl — keeps headline clear of fixed header */
   margin-bottom: 0 !important;
   max-width: 42rem;
   text-align: center;
-  padding: 1rem 1.35rem;
+  line-height: 1.25;
+  padding: 1.1rem 1.05rem;
   border-radius: 1rem;
   border: 1px solid color-mix(in srgb, var(--color-spark-bone) 35%, transparent);
   background: color-mix(in srgb, var(--color-spark-bone) 14%, var(--color-spark-bg));
@@ -383,6 +423,10 @@ body:has(#home-hero) {
   box-shadow:
     0 14px 44px -20px color-mix(in srgb, var(--color-spark-bg) 65%, transparent),
     inset 0 1px 0 color-mix(in srgb, var(--color-spark-bone) 22%, transparent);
+}
+
+.home-hero-heading .block {
+  margin-top: 0.15em;
 }
 
 @media (min-width: 1024px) {
@@ -483,8 +527,15 @@ body:has(#home-hero) {
   letter-spacing: 0.01em;
 }
 
-.nav-link:hover {
-  color: var(--color-spark-red);
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--color-spark-star);
+}
+
+.nav-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: 0.25rem;
 }
 
 .nav-dropdown-link {
@@ -495,9 +546,15 @@ body:has(#home-hero) {
     background-color 0.2s;
 }
 
-.nav-dropdown-link:hover {
-  color: var(--color-spark-red);
-  background-color: color-mix(in srgb, var(--color-spark-red) 10%, transparent);
+.nav-dropdown-link:hover,
+.nav-dropdown-link:focus-visible {
+  color: var(--color-spark-star);
+  background-color: color-mix(in srgb, var(--color-spark-star) 12%, transparent);
+}
+
+.nav-dropdown-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .header-nav--photo-slice .nav-dropdown-link {
@@ -524,9 +581,15 @@ body:has(#home-hero) {
   transition: all 0.2s;
 }
 
-.nav-mobile-link:hover {
-  background-color: color-mix(in srgb, var(--color-spark-red) 12%, transparent);
-  color: var(--color-spark-red);
+.nav-mobile-link:hover,
+.nav-mobile-link:focus-visible {
+  background-color: color-mix(in srgb, var(--color-spark-star) 14%, transparent);
+  color: var(--color-spark-star);
+}
+
+.nav-mobile-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .nav-mobile-link.nav-mobile-sublink {
@@ -539,8 +602,15 @@ body:has(#home-hero) {
   transition: color 0.2s;
 }
 
-.mobile-menu-btn:hover {
-  color: var(--color-spark-red);
+.mobile-menu-btn:hover,
+.mobile-menu-btn:focus-visible {
+  color: var(--color-spark-star);
+}
+
+.mobile-menu-btn:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: 0.25rem;
 }
 
 /* ============================================
@@ -601,14 +671,16 @@ body:has(#home-hero) {
   font-size: 1rem;
 }
 
-.form-input:focus {
-  outline: none;
-  border-color: var(--color-spark-purple);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-spark-purple) 35%, transparent);
+.form-input:focus,
+.form-input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-color: var(--color-spark-star);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-spark-star) 35%, transparent);
 }
 
 .form-input::placeholder {
-  color: color-mix(in srgb, var(--color-spark-bone) 48%, var(--color-spark-bg));
+  color: color-mix(in srgb, var(--color-spark-earth) 72%, var(--color-spark-space));
   opacity: 1;
 }
 
@@ -627,36 +699,72 @@ select.form-input {
 }
 
 .form-input:user-invalid {
-  border-color: var(--color-spark-red);
-  color: var(--color-spark-red);
+  border-color: var(--color-spark-alert);
+  color: var(--color-spark-earth);
 }
 
 .form-input:focus:user-invalid {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-spark-red) 35%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-spark-alert) 35%, transparent);
 }
 
 .form-label {
-  color: var(--color-spark-bone);
+  color: var(--color-spark-earth);
   font-weight: 600;
   font-size: 1rem;
 }
 
 .form-heading {
-  color: var(--color-spark-bone);
+  color: var(--color-spark-earth);
 }
 
+/* Pair with aria-invalid="true" and aria-describedby pointing at the matching .form-error id */
 .form-error {
   display: none;
   margin-top: 0.4rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--color-spark-red);
+  color: var(--color-spark-earth);
 }
 
 .form-input:user-invalid + .form-error,
 select.form-input:user-invalid + .form-error,
 textarea.form-input:user-invalid + .form-error {
   display: block;
+}
+
+/* Standalone text/email fields (newsletter, resource gate). Use :user-invalid so
+   required empty fields are not styled as errors before interaction. */
+.spark-text-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--color-spark-star) 35%, transparent);
+  border-radius: 0.75rem;
+  background-color: color-mix(in srgb, var(--color-spark-bone) 8%, var(--color-spark-bg));
+  color: var(--color-spark-bone);
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.spark-text-input::placeholder {
+  color: color-mix(in srgb, var(--color-spark-earth) 72%, var(--color-spark-space));
+  opacity: 1;
+}
+
+.spark-text-input:focus,
+.spark-text-input:focus-visible {
+  outline: none;
+  border-color: var(--color-spark-star);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-spark-star) 25%, transparent);
+}
+
+.spark-text-input:user-invalid,
+.spark-text-input[aria-invalid="true"] {
+  border-color: var(--color-spark-alert);
+}
+
+.spark-text-input:focus:user-invalid,
+.spark-text-input:focus[aria-invalid="true"] {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-spark-alert) 35%, transparent);
 }
 
 /* ============================================
@@ -682,10 +790,16 @@ textarea.form-input:user-invalid + .form-error {
   margin-inline: auto;
 }
 
-.btn-primary:hover {
-  border-color: var(--color-spark-gold);
-  color: var(--color-spark-bone);
-  background-color: color-mix(in srgb, var(--color-spark-gold) 18%, transparent);
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  border-color: var(--color-spark-star);
+  color: var(--color-spark-earth);
+  background-color: color-mix(in srgb, var(--color-spark-star) 18%, transparent);
+}
+
+.btn-primary:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* Secondary: purple fill */
@@ -736,11 +850,6 @@ textarea.form-input:user-invalid + .form-error {
   background-color: color-mix(in srgb, var(--color-spark-gold) 22%, var(--color-spark-bg));
   transform: translateY(-1px);
   outline: none;
-}
-
-/* Remove global spark icon from Grow toolkit titles only */
-.grow-toolkit-title::before {
-  content: none;
 }
 
 /* GROW toolkit sequence timeline */

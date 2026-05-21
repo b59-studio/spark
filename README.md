@@ -1,4 +1,4 @@
-# TX*Spark
+# TX*SPARK
 
 Grassroots civic-tech for Texans — a Next.js marketing site, organizing
 toolkits, and integrations with a headless WordPress CMS (MailPoet,

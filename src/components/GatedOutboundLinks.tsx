@@ -44,6 +44,7 @@ export default function GatedOutboundLinks({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleId = useId();
   const emailInputId = useId();
+  const emailErrorId = useId();
   const [subscribed, setSubscribed] = useState<boolean | null>(null);
   const [pending, setPending] = useState<OutboundLinkSpec | null>(null);
   const [modalLoading, setModalLoading] = useState(false);
@@ -217,7 +218,7 @@ export default function GatedOutboundLinks({
           </h3>
           <p className="body-md mb-5">
             Enter your email to receive access to this free resource. We&apos;ll
-            add you to our list and send a quick welcome note—you can unsubscribe
+            add you to our list and send a quick welcome note. You can unsubscribe
             anytime.
           </p>
           <form
@@ -240,11 +241,20 @@ export default function GatedOutboundLinks({
                 required
                 placeholder="you@example.com"
                 disabled={modalLoading}
-                className="rounded-xl border border-spark-gold/35 bg-[color-mix(in_srgb,var(--color-spark-bone)_8%,var(--color-spark-bg))] px-4 py-3 text-spark-bone placeholder:text-secondary focus:border-spark-gold focus:outline-none focus:ring-2 focus:ring-spark-gold/25 invalid:border-spark-red"
+                className="spark-text-input"
+                aria-invalid={modalError ? true : undefined}
+                aria-describedby={modalError ? emailErrorId : undefined}
+                onChange={() => {
+                  if (modalError) setModalError(null);
+                }}
               />
             </div>
             {modalError ? (
-              <p className="body-sm text-center text-spark-red" role="alert">
+              <p
+                id={emailErrorId}
+                className="body-sm text-center text-spark-red"
+                role="alert"
+              >
                 {modalError}
               </p>
             ) : null}

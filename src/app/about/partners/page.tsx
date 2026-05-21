@@ -5,12 +5,12 @@ import PartnersIndexContent from "@/app/partners/PartnersIndexContent";
 export const metadata: Metadata = {
   title: "Partners",
   description:
-    "TX*Spark partners and resources from trusted partner organizations working to advance democratic initiatives across Texas communities.",
+    "TX*SPARK partners and resources from trusted organizations working to advance democratic initiatives across Texas communities. We supplement, never supplant.",
   alternates: { canonical: "/about/partners" },
   openGraph: {
-    title: "Partners | TX*Spark",
+    title: "Partners | TX*SPARK",
     description:
-      "Discover partner organization resources that complement TX*SPARK tools and support democratic community action.",
+      "Partner organization resources that complement TX*SPARK tools and support democratic community action. Building alongside existing orgs, not competing with them.",
     url: "/about/partners",
   },
 };
@@ -24,9 +24,9 @@ export default function AboutPartnersPage() {
       </section>
 
       <section className="spark-framed mt-14 rounded-2xl p-6 sm:p-8">
-        <h2 className="heading-lg mb-6">Partner with TX*Spark</h2>
+        <h2 className="heading-lg mb-6">Partner with TX*SPARK</h2>
         <p className="body-md mb-6">
-          Is your organization or coalition looking to deepen civic engagement in Texas? TX*Spark offers free toolkits, guides, and materials you can put to work in your programs—and we welcome conversations about collaboration, co-hosted events, and ways we can build alongside your goals.
+          Is your organization or coalition looking to deepen civic engagement in Texas? TX*SPARK offers free toolkits, guides, and materials you can put to work in your programs, and we welcome conversations about collaboration, co-hosted events, and ways we can build alongside your goals. We fill infrastructure gaps. We don&apos;t compete with the orgs already doing the work.
         </p>
         <div className="grid gap-4 sm:grid-cols-3">
           <Link

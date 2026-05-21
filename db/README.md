@@ -1,6 +1,6 @@
 # Analytics database
 
-Marketing analytics for TX*Spark lives in a dedicated Postgres **`analytics`**
+Marketing analytics for TX*SPARK lives in a dedicated Postgres **`analytics`**
 schema. The web app writes append-only events from newsletter signups and
 WooCommerce webhooks using **Kysely** (`src/lib/analytics-db.ts`).
 

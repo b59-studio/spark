@@ -22,6 +22,7 @@ export default function NewsletterSignup({
   signupSource = "newsletter-form",
 }: NewsletterSignupProps) {
   const emailInputId = useId();
+  const emailErrorId = useId();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -117,10 +118,15 @@ export default function NewsletterSignup({
           required
           placeholder="you@example.com"
           disabled={loading}
-          className="rounded-xl border border-spark-gold/35 bg-[color-mix(in_srgb,var(--color-spark-bone)_8%,var(--color-spark-bg))] px-4 py-3 text-spark-bone placeholder:text-secondary focus:border-spark-gold focus:outline-none focus:ring-2 focus:ring-spark-gold/25 invalid:border-spark-red"
+          className="spark-text-input"
+          aria-invalid={error ? true : undefined}
+          aria-describedby={error ? emailErrorId : undefined}
+          onChange={() => {
+            if (error) setError(null);
+          }}
         />
         {error ? (
-          <p className="body-sm text-spark-red" role="alert">
+          <p id={emailErrorId} className="body-sm text-spark-red" role="alert">
             {error}
           </p>
         ) : null}

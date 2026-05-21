@@ -5,7 +5,7 @@
 
 ## Context
 
-TX*Spark needs a fast, SEO-friendly public site with server-rendered pages,
+TX*SPARK needs a fast, SEO-friendly public site with server-rendered pages,
 API routes for newsletter and webhooks, and a path to deploy on Vercel.
 The team already uses React and TypeScript. Alternatives included a static
 site generator, a separate API service, or WordPress as the full front end.

@@ -83,7 +83,7 @@ when you wire shop pages; checkout remains on WordPress.
 
 1. Generate a long random secret (e.g. `openssl rand -base64 32`) → `WOOCOMMERCE_WEBHOOK_SECRET` on Vercel.
 2. WooCommerce → **Settings → Advanced → Webhooks → Add webhook**:
-   - **Name:** TX Spark order sync
+   - **Name:** TX*SPARK order sync
    - **Status:** Active
    - **Topic:** Order updated (add **Order created** as a second webhook if you want both)
    - **Delivery URL:** `https://<your-next-site>/api/webhooks/woocommerce`

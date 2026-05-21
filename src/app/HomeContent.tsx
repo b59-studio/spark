@@ -12,23 +12,23 @@ const HOME_VALUE_TABS = [
     id: "build-community",
     title: "Build Community",
     summary:
-      "Shared infrastructure and customizable tools meet campaign and legislative rhythms so coalitions coordinate faster and local leadership can grow for the long haul.",
+      "Shared infrastructure and customizable tools meet campaign and legislative rhythms so coalitions coordinate faster and local leadership can grow for the long haul. We don't reinvent the wheel every cycle. We preserve institutional knowledge and pass the torch without losing momentum.",
     features: [
-      "Shared infrastructure and tools",
-      "Aligned to campaign rhythms",
-      "Support-first community model",
+      "Shared infrastructure and tools built to outlast individual campaign cycles",
+      "Aligned to campaign and legislative rhythms",
+      "Support-first community model. We supplement partners, never supplant them",
     ],
-    cta: { href: "/about/partners", label: "Partner with TX*Spark" },
+    cta: { href: "/about/partners", label: "Partner with TX*SPARK" },
   },
   {
     id: "take-action",
     title: "Take Action",
     summary:
-      "Guided toolkits and plain-language civic guides help you start confidently, grow relationships, recruit volunteers, and move neighbors without drowning in jargon.",
+      "Guided toolkits and plain-language civic guides help you start confidently, grow relationships, recruit volunteers, and move neighbors without drowning in jargon. Understand your district without a political science degree. Clear paths, real tools, no inside baseball required.",
     features: [
-      "Clear paths for newcomers",
-      "Guided organizing toolkits",
-      "Plain-language civic resources",
+      "Clear paths for newcomers and experienced organizers alike",
+      "Guided organizing toolkits aligned to electoral calendars",
+      "Plain-language civic resources that translate analytics into action",
     ],
     cta: { href: "/solutions", label: "Explore Free Tools" },
     sideImage: {
@@ -37,18 +37,18 @@ const HOME_VALUE_TABS = [
       width: 4224,
       height: 3264,
       caption:
-        "It's no secret precincts are confusing. TX*Spark keeps you up to date with the status and best ways to reach your community.",
+        "It's no secret precincts are confusing. TX*SPARK keeps you up to date with the status and best ways to reach your community. Local accountability through accessible data.",
     },
   },
   {
     id: "track-movements",
     title: "Track Movements",
     summary:
-      "PAL ties People's Advocacy Lobby to Texas Legislature Online with plain-language summaries and tracking so you can spot movement and compare versions without living inside raw portals—and clean pipelines keep Capitol and field views current.",
+      "PAL ties People's Advocacy Lobby to Texas Legislature Online with plain-language summaries and tracking so you can spot movement and compare versions without living inside raw portals. Public information should actually be public. Data people can actually use. Clean pipelines keep Capitol and field views current.",
     features: [
-      "PAL connected to TLO",
-      "Readable bill movement tracking",
-      "Regularly updated legislative data",
+      "PAL connected to TLO with daily data pulls",
+      "Readable bill movement tracking. No inside baseball required",
+      "Regularly updated legislative data you can trust in the field",
     ],
     cta: { href: "/pal", label: "Explore PAL" },
     secondaryCta: { href: "/about/data", label: "How we keep data reliable" },
@@ -81,7 +81,7 @@ function HomeValueTabs() {
     <div className="w-full max-w-5xl mx-auto">
       <div
         role="tablist"
-        aria-label="What TX*Spark offers"
+        aria-label="What TX*SPARK offers"
         className="flex flex-row gap-2 md:gap-3 md:items-stretch"
       >
         {HOME_VALUE_TABS.map((tab, index) => {
@@ -215,7 +215,14 @@ function HomeValueTabs() {
                         <li key={featureIndex}>{item}</li>
                       ))}
                     </ul>
-                    <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+                    <div
+                      className={[
+                        "mt-6 flex flex-col gap-3 sm:mt-8",
+                        "secondaryCta" in tab && tab.secondaryCta
+                          ? ""
+                          : "sm:flex-row sm:flex-wrap sm:items-center sm:gap-4",
+                      ].join(" ")}
+                    >
                       <Link href={tab.cta.href} className="btn-primary w-fit">
                         {tab.cta.label}
                       </Link>
@@ -279,13 +286,13 @@ export default function HomeContent() {
       <section className="mt-14 scroll-reveal" data-reveal>
         <h2 className="heading-lg mb-3 text-center">Stay in the loop</h2>
         <p className="body-md mx-auto max-w-4xl text-left">
-          Subscribe for occasional emails from TX*Spark—new Grow resources, advocacy signals worth watching, and ways to show up locally. No clutter; unsubscribe anytime.
+          Subscribe for occasional emails from TX*SPARK: new GROW resources, advocacy signals worth watching, and ways to show up locally. Rugged, practical updates from the people keeping the lights on after everyone else leaves. No clutter. Unsubscribe anytime.
         </p>
         <NewsletterSignup
           variant="panel"
           className="mt-6 max-w-4xl"
           signupSource="home"
-          description="We’ll send toolkit releases, PAL tracker updates, and event news as they go live."
+          description="We’ll send toolkit releases, PAL tracker updates, and event news as they go live. Plain language, no consultant-speak."
         />
       </section>
     </div>

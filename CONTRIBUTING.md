@@ -1,4 +1,4 @@
-# Contributing to TX*Spark
+# Contributing to TX*SPARK
 
 Thank you for helping build grassroots civic-tech for Texans. This guide
 covers how we branch, commit, test, and open pull requests.

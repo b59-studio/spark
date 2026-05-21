@@ -23,7 +23,7 @@ export async function sendNewsletterWelcomeEmail(toEmail: string): Promise<void>
   const { error } = await resend.emails.send({
     from,
     to: toEmail.trim(),
-    subject: "Welcome to TX*Spark",
+    subject: "Welcome to TX*SPARK",
     react: NewsletterWelcomeEmail(),
   });
 

@@ -8,10 +8,10 @@ export const ABOUT_NAV_SECTIONS = [
 ] as const;
 
 const GROW_NAV_SUMMARY =
-  "Six toolkits to help leaders plan for and connect with their communities.";
+  "Six toolkits to help leaders plan for and connect with their communities. Plain language, no inside baseball.";
 
 const PAL_NAV_SUMMARY =
-  "Plain-language Texas bill tracking for organizers and advocates.";
+  "Plain-language Texas bill tracking for organizers and advocates. Public information should actually be public.";
 
 export const SOLUTION_NAV_SECTIONS = [
   {

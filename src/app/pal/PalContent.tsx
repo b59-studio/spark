@@ -40,7 +40,7 @@ export default function PalContent() {
           <span className="pal-hero-highlight">PAL makes it clear.</span>
         </h1>
         <p className="body-lg pal-hero-subtitle">
-          We turn complicated bill activity into plain-language tracking for organizers, advocates, and communities taking action.
+          We turn complicated bill activity into plain-language tracking for organizers, advocates, and communities taking action. Public information should actually be public. No inside baseball is required.
         </p>
       </section>
 
@@ -48,7 +48,7 @@ export default function PalContent() {
         <section className="scroll-reveal" data-reveal>
           <h2 className="heading-lg mb-4">What is the People&apos;s Advocacy Lobby?</h2>
           <p className="body-md mb-4">
-            Our PAL Bill Tracker provides simplified bill summaries, real-time status tracking, and filtering tools focused on legislation of concern to progressive advocates.
+            Our PAL Bill Tracker provides simplified bill summaries, real-time status tracking, and filtering tools focused on legislation of concern to progressive advocates. Data people can actually use, tied directly to Texas Legislature Online.
           </p>
           <p className="body-md mb-8">
             Due to the success of this project, we are planning an expansion for
@@ -86,7 +86,7 @@ export default function PalContent() {
             className="rounded-none p-0 mb-0 sm:p-0"
             heading="PAL Bill Tracker"
             headingClassName="heading-lg mb-4"
-            intro="Click below to open the live spreadsheet."
+            intro="Click below to open the live spreadsheet. Make power legible at the Capitol without living inside raw portals."
             introClassName="body-md mb-8 max-w-prose"
             loadingClassName="body-md text-secondary"
             links={[

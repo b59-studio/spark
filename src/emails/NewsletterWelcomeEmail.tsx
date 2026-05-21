@@ -5,7 +5,7 @@ export default function NewsletterWelcomeEmail() {
     <Html>
       <Body>
         <Container>
-          <Heading>Welcome to TX*Spark</Heading>
+          <Heading>Welcome to TX*SPARK</Heading>
           <Text>
             Thanks for signing up. You now have access to our resource links on
             this device, and we will send occasional updates about toolkits,

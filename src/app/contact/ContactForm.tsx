@@ -43,8 +43,8 @@ export default function ContactForm() {
           <option value="coalition-support">Our coalition could use organizing support</option>
           <option value="tool-request">We need a practical tool or resource</option>
           <option value="event-collaboration">We want to collaborate on an event or training</option>
-          <option value="partnership">Our organization wants to partner with TX*Spark</option>
-          <option value="feedback">I have feedback on current TX*Spark resources</option>
+          <option value="partnership">Our organization wants to partner with TX*SPARK</option>
+          <option value="feedback">I have feedback on current TX*SPARK resources</option>
           <option value="general">General question or idea</option>
         </select>
         <p className="form-error" aria-live="polite">

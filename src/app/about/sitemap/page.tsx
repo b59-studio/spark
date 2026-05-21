@@ -4,11 +4,11 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Sitemap",
   description:
-    "Grassroots Tech for Texans. Navigate TX*Spark pages for about, events, solutions, contact, and legal information.",
+    "Grassroots Tech for Texans. Navigate TX*SPARK pages for about, events, solutions, contact, and legal information.",
   alternates: { canonical: "/about/sitemap" },
   openGraph: {
-    title: "Sitemap | TX*Spark",
-    description: "Find your way around TX*Spark pages for programs, solutions, events, contact, and legal details.",
+    title: "Sitemap | TX*SPARK",
+    description: "Find your way around TX*SPARK pages for programs, solutions, events, contact, and legal details.",
     url: "/about/sitemap",
   },
 };
@@ -47,7 +47,7 @@ export default function SiteMap() {
       <div className="max-w-4xl mx-auto text-center">
         <h1 className="heading-xl mb-6">Sitemap</h1>
         <p className="body-lg">
-          Browse all key TX*Spark pages in one place.
+          Browse all key TX*SPARK pages in one place.
         </p>
       </div>
 

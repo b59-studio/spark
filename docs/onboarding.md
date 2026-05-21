@@ -1,4 +1,4 @@
-# Onboarding — TX*Spark
+# Onboarding — TX*SPARK
 
 > **Goal:** by the end of this guide (~2 hours), you can run the app locally,
 > run tests, find the code you need, and verify a small change.
@@ -35,7 +35,7 @@ npm run dev
 
 You should see the Next.js dev server start and compile without errors.
 
-Visit [http://localhost:3000](http://localhost:3000). You should see the TX*Spark
+Visit [http://localhost:3000](http://localhost:3000). You should see the TX*SPARK
 home page with hero and content sections.
 
 **If the dev server fails:**

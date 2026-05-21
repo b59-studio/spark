@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "TX*Spark PAC privacy policy. How we collect, use, and protect your information when you visit our website or contact us. We do not sell personal information.",
+    "TX*SPARK PAC privacy policy. How we collect, use, and protect your information when you visit our website or contact us. We do not sell personal information.",
   alternates: { canonical: "/about/privacy" },
   openGraph: {
-    title: "Privacy Policy | TX*Spark",
+    title: "Privacy Policy | TX*SPARK",
     description:
-      "How TX*Spark collects, uses, and protects your information. We respect your privacy and do not sell personal data.",
+      "How TX*SPARK collects, uses, and protects your information. We respect your privacy and do not sell personal data.",
     url: "/about/privacy",
   },
   robots: {
@@ -30,7 +30,7 @@ export default function Privacy() {
         </p>
 
         <p className="body-lg">
-          TX*Spark PAC (&quot;TX*Spark,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you visit our website.
+          TX*SPARK PAC (&quot;TX*SPARK,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you visit our website.
         </p>
 
         <section className="space-y-4">

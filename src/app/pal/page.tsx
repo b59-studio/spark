@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "PAL (People's Advocacy Lobby) provides bill analysis and tracking tools for organizing, advocacy, and rapid response strategies.",
   openGraph: {
-    title: "TX*Spark | PAL",
+    title: "TX*SPARK | PAL",
     description:
       "Explore PAL resources for bill tracking, analysis, and coordinated advocacy strategies.",
     url: "/pal",
