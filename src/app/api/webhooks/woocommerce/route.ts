@@ -5,6 +5,7 @@ import {
   recordCommerceOrder,
 } from "@/lib/analytics/record-commerce-order";
 import { recordWebhookDelivery } from "@/lib/analytics/record-webhook-delivery";
+import type { JsonValue } from "@/types/analytics-database";
 
 function verifyWebhookSignature(
   body: string,
@@ -68,7 +69,7 @@ export async function POST(req: Request) {
     eventType: topic,
     externalId: String(orderId),
     idempotencyKey,
-    payload: order,
+    payload: order as JsonValue,
   });
 
   if (!isNew) {
