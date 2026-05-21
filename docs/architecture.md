@@ -44,21 +44,19 @@ graph TB
 graph TB
     web[Web app<br/>Next.js 16 / Vercel]
     cms[WordPress 6<br/>MariaDB / VPS or Docker]
-    analytics[(Neon — analytics schema)]
-    core[(Neon — core/map schema<br/>map-migration only)]
+    neon[(Neon Postgres<br/>public + analytics schemas)]
     r2[(Cloudflare R2<br/>map GeoJSON)]
 
     web --> cms
-    web --> analytics
-    web -.->|optional CORE_DATABASE_URL| core
+    web -->|DATABASE_URL| neon
     web -.->|map-migration| r2
 ```
 
 | Container | Tech | Deploy | Key env vars |
 | --- | --- | --- | --- |
-| Web app | Next.js 16, React 19, Tailwind 4 | Vercel | `WORDPRESS_API_URL`, `MAILPOET_*`, `WOOCOMMERCE_*`, `ANALYTICS_DATABASE_URL`, `RESEND_API_KEY` |
+| Web app | Next.js 16, React 19, Tailwind 4 | Vercel | `DATABASE_URL`, `WORDPRESS_API_URL`, `MAILPOET_*`, `WOOCOMMERCE_*`, `RESEND_API_KEY` |
 | CMS | WordPress + MariaDB | Local: `wordpress/docker-compose.yml`; prod: `infra/hosting/` | (CMS host secrets) |
-| Analytics DB | Postgres 16, `analytics` schema | Neon branch | `ANALYTICS_DATABASE_URL` |
+| Postgres | Neon — `public` (core/map) + `analytics` schema | Neon | `DATABASE_URL` |
 | Map stack (WIP) | Next + Prisma/PostGIS + Mapbox | `map-migration/` | `DATABASE_URL`, Mapbox tokens, R2 keys |
 
 ## 3. Components — web app (`src/`)
@@ -168,7 +166,7 @@ Client: `src/lib/integrations/wordpress/client.ts`.
 - **Email:** Resend for newsletter welcome; react-email templates in
   `src/emails/`.
 - **Testing:** Vitest — co-located `*.test.ts` under `src/`.
-- **Analytics:** Optional — all recorders no-op when `ANALYTICS_DATABASE_URL`
+- **Analytics:** Optional — all recorders no-op when `DATABASE_URL`
   is unset.
 - **Privacy:** No PII in logs; webhook payloads stored in `analytics` schema
   for debugging/replay — treat DB access as sensitive.
@@ -186,6 +184,6 @@ Client: `src/lib/integrations/wordpress/client.ts`.
 
 - **Map merge:** `map-migration/` duplicates much of `src/` map code; target
   architecture (single app vs split service) is undecided — see ADR 0004.
-- **Core user linking:** `CORE_DATABASE_URL` optional join to map `User` table
-  for `core_user_id` on analytics events.
+- **Core user linking:** email match against `public."User"` on the same
+  `DATABASE_URL` for `core_user_id` on analytics events.
 - **OpenAPI:** Public API routes are few; no committed `openapi.yaml` yet.

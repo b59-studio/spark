@@ -16,6 +16,8 @@ export type RecordCommerceOrderInput = {
   currency?: string | null;
   totalCents?: number | null;
   customerEmail?: string | null;
+  woocommerceCustomerId?: number | null;
+  paymentMethod?: string | null;
   lineItems: CommerceLineItem[];
   orderedAt?: Date | null;
   rawPayload?: JsonValue;
@@ -45,6 +47,10 @@ export function mapWooCommerceOrderPayload(order: Record<string, unknown>): Reco
       ? (order.billing as Record<string, unknown>)
       : {};
 
+  const customerId = Number(order.customer_id);
+  const woocommerceCustomerId =
+    Number.isFinite(customerId) && customerId > 0 ? customerId : null;
+
   return {
     woocommerceOrderId: Number(order.id),
     status: String(order.status ?? "unknown"),
@@ -56,6 +62,9 @@ export function mapWooCommerceOrderPayload(order: Record<string, unknown>): Reco
         : typeof order.customer_email === "string"
           ? order.customer_email
           : null,
+    woocommerceCustomerId,
+    paymentMethod:
+      order.payment_method != null ? String(order.payment_method) : null,
     lineItems,
     orderedAt: order.date_created ? new Date(String(order.date_created)) : null,
     rawPayload: order as JsonValue,
@@ -87,6 +96,8 @@ export async function recordCommerceOrder(
       currency: input.currency ?? null,
       total_cents: input.totalCents ?? null,
       customer_email_normalized: customerEmailNormalized,
+      woocommerce_customer_id: input.woocommerceCustomerId ?? null,
+      payment_method: input.paymentMethod ?? null,
       core_user_id: coreUserId,
       line_items: input.lineItems as JsonValue,
       raw_payload: input.rawPayload ?? null,
@@ -98,6 +109,8 @@ export async function recordCommerceOrder(
         currency: input.currency ?? null,
         total_cents: input.totalCents ?? null,
         customer_email_normalized: customerEmailNormalized,
+        woocommerce_customer_id: input.woocommerceCustomerId ?? null,
+        payment_method: input.paymentMethod ?? null,
         core_user_id: coreUserId,
         line_items: input.lineItems as JsonValue,
         raw_payload: input.rawPayload ?? null,

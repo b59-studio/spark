@@ -7,7 +7,7 @@ const globalForAnalytics = globalThis as unknown as {
 };
 
 export function isAnalyticsDbConfigured(): boolean {
-  return Boolean(process.env.ANALYTICS_DATABASE_URL?.trim());
+  return Boolean(process.env.DATABASE_URL?.trim());
 }
 
 /** Kysely client for the `analytics` schema. Returns null when not configured. */
@@ -16,7 +16,7 @@ export function getAnalyticsDb(): Kysely<AnalyticsDatabase> | null {
 
   if (!globalForAnalytics.analyticsDb) {
     const pool = new Pool({
-      connectionString: process.env.ANALYTICS_DATABASE_URL,
+      connectionString: process.env.DATABASE_URL,
       max: 5,
     });
     globalForAnalytics.analyticsDb = new Kysely<AnalyticsDatabase>({

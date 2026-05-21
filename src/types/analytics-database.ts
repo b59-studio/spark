@@ -14,6 +14,7 @@ export interface NewsletterSignupEventTable {
   source: string | null;
   resource_label: string | null;
   mailpoet_list_id: number | null;
+  mailpoet_subscriber_id: number | null;
   core_user_id: string | null;
   payload: ColumnType<JsonValue | null, JsonValue | null, JsonValue | null>;
   created_at: ColumnType<Date, string | Date | undefined, string | Date>;
@@ -26,6 +27,8 @@ export interface CommerceOrderTable {
   currency: string | null;
   total_cents: number | null;
   customer_email_normalized: string | null;
+  woocommerce_customer_id: number | null;
+  payment_method: string | null;
   core_user_id: string | null;
   line_items: ColumnType<JsonValue, JsonValue, JsonValue>;
   raw_payload: ColumnType<JsonValue | null, JsonValue | null, JsonValue | null>;

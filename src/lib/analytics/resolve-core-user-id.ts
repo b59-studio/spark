@@ -4,7 +4,7 @@ import { normalizeAnalyticsEmail } from "@/lib/analytics/normalize-email";
 let corePool: Pool | null = null;
 
 function getCorePool(): Pool | null {
-  const connectionString = process.env.CORE_DATABASE_URL?.trim();
+  const connectionString = process.env.DATABASE_URL?.trim();
   if (!connectionString) return null;
 
   if (!corePool) {
@@ -14,9 +14,9 @@ function getCorePool(): Pool | null {
 }
 
 /**
- * Optional link to the core app `User` row by email.
- * Set CORE_DATABASE_URL to the map app's Neon DB (or a read replica).
- * Returns null when unset or no match — analytics still records the event.
+ * Link analytics events to the core app `User` row by email.
+ * Uses `DATABASE_URL` (same Neon DB as analytics schema `analytics`).
+ * Returns null when unset, no match, or lookup fails — analytics still records.
  */
 export async function resolveCoreUserIdByEmail(
   email: string
@@ -34,7 +34,7 @@ export async function resolveCoreUserIdByEmail(
     return result.rows[0]?.id ?? null;
   } catch (e) {
     console.warn(
-      "[analytics] CORE_DATABASE_URL lookup failed:",
+      "[analytics] User lookup failed:",
       e instanceof Error ? e.message : e
     );
     return null;

@@ -10,6 +10,11 @@ where applicable.
 
 ### Added
 
+- Cloudways go-live runbook: `wordpress/CLOUDWAYS-GO-LIVE.md` (plugins, webhooks,
+  Neon migrations, core user linking).
+- Analytics migration `002_plugin_external_ids.sql` (MailPoet subscriber id,
+  WooCommerce customer id, payment method).
+- Multi-file analytics migrate runner (`scripts/analytics-migrate.ts`).
 - Project documentation: architecture, onboarding, ADRs, analytics DB guide,
   CONTRIBUTING, and LICENSE.
 - Analytics schema (`analytics` on Neon) with newsletter, commerce, and webhook
@@ -20,6 +25,11 @@ where applicable.
 
 ### Changed
 
+- Analytics and core user linking use single `DATABASE_URL` (replaces
+  `ANALYTICS_DATABASE_URL` and `CORE_DATABASE_URL`).
+- MailPoet subscribe captures `mailpoet_subscriber_id` on analytics signup events.
+- WooCommerce order mapper stores `woocommerce_customer_id` and `payment_method`.
+- WordPress README and Cloudways hosting doc aligned with go-live checklist.
 - README rewritten for Next.js + WordPress + Neon analytics (map stack noted
   as `map-migration/` worktree).
 
