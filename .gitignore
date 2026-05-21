@@ -31,3 +31,13 @@ __pycache__/
 # Node artifacts if any helper tools are added
 node_modules/
 .npm/
+
+# TX*Spark — local env and secrets
+.env
+.env.local
+.env*.local
+
+# Coding-standards bundle docs (when docs/ is symlinked from the bundle)
+/docs/ROADMAP.md
+/docs/SETUP.md
+/docs/templates/
