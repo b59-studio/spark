@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build",
+    "build:cf": "opennextjs-cloudflare build",
+    "deploy:cf": "opennextjs-cloudflare deploy",
+    "preview:cf": "opennextjs-cloudflare preview",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
@@ -21,6 +24,7 @@
     "kysely": "^0.28.8",
     "next": "^16.2.4",
     "pg": "^8.16.3",
+    "pg-cloudflare": "^1.4.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-email": "^6.0.0",
