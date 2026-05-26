@@ -1,6 +1,4 @@
-import type { OpenNextConfig } from '@opennextjs/aws'
-
-const config: OpenNextConfig = {
+const config = {
   default: {
     override: {
       wrapper: 'cloudflare',
