@@ -170,6 +170,14 @@ export default function Header() {
 
               <div className="flex-1 min-w-0" aria-hidden />
 
+              {/* Login Link */}
+              <Link
+                href={process.env.NEXT_PUBLIC_LOGIN_URL || "https://login.jfseamus.com"}
+                className="nav-link text-sm md:text-base"
+              >
+                Log In
+              </Link>
+
               {/* Mobile menu */}
               <div className="relative z-10 md:hidden flex items-center gap-2 shrink-0 self-center">
                 <button
@@ -330,12 +338,12 @@ export default function Header() {
                   </div>
                 )}
 
-                {/** Work link hidden until page is ready
+                {/** TODO: Implement Work page (deferred from 2026-05-27)
                 <Link href="/work" className="nav-mobile-link" onClick={() => setMobileMenuOpen(false)}>
                   Work
                 </Link>
                 */}
-                {/** Contact page temporarily disabled
+                {/** TODO: Implement Contact page (deferred from 2026-05-27)
                 <Link
                   href="/contact"
                   className="nav-mobile-link"
