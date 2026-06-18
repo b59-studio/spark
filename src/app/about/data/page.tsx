@@ -42,7 +42,7 @@ function AboutDataFallback() {
           <p className="body-md mb-6 max-w-3xl">
             GROW and PAL turn that commitment into workflows you can use every week. Organizing support aligned to real calendars, and bill tracking built on fresh pulls from Texas Legislature Online. Make power legible without living inside raw portals.
           </p>
-          <Link href="/solutions" className="btn-primary">
+          <Link href="/toolkits" className="btn-primary">
             See how we use this data in action
           </Link>
         </section>
