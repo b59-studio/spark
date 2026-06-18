@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CmsPage from "@/components/CmsPage";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -15,6 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default function SolutionsPage() {
+  return <CmsPage slug="solutions" shell="spark-page-wide" fallback={<SolutionsFallback />} />;
+}
+
+function SolutionsFallback() {
   return (
     <div className="spark-page-wide">
       <header className="max-w-4xl mx-auto text-center">

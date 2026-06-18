@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PalContent from "./PalContent";
+import CmsPage from "@/components/CmsPage";
 
 export const metadata: Metadata = {
   title: "PAL",
@@ -15,6 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default function PalPage() {
+  return <CmsPage slug="pal" shell="spark-page-narrow" fallback={<PalFallback />} />;
+}
+
+function PalFallback() {
   return (
     <div className="spark-page-narrow">
       <PalContent />

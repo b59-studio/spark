@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CmsPage from "@/components/CmsPage";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -18,6 +19,10 @@ export const metadata: Metadata = {
 };
 
 export default function Privacy() {
+  return <CmsPage slug="privacy" shell="spark-page-narrow" fallback={<PrivacyFallback />} />;
+}
+
+function PrivacyFallback() {
   return (
     <div className="spark-page-narrow">
       <h1 className="heading-xl mb-6 text-center">

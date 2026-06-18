@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CmsPage from "@/components/CmsPage";
 import AboutContent from "./AboutContent";
 
 export const metadata: Metadata = {
@@ -16,5 +17,5 @@ export const metadata: Metadata = {
 };
 
 export default function About() {
-  return <AboutContent />;
+  return <CmsPage slug="about" fallback={<AboutContent />} />;
 }

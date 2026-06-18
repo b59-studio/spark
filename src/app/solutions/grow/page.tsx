@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CmsPage from "@/components/CmsPage";
 import GrowIndexContent from "@/app/grow/GrowIndexContent";
 
 export const metadata: Metadata = {
@@ -15,6 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default function SolutionsGrowPage() {
+  return <CmsPage slug="solutions-grow" shell="spark-page-narrow" fallback={<SolutionsGrowFallback />} />;
+}
+
+function SolutionsGrowFallback() {
   return (
     <div className="spark-page-narrow">
       <GrowIndexContent />

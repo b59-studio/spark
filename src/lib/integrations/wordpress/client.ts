@@ -19,13 +19,20 @@ function authHeader(config: WordPressConfig): HeadersInit {
   return { Authorization: `Basic ${token}` };
 }
 
+/** WordPress "page" objects share the same core REST shape as posts. */
+export type WordPressPage = WordPressPost;
+
+type WordPressFetchOptions = { perPage?: number; slug?: string };
+
 /**
  * Minimal headless WordPress REST client (WP core `/wp/v2` routes).
- * Extend with menus, media, and custom post types as your CMS model grows.
+ * Handles both `posts` and `pages`; extend with menus, media, and custom
+ * post types as your CMS model grows.
  */
-export async function fetchWordPressPosts(
+async function fetchWordPressCollection(
   config: WordPressConfig,
-  options?: { perPage?: number; slug?: string }
+  resource: "posts" | "pages",
+  options?: WordPressFetchOptions
 ): Promise<WordPressPost[]> {
   const params = new URLSearchParams({
     per_page: String(options?.perPage ?? 10),
@@ -33,7 +40,7 @@ export async function fetchWordPressPosts(
   });
   if (options?.slug) params.set("slug", options.slug);
 
-  const url = `${config.apiBaseUrl}/wp-json/wp/v2/posts?${params}`;
+  const url = `${config.apiBaseUrl}/wp-json/wp/v2/${resource}?${params}`;
 
   const res = await fetch(url, {
     headers: {
@@ -44,16 +51,48 @@ export async function fetchWordPressPosts(
   });
 
   if (!res.ok) {
-    throw new Error(`WordPress API error (${res.status})`);
+    throw new Error(`WordPress API error (${res.status}) for ${resource}`);
   }
 
   return (await res.json()) as WordPressPost[];
+}
+
+export function fetchWordPressPosts(
+  config: WordPressConfig,
+  options?: WordPressFetchOptions
+): Promise<WordPressPost[]> {
+  return fetchWordPressCollection(config, "posts", options);
 }
 
 export async function fetchWordPressPostBySlug(
   config: WordPressConfig,
   slug: string
 ): Promise<WordPressPost | null> {
-  const posts = await fetchWordPressPosts(config, { perPage: 1, slug });
+  const posts = await fetchWordPressCollection(config, "posts", {
+    perPage: 1,
+    slug,
+  });
   return posts[0] ?? null;
+}
+
+export function fetchWordPressPages(
+  config: WordPressConfig,
+  options?: WordPressFetchOptions
+): Promise<WordPressPage[]> {
+  return fetchWordPressCollection(config, "pages", options);
+}
+
+/**
+ * Fetch a single published WordPress Page by slug — the primitive the
+ * CMS-driven content routes (team, mission, etc.) are built on.
+ */
+export async function fetchWordPressPageBySlug(
+  config: WordPressConfig,
+  slug: string
+): Promise<WordPressPage | null> {
+  const pages = await fetchWordPressCollection(config, "pages", {
+    perPage: 1,
+    slug,
+  });
+  return pages[0] ?? null;
 }
