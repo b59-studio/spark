@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CmsPage from "@/components/CmsPage";
 
 export const metadata: Metadata = {
   title: "People",
@@ -14,6 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPeoplePage() {
+  return <CmsPage slug="people" fallback={<AboutPeopleFallback />} />;
+}
+
+function AboutPeopleFallback() {
   return (
     <div className="spark-page">
       <div className="rounded-2xl p-6 sm:p-8">

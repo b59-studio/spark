@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CmsPage from "@/components/CmsPage";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -14,6 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default function Work() {
+  return <CmsPage slug="work" shell="spark-page-wide" fallback={<WorkFallback />} />;
+}
+
+function WorkFallback() {
   return (
     <div className="spark-page-wide">
       <h1 className="heading-xl mb-6">Work</h1>

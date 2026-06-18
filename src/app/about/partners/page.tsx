@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CmsPage from "@/components/CmsPage";
 import Link from "next/link";
 import PartnersIndexContent from "@/app/partners/PartnersIndexContent";
 
@@ -16,6 +17,10 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPartnersPage() {
+  return <CmsPage slug="partners" fallback={<AboutPartnersFallback />} />;
+}
+
+function AboutPartnersFallback() {
   return (
     <div className="spark-page">
       <h1 className="heading-xl mb-6 text-left">Partners</h1>
