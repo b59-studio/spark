@@ -30,7 +30,7 @@ const HOME_VALUE_TABS = [
       "Guided organizing toolkits aligned to electoral calendars",
       "Plain-language civic resources that translate analytics into action",
     ],
-    cta: { href: "/solutions", label: "Explore Free Tools" },
+    cta: { href: "/toolkits", label: "Explore Free Tools" },
     sideImage: {
       src: siteImages.content.electionPrecinctMap,
       alt: "Map showing the boundaries and layout of Travis County Election Precinct 305, as passed by Commissioners Court on December 4, 2025.",
@@ -50,7 +50,7 @@ const HOME_VALUE_TABS = [
       "Readable bill movement tracking. No inside baseball required",
       "Regularly updated legislative data you can trust in the field",
     ],
-    cta: { href: "/pal", label: "Explore PAL" },
+    cta: { href: "/toolkits", label: "Explore Toolkits" },
     secondaryCta: { href: "/about/data", label: "How we keep data reliable" },
   },
 ] as const;

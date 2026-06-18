@@ -23,7 +23,7 @@ function SiteMapFallback() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/events", label: "Events" },
-    { href: "/solutions", label: "Solutions" },
+    { href: "/toolkits", label: "Toolkits" },
     { href: "/work", label: "Our Work" },
     { href: "/contact", label: "Contact" },
   ];
@@ -36,9 +36,7 @@ function SiteMapFallback() {
   ];
 
   const solutionRoutes = [
-    { href: "/solutions/grow", label: "GROW" },
-    { href: "/solutions/pal", label: "PAL" },
-    { href: "/grow", label: "GROW toolkits" },
+    { href: "/toolkits", label: "Toolkits" },
   ];
 
   const legalRoutes = [

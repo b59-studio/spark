@@ -11,7 +11,7 @@
   --color-spark-star: #edc973;
   --color-spark-earth: #f4dcb6;
   --color-spark-sky: #a9c7cc;
-  --color-spark-alert: #d93802;
+  --color-spark-alert: #f4541f;
 
   /* Legacy utility names → canonical tokens (prefer spark-star/earth/space in new code) */
   --color-spark-bg: var(--color-spark-void);

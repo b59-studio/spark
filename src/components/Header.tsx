@@ -4,7 +4,6 @@ import { useState } from 'react';
 import {
   ABOUT_NAV_SECTIONS,
   DESKTOP_NAV,
-  SOLUTION_NAV_SECTIONS,
   type HeaderNavItem,
   type NavMegaSection,
 } from '@/components/nav-config';
@@ -132,16 +131,12 @@ function NavDropdown({
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
-  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
-  const [mobileGrowToolkitsOpen, setMobileGrowToolkitsOpen] = useState(false);
 
   const navTone = 'header-nav header-nav--photo-slice';
 
   const closeMobile = () => {
     setMobileMenuOpen(false);
     setMobileAboutOpen(false);
-    setMobileSolutionsOpen(false);
-    setMobileGrowToolkitsOpen(false);
   };
 
   return (
@@ -237,106 +232,9 @@ export default function Header() {
                   Events
                 </Link>
 
-                <div className="flex items-stretch gap-0 rounded-lg border border-spark-purple/15 overflow-hidden">
-                  <Link href="/solutions" className="nav-mobile-link flex-1 rounded-none" onClick={closeMobile}>
-                    Solutions
-                  </Link>
-                  <button
-                    type="button"
-                    className="mobile-menu-btn shrink-0 px-3 border-l border-spark-purple/15"
-                    aria-expanded={mobileSolutionsOpen}
-                    aria-label={mobileSolutionsOpen ? 'Collapse Solutions sections' : 'Expand Solutions sections'}
-                    onClick={() => setMobileSolutionsOpen(!mobileSolutionsOpen)}
-                  >
-                    <ChevronDown
-                      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${mobileSolutionsOpen ? '-rotate-180' : ''}`}
-                    />
-                  </button>
-                </div>
-                {mobileSolutionsOpen && (
-                  <div className="pl-4 ml-2 border-l border-spark-purple/20 space-y-2 pb-1">
-                    {SOLUTION_NAV_SECTIONS.map((item) => {
-                      const growWithKids = item.label === 'GROW' && item.children?.length;
-                      if (growWithKids) {
-                        return (
-                          <div key={item.href} className="space-y-1">
-                            <div className="flex items-stretch gap-0 rounded-lg border border-spark-purple/15 overflow-hidden">
-                              <Link
-                                href={item.href}
-                                className="nav-mobile-link nav-mobile-sublink flex-1 rounded-none"
-                                onClick={closeMobile}
-                              >
-                                {item.label}
-                              </Link>
-                              <button
-                                type="button"
-                                className="mobile-menu-btn shrink-0 px-3 border-l border-spark-purple/15"
-                                aria-expanded={mobileGrowToolkitsOpen}
-                                aria-label={
-                                  mobileGrowToolkitsOpen ? 'Collapse GROW toolkits' : 'Expand GROW toolkits'
-                                }
-                                onClick={() => setMobileGrowToolkitsOpen(!mobileGrowToolkitsOpen)}
-                              >
-                                <ChevronDown
-                                  className={`h-4 w-4 shrink-0 transition-transform duration-200 ${mobileGrowToolkitsOpen ? '-rotate-180' : ''}`}
-                                />
-                              </button>
-                            </div>
-                            {item.summary ? (
-                              <p className="px-4 text-[0.8125rem] italic text-spark-bone/80 leading-snug -mt-0.5">
-                                {item.summary}
-                              </p>
-                            ) : null}
-                            {mobileGrowToolkitsOpen && (
-                              <div className="pl-4 ml-2 border-l border-spark-purple/20 space-y-2">
-                                {item.children!.map((child) => (
-                                  <div key={child.href}>
-                                    <Link
-                                      href={child.href}
-                                      className="nav-mobile-link nav-mobile-sublink py-1.5"
-                                      onClick={closeMobile}
-                                    >
-                                      {child.label}
-                                    </Link>
-                                    {child.summary ? (
-                                      <p className="px-4 text-[0.75rem] italic text-spark-bone/75 leading-snug -mt-0.5">
-                                        {child.summary}
-                                      </p>
-                                    ) : null}
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        );
-                      }
-                      return (
-                        <div key={item.href} className="space-y-1">
-                          <div className="flex items-stretch gap-0 rounded-lg border border-spark-purple/15 overflow-hidden">
-                            <Link
-                              href={item.href}
-                              className="nav-mobile-link nav-mobile-sublink flex-1 rounded-none"
-                              onClick={closeMobile}
-                            >
-                              {item.label}
-                            </Link>
-                            <div
-                              className="mobile-menu-btn shrink-0 flex items-center justify-center px-3 border-l border-spark-purple/15 self-stretch pointer-events-none"
-                              aria-hidden
-                            >
-                              <ChevronDown className="h-4 w-4 shrink-0 invisible" />
-                            </div>
-                          </div>
-                          {item.summary ? (
-                            <p className="px-4 text-[0.8125rem] italic text-spark-bone/80 leading-snug -mt-0.5">
-                              {item.summary}
-                            </p>
-                          ) : null}
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
+                <Link href="/toolkits" className="nav-mobile-link" onClick={closeMobile}>
+                  Toolkits
+                </Link>
 
                 {/** TODO: Implement Work page (deferred from 2026-05-27)
                 <Link href="/work" className="nav-mobile-link" onClick={() => setMobileMenuOpen(false)}>

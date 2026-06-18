@@ -6,8 +6,14 @@ const nextConfig: NextConfig = {
       { source: "/solutions/partners", destination: "/about/partners", permanent: true },
       { source: "/partners", destination: "/about/partners", permanent: true },
       { source: "/resources/partners", destination: "/about/partners", permanent: true },
-      { source: "/resources", destination: "/solutions", permanent: true },
-      { source: "/resources/:path*", destination: "/solutions/:path*", permanent: true },
+      { source: "/resources", destination: "/toolkits", permanent: true },
+      { source: "/resources/:path*", destination: "/toolkits", permanent: true },
+      // Deprecated solutions / grow / pal — folded into the year-round Toolkits section.
+      { source: "/solutions", destination: "/toolkits", permanent: true },
+      { source: "/solutions/:path*", destination: "/toolkits", permanent: true },
+      { source: "/grow", destination: "/toolkits", permanent: true },
+      { source: "/grow/:path*", destination: "/toolkits", permanent: true },
+      { source: "/pal", destination: "/toolkits", permanent: true },
     ];
   },
 };

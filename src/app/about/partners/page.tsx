@@ -35,10 +35,10 @@ function AboutPartnersFallback() {
         </p>
         <div className="grid gap-4 sm:grid-cols-3">
           <Link
-            href="/solutions"
+            href="/toolkits"
             className="spark-framed spark-panel rounded-xl p-5 text-center transition hover:-translate-y-0.5 hover:brightness-[0.97]"
           >
-            <p className="heading-sm">Solutions</p>
+            <p className="heading-sm">Toolkits</p>
             <p className="body-sm mt-2">
               Toolkits, guides, and print-ready materials.
             </p>
