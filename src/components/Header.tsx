@@ -7,6 +7,7 @@ import {
   type HeaderNavItem,
   type NavMegaSection,
 } from '@/components/nav-config';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export type { HeaderNavItem, NavMegaSection };
 
@@ -164,6 +165,8 @@ export default function Header() {
               </div>
 
               <div className="flex-1 min-w-0" aria-hidden />
+
+              <ThemeToggle />
 
               {/* Login Link */}
               <Link

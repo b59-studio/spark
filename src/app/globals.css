@@ -359,8 +359,8 @@ h1 {
 .logo-container {
   height: 108px;
   width: auto;
-  /* Path mirrors `siteImages.brand.wordmark` in `site-visuals.ts`. */
-  background-image: url('/images/brand/wordmark2-g.png');
+  /* Theme-swapped wordmark; `--wordmark-image` flips with the palette (see light scope). */
+  background-image: var(--wordmark-image);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left center;
@@ -371,6 +371,9 @@ h1 {
    ============================================ */
 
 :root {
+  /* Dark is the brand default; native UI (scrollbars, form controls) follows. */
+  color-scheme: dark;
+
   /* Semantic aliases */
   --color-bg-primary: var(--color-spark-void);
   --color-bg-secondary: var(--color-spark-space);
@@ -381,6 +384,8 @@ h1 {
 
   /* Hero JPEG path — must match `siteImages.content.heroBackground` in `site-visuals.ts` (do not retune hero loading here without review). */
   --header-hero-photo: url("/images/content/hero-background.jpg");
+  /* Wordmark in the header lockup — mirrors `siteImages.brand.wordmark`; flipped in the light scope. */
+  --wordmark-image: url("/images/brand/wordmark2-g.png");
   /* Map UI contrast-safe tokens for light surfaces (panels, legends, popups). */
   --color-map-ui-text-primary: #1f2937;
   --color-map-ui-text-muted: #4b5563;
@@ -396,6 +401,131 @@ h1 {
 
   /* Accessible text on void — star is decorative at large sizes; links use a darker mix */
   --color-link-on-void: color-mix(in srgb, var(--color-spark-star) 72%, var(--color-spark-space));
+
+  /* ----------------------------------------------------------------
+     LIGHT THEME — a reflection of the existing palette, brand colors
+     ONLY. No new hues: the six tokens swap across the light/dark axis.
+       void  ↔ earth   (darkest background ↔ lightest, now the page)
+       space ↔ sky     (dark purple surface ↔ light blue, now surfaces)
+       star, alert     unchanged (gold accent + functional red-orange)
+     Defined once here; the two scopes below re-point the canonical tokens
+     at these values, so every `var(--color-spark-*)` rule and every
+     Tailwind `*-spark-*` utility inverts from one place. Headings render in
+     ink (void) on light — gold is too light on the earth page for large
+     text, so gold is reserved for trim and the logo (see heading override). */
+  --light-spark-void: #f4dcb6;   /* earth — lightest brand color, now the page */
+  --light-spark-space: #a9c7cc;  /* sky — light blue, now secondary surfaces */
+  --light-spark-star: #edc973;   /* star — gold accent unchanged (trim + logo) */
+  --light-spark-earth: #14081e;  /* void — darkest brand color, now body ink */
+  --light-spark-sky: #2f0951;    /* space — dark purple, now the highlight accent */
+  --light-spark-alert: #f4541f;  /* alert — unchanged (functional only) */
+  --light-focus-ring: #2f0951;   /* space — dark ring, reads on the earth page */
+  --light-link: #2f0951;         /* space — dark link on earth; underline also distinguishes */
+}
+
+/* Re-point the canonical tokens at the light palette. One declaration block,
+   reused by both triggers: system preference (unless the user forced dark)
+   and an explicit user choice of light. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --color-spark-void: var(--light-spark-void);
+    --color-spark-space: var(--light-spark-space);
+    --color-spark-star: var(--light-spark-star);
+    --color-spark-earth: var(--light-spark-earth);
+    --color-spark-sky: var(--light-spark-sky);
+    --color-spark-alert: var(--light-spark-alert);
+    --focus-ring-color: var(--light-focus-ring);
+    --color-link-on-void: var(--light-link);
+    /* Light-theme art: daytime sky + filled/outlined wordmark (the night sky and
+       cutout wordmark read poorly on a light page). Mirror site-visuals.ts. */
+    --header-hero-photo: url("/images/content/pexels-enginakyurt-7085605.jpg");
+    --wordmark-image: url("/images/brand/sparkwordfilledv1.png");
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-spark-void: var(--light-spark-void);
+  --color-spark-space: var(--light-spark-space);
+  --color-spark-star: var(--light-spark-star);
+  --color-spark-earth: var(--light-spark-earth);
+  --color-spark-sky: var(--light-spark-sky);
+  --color-spark-alert: var(--light-spark-alert);
+  --focus-ring-color: var(--light-focus-ring);
+  --color-link-on-void: var(--light-link);
+  /* Light-theme art — see note above; mirror site-visuals.ts. */
+  --header-hero-photo: url("/images/content/pexels-enginakyurt-7085605.jpg");
+  --wordmark-image: url("/images/brand/sparkwordfilledv1.png");
+}
+
+/* Show an element only in one theme — for paired light/dark assets (e.g. the hero
+   photo) where a single token swap isn't enough and two elements must coexist. */
+.theme-light-only {
+  display: none;
+}
+
+.theme-dark-only {
+  display: initial;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .theme-light-only {
+    display: initial;
+  }
+
+  :root:not([data-theme="dark"]) .theme-dark-only {
+    display: none;
+  }
+}
+
+:root[data-theme="light"] .theme-light-only {
+  display: initial;
+}
+
+:root[data-theme="light"] .theme-dark-only {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-light-only {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-dark-only {
+  display: initial;
+}
+
+/* Light mode: headings read as ink, not gold. Gold legible on a light page has to
+   darken into an amber that reads "orange" and fights the brand, so on light
+   backgrounds gold is reserved for borders, rules, and icons — not large text. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) :is(
+      h1, h2, h3,
+      .heading-xl, .heading-lg, .heading-md,
+      .home-hero-heading .text-spark-gold
+    ) {
+    color: var(--color-spark-earth);
+  }
+}
+
+:root[data-theme="light"] :is(
+    h1, h2, h3,
+    .heading-xl, .heading-lg, .heading-md,
+    .home-hero-heading .text-spark-gold
+  ) {
+  color: var(--color-spark-earth);
+}
+
+/* The hero subline kept a gold glow for the dark theme; drop it on light so both
+   heading lines read as plain ink. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .home-hero-heading .text-spark-gold {
+    text-shadow: none;
+  }
+}
+
+:root[data-theme="light"] .home-hero-heading .text-spark-gold {
+  text-shadow: none;
 }
 
 /* Home: one anchor for hero `<Image>` object-position and header strip background — continuous field under the fixed nav */
@@ -611,6 +741,75 @@ body:has(#home-hero) {
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
   outline-offset: var(--focus-ring-offset);
   border-radius: 0.25rem;
+}
+
+/* ============================================
+   THEME TOGGLE
+   ============================================ */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--color-spark-bone);
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--color-spark-star);
+  background-color: color-mix(in srgb, var(--color-spark-star) 14%, transparent);
+}
+
+.theme-toggle:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.theme-toggle-icon {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+/* Icon reflects the active theme via CSS only (identical server/client markup,
+   so no hydration flash): sun in dark mode (click → light), moon in light mode. */
+.theme-toggle-icon--moon {
+  display: none;
+}
+
+.theme-toggle-icon--sun {
+  display: block;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .theme-toggle-icon--sun {
+    display: none;
+  }
+
+  :root:not([data-theme="dark"]) .theme-toggle-icon--moon {
+    display: block;
+  }
+}
+
+:root[data-theme="light"] .theme-toggle-icon--sun {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-toggle-icon--moon {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-toggle-icon--sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .theme-toggle-icon--moon {
+  display: none;
 }
 
 /* ============================================
