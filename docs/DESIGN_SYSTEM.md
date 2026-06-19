@@ -119,14 +119,57 @@ Allocate colors using the 60/30/10 rule:
 | spark-sky | Highlights, depth, texture | <5% |
 | spark-alert | Alerts and warnings only | Functional only |
 
+### Light theme (role-inverted)
+
+Light mode uses **brand colors only** — no new hues. It is a *reflection* of the
+six canonical tokens across the light/dark axis: the two dark purples and the two
+light tones swap roles, while gold and alert stay put. The site defaults to the OS
+preference (`prefers-color-scheme`); a header toggle sets an explicit, persisted
+choice that overrides the OS (2-way: light ↔ dark, seeded from the system). Dark
+stays the default.
+
+There is no second palette to maintain in components. The canonical tokens are
+simply re-pointed under a light scope in `globals.css`, so every
+`var(--color-spark-*)` rule **and** every Tailwind `*-spark-*` utility inverts
+from one place.
+
+| Token | Dark (default) | Light | Becomes (light role) |
+|---|---|---|---|
+| `spark-void` | `#14081e` | `#f4dcb6` | **earth** — lightest tone, now the page background |
+| `spark-space` | `#2f0951` | `#a9c7cc` | **sky** — light blue, now secondary surfaces |
+| `spark-star` | `#edc973` | `#edc973` | unchanged — gold accent (trim + logo) |
+| `spark-earth` | `#f4dcb6` | `#14081e` | **void** — darkest tone, now body ink |
+| `spark-sky` | `#a9c7cc` | `#2f0951` | **space** — dark purple, now the highlight accent |
+| `spark-alert` | `#f4541f` | `#f4541f` | unchanged — functional red-orange |
+
+Derived tokens point at brand colors too: `--focus-ring-color` and
+`--color-link-on-void` → `#2f0951` (space). Theme-swapped art rides on
+`--header-hero-photo` and `--wordmark-image`, plus the paired hero `<Image>`s
+toggled with the reusable `.theme-light-only` / `.theme-dark-only` utilities.
+
+**Headings are ink on light.** Gold is too light to read as text on the earth
+page, so **headings and large text use ink (`spark-earth`, which is `void` on
+light)**, not gold; gold is reserved for trim, rules, icons, and the logo. Dark
+mode keeps its gold headings unchanged.
+
+**Contrast (WCAG 2.2 AA):** body ink + headings (void on earth) 14.6:1 · text on
+the blue surface (void on sky) 10.8:1 · links / focus / highlights (space on
+earth) 12.3:1. All pass comfortably. Two warm-on-warm pairs are intentionally low
+and stay non-text: gold trim on earth (~1.2:1) is decorative only, and the alert
+red-orange on earth (~2.6:1) is used as a thick bar/border always paired with dark
+text — never as the text itself.
+
 ---
 
 ## Wordmark & Logo
 
 ### Wordmark variations
 
-- **Dark backgrounds** → use the stencil wordmark (hollow/cutout letterforms)
-- **Light backgrounds** → stencil filled with spark-star (#edc973), outlined with spark-void (#14081e)
+- **Dark backgrounds** → stencil/cutout letterforms — `wordmark2-g.png` (`siteImages.brand.wordmark`)
+- **Light backgrounds** → stencil filled with spark-star, outlined with spark-void — `sparkwordfilledv1.png` (`siteImages.brand.wordmarkLight`)
+
+Both are wired through the `--wordmark-image` CSS variable in `globals.css`; the
+header lockup swaps automatically with the active theme.
 
 ### The Asterisk ("The Spark")
 
