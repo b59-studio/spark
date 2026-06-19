@@ -5,11 +5,18 @@
 export const siteImages = {
   brand: {
     sparkLogo: "/images/brand/sparkv1.png",
+    /** Dark-theme wordmark: stencil/cutout letterforms. CSS mirrors this in `--wordmark-image`. */
     wordmark: "/images/brand/wordmark2-g.png",
+    /** Light-theme wordmark: stencil filled with spark-star, outlined with spark-void. */
+    wordmarkLight: "/images/brand/sparkwordfilledv1.png",
+    /** Standalone gold spark mark (hand-drawn). Available for spark placements. */
+    sparkStar: "/images/brand/spark-left.png",
   },
   content: {
     /** Hero asset — do not change loading behavior in `HomeHero.tsx` without an explicit pass. */
     heroBackground: "/images/content/hero-background.jpg",
+    /** Light-theme hero: sunlit daytime sky (the night sky reads poorly on a light page). */
+    heroBackgroundLight: "/images/content/pexels-enginakyurt-7085605.jpg",
     electionPrecinctMap: "/images/content/Election_Precinct_305.pdf.png",
     francescaTeaching: "/images/content/francescateaching.jpg",
   },
@@ -26,3 +33,6 @@ export const siteImages = {
 
 /** Same file as `siteImages.content.heroBackground` — used by `HomeHero` only. */
 export const HERO_BACKGROUND = siteImages.content.heroBackground;
+
+/** Light-theme counterpart to {@link HERO_BACKGROUND} — used by `HomeHero` only. */
+export const HERO_BACKGROUND_LIGHT = siteImages.content.heroBackgroundLight;
