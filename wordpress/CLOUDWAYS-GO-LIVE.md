@@ -42,7 +42,7 @@ Copy from `env/site.integrations.example` and `env/analytics.example`.
 
 1. Log in to Cloudways → open your WordPress application.
 2. **Domain & SSL:** add `cms.yourdomain.org` (or use the default `*.cloudwaysapps.com` URL for first pass). Install Let's Encrypt and enable HTTPS redirect.
-3. Complete the WordPress installer at `/wp-admin`.
+3. Complete the WordPress installer at `/wp-admin/`.
 4. **Settings → Permalinks → Post name** (required for REST API).
 5. Install and activate:
    - **MailPoet** — newsletter lists

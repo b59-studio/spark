@@ -18,7 +18,7 @@ Full go-live checklist (webhooks, Neon, user linking):
 
 ## 3. Install plugins
 
-From WordPress admin (`/wp-admin`):
+From WordPress admin (`/wp-admin/`):
 
 | Plugin | Purpose |
 | ------ | ------- |

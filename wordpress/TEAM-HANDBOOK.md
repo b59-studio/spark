@@ -6,7 +6,7 @@ link, you can click straight through.
 
 **The two key places:**
 - 🌐 Public website: **<https://jfseamus.com>** — what visitors see.
-- 🔐 Content admin (WordPress): **<https://cms.jfseamus.com/wp-admin>** — where you log in to edit.
+- 🔐 Content admin (WordPress): **<https://cms.jfseamus.com/wp-admin/>** — where you log in to edit.
 
 You edit in WordPress → the public site updates on its own (about a minute later).
 No developer needed for everyday content.
@@ -15,12 +15,12 @@ No developer needed for everyday content.
 
 ## 1. Logging in
 
-1. Go to **<https://cms.jfseamus.com/wp-admin>** (bookmark it).
+1. Go to **<https://cms.jfseamus.com/wp-admin/>** (bookmark it — keep the trailing slash; without it the left-menu links break).
 2. Sign in with your WordPress username and password.
 3. Left menu → **Pages** to edit content, **Products** for the shop, **MailPoet** for the newsletter.
 
 > The plain site at <https://cms.jfseamus.com> is just the engine room — visitors
-> are auto-redirected away from it. Ignore it; always work in **/wp-admin**.
+> are auto-redirected away from it. Ignore it; always work in **/wp-admin/**.
 
 ---
 
@@ -235,7 +235,7 @@ Doppler. (A rotation checklist from setup lives in the team's internal notes.)
 | What | Link |
 | --- | --- |
 | Public website | <https://jfseamus.com> |
-| Edit content (WordPress admin) | <https://cms.jfseamus.com/wp-admin> |
+| Edit content (WordPress admin) | <https://cms.jfseamus.com/wp-admin/> |
 | Donate page | <https://jfseamus.com/donate> |
 | Shop | <https://jfseamus.com/shop> |
 | Stripe (payments) | <https://dashboard.stripe.com> |

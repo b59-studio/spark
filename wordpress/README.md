@@ -44,7 +44,7 @@ Short version: [`infra/hosting/cloudways/README.md`](../infra/hosting/cloudways/
 ```bash
 npm run cms:up
 # Site: http://localhost:8080
-# Admin: http://localhost:8080/wp-admin (complete installer on first visit)
+# Admin: http://localhost:8080/wp-admin/ (complete installer on first visit)
 ```
 
 Install MailPoet and WooCommerce from the WordPress plugin screen after the

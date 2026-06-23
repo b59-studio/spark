@@ -32,7 +32,7 @@ turning the commerce features on).
 
 Full instructions are in **[CLIENT-ONBOARDING.md](./CLIENT-ONBOARDING.md)**. In short:
 
-1. Log in at `https://cms.jfseamus.com/wp-admin` (or the shortcut `/(your site)/admin`).
+1. Log in at `https://cms.jfseamus.com/wp-admin/` (keep the trailing slash) or the shortcut `/(your site)/admin`, which adds it for you.
 2. **Pages** → pick a page → edit → **Update**.
 3. The public page updates within about a minute.
 

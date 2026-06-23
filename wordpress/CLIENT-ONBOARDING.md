@@ -13,7 +13,7 @@ There are two parts:
 
 1. **The public website** — what visitors see (the marketing site).
 2. **WordPress** — where you log in and edit the words on those pages. It lives
-   at **`https://cms.jfseamus.com/wp-admin`**.
+   at **`https://cms.jfseamus.com/wp-admin/`**.
 
 You edit a page in WordPress, click **Update**, and within about a minute the
 change shows up on the public site. No developer needed.
@@ -26,7 +26,7 @@ change shows up on the public site. No developer needed.
 
 ## Logging in
 
-1. Go to **`https://cms.jfseamus.com/wp-admin`**.
+1. Go to **`https://cms.jfseamus.com/wp-admin/`**.
 2. Sign in with your WordPress username and password.
 3. In the left menu, click **Pages** to see everything you can edit.
 
