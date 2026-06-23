@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import DonationForm from "@/components/DonationForm";
+import BrandName from "@/components/BrandName";
 import { getStripeConfig } from "@/lib/integrations/stripe/config";
 
 export const metadata: Metadata = {
@@ -44,7 +45,7 @@ function DonationsComingSoon() {
       <h2 className="heading-md mb-3">Donations are coming soon</h2>
       <p className="body-md">
         On-site giving isn&apos;t live just yet. Check back shortly — in the
-        meantime, reach out if you&apos;d like to support TX*SPARK directly.
+        meantime, reach out if you&apos;d like to support <BrandName /> directly.
       </p>
     </div>
   );

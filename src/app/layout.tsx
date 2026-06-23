@@ -72,7 +72,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen flex flex-col">
         {/* Apply a stored theme choice before first paint so the page never
-            flashes the wrong palette. No stored choice → CSS honors the OS. */}
+            flashes the wrong palette. No stored choice → dark (the brand default). */}
         <script
           dangerouslySetInnerHTML={{
             __html:

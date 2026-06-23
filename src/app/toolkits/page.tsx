@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CmsPage from "@/components/CmsPage";
+import BrandName from "@/components/BrandName";
 
 export const metadata: Metadata = {
   title: "Toolkits",
@@ -20,7 +21,7 @@ function ToolkitsFallback() {
       <h1 className="heading-xl mb-6">Toolkits</h1>
       <div className="space-y-6 max-w-3xl">
         <p className="body-md">
-          TX*SPARK organizing runs year-round, not just in the weeks before an election. Our model breaks the work into clear, repeatable steps so local teams always know what to do next, whatever the calendar says, and so the relationships and know-how built in one cycle carry into the next instead of starting over every campaign.
+          <BrandName /> organizing runs year-round, not just in the weeks before an election. Our model breaks the work into clear, repeatable steps so local teams always know what to do next, whatever the calendar says, and so the relationships and know-how built in one cycle carry into the next instead of starting over every campaign.
         </p>
         <p className="body-md">
           A set of guided toolkits moves a community through the full cycle of organizing: getting to know your precinct and neighbors, recruiting and supporting volunteers, registering and turning out voters, thanking the people who showed up, and tracking the legislation that affects them. Each step builds on the one before it, so momentum compounds rather than resets.

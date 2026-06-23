@@ -2,11 +2,9 @@
 
 type Theme = "light" | "dark";
 
-/** Read the theme actually in effect: an explicit choice wins, else the OS preference. */
+/** Read the theme actually in effect: an explicit light choice wins, else the dark default. */
 function resolveActiveTheme(): Theme {
-  const explicit = document.documentElement.dataset.theme;
-  if (explicit === "light" || explicit === "dark") return explicit;
-  return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  return document.documentElement.dataset.theme === "light" ? "light" : "dark";
 }
 
 function applyTheme(theme: Theme) {
@@ -54,10 +52,10 @@ function MoonIcon() {
 }
 
 /**
- * Flips between light and dark. First load with no stored choice follows the OS
- * (handled in CSS); clicking sets an explicit, persisted preference. Which icon
- * shows is driven entirely by CSS off `data-theme` + the media query, so the
- * server and client render identical markup (no hydration flash).
+ * Flips between light and dark. First load with no stored choice is dark (the
+ * brand default); clicking sets an explicit, persisted preference. Which icon
+ * shows is driven entirely by CSS off `data-theme`, so the server and client
+ * render identical markup (no hydration flash).
  */
 export default function ThemeToggle() {
   return (
