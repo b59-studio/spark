@@ -29,4 +29,5 @@ export const DESKTOP_NAV: readonly HeaderNavItem[] = [
   { kind: "dropdown", label: "About", href: "/about", sections: ABOUT_NAV_SECTIONS },
   { kind: "link", label: "Events", href: "/events" },
   { kind: "link", label: "Toolkits", href: "/toolkits" },
+  { kind: "link", label: "Shop", href: "/shop" },
 ];
