@@ -239,14 +239,6 @@ export default function Header() {
                   Toolkits
                 </Link>
 
-                <Link href="/shop" className="nav-mobile-link" onClick={closeMobile}>
-                  Shop
-                </Link>
-
-                <Link href="/donate" className="nav-mobile-link" onClick={closeMobile}>
-                  Donate
-                </Link>
-
                 {/** TODO: Implement Work page (deferred from 2026-05-27)
                 <Link href="/work" className="nav-mobile-link" onClick={() => setMobileMenuOpen(false)}>
                   Work

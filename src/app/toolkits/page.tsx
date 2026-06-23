@@ -20,25 +20,13 @@ function ToolkitsFallback() {
       <h1 className="heading-xl mb-6">Toolkits</h1>
       <div className="space-y-6 max-w-3xl">
         <p className="body-md">
-          TX*SPARK organizing runs year-round, not just in the weeks before an election. Our toolkits break the work into clear, repeatable steps so local teams always know what to do next, whatever the calendar says.
+          TX*SPARK organizing runs year-round, not just in the weeks before an election. Our model breaks the work into clear, repeatable steps so local teams always know what to do next, whatever the calendar says, and so the relationships and know-how built in one cycle carry into the next instead of starting over every campaign.
         </p>
         <p className="body-md">
-          The model is supported by nine toolkits that move a community through the full cycle of organizing: getting to know your precinct and neighbors, recruiting volunteers, registering and turning out voters, thanking the people who showed up, and tracking the legislation that affects them.
+          A set of guided toolkits moves a community through the full cycle of organizing: getting to know your precinct and neighbors, recruiting and supporting volunteers, registering and turning out voters, thanking the people who showed up, and tracking the legislation that affects them. Each step builds on the one before it, so momentum compounds rather than resets.
         </p>
-        <h2 className="heading-lg">The nine toolkits</h2>
-        <ul className="list-disc pl-6 space-y-2 body-md">
-          <li>Get To Know Your Precinct</li>
-          <li>Get Out The Volunteers</li>
-          <li>Get To Know Your Voters</li>
-          <li>Get Our Texas Voters Registered</li>
-          <li>Get Out The Vote</li>
-          <li>Thank Y&apos;all So Much</li>
-          <li>Bill tracking (PAL) &mdash; part 1</li>
-          <li>Bill tracking (PAL) &mdash; part 2</li>
-          <li>Bill tracking (PAL) &mdash; part 3</li>
-        </ul>
         <p className="body-md">
-          Each toolkit is being prepared as its own editable guide. Check back as we publish them.
+          Every toolkit is written in plain language and built to be used in the field. No inside baseball, no political science degree required. We are preparing each one as its own editable guide. Check back as we publish them.
         </p>
       </div>
     </div>
