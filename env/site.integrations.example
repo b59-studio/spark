@@ -15,9 +15,19 @@ MAILPOET_API_KEY=
 # MAILPOET_LIST_ID=3
 
 # --- WooCommerce (same WordPress host) ---
+# Read-only wc/v3 keys drive the headless catalog (/shop). The on-site cart and
+# checkout use the public Store API (wc/store/v1) on the same WOOCOMMERCE_API_URL
+# host — no extra key needed; the store must allow Store API requests from this
+# origin (CORS) for cart/checkout to work.
 WOOCOMMERCE_API_URL=https://cms.example.org
 WOOCOMMERCE_CONSUMER_KEY=ck_
 WOOCOMMERCE_CONSUMER_SECRET=cs_
+
+# --- Stripe (browser publishable key for on-site checkout) ---
+# Only the publishable key (pk_...) is used client-side to tokenize the card.
+# The secret key and the charge live in the WooCommerce Stripe gateway (WordPress);
+# this app never holds a Stripe secret. Leave blank until checkout goes live.
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
 
 # --- Newsletter fallbacks (used when MailPoet is not configured) ---
 RESEND_API_KEY=
