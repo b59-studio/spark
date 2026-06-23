@@ -19,6 +19,8 @@
     "analytics:migrate": "tsx scripts/analytics-migrate.ts"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^6.6.0",
+    "@stripe/stripe-js": "^9.8.0",
     "@vercel/analytics": "^2.0.1",
     "airtable": "^0.12.2",
     "kysely": "^0.28.8",
@@ -28,7 +30,8 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-email": "^6.0.0",
-    "resend": "^6.8.0"
+    "resend": "^6.8.0",
+    "stripe": "^22.2.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
