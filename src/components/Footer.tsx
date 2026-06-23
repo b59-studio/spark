@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import BrandName from '@/components/BrandName';
 
 export default function Footer() {
   return (
@@ -37,7 +38,7 @@ export default function Footer() {
           </nav>
 
           <div className="m-0 w-full border-t border-spark-purple/20 pt-0 text-center footer-text">
-            © 2026 TX*SPARK PAC. Powered by{' '}
+            © 2026 <BrandName /> PAC. Powered by{' '}
             <a
               href="https://www.b-59.com"
               className="footer-link footer-link--gold"

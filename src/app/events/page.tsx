@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CmsPage from "@/components/CmsPage";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import BrandName from "@/components/BrandName";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -37,7 +38,7 @@ function EventsFallback() {
     <div className="mx-auto max-w-6xl px-3 py-12 sm:px-4 sm:py-16 lg:px-6 lg:py-20">
       <h1 className="heading-xl mb-6">Events</h1>
       <p className="body-md mb-6">
-        TX*SPARK events bring neighbors together for practical, year-round civic action aligned with electoral and legislative calendars. From skill sharing to direct outreach, each event is designed to help local teams organize with confidence and care. Analog humanity inside modern systems, built to outlast any single campaign cycle.
+        <BrandName /> events bring neighbors together for practical, year-round civic action aligned with electoral and legislative calendars. From skill sharing to direct outreach, each event is designed to help local teams organize with confidence and care. Analog humanity inside modern systems, built to outlast any single campaign cycle.
       </p>
 
       <section className="mb-8">
@@ -70,7 +71,7 @@ function EventsFallback() {
         {isCalendarReady ? (
           <>
             <p className="body-md mb-5">
-              Stay up to date with upcoming TX*SPARK meet-ups, canvasses, and workshops. You can view events here and add them to your personal calendar.
+              Stay up to date with upcoming <BrandName /> meet-ups, canvasses, and workshops. You can view events here and add them to your personal calendar.
             </p>
             {hasEmbedCalendar ? (
               <div className="overflow-hidden rounded-xl border border-spark-gold/30 bg-[color-mix(in_srgb,var(--color-spark-bone)_6%,var(--color-spark-bg))] mb-5">

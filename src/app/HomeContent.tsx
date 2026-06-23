@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import { useEffect, useId, useState } from "react";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import BrandName, { renderBrand } from "@/components/BrandName";
 import { siteImages } from "@/lib/site-visuals";
 
 const HOME_VALUE_TABS = [
@@ -171,7 +172,7 @@ function HomeValueTabs() {
                     ].join(" ")}
                   >
                     <Link href={tab.cta.href} className="btn-primary w-fit">
-                      {tab.cta.label}
+                      {renderBrand(tab.cta.label)}
                     </Link>
                     {"secondaryCta" in tab && tab.secondaryCta ? (
                       <Link
@@ -232,7 +233,7 @@ export default function HomeContent() {
       <section className="mt-14 scroll-reveal" data-reveal>
         <h2 className="heading-lg mb-3 text-center">Stay in the loop</h2>
         <p className="body-md mx-auto max-w-4xl text-left">
-          Subscribe for occasional emails from TX*SPARK: new organizing toolkits, advocacy signals worth watching, and ways to show up locally. Rugged, practical updates from the people keeping the lights on after everyone else leaves. No clutter. Unsubscribe anytime.
+          Subscribe for occasional emails from <BrandName />: new organizing toolkits, advocacy signals worth watching, and ways to show up locally. Rugged, practical updates from the people keeping the lights on after everyone else leaves. No clutter. Unsubscribe anytime.
         </p>
         <NewsletterSignup
           variant="panel"

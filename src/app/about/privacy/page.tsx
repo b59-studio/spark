@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CmsPage from "@/components/CmsPage";
+import BrandName from "@/components/BrandName";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -35,7 +36,7 @@ function PrivacyFallback() {
         </p>
 
         <p className="body-lg">
-          TX*SPARK PAC (&quot;TX*SPARK,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you visit our website.
+          <BrandName /> PAC (&quot;<BrandName />,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you visit our website.
         </p>
 
         <section className="space-y-4">

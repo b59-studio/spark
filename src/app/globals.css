@@ -24,6 +24,12 @@
   --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+/* Brand wordmark in running copy — always bold, never wraps mid-name. */
+.brand-name {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 /* Global styles */
 body {
   background-color: var(--color-spark-void);
@@ -92,9 +98,17 @@ h3,
   -webkit-backdrop-filter: none;
 }
 
-/* Muted surface on page background — callouts, highlights, gated panels */
+/* Muted surface on page background — callouts, highlights, gated panels.
+   Dark: a faint purple wash on the void, so panels read a touch lighter than
+   the page. Light: the page is paper white and panels take the warm earth tan,
+   so they read a touch warmer than the page — the same subtle figure↔ground
+   the dark panels have. */
 .spark-panel {
   background-color: color-mix(in srgb, var(--color-spark-purple) 16%, var(--color-spark-bg));
+}
+
+:root[data-theme="light"] .spark-panel {
+  background-color: var(--light-spark-panel);
 }
 
 /* Purple frame + thin inset gold line (about sections, accent boxes, carousel slides) */
@@ -403,48 +417,34 @@ h1 {
   --color-link-on-void: color-mix(in srgb, var(--color-spark-star) 72%, var(--color-spark-space));
 
   /* ----------------------------------------------------------------
-     LIGHT THEME — a reflection of the existing palette, brand colors
-     ONLY. No new hues, and no teal: sky (#a9c7cc) is never used in the UI.
-       void  → earth   (darkest background → lightest, now the page)
-       earth → void    (lightest → darkest, now body ink)
-       space           stays #2f0951 — purple trim, surfaces, and emphasis
+     LIGHT THEME — brand colors plus spark-admin's "paper" page white.
+       void  → paper   (#f7f1e6, the spark-admin light page background)
+       panel → earth   (#f4dcb6, the warm tan that used to be the page, now
+                        the subtle callout / panel surface — the same
+                        figure↔ground relationship the dark panels have)
+       earth → void    (#14081e, darkest brand color, now body ink)
+       space           stays #2f0951 — purple trim and emphasis
+       sky             stays #a9c7cc — accent only (borders, highlights)
        star, alert     unchanged (gold accent + functional red-orange)
-     Defined once here; the two scopes below re-point the canonical tokens
-     at these values, so every `var(--color-spark-*)` rule and every
-     Tailwind `*-spark-*` utility inverts from one place. Body text is ink
-     (void); gold text becomes space (purple) on light — gold is too light on
-     the earth page for text, so gold is reserved for trim and the logo. */
-  --light-spark-void: #f4dcb6;   /* earth — lightest brand color, now the page */
-  --light-spark-space: #2f0951;  /* space — purple stays purple in light; sky/teal is never used in the UI */
+     Applied by the single `:root[data-theme="light"]` scope below, so every
+     `var(--color-spark-*)` rule and every Tailwind `*-spark-*` utility inverts
+     from one place. Body text is ink; gold text becomes space (purple) on
+     light — gold is too light on paper for text, so gold is reserved for trim
+     and the logo. */
+  --light-spark-void: #f7f1e6;   /* paper — spark-admin's light page background */
+  --light-spark-space: #2f0951;  /* space — purple stays purple in light */
   --light-spark-star: #edc973;   /* star — gold accent unchanged (trim + logo) */
   --light-spark-earth: #14081e;  /* void — darkest brand color, now body ink */
-  --light-spark-sky: #2f0951;    /* space — dark purple accent (matches space; no teal) */
+  --light-spark-sky: #a9c7cc;    /* sky — brand blue, accent only */
   --light-spark-alert: #f4541f;  /* alert — unchanged (functional only) */
-  --light-focus-ring: #2f0951;   /* space — dark ring, reads on the earth page */
-  --light-link: #2f0951;         /* space — dark link on earth; underline also distinguishes */
+  --light-spark-panel: #f4dcb6;  /* earth tan — the warm callout / panel surface */
+  --light-focus-ring: #2f0951;   /* space — dark ring, reads on paper */
+  --light-link: #2f0951;         /* space — dark link on paper; underline also distinguishes */
 }
 
-/* Re-point the canonical tokens at the light palette. One declaration block,
-   reused by both triggers: system preference (unless the user forced dark)
-   and an explicit user choice of light. */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    color-scheme: light;
-    --color-spark-void: var(--light-spark-void);
-    --color-spark-space: var(--light-spark-space);
-    --color-spark-star: var(--light-spark-star);
-    --color-spark-earth: var(--light-spark-earth);
-    --color-spark-sky: var(--light-spark-sky);
-    --color-spark-alert: var(--light-spark-alert);
-    --focus-ring-color: var(--light-focus-ring);
-    --color-link-on-void: var(--light-link);
-    /* Light-theme art: daytime sky + filled/outlined wordmark (the night sky and
-       cutout wordmark read poorly on a light page). Mirror site-visuals.ts. */
-    --header-hero-photo: url("/images/content/pexels-enginakyurt-7085605.jpg");
-    --wordmark-image: url("/images/brand/sparkwordfilledv1.png");
-  }
-}
-
+/* Light is opt-in via the toggle only — dark is the brand default, so there is
+   no `prefers-color-scheme` switch. Re-point the canonical tokens at the light
+   palette when the user explicitly chooses light. */
 :root[data-theme="light"] {
   color-scheme: light;
   --color-spark-void: var(--light-spark-void);
@@ -470,16 +470,6 @@ h1 {
   display: initial;
 }
 
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .theme-light-only {
-    display: initial;
-  }
-
-  :root:not([data-theme="dark"]) .theme-dark-only {
-    display: none;
-  }
-}
-
 :root[data-theme="light"] .theme-light-only {
   display: initial;
 }
@@ -501,18 +491,6 @@ h1 {
    and fights the brand, so on light backgrounds gold is reserved for borders,
    rules, and icons — never text. The space (#2f0951) callout covers headings,
    any former-gold text, and bold (<strong>/<b>) — "bolded space as callout". */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) :is(
-      h1, h2, h3,
-      .heading-xl, .heading-lg, .heading-md,
-      .text-spark-gold, .text-spark-star,
-      .spark-figure-caption, .pal-hero-highlight,
-      strong, b, .cms-prose strong
-    ) {
-    color: var(--color-spark-space);
-  }
-}
-
 :root[data-theme="light"] :is(
     h1, h2, h3,
     .heading-xl, .heading-lg, .heading-md,
@@ -525,12 +503,6 @@ h1 {
 
 /* The hero subline kept a gold glow for the dark theme; drop it on light so both
    heading lines read as plain ink. */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .home-hero-heading .text-spark-gold {
-    text-shadow: none;
-  }
-}
-
 :root[data-theme="light"] .home-hero-heading .text-spark-gold {
   text-shadow: none;
 }
@@ -539,23 +511,6 @@ h1 {
    - the footer divider and the B-59 footer link are gold by default → space (purple);
    - .btn-secondary fills with space (now #2f0951, a dark purple) on light, so its
      text must be the light page color (void → earth) to stay readable. */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .footer-container {
-    border-top-color: var(--color-spark-space);
-  }
-
-  :root:not([data-theme="dark"]) .footer-link--gold,
-  :root:not([data-theme="dark"]) .footer-link:hover {
-    color: var(--color-spark-space);
-  }
-
-  :root:not([data-theme="dark"]) :is(
-      .btn-secondary, .btn-secondary:hover, .btn-secondary:focus-visible
-    ) {
-    color: var(--color-spark-void);
-  }
-}
-
 :root[data-theme="light"] .footer-container {
   border-top-color: var(--color-spark-space);
 }
@@ -827,16 +782,6 @@ body:has(#home-hero) {
 
 .theme-toggle-icon--sun {
   display: block;
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .theme-toggle-icon--sun {
-    display: none;
-  }
-
-  :root:not([data-theme="dark"]) .theme-toggle-icon--moon {
-    display: block;
-  }
 }
 
 :root[data-theme="light"] .theme-toggle-icon--sun {

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
+import BrandName, { renderBrand } from "@/components/BrandName";
 
 const revealSelector = "[data-reveal]";
 
@@ -140,7 +141,7 @@ function AboutPillarCards() {
                 ].join(" ")}
               >
                 <div className="spark-panel rounded-xl border border-[color-mix(in_srgb,var(--color-spark-sky)_55%,transparent)] p-4 shadow-[0_12px_40px_color-mix(in_srgb,var(--color-spark-purple)_28%,transparent)]">
-                  <p className="body-md">{pillar.detail}</p>
+                  <p className="body-md">{renderBrand(pillar.detail)}</p>
                 </div>
               </div>
             </div>
@@ -190,10 +191,10 @@ export default function AboutContent() {
           <h1 className="heading-xl text-balance">About TX*SPARK</h1>
           <AboutPillarCards />
           <p className="body-md mt-8 max-w-3xl">
-            TX*SPARK is a Texas-based data and technology PAC rooted in Austin, building practical tools and trusted support systems so local leaders can turn civic energy into year-round impact. We are not a campaign organization. We fill civic infrastructure gaps, reduce duplicated labor, and make civic tools legible to ordinary people.
+            <BrandName /> is a Texas-based data and technology PAC rooted in Austin, building practical tools and trusted support systems so local leaders can turn civic energy into year-round impact. We are not a campaign organization. We fill civic infrastructure gaps, reduce duplicated labor, and make civic tools legible to ordinary people.
           </p>
           <p className="body-md mt-5 max-w-3xl">
-            TX*SPARK gives organizers, volunteers, and coalition partners free, practical tools to move from civic frustration to coordinated action. From precinct organizing to bill tracking, we help Texans organize with clarity, consistency, and confidence. Rebellious where it counts, trustworthy where it matters.
+            <BrandName /> gives organizers, volunteers, and coalition partners free, practical tools to move from civic frustration to coordinated action. From precinct organizing to bill tracking, we help Texans organize with clarity, consistency, and confidence. Rebellious where it counts, trustworthy where it matters.
           </p>
         </section>
 
