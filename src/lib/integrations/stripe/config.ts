@@ -30,3 +30,14 @@ export function getStripeConfig(): StripeConfig | null {
 export function getStripePublishableKey(): string | null {
   return process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.trim() || null;
 }
+
+/** Browser-side config used by the WooCommerce on-site checkout (Stripe.js). */
+export type StripeBrowserConfig = {
+  publishableKey: string;
+};
+
+export function getStripeBrowserConfig(): StripeBrowserConfig | null {
+  const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.trim();
+  if (!publishableKey) return null;
+  return { publishableKey };
+}

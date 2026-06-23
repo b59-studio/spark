@@ -239,6 +239,10 @@ export default function Header() {
                   Toolkits
                 </Link>
 
+                <Link href="/shop" className="nav-mobile-link" onClick={closeMobile}>
+                  Shop
+                </Link>
+
                 <Link href="/donate" className="nav-mobile-link" onClick={closeMobile}>
                   Donate
                 </Link>
