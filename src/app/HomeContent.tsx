@@ -36,9 +36,9 @@ const HOME_VALUE_TABS = [
     id: "track-movements",
     title: "Track Movements",
     summary:
-      "PAL ties People's Advocacy Lobby to Texas Legislature Online with plain-language summaries and tracking so you can spot movement and compare versions without living inside raw portals. Public information should actually be public. Data people can actually use. Clean pipelines keep Capitol and field views current.",
+      "Tracking the legislation that affects your community is part of the same year-round cycle. Plain-language bill summaries and movement tracking let you spot what's changing and compare versions without living inside raw government portals. Public information should actually be public. Data people can actually use, kept current so your Capitol and field views never drift apart.",
     features: [
-      "PAL connected to TLO with daily data pulls",
+      "Plain-language tracking of the bills that affect your community, updated daily",
       "Readable bill movement tracking. No inside baseball required",
       "Regularly updated legislative data you can trust in the field",
     ],
@@ -232,13 +232,13 @@ export default function HomeContent() {
       <section className="mt-14 scroll-reveal" data-reveal>
         <h2 className="heading-lg mb-3 text-center">Stay in the loop</h2>
         <p className="body-md mx-auto max-w-4xl text-left">
-          Subscribe for occasional emails from TX*SPARK: new GROW resources, advocacy signals worth watching, and ways to show up locally. Rugged, practical updates from the people keeping the lights on after everyone else leaves. No clutter. Unsubscribe anytime.
+          Subscribe for occasional emails from TX*SPARK: new organizing toolkits, advocacy signals worth watching, and ways to show up locally. Rugged, practical updates from the people keeping the lights on after everyone else leaves. No clutter. Unsubscribe anytime.
         </p>
         <NewsletterSignup
           variant="panel"
           className="mt-6 max-w-4xl"
           signupSource="home"
-          description="We’ll send toolkit releases, PAL tracker updates, and event news as they go live. Plain language, no consultant-speak."
+          description="We’ll send toolkit releases, legislative tracking updates, and event news as they go live. Plain language, no consultant-speak."
         />
       </section>
     </div>
