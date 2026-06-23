@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getStorefrontProducts } from "@/lib/integrations/woocommerce/client";
 import ProductCard from "@/components/shop/ProductCard";
+import BrandName from "@/components/BrandName";
 
 export const metadata: Metadata = {
   title: "Shop",
@@ -53,7 +54,7 @@ function ShopEmptyState() {
     <div className="spark-panel spark-framed mx-auto max-w-2xl rounded-2xl p-10 text-center">
       <h2 className="heading-lg mb-4">Shop coming soon</h2>
       <p className="body-md">
-        We&apos;re setting up the store. Check back shortly for TX*SPARK merch
+        We&apos;re setting up the store. Check back shortly for <BrandName /> merch
         and supplies.
       </p>
     </div>

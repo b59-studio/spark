@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CmsPage from "@/components/CmsPage";
 import Link from "next/link";
+import BrandName from "@/components/BrandName";
 
 export const metadata: Metadata = {
   title: "Sitemap",
@@ -50,7 +51,7 @@ function SiteMapFallback() {
       <div className="max-w-4xl mx-auto text-center">
         <h1 className="heading-xl mb-6">Sitemap</h1>
         <p className="body-lg">
-          Browse all key TX*SPARK pages in one place.
+          Browse all key <BrandName /> pages in one place.
         </p>
       </div>
 

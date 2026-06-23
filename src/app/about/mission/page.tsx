@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CmsPage from "@/components/CmsPage";
+import BrandName from "@/components/BrandName";
 
 export const metadata: Metadata = {
   title: "Mission",
@@ -42,7 +43,7 @@ function MissionFallback() {
         <section className="spark-framed spark-panel rounded-2xl p-6 sm:p-8">
           <h2 className="heading-lg mb-4">Strengthening local partners</h2>
           <p className="body-md">
-            We exist to grow, strengthen, and supplement local coalition partners and campaigns, not supplant them. TX*SPARK is civic infrastructure, not a competing campaign. We democratize access to information and reduce duplicated labor across the movement.
+            We exist to grow, strengthen, and supplement local coalition partners and campaigns, not supplant them. <BrandName /> is civic infrastructure, not a competing campaign. We democratize access to information and reduce duplicated labor across the movement.
           </p>
         </section>
 
@@ -63,7 +64,7 @@ function MissionFallback() {
         <section className="spark-framed rounded-2xl p-6 sm:p-8">
           <h2 className="heading-lg mb-4">What we believe</h2>
           <p className="body-md max-w-3xl">
-            People already have the motivation to act. What they need is trusted structure, the kind that survives the people who built it. TX*SPARK turns civic energy into durable local power by giving communities the tools, strategy, and support to organize together all year, without reinventing the wheel every cycle.
+            People already have the motivation to act. What they need is trusted structure, the kind that survives the people who built it. <BrandName /> turns civic energy into durable local power by giving communities the tools, strategy, and support to organize together all year, without reinventing the wheel every cycle.
           </p>
           <blockquote className="quote mt-6">
             Lasting civic power is built when local communities have the tools and confidence to organize on their own terms. Understand your district without a political science degree.

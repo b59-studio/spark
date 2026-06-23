@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CmsPage from "@/components/CmsPage";
 import Link from "next/link";
+import BrandName from "@/components/BrandName";
 
 export const metadata: Metadata = {
   title: "Data integrity",
@@ -26,7 +27,7 @@ function AboutDataFallback() {
         <section className="rounded-2xl p-6 sm:p-8">
           <h1 className="heading-xl mb-6">Data integrity</h1>
           <p className="body-md max-w-3xl text-balance">
-            TX*SPARK works to make sure you have the most up-to-date, actionable information in front of you, whether you are tracking bills, building outreach lists, or coordinating in the field. Public information should actually be public. That reliability is a core part of our promise, because your work does not get done if you cannot trust the data you are working with.
+            <BrandName /> works to make sure you have the most up-to-date, actionable information in front of you, whether you are tracking bills, building outreach lists, or coordinating in the field. Public information should actually be public. That reliability is a core part of our promise, because your work does not get done if you cannot trust the data you are working with.
           </p>
         </section>
 

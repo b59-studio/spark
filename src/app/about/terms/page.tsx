@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CmsPage from "@/components/CmsPage";
+import BrandName from "@/components/BrandName";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
@@ -52,7 +53,7 @@ function TermsFallback() {
             Intellectual Property
           </h2>
           <p className="body-md">
-            All content on this site, including text, graphics, logos, and software, is the property of TX*SPARK PAC or its licensors and is protected by applicable laws. You may not reproduce or distribute content without permission.
+            All content on this site, including text, graphics, logos, and software, is the property of <BrandName /> PAC or its licensors and is protected by applicable laws. You may not reproduce or distribute content without permission.
             </p>
         </section>
 
@@ -70,7 +71,7 @@ function TermsFallback() {
             Limitation of Liability
           </h2>
           <p className="body-md">
-            TX*SPARK is not liable for any damages arising from use of or inability to use this website.
+            <BrandName /> is not liable for any damages arising from use of or inability to use this website.
           </p>
         </section>
 

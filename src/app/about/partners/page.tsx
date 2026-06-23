@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import CmsPage from "@/components/CmsPage";
 import Link from "next/link";
 import PartnersIndexContent from "@/app/partners/PartnersIndexContent";
+import BrandName from "@/components/BrandName";
 
 export const metadata: Metadata = {
   title: "Partners",
@@ -31,7 +32,7 @@ function AboutPartnersFallback() {
       <section className="spark-framed mt-14 rounded-2xl p-6 sm:p-8">
         <h2 className="heading-lg mb-6">Partner with TX*SPARK</h2>
         <p className="body-md mb-6">
-          Is your organization or coalition looking to deepen civic engagement in Texas? TX*SPARK offers free toolkits, guides, and materials you can put to work in your programs, and we welcome conversations about collaboration, co-hosted events, and ways we can build alongside your goals. We fill infrastructure gaps. We don&apos;t compete with the orgs already doing the work.
+          Is your organization or coalition looking to deepen civic engagement in Texas? <BrandName /> offers free toolkits, guides, and materials you can put to work in your programs, and we welcome conversations about collaboration, co-hosted events, and ways we can build alongside your goals. We fill infrastructure gaps. We don&apos;t compete with the orgs already doing the work.
         </p>
         <div className="grid gap-4 sm:grid-cols-3">
           <Link
