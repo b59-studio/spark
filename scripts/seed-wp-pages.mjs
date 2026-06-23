@@ -8,7 +8,15 @@
  *   WP_API_URL=https://cms.jfseamus.com \
  *   WP_USER=<your wp username> \
  *   WP_APP_PASSWORD='xxxx xxxx xxxx xxxx xxxx xxxx' \
- *   node scripts/seed-wp-pages.mjs [--force]
+ *   node scripts/seed-wp-pages.mjs [--force] [--check]
+ *
+ * WP_APP_PASSWORD is an Application Password (wp-admin -> Users -> Profile ->
+ * Application Passwords), NOT your login password — WordPress rejects the login
+ * password over the REST API by design.
+ *
+ * Every run verifies credentials (GET /users/me) before writing anything, so a
+ * bad username or password fails fast with a clear message instead of one error
+ * per page. Pass --check to run only that verification and exit without writing.
  *
  * Safe to re-run: by default a page is created only if one with that slug does
  * NOT already exist; existing pages are skipped. Pass --force to update existing
@@ -26,6 +34,7 @@ const USER = process.env.WP_USER || "";
 // App passwords are displayed with spaces; WordPress ignores them on auth.
 const PASS = (process.env.WP_APP_PASSWORD || "").replace(/\s+/g, "");
 const FORCE = process.argv.includes("--force");
+const CHECK_ONLY = process.argv.includes("--check");
 
 if (!API || !USER || !PASS) {
   console.error("Set WP_API_URL, WP_USER, and WP_APP_PASSWORD environment variables.");
@@ -295,12 +304,41 @@ const PAGES = [
   },
 ];
 
+/**
+ * Confirm the credentials authenticate before we attempt any writes. Surfaces
+ * WordPress's own error code (e.g. invalid_username, incorrect_password) so a
+ * misconfigured user or login-password-instead-of-app-password fails clearly.
+ */
+async function verifyCredentials() {
+  const res = await fetch(`${API}/wp-json/wp/v2/users/me?_fields=id,slug,name`, {
+    headers: { Accept: "application/json", Authorization: auth },
+  });
+  const raw = await res.text();
+  if (!res.ok) {
+    let detail = raw;
+    try {
+      const body = JSON.parse(raw);
+      if (body.code) detail = `${body.code}: ${body.message}`;
+    } catch {
+      // non-JSON body; fall back to the raw text already in detail
+    }
+    throw new Error(
+      `credential check failed (${res.status}): ${detail}\n` +
+        `  WP_USER must be your WordPress login name, and WP_APP_PASSWORD must be an\n` +
+        `  Application Password (wp-admin -> Users -> Profile -> Application Passwords),\n` +
+        `  not your login password.`
+    );
+  }
+  const me = JSON.parse(raw);
+  console.log(`auth   ok — ${me.name} (@${me.slug}, id ${me.id})`);
+}
+
 async function findBySlug(slug) {
   const res = await fetch(
     `${API}/wp-json/wp/v2/pages?slug=${encodeURIComponent(slug)}&_fields=id&status=publish,draft`,
     { headers: { Accept: "application/json", Authorization: auth } }
   );
-  if (!res.ok) throw new Error(`lookup failed (${res.status})`);
+  if (!res.ok) throw new Error(`lookup failed (${res.status}): ${await res.text()}`);
   const arr = await res.json();
   return arr[0]?.id ?? null;
 }
@@ -334,6 +372,18 @@ async function upsert(page) {
   const body = await res.json();
   const verb = existingId ? "update" : "create";
   console.log(`${verb} ${page.slug} -> id ${body.id} (${page.status || "publish"})`);
+}
+
+try {
+  await verifyCredentials();
+} catch (e) {
+  console.error(`ERROR  ${e.message}`);
+  process.exit(1);
+}
+
+if (CHECK_ONLY) {
+  console.log("--check passed; no pages written.");
+  process.exit(0);
 }
 
 let failures = 0;
