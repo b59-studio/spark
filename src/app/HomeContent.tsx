@@ -31,14 +31,6 @@ const HOME_VALUE_TABS = [
       "Plain-language civic resources that translate analytics into action",
     ],
     cta: { href: "/toolkits", label: "Explore Free Tools" },
-    sideImage: {
-      src: siteImages.content.electionPrecinctMap,
-      alt: "Map showing the boundaries and layout of Travis County Election Precinct 305, as passed by Commissioners Court on December 4, 2025.",
-      width: 4224,
-      height: 3264,
-      caption:
-        "It's no secret precincts are confusing. TX*SPARK keeps you up to date with the status and best ways to reach your community. Local accountability through accessible data.",
-    },
   },
   {
     id: "track-movements",
@@ -158,85 +150,39 @@ function HomeValueTabs() {
             className="mt-4 md:mt-5"
           >
             {selected ? (
-              <article
-                className={[
-                  "rounded-3xl spark-panel spark-carousel-slide-outline p-5 sm:p-7",
-                  "sideImage" in tab && tab.sideImage
-                    ? "grid grid-cols-1 gap-y-6 md:grid-cols-[minmax(0,1fr)_min(100%,22rem)] md:gap-x-8 md:gap-y-6 lg:grid-cols-[minmax(0,1fr)_min(100%,26rem)] md:items-start"
-                    : "flex flex-col",
-                ].join(" ")}
-              >
-                {"sideImage" in tab && tab.sideImage ? (
-                  <>
-                    <h2 className="heading-lg col-start-1 row-start-1 text-balance">
-                      {tab.title}
-                    </h2>
-                    <div className="col-start-1 row-start-3 min-w-0 md:row-start-2">
-                      <p className="body-md mb-5 text-pretty">{tab.summary}</p>
-                      <h3 className="heading-md mb-3 text-spark-gold">
-                        Highlights
-                      </h3>
-                      <ul className="body-md list-disc space-y-2 pl-5 sm:pl-6">
-                        {tab.features.map((item, featureIndex) => (
-                          <li key={featureIndex}>{item}</li>
-                        ))}
-                      </ul>
-                      <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-                        <Link href={tab.cta.href} className="btn-primary w-fit">
-                          {tab.cta.label}
-                        </Link>
-                      </div>
-                    </div>
-                    <figure className="col-start-1 row-start-2 mx-auto w-full max-w-md md:col-start-2 md:row-span-2 md:row-start-1 md:mx-0 md:w-[min(100%,22rem)] md:max-w-none lg:w-[min(100%,26rem)] md:self-start">
-                      <Image
-                        src={tab.sideImage.src}
-                        alt={tab.sideImage.alt}
-                        width={tab.sideImage.width}
-                        height={tab.sideImage.height}
-                        className="h-auto w-full rounded-xl border border-[color-mix(in_srgb,var(--color-spark-purple)_35%,transparent)] shadow-[0_4px_24px_color-mix(in_srgb,var(--color-spark-purple)_12%,transparent)]"
-                        sizes="(min-width: 1024px) 26rem, (min-width: 768px) 22rem, min(100vw - 2.5rem, 28rem)"
-                      />
-                      {"caption" in tab.sideImage && tab.sideImage.caption ? (
-                        <figcaption className="spark-figure-caption">
-                          {tab.sideImage.caption}
-                        </figcaption>
-                      ) : null}
-                    </figure>
-                  </>
-                ) : (
-                  <div className="min-w-0 flex-1">
-                    <h2 className="heading-lg mb-4 text-balance">{tab.title}</h2>
-                    <p className="body-md mb-5 text-pretty">{tab.summary}</p>
-                    <h3 className="heading-md mb-3 text-spark-gold">
-                      Highlights
-                    </h3>
-                    <ul className="body-md list-disc space-y-2 pl-5 sm:pl-6">
-                      {tab.features.map((item, featureIndex) => (
-                        <li key={featureIndex}>{item}</li>
-                      ))}
-                    </ul>
-                    <div
-                      className={[
-                        "mt-6 flex flex-col gap-3 sm:mt-8",
-                        "secondaryCta" in tab && tab.secondaryCta
-                          ? ""
-                          : "sm:flex-row sm:flex-wrap sm:items-center sm:gap-4",
-                      ].join(" ")}
-                    >
-                      <Link href={tab.cta.href} className="btn-primary w-fit">
-                        {tab.cta.label}
+              <article className="flex flex-col rounded-3xl spark-panel spark-carousel-slide-outline p-5 sm:p-7">
+                <div className="min-w-0 flex-1">
+                  <h2 className="heading-lg mb-4 text-balance">{tab.title}</h2>
+                  <p className="body-md mb-5 text-pretty">{tab.summary}</p>
+                  <h3 className="heading-md mb-3 text-spark-gold">
+                    Highlights
+                  </h3>
+                  <ul className="body-md list-disc space-y-2 pl-5 sm:pl-6">
+                    {tab.features.map((item, featureIndex) => (
+                      <li key={featureIndex}>{item}</li>
+                    ))}
+                  </ul>
+                  <div
+                    className={[
+                      "mt-6 flex flex-col gap-3 sm:mt-8",
+                      "secondaryCta" in tab && tab.secondaryCta
+                        ? ""
+                        : "sm:flex-row sm:flex-wrap sm:items-center sm:gap-4",
+                    ].join(" ")}
+                  >
+                    <Link href={tab.cta.href} className="btn-primary w-fit">
+                      {tab.cta.label}
+                    </Link>
+                    {"secondaryCta" in tab && tab.secondaryCta ? (
+                      <Link
+                        href={tab.secondaryCta.href}
+                        className="btn-secondary w-fit"
+                      >
+                        {tab.secondaryCta.label}
                       </Link>
-                      {"secondaryCta" in tab && tab.secondaryCta ? (
-                        <Link
-                          href={tab.secondaryCta.href}
-                          className="btn-secondary w-fit"
-                        >
-                          {tab.secondaryCta.label}
-                        </Link>
-                      ) : null}
-                    </div>
+                    ) : null}
                   </div>
-                )}
+                </div>
               </article>
             ) : null}
           </div>

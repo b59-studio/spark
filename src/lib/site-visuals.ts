@@ -17,8 +17,6 @@ export const siteImages = {
     heroBackground: "/images/content/hero-background.jpg",
     /** Light-theme hero: sunlit daytime sky (the night sky reads poorly on a light page). */
     heroBackgroundLight: "/images/content/pexels-enginakyurt-7085605.jpg",
-    electionPrecinctMap: "/images/content/Election_Precinct_305.pdf.png",
-    francescaTeaching: "/images/content/francescateaching.jpg",
   },
   /** Order matches `growToolkits` in `src/data/grow-toolkits.ts`. */
   growToolkitCovers: [

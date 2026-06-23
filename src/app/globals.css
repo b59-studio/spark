@@ -404,20 +404,21 @@ h1 {
 
   /* ----------------------------------------------------------------
      LIGHT THEME — a reflection of the existing palette, brand colors
-     ONLY. No new hues: the six tokens swap across the light/dark axis.
-       void  ↔ earth   (darkest background ↔ lightest, now the page)
-       space ↔ sky     (dark purple surface ↔ light blue, now surfaces)
+     ONLY. No new hues, and no teal: sky (#a9c7cc) is never used in the UI.
+       void  → earth   (darkest background → lightest, now the page)
+       earth → void    (lightest → darkest, now body ink)
+       space           stays #2f0951 — purple trim, surfaces, and emphasis
        star, alert     unchanged (gold accent + functional red-orange)
      Defined once here; the two scopes below re-point the canonical tokens
      at these values, so every `var(--color-spark-*)` rule and every
-     Tailwind `*-spark-*` utility inverts from one place. Headings render in
-     ink (void) on light — gold is too light on the earth page for large
-     text, so gold is reserved for trim and the logo (see heading override). */
+     Tailwind `*-spark-*` utility inverts from one place. Body text is ink
+     (void); gold text becomes space (purple) on light — gold is too light on
+     the earth page for text, so gold is reserved for trim and the logo. */
   --light-spark-void: #f4dcb6;   /* earth — lightest brand color, now the page */
-  --light-spark-space: #a9c7cc;  /* sky — light blue, now secondary surfaces */
+  --light-spark-space: #2f0951;  /* space — purple stays purple in light; sky/teal is never used in the UI */
   --light-spark-star: #edc973;   /* star — gold accent unchanged (trim + logo) */
   --light-spark-earth: #14081e;  /* void — darkest brand color, now body ink */
-  --light-spark-sky: #2f0951;    /* space — dark purple, now the highlight accent */
+  --light-spark-sky: #2f0951;    /* space — dark purple accent (matches space; no teal) */
   --light-spark-alert: #f4541f;  /* alert — unchanged (functional only) */
   --light-focus-ring: #2f0951;   /* space — dark ring, reads on the earth page */
   --light-link: #2f0951;         /* space — dark link on earth; underline also distinguishes */
@@ -495,25 +496,31 @@ h1 {
   display: initial;
 }
 
-/* Light mode: headings read as ink, not gold. Gold legible on a light page has to
-   darken into an amber that reads "orange" and fights the brand, so on light
-   backgrounds gold is reserved for borders, rules, and icons — not large text. */
+/* Light mode: body text is ink (void); emphasis is space (purple), never gold.
+   Gold legible on a light page has to darken into an amber that reads "orange"
+   and fights the brand, so on light backgrounds gold is reserved for borders,
+   rules, and icons — never text. The space (#2f0951) callout covers headings,
+   any former-gold text, and bold (<strong>/<b>) — "bolded space as callout". */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) :is(
       h1, h2, h3,
       .heading-xl, .heading-lg, .heading-md,
-      .home-hero-heading .text-spark-gold
+      .text-spark-gold, .text-spark-star,
+      .spark-figure-caption, .pal-hero-highlight,
+      strong, b, .cms-prose strong
     ) {
-    color: var(--color-spark-earth);
+    color: var(--color-spark-space);
   }
 }
 
 :root[data-theme="light"] :is(
     h1, h2, h3,
     .heading-xl, .heading-lg, .heading-md,
-    .home-hero-heading .text-spark-gold
+    .text-spark-gold, .text-spark-star,
+    .spark-figure-caption, .pal-hero-highlight,
+    strong, b, .cms-prose strong
   ) {
-  color: var(--color-spark-earth);
+  color: var(--color-spark-space);
 }
 
 /* The hero subline kept a gold glow for the dark theme; drop it on light so both
@@ -526,6 +533,42 @@ h1 {
 
 :root[data-theme="light"] .home-hero-heading .text-spark-gold {
   text-shadow: none;
+}
+
+/* Light-mode component fixes that follow from "no gold text / no teal":
+   - the footer divider and the B-59 footer link are gold by default → space (purple);
+   - .btn-secondary fills with space (now #2f0951, a dark purple) on light, so its
+     text must be the light page color (void → earth) to stay readable. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .footer-container {
+    border-top-color: var(--color-spark-space);
+  }
+
+  :root:not([data-theme="dark"]) .footer-link--gold,
+  :root:not([data-theme="dark"]) .footer-link:hover {
+    color: var(--color-spark-space);
+  }
+
+  :root:not([data-theme="dark"]) :is(
+      .btn-secondary, .btn-secondary:hover, .btn-secondary:focus-visible
+    ) {
+    color: var(--color-spark-void);
+  }
+}
+
+:root[data-theme="light"] .footer-container {
+  border-top-color: var(--color-spark-space);
+}
+
+:root[data-theme="light"] .footer-link--gold,
+:root[data-theme="light"] .footer-link:hover {
+  color: var(--color-spark-space);
+}
+
+:root[data-theme="light"] :is(
+    .btn-secondary, .btn-secondary:hover, .btn-secondary:focus-visible
+  ) {
+  color: var(--color-spark-void);
 }
 
 /* Home: one anchor for hero `<Image>` object-position and header strip background — continuous field under the fixed nav */
