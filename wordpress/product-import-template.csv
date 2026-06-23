@@ -1,0 +1,4 @@
+Type,Name,SKU,Regular price,Sale price,Short description,Description,Categories,Tags,Images,In stock?,Stock,Virtual,Downloadable,Download URL,External URL,Button text
+simple,TX*SPARK Logo Sticker,STK-001,4.00,,Durable die-cut vinyl sticker.,"Weatherproof vinyl sticker, 3 inches. Great on water bottles and laptops.",Stickers,merch,https://your-host.com/images/sticker.jpg,1,200,0,0,,,
+simple,Organizing Toolkit (PDF),TK-PDF-001,0.00,,Free downloadable organizing toolkit.,The full PDF packet delivered instantly after checkout.,Toolkits,digital,https://your-host.com/images/toolkit-cover.jpg,1,,1,1,https://your-host.com/files/toolkit.pdf,,
+external,Yard Sign (via print partner),,,,Ordered and shipped by our print partner.,Weatherproof yard sign. Checkout happens on our partner's site.,Signs,,https://your-host.com/images/yard-sign.jpg,1,,0,0,,https://printpartner.example.com/yard-sign,Order at partner
