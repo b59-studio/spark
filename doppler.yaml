@@ -1,0 +1,3 @@
+setup:
+  project: spark-main
+  config: dev
