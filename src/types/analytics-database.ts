@@ -37,20 +37,6 @@ export interface CommerceOrderTable {
   updated_at: ColumnType<Date, string | Date | undefined, string | Date>;
 }
 
-export interface DonationEventTable {
-  id: Generated<string>;
-  stripe_payment_intent_id: string;
-  status: string;
-  amount_cents: number;
-  currency: string;
-  email_normalized: string | null;
-  core_user_id: string | null;
-  raw_payload: ColumnType<JsonValue | null, JsonValue | null, JsonValue | null>;
-  donated_at: ColumnType<Date | null, string | Date | null, string | Date | null>;
-  created_at: ColumnType<Date, string | Date | undefined, string | Date>;
-  updated_at: ColumnType<Date, string | Date | undefined, string | Date>;
-}
-
 export interface WebhookDeliveryTable {
   id: Generated<string>;
   provider: string;
@@ -67,6 +53,5 @@ export interface WebhookDeliveryTable {
 export interface AnalyticsDatabase {
   newsletter_signup_events: NewsletterSignupEventTable;
   commerce_orders: CommerceOrderTable;
-  donation_events: DonationEventTable;
   webhook_deliveries: WebhookDeliveryTable;
 }
