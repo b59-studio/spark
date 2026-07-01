@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripeServerClient } from "@/lib/integrations/stripe/server";
-import {
-  mapPaymentIntentToDonation,
-  recordDonation,
-} from "@/lib/analytics/record-donation";
 import { recordWebhookDelivery } from "@/lib/analytics/record-webhook-delivery";
 import type { JsonValue } from "@/types/analytics-database";
 
@@ -53,16 +49,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true, duplicate: true });
   }
 
-  if (event.type === "payment_intent.succeeded") {
-    const intent = event.data.object as unknown as Record<string, unknown>;
-    try {
-      await recordDonation(mapPaymentIntentToDonation(intent));
-    } catch (e) {
-      const message = e instanceof Error ? e.message : "Unknown error";
-      console.error("[stripe-webhook] record donation failed:", message);
-      return NextResponse.json({ error: message }, { status: 500 });
-    }
-  }
-
+  // Donation analytics retired (donation_events dropped); deliveries are still
+  // recorded above for idempotency. No per-event handling remains.
   return NextResponse.json({ ok: true });
 }
