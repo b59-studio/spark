@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import MainFrame from "@/components/MainFrame";
 import { siteImages } from "@/lib/site-visuals";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://b-59.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://texasspark.org";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

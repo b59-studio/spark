@@ -1,10 +1,12 @@
 <?php
 /**
  * Plugin Name: TX*SPARK Headless Redirect
- * Description: Sends public front-end visitors to the marketing site, while
- *              leaving wp-admin, login, the REST API, the MCP endpoint, and
- *              cron fully reachable. Headless installs don't serve a public
- *              theme — this keeps anyone who lands on the CMS domain out of it.
+ * Description: Sends anyone who lands on the bare CMS domain straight to the
+ *              dashboard (anonymous visitors get the WordPress login), while
+ *              leaving wp-admin, login, the REST API, the MCP endpoint, and cron
+ *              fully reachable. Headless installs don't serve a public theme —
+ *              this lets the team open the CMS by typing the domain alone, with
+ *              no /wp-admin/ suffix.
  *
  * Install: copy this file to wp-content/mu-plugins/ on the WordPress server
  * (create the mu-plugins folder if it doesn't exist). Must-use plugins load
@@ -16,9 +18,6 @@ if (!defined('ABSPATH')) {
 }
 
 add_action('template_redirect', function () {
-    // ⬇️ Set this to your public marketing site.
-    $marketing_site = 'https://jfseamus.com';
-
     // Never redirect admin, login, REST (incl. the MCP endpoint), cron, AJAX, or CLI.
     if (
         is_admin()
@@ -35,7 +34,15 @@ add_action('template_redirect', function () {
         return;
     }
 
-    // 302 (temporary) while you settle in; switch to 301 once you're sure.
-    wp_redirect($marketing_site, 302);
+    // Headless install: there is no public theme. Send anyone who lands on the
+    // bare CMS domain straight to the dashboard — an anonymous visitor simply
+    // gets the WordPress login. This is what lets the team open the CMS by typing
+    // the domain alone, no /wp-admin/ suffix. admin_url() tracks the WordPress
+    // Site Address, so this keeps working across the domain change
+    // (cms.jfseamus.com → cms.texasspark.org) with no edit here.
+    wp_redirect(admin_url(), 302);
     exit;
+
+    // Prefer sending strays to the public marketing site instead? Replace the two
+    // lines above with:  wp_redirect('https://texasspark.org', 302); exit;
 });

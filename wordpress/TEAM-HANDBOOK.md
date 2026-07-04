@@ -195,29 +195,33 @@ page; publish when they're ready to go live.
 
 ---
 
-## 9. Changing the domain (jfseamus.com → txspark.com) (dev)
+## 9. Migrating the domain (jfseamus.com → texasspark.org)
 
-If the public site moves to **txspark.com**, here's everything that needs
-updating — it's a coordinated change, not a single switch:
+The product is moving wholesale to **texasspark.org** as its primary domain, and
+`jfseamus.com` is being handed back to its owner — **no redirect**. This is a
+coordinated cutover; the authoritative, ordered runbook lives in the infra repo
+(`seamus-backbone: docs/texasspark-migration-cutover.md`). The spark-side pieces:
 
-- **Domain + DNS:** register/point `txspark.com`; add it to the
-  [Vercel](https://vercel.com) `spark` project and set it as the primary domain;
-  add 301 redirects from the old domain.
-- **Site URL setting:** env var `NEXT_PUBLIC_SITE_URL` → `https://txspark.com`
-  (drives canonical links, social previews, the sitemap).
-- **Stripe webhook URL** → `https://txspark.com/api/webhooks/stripe`.
-- **WooCommerce order webhook** delivery URL → `https://txspark.com/api/webhooks/woocommerce`.
-- **Headless redirect:** the WordPress mu-plugin `headless-redirect.php` sends
-  visitors to the marketing site — update its `$marketing_site` to `https://txspark.com`.
-- **Login link:** `NEXT_PUBLIC_LOGIN_URL` if the login subdomain changes too.
-- **Email "from" address / domain** (newsletter + receipts): re-verify the new
-  domain in the email provider (new DNS records) and switch the from-address.
+- **Domain + DNS:** DNS is in **Cloudflare** (nameservers point there), *not*
+  DigitalOcean. Attach `texasspark.org` (+ `www`) to the [Vercel](https://vercel.com)
+  `spark` project and set it primary; `jfseamus.com` is removed, not redirected.
+- **Site URL setting:** `NEXT_PUBLIC_SITE_URL` → `https://texasspark.org` (drives
+  canonical links, social previews, the sitemap). *(Currently pinned to the live
+  value `https://jfseamus.com`; it flips at cutover.)*
+- **Login link:** `NEXT_PUBLIC_LOGIN_URL` → `https://login.texasspark.org`.
+- **Stripe webhook URL** → `https://texasspark.org/api/webhooks/stripe`.
+- **WooCommerce order webhook** delivery URL → `https://texasspark.org/api/webhooks/woocommerce`.
+- **Email "from" address / domain** (newsletter + receipts): re-verify
+  `texasspark.org` in Resend (new DNS records) and switch the from-address.
 - **Internal links in WordPress content:** any that hard-code `https://jfseamus.com`
   (relative links like `/about` are fine and need no change).
-- **The CMS domain is a separate decision:** you can keep `cms.jfseamus.com` or
-  move it to `cms.txspark.com`. If you move it, that's its own job — new SSL
-  (Cloudflare Origin Cert + Caddy), WordPress **Site Address**, and the
-  `WORDPRESS_API_URL` / `WOOCOMMERCE_API_URL` / `MAILPOET_API_BASE_URL` env vars.
+- **CMS → `cms.texasspark.org`:** the CMS is a **DigitalOcean droplet** (nginx +
+  Dockerized WordPress). Moving it = the Cloudflare `cms` record + on the droplet:
+  nginx `server_name`, a new `certbot` cert, and WordPress **Site Address**; then
+  point `WORDPRESS_API_URL` / `WOOCOMMERCE_API_URL` / `MAILPOET_API_BASE_URL` at it.
+- **Reaching the CMS:** `headless-redirect.php` now sends the bare CMS domain
+  straight to the dashboard (the WordPress login if you're signed out), so you open
+  it by typing the domain alone — no `/wp-admin/` needed.
 
 ---
 

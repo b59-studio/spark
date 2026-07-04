@@ -31,8 +31,8 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
 
 # --- Newsletter fallbacks (used when MailPoet is not configured) ---
 RESEND_API_KEY=
-NEWSLETTER_FROM_EMAIL=hello@txspark.org
-# RESEND_FROM_EMAIL=hello@txspark.org
+NEWSLETTER_FROM_EMAIL=hello@texasspark.org
+# RESEND_FROM_EMAIL=hello@texasspark.org
 # NEWSLETTER_WEBHOOK_URL=
 # NEWSLETTER_WEBHOOK_SECRET=
 
