@@ -15,7 +15,7 @@ admin app. They share no routes — the only seam between them is the header
 graph LR
     visitor[Visitor]
 
-    subgraph spark["Spark — public · b-59.com · no auth"]
+    subgraph spark["Spark — public · texasspark.org · no auth"]
         home["/"]
         marketing["/about · /events · /work<br/>/solutions · /grow · /pal · /contact"]
         papi["Public API<br/>/api/newsletter · /api/webhooks/*"]
@@ -51,7 +51,7 @@ user navigates.
 
 ## Spark — public marketing site
 
-`b-59.com` · unauthenticated · indexed (`sitemap.ts` + `robots.ts`)
+`texasspark.org` · unauthenticated · indexed (`sitemap.ts` + `robots.ts`)
 
 ### Pages
 
