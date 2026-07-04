@@ -1,3 +1,9 @@
+# ⚠️  NOT THE LIVE SETUP. The production CMS droplet runs **Caddy** + php-fpm —
+# see Caddyfile.example in this directory for what is actually deployed. This
+# nginx config is kept only as a legacy/alternative reference. If you follow it,
+# also port the Cloudflare real-IP handling (realip module + Cloudflare ranges +
+# `real_ip_header CF-Connecting-IP`) or Jetpack's login challenge will misbehave.
+#
 # /etc/nginx/sites-available/cms.example.org
 # Proxy to Docker WordPress on port 8080, or PHP-FPM socket.
 
@@ -15,6 +21,18 @@ server {
     # ssl_certificate_key /etc/letsencrypt/live/cms.example.org/privkey.pem;
 
     client_max_body_size 64M;
+
+    # WordPress admin is a directory whose menu uses RELATIVE links
+    # (edit.php, users.php, edit.php?post_type=page…). Entering at the
+    # slash-less /wp-admin gives the document a base of "/", so every menu
+    # link resolves to the site root (cms.example.org/users.php) instead of
+    # under /wp-admin/ — and each item 404s or bounces via headless-redirect.
+    # Behind the Cloudflare proxy the origin's own mod_dir/DirectorySlash
+    # redirect never reaches the browser, so force the trailing slash here.
+    # Exact match: only the bare path, never /wp-admin/ or deep links.
+    location = /wp-admin {
+        return 301 /wp-admin/$is_args$args;
+    }
 
     location / {
         proxy_pass http://127.0.0.1:8080;
