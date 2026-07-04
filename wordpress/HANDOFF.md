@@ -40,6 +40,12 @@ Full instructions are in **[CLIENT-ONBOARDING.md](./CLIENT-ONBOARDING.md)**. In 
 
 ## 3. Features and their status
 
+> **Vendor change (in progress).** The **newsletter is moving from MailPoet to
+> Mailchimp**, and **donations are moving off Stripe** — the replacement donation
+> tool is not yet chosen and **needs to be revisited once the team decides**. The
+> MailPoet/Stripe rows below and the §4 setup steps describe the *current* code
+> and will be updated once the switch lands.
+
 | Feature | Status | What it needs to go live | Who runs it after |
 | --- | --- | --- | --- |
 | **Content pages** (About, Mission, Toolkits, etc.) | ✅ Live & editable | Nothing | Your team, in WordPress |
