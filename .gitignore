@@ -44,3 +44,5 @@ out/
 /docs/SETUP.md
 /docs/templates/
 aos/
+.env.*
+!.env.example
