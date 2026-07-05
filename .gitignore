@@ -1,7 +1,3 @@
-# Bundle-repo .gitignore (for the coding-standards repo itself).
-# These are files that may appear when developing the bundle but
-# shouldn't be tracked.
-
 # OS clutter
 .DS_Store
 Thumbs.db
@@ -12,12 +8,6 @@ desktop.ini
 .vscode/
 *.swp
 *.swo
-
-# Local-only notes (your personal scratchpad while editing the bundle)
-notes.local.md
-.scratch/
-.ai-notes/
-*.ai-tmp
 
 # Test outputs from the eval suite
 evals/results/
@@ -38,9 +28,3 @@ out/
 .env
 .env.local
 .env*.local
-
-# Coding-standards bundle docs (when docs/ is symlinked from the bundle)
-/docs/ROADMAP.md
-/docs/SETUP.md
-/docs/templates/
-aos/
