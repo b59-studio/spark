@@ -1,24 +1,25 @@
 @import "tailwindcss";
 
 /*
- * TX*SPARK brand tokens.
- * Tailwind utilities use legacy spark-* names mapped to canonical tokens below.
+ * TX*SPARK brand tokens — heritage-quilt identity (brand v3, 2026-07).
+ * Single warm-bone (light) theme; dark mode is tabled (no dark-ground logo yet).
+ * Token names match their brand roles.
  */
 @theme {
-  /* Canonical palette */
-  --color-spark-void: #14081e;
-  --color-spark-space: #2f0951;
-  --color-spark-star: #edc973;
-  --color-spark-earth: #f4dcb6;
-  --color-spark-sky: #a9c7cc;
-  --color-spark-alert: #f4541f;
+  /* Core palette */
+  --color-spark-bone: #f4efe4;   /* Warm Bone        — page background */
+  --color-spark-ink: #2c2a27;    /* Charcoal Ink     — body text */
+  --color-spark-green: #274536;  /* Prairie Green    — primary accent: headings, logo, rules, primary CTA */
+  --color-spark-brass: #b08a43;  /* Weathered Brass  — secondary accent: panels, trim, secondary CTA */
+  --color-spark-sky: #5d7e97;    /* Prairie Sky      — highlight / texture (<5%) */
+  --color-spark-paint: #c85b42;  /* Indian Paintbrush — functional alerts only */
 
-  /* Legacy utility names → canonical tokens (prefer spark-star/earth/space in new code) */
-  --color-spark-bg: var(--color-spark-void);
-  --color-spark-bone: var(--color-spark-earth);
-  --color-spark-purple: var(--color-spark-space);
-  --color-spark-red: var(--color-spark-alert);
-  --color-spark-gold: var(--color-spark-star);
+  /* Supplementary palette — highlights, callouts, and fun. Use sparingly. */
+  --color-spark-clay: #9c6a4a;      /* Red Clay */
+  --color-spark-bluebonnet: #5869a8;
+  --color-spark-sage: #b6b8a8;      /* Sage Silver */
+  --color-spark-mesquite: #6a5847;  /* Mesquite Bark */
+  --color-spark-ochre: #c58d45;     /* Sunset Ochre */
 
   --font-heading: "Rockwell", "Rockwell Extra Bold", Georgia, serif;
   --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -32,8 +33,8 @@
 
 /* Global styles */
 body {
-  background-color: var(--color-spark-void);
-  color: var(--color-spark-earth);
+  background-color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
   font-family: var(--font-body);
   font-size: 120%;
 }
@@ -46,7 +47,7 @@ h3,
 .heading-md {
   font-family: var(--font-heading);
   /* Large display type — meets WCAG large-text threshold (≥24px / ≥18pt bold) */
-  color: var(--color-spark-star);
+  color: var(--color-spark-green);
 }
 
 /* Shared page shells: same horizontal inset + vertical padding across routes */
@@ -70,22 +71,22 @@ h3,
 
   /* Captions under hero / inline figures (matches events page Francesca image) */
   .spark-figure-caption {
-    @apply mt-3 italic text-spark-star;
+    @apply mt-3 italic text-spark-green;
     font-size: 0.75rem;
     line-height: 1.5;
   }
 
   /* Reusable surfaces — prefer these over inline color-mix in components */
   .spark-input-surface {
-    background-color: color-mix(in srgb, var(--color-spark-earth) 8%, var(--color-spark-void));
+    background-color: color-mix(in srgb, var(--color-spark-ink) 8%, var(--color-spark-bone));
   }
 
   .spark-border-accent-soft {
-    border-color: color-mix(in srgb, var(--color-spark-star) 35%, transparent);
+    border-color: color-mix(in srgb, var(--color-spark-green) 35%, transparent);
   }
 
   .spark-hover-accent {
-    background-color: color-mix(in srgb, var(--color-spark-star) 14%, var(--color-spark-void));
+    background-color: color-mix(in srgb, var(--color-spark-green) 14%, var(--color-spark-bone));
   }
 }
 
@@ -98,31 +99,24 @@ h3,
   -webkit-backdrop-filter: none;
 }
 
-/* Muted surface on page background — callouts, highlights, gated panels.
-   Dark: a faint purple wash on the void, so panels read a touch lighter than
-   the page. Light: the page is paper white and panels take the warm earth tan,
-   so they read a touch warmer than the page — the same subtle figure↔ground
-   the dark panels have. */
+/* Muted surface on the bone page — callouts, highlights, gated panels.
+   A faint brass wash reads a touch warmer than the page. */
 .spark-panel {
-  background-color: color-mix(in srgb, var(--color-spark-purple) 16%, var(--color-spark-bg));
-}
-
-:root[data-theme="light"] .spark-panel {
-  background-color: var(--light-spark-panel);
+  background-color: color-mix(in srgb, var(--color-spark-brass) 16%, var(--color-spark-bone));
 }
 
 /* Purple frame + thin inset gold line (about sections, accent boxes, carousel slides) */
 .spark-framed,
 .spark-carousel-slide-outline {
-  border: 1px solid color-mix(in srgb, var(--color-spark-purple) 48%, transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-spark-gold) 38%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-spark-brass) 48%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-spark-green) 38%, transparent);
 }
 
 /* Carousel / light UI controls */
 .spark-carousel-nav-btn {
-  border: 1px solid color-mix(in srgb, var(--color-spark-gold) 38%, transparent);
-  background-color: color-mix(in srgb, var(--color-spark-bone) 12%, var(--color-spark-bg));
-  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-spark-bg) 45%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-spark-green) 38%, transparent);
+  background-color: color-mix(in srgb, var(--color-spark-ink) 12%, var(--color-spark-bone));
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-spark-bone) 45%, transparent);
   transition:
     border-color 0.2s ease,
     background-color 0.2s ease,
@@ -130,9 +124,9 @@ h3,
 }
 
 .spark-carousel-nav-btn:hover {
-  border-color: var(--color-spark-gold);
-  background-color: color-mix(in srgb, var(--color-spark-gold) 22%, var(--color-spark-bg));
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-spark-bg) 55%, transparent);
+  border-color: var(--color-spark-green);
+  background-color: color-mix(in srgb, var(--color-spark-green) 22%, var(--color-spark-bone));
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-spark-bone) 55%, transparent);
 }
 
 /* ============================================
@@ -175,7 +169,7 @@ h1 {
   font-weight: 600;
   line-height: 1.4;
   font-family: var(--font-body);
-  color: var(--color-spark-earth);
+  color: var(--color-spark-ink);
   margin-bottom: 0.5rem;
 }
 
@@ -183,24 +177,24 @@ h1 {
 .body-lg {
   font-size: 1.75rem; /* 28px */
   line-height: 1.45;
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
 }
 
 .body-md {
   font-size: 1.25rem; /* 20px */
   line-height: 1.6;
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
 }
 
 .body-sm {
   font-size: 0.75rem; /* 12px */
   line-height: 1.5;
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
 }
 
 /* Subtext / Secondary Text — muted earth, not alert red */
 .text-secondary {
-  color: color-mix(in srgb, var(--color-spark-earth) 72%, var(--color-spark-void));
+  color: color-mix(in srgb, var(--color-spark-ink) 72%, var(--color-spark-bone));
 }
 
 /* Quotes / Callouts */
@@ -208,14 +202,14 @@ h1 {
   font-size: 1.25rem;
   line-height: 1.6;
   font-style: italic;
-  color: var(--color-spark-bone);
-  border-left: 4px solid var(--color-spark-gold);
+  color: var(--color-spark-ink);
+  border-left: 4px solid var(--color-spark-green);
   padding-left: 1.5rem;
 }
 
 /* Links in body text — darker gold mix for 4.5:1 on void */
 .text-link {
-  color: var(--color-link-on-void);
+  color: var(--color-link);
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: opacity 0.2s;
@@ -240,16 +234,16 @@ h1 {
 .callout-blue,
 .callout-gray,
 .callout-plum {
-  background-color: color-mix(in srgb, var(--color-spark-gold) 14%, var(--color-spark-bg));
-  border-left: 4px solid var(--color-spark-gold);
+  background-color: color-mix(in srgb, var(--color-spark-green) 14%, var(--color-spark-bone));
+  border-left: 4px solid var(--color-spark-green);
   padding: 1rem 1.5rem;
   border-radius: 0.5rem;
   margin: 1rem 0;
 }
 
 .callout-alert {
-  background-color: color-mix(in srgb, var(--color-spark-red) 16%, var(--color-spark-bg));
-  border-left: 4px solid var(--color-spark-red);
+  background-color: color-mix(in srgb, var(--color-spark-paint) 16%, var(--color-spark-bone));
+  border-left: 4px solid var(--color-spark-paint);
   padding: 1rem 1.5rem;
   border-radius: 0.5rem;
   margin: 1rem 0;
@@ -260,7 +254,7 @@ h1 {
    ============================================ */
 
 .faq-item {
-  border-bottom: 1px solid color-mix(in srgb, var(--color-spark-gold) 28%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-spark-green) 28%, transparent);
   padding: 1rem 0;
 }
 
@@ -277,19 +271,19 @@ h1 {
   transition: background-color 0.2s;
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
   border-radius: 0.5rem;
 }
 
 .faq-question:hover {
-  background-color: color-mix(in srgb, var(--color-spark-gold) 14%, transparent);
+  background-color: color-mix(in srgb, var(--color-spark-green) 14%, transparent);
 }
 
 .faq-icon {
   width: 1.5rem;
   height: 1.5rem;
   transition: transform 0.3s ease;
-  color: var(--color-spark-gold);
+  color: var(--color-spark-green);
   flex-shrink: 0;
   margin-left: 1rem;
 }
@@ -311,7 +305,7 @@ h1 {
 }
 
 .faq-answer-content {
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
   line-height: 1.7;
 }
 
@@ -320,8 +314,8 @@ h1 {
    ============================================ */
 
 .privacy-summary {
-  background-color: color-mix(in srgb, var(--color-spark-gold) 26%, var(--color-spark-bg));
-  border: 2px solid var(--color-spark-gold);
+  background-color: color-mix(in srgb, var(--color-spark-green) 26%, var(--color-spark-bone));
+  border: 2px solid var(--color-spark-green);
   border-radius: 1rem;
   padding: 2rem;
   margin: 2rem 0;
@@ -337,13 +331,13 @@ h1 {
 }
 
 .privacy-summary-item:hover {
-  background-color: color-mix(in srgb, var(--color-spark-gold) 12%, transparent);
+  background-color: color-mix(in srgb, var(--color-spark-green) 12%, transparent);
 }
 
 .privacy-summary-icon {
   width: 2rem;
   height: 2rem;
-  color: var(--color-spark-gold);
+  color: var(--color-spark-green);
   flex-shrink: 0;
   margin-right: 1rem;
 }
@@ -354,13 +348,13 @@ h1 {
 
 .privacy-summary-title {
   font-weight: 600;
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
   margin-bottom: 0.25rem;
 }
 
 .privacy-summary-description {
   font-size: 0.875rem;
-  color: color-mix(in srgb, var(--color-spark-earth) 78%, var(--color-spark-void));
+  color: color-mix(in srgb, var(--color-spark-ink) 78%, var(--color-spark-bone));
   line-height: 1.5;
 }
 
@@ -381,149 +375,60 @@ h1 {
 }
 
 /* ============================================
+   QUILT-STAR DIVIDER
+   The carpenter's-wheel spark tiled as a woven
+   band between sections — the heritage-quilt
+   motif that recurs down the page. `contain`
+   fits the full padded tile vertically, so the
+   star (and its cream radiating lines) never
+   crops; the tile's built-in side padding gives
+   the spaced quilt-border rhythm.
+   ============================================ */
+.spark-quilt-divider {
+  height: clamp(4.5rem, 11vw, 6.5rem);
+  background-image: url("/images/brand/quilt-band.svg");
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: auto 100%;
+  /* Hairline brass seams top and bottom, like stitching on real quilt trim */
+  border-block: 1px solid color-mix(in srgb, var(--color-spark-brass) 22%, transparent);
+}
+
+/* ============================================
    HEADER STYLES
    ============================================ */
 
 :root {
-  /* Dark is the brand default; native UI (scrollbars, form controls) follows. */
-  color-scheme: dark;
+  /* Warm-bone brand is light; native UI (scrollbars, form controls) follows.
+     Dark mode is intentionally tabled until a dark-background logo exists —
+     the `ThemeToggle` component is kept on disk but no longer mounted. */
+  color-scheme: light;
 
   /* Semantic aliases */
-  --color-bg-primary: var(--color-spark-void);
-  --color-bg-secondary: var(--color-spark-space);
-  --color-text-primary: var(--color-spark-earth);
-  --color-accent: var(--color-spark-star);
+  --color-bg-primary: var(--color-spark-bone);
+  --color-bg-secondary: var(--color-spark-brass);
+  --color-text-primary: var(--color-spark-ink);
+  --color-accent: var(--color-spark-green);
   --color-highlight: var(--color-spark-sky);
-  --color-alert: var(--color-spark-alert);
+  --color-alert: var(--color-spark-paint);
 
-  /* Hero JPEG path — must match `siteImages.content.heroBackground` in `site-visuals.ts` (do not retune hero loading here without review). */
-  --header-hero-photo: url("/images/content/hero-background.jpg");
-  /* Wordmark in the header lockup — mirrors `siteImages.brand.wordmark`; flipped in the light scope. */
-  --wordmark-image: url("/images/brand/wordmark2-g.png");
+  /* Full horizontal wordmark in the header lockup — mirrors `siteImages.brand.wordmark`. */
+  --wordmark-image: url("/images/brand/wm-full-v3.png");
   /* Map UI contrast-safe tokens for light surfaces (panels, legends, popups). */
   --color-map-ui-text-primary: #1f2937;
   --color-map-ui-text-muted: #4b5563;
   --color-map-ui-text-subtle: #6b7280;
-  --color-map-ui-emphasis: #0f766e;
-  --color-map-ui-warning: #b45309; /* gold-family fallback on white */
-  --color-map-ui-warning-strong: #c2410c;
+  --color-map-ui-emphasis: #274536; /* prairie green on white */
+  --color-map-ui-warning: #b08a43;  /* brass-family fallback on white */
+  --color-map-ui-warning-strong: #c85b42;
 
-  /* Focus ring — WCAG 2.4.11 minimum; visible on void/space backgrounds */
-  --focus-ring-color: #f5e5a0;
+  /* Focus ring — WCAG 2.4.11 minimum; prairie green reads on the warm-bone page */
+  --focus-ring-color: var(--color-spark-green);
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
 
-  /* Accessible text on void — star is decorative at large sizes; links use a darker mix */
-  --color-link-on-void: color-mix(in srgb, var(--color-spark-star) 72%, var(--color-spark-space));
-
-  /* ----------------------------------------------------------------
-     LIGHT THEME — brand colors plus spark-admin's "paper" page white.
-       void  → paper   (#f7f1e6, the spark-admin light page background)
-       panel → earth   (#f4dcb6, the warm tan that used to be the page, now
-                        the subtle callout / panel surface — the same
-                        figure↔ground relationship the dark panels have)
-       earth → void    (#14081e, darkest brand color, now body ink)
-       space           stays #2f0951 — purple trim and emphasis
-       sky             stays #a9c7cc — accent only (borders, highlights)
-       star, alert     unchanged (gold accent + functional red-orange)
-     Applied by the single `:root[data-theme="light"]` scope below, so every
-     `var(--color-spark-*)` rule and every Tailwind `*-spark-*` utility inverts
-     from one place. Body text is ink; gold text becomes space (purple) on
-     light — gold is too light on paper for text, so gold is reserved for trim
-     and the logo. */
-  --light-spark-void: #f7f1e6;   /* paper — spark-admin's light page background */
-  --light-spark-space: #2f0951;  /* space — purple stays purple in light */
-  --light-spark-star: #edc973;   /* star — gold accent unchanged (trim + logo) */
-  --light-spark-earth: #14081e;  /* void — darkest brand color, now body ink */
-  --light-spark-sky: #a9c7cc;    /* sky — brand blue, accent only */
-  --light-spark-alert: #f4541f;  /* alert — unchanged (functional only) */
-  --light-spark-panel: #f4dcb6;  /* earth tan — the warm callout / panel surface */
-  --light-focus-ring: #2f0951;   /* space — dark ring, reads on paper */
-  --light-link: #2f0951;         /* space — dark link on paper; underline also distinguishes */
-}
-
-/* Light is opt-in via the toggle only — dark is the brand default, so there is
-   no `prefers-color-scheme` switch. Re-point the canonical tokens at the light
-   palette when the user explicitly chooses light. */
-:root[data-theme="light"] {
-  color-scheme: light;
-  --color-spark-void: var(--light-spark-void);
-  --color-spark-space: var(--light-spark-space);
-  --color-spark-star: var(--light-spark-star);
-  --color-spark-earth: var(--light-spark-earth);
-  --color-spark-sky: var(--light-spark-sky);
-  --color-spark-alert: var(--light-spark-alert);
-  --focus-ring-color: var(--light-focus-ring);
-  --color-link-on-void: var(--light-link);
-  /* Light-theme art — see note above; mirror site-visuals.ts. */
-  --header-hero-photo: url("/images/content/pexels-enginakyurt-7085605.jpg");
-  --wordmark-image: url("/images/brand/sparkwordfilledv1.png");
-}
-
-/* Show an element only in one theme — for paired light/dark assets (e.g. the hero
-   photo) where a single token swap isn't enough and two elements must coexist. */
-.theme-light-only {
-  display: none;
-}
-
-.theme-dark-only {
-  display: initial;
-}
-
-:root[data-theme="light"] .theme-light-only {
-  display: initial;
-}
-
-:root[data-theme="light"] .theme-dark-only {
-  display: none;
-}
-
-:root[data-theme="dark"] .theme-light-only {
-  display: none;
-}
-
-:root[data-theme="dark"] .theme-dark-only {
-  display: initial;
-}
-
-/* Light mode: body text is ink (void); emphasis is space (purple), never gold.
-   Gold legible on a light page has to darken into an amber that reads "orange"
-   and fights the brand, so on light backgrounds gold is reserved for borders,
-   rules, and icons — never text. The space (#2f0951) callout covers headings,
-   any former-gold text, and bold (<strong>/<b>) — "bolded space as callout". */
-:root[data-theme="light"] :is(
-    h1, h2, h3,
-    .heading-xl, .heading-lg, .heading-md,
-    .text-spark-gold, .text-spark-star,
-    .spark-figure-caption, .pal-hero-highlight,
-    strong, b, .cms-prose strong
-  ) {
-  color: var(--color-spark-space);
-}
-
-/* The hero subline kept a gold glow for the dark theme; drop it on light so both
-   heading lines read as plain ink. */
-:root[data-theme="light"] .home-hero-heading .text-spark-gold {
-  text-shadow: none;
-}
-
-/* Light-mode component fixes that follow from "no gold text / no teal":
-   - the footer divider and the B-59 footer link are gold by default → space (purple);
-   - .btn-secondary fills with space (now #2f0951, a dark purple) on light, so its
-     text must be the light page color (void → earth) to stay readable. */
-:root[data-theme="light"] .footer-container {
-  border-top-color: var(--color-spark-space);
-}
-
-:root[data-theme="light"] .footer-link--gold,
-:root[data-theme="light"] .footer-link:hover {
-  color: var(--color-spark-space);
-}
-
-:root[data-theme="light"] :is(
-    .btn-secondary, .btn-secondary:hover, .btn-secondary:focus-visible
-  ) {
-  color: var(--color-spark-void);
+  /* Body links — prairie green (11:1 on bone); underline also distinguishes them */
+  --color-link: var(--color-spark-green);
 }
 
 /* Home: one anchor for hero `<Image>` object-position and header strip background — continuous field under the fixed nav */
@@ -544,13 +449,14 @@ body:has(#home-hero) {
   line-height: 1.25;
   padding: 1.1rem 1.05rem;
   border-radius: 1rem;
-  border: 1px solid color-mix(in srgb, var(--color-spark-bone) 35%, transparent);
-  background: color-mix(in srgb, var(--color-spark-bone) 14%, var(--color-spark-bg));
+  /* Translucent warm-bone card so the sunlit photo reads through while green ink stays legible */
+  border: 1px solid color-mix(in srgb, var(--color-spark-green) 30%, transparent);
+  background: color-mix(in srgb, var(--color-spark-bone) 80%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow:
-    0 14px 44px -20px color-mix(in srgb, var(--color-spark-bg) 65%, transparent),
-    inset 0 1px 0 color-mix(in srgb, var(--color-spark-bone) 22%, transparent);
+    0 14px 44px -20px color-mix(in srgb, var(--color-spark-ink) 30%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--color-spark-bone) 40%, transparent);
 }
 
 .home-hero-heading .block {
@@ -564,10 +470,10 @@ body:has(#home-hero) {
   }
 }
 
-.home-hero-heading .text-spark-gold {
-  text-shadow:
-    0 1px 2px color-mix(in srgb, var(--color-spark-bone) 45%, transparent),
-    0 0 20px color-mix(in srgb, var(--color-spark-gold) 35%, transparent);
+.home-hero-heading .text-spark-green {
+  /* Prairie-green heading on the translucent bone card — a soft light halo lifts it
+     off the photo without the old gold glow. */
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--color-spark-bone) 60%, transparent);
 }
 
 .header-nav {
@@ -576,56 +482,19 @@ body:has(#home-hero) {
   /* visible so nested nav dropdown panels can extend below the bar */
   overflow: visible;
   border-radius: 1rem;
-  /* Matte edge — avoid layered “floating glass” shadows */
-  border: 1px solid color-mix(in srgb, var(--color-spark-bone) 14%, transparent);
-  box-shadow: 0 4px 20px color-mix(in srgb, black 28%, transparent);
-}
-
-/* Sharp photo — separate from frost so backdrop-filter doesn’t smear pixels */
-.header-nav-photo-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: inherit;
-  background-image: var(--header-hero-photo);
-  background-repeat: no-repeat;
-  /* Cover + anchor aligned with `.home-hero-parallax` on the home hero */
-  background-size: cover;
-  background-position: center var(--hero-photo-anchor-y, 42%);
-  opacity: 1;
-  pointer-events: none;
+  /* Soft brass edge on the warm-bone bar */
+  border: 1px solid color-mix(in srgb, var(--color-spark-brass) 30%, transparent);
+  box-shadow: 0 6px 22px -10px color-mix(in srgb, var(--color-spark-ink) 28%, transparent);
 }
 
 .header-nav-frost {
   position: relative;
   z-index: 2;
   border-radius: inherit;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  background-color: color-mix(in srgb, var(--color-spark-bone) 18%, var(--color-spark-bg));
-}
-
-.header-nav--photo-slice .header-nav-frost {
-  /* Dark matte scrim (no bone haze) — photo reads through, links stay readable */
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  background: linear-gradient(
-    105deg,
-    color-mix(in srgb, var(--color-spark-bg) 78%, transparent) 0%,
-    color-mix(in srgb, var(--color-spark-bg) 72%, transparent) 42%,
-    color-mix(in srgb, var(--color-spark-bg) 80%, transparent) 100%
-  );
-}
-
-.header-nav--home-clear {
-  box-shadow: 0 6px 22px color-mix(in srgb, black 30%, transparent);
-}
-
-.header-nav--home-clear .header-nav-frost {
-  /* Matte bar over the hero — no frosted blur / gloss */
-  background-color: color-mix(in srgb, var(--color-spark-bg) 88%, var(--color-spark-purple));
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  /* Frosted warm-bone bar — mostly opaque so the full-colour wordmark + charcoal nav stay crisp */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: color-mix(in srgb, var(--color-spark-bone) 86%, transparent);
 }
 
 /* Header lockup: `.logo-container` default height is 108px; header constrains via these rules */
@@ -635,17 +504,8 @@ body:has(#home-hero) {
   max-width: min(14.501953125rem, 60.64453125vw);
 }
 
-.header-nav--photo-slice .nav-link,
-.header-nav--photo-slice .nav-mobile-link,
-.header-nav--photo-slice .mobile-menu-btn {
-  /* Dark stroke — contrast without glossy glow */
-  text-shadow:
-    0 1px 2px color-mix(in srgb, var(--color-spark-bg) 92%, black),
-    0 2px 6px color-mix(in srgb, black 55%, transparent);
-}
-
 .nav-link {
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
   font-size: 1.05rem;
   line-height: 1.25;
   transition: color 0.2s;
@@ -657,7 +517,7 @@ body:has(#home-hero) {
 
 .nav-link:hover,
 .nav-link:focus-visible {
-  color: var(--color-spark-star);
+  color: var(--color-spark-green);
 }
 
 .nav-link:focus-visible {
@@ -667,7 +527,7 @@ body:has(#home-hero) {
 }
 
 .nav-dropdown-link {
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
   font-size: 0.98rem;
   transition:
     color 0.2s,
@@ -676,8 +536,8 @@ body:has(#home-hero) {
 
 .nav-dropdown-link:hover,
 .nav-dropdown-link:focus-visible {
-  color: var(--color-spark-star);
-  background-color: color-mix(in srgb, var(--color-spark-star) 12%, transparent);
+  color: var(--color-spark-green);
+  background-color: color-mix(in srgb, var(--color-spark-green) 12%, transparent);
 }
 
 .nav-dropdown-link:focus-visible {
@@ -685,16 +545,10 @@ body:has(#home-hero) {
   outline-offset: var(--focus-ring-offset);
 }
 
-.header-nav--photo-slice .nav-dropdown-link {
-  text-shadow:
-    0 1px 2px color-mix(in srgb, var(--color-spark-bg) 92%, black),
-    0 2px 6px color-mix(in srgb, black 55%, transparent);
-}
-
 .nav-dropdown-panel {
   border-radius: 0.75rem;
-  border: 1px solid color-mix(in srgb, var(--color-spark-gold) 22%, transparent);
-  background-color: color-mix(in srgb, var(--color-spark-bg) 94%, var(--color-spark-purple));
+  border: 1px solid color-mix(in srgb, var(--color-spark-green) 22%, transparent);
+  background-color: color-mix(in srgb, var(--color-spark-bone) 94%, var(--color-spark-brass));
   box-shadow: 0 10px 28px color-mix(in srgb, black 40%, transparent);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -703,7 +557,7 @@ body:has(#home-hero) {
 .nav-mobile-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
   font-size: 1.2rem;
   border-radius: 0.375rem;
   transition: all 0.2s;
@@ -711,8 +565,8 @@ body:has(#home-hero) {
 
 .nav-mobile-link:hover,
 .nav-mobile-link:focus-visible {
-  background-color: color-mix(in srgb, var(--color-spark-star) 14%, transparent);
-  color: var(--color-spark-star);
+  background-color: color-mix(in srgb, var(--color-spark-green) 14%, transparent);
+  color: var(--color-spark-green);
 }
 
 .nav-mobile-link:focus-visible {
@@ -721,18 +575,18 @@ body:has(#home-hero) {
 }
 
 .nav-mobile-link.nav-mobile-sublink {
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
 }
 
 .mobile-menu-btn {
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
   font-size: 1.2rem;
   transition: color 0.2s;
 }
 
 .mobile-menu-btn:hover,
 .mobile-menu-btn:focus-visible {
-  color: var(--color-spark-star);
+  color: var(--color-spark-green);
 }
 
 .mobile-menu-btn:focus-visible {
@@ -753,15 +607,15 @@ body:has(#home-hero) {
   border: none;
   border-radius: 0.5rem;
   background: transparent;
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
   cursor: pointer;
   transition: color 0.2s, background-color 0.2s;
 }
 
 .theme-toggle:hover,
 .theme-toggle:focus-visible {
-  color: var(--color-spark-star);
-  background-color: color-mix(in srgb, var(--color-spark-star) 14%, transparent);
+  color: var(--color-spark-green);
+  background-color: color-mix(in srgb, var(--color-spark-green) 14%, transparent);
 }
 
 .theme-toggle:focus-visible {
@@ -806,8 +660,8 @@ body:has(#home-hero) {
 
 .footer-container {
   position: relative;
-  background-color: var(--color-spark-bg);
-  border-top: 2px solid var(--color-spark-gold);
+  background-color: var(--color-spark-bone);
+  border-top: 2px solid var(--color-spark-green);
   margin-top: auto;
 }
 
@@ -818,29 +672,29 @@ body:has(#home-hero) {
   right: 0;
   top: 4px;
   height: 1px;
-  background-color: var(--color-spark-purple);
+  background-color: var(--color-spark-brass);
 }
 
 .footer-heading {
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
 }
 
 .footer-link {
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
   font-size: 0.875rem;
   transition: color 0.2s;
 }
 
 .footer-link:hover {
-  color: var(--color-spark-gold);
+  color: var(--color-spark-green);
 }
 
 .footer-link.footer-link--gold {
-  color: var(--color-spark-gold);
+  color: var(--color-spark-green);
 }
 
 .footer-text {
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
   font-size: 0.875rem;
 }
 
@@ -850,10 +704,10 @@ body:has(#home-hero) {
 
 .form-input {
   padding: 0.5rem 1rem;
-  border: 2px solid var(--color-spark-gold);
+  border: 2px solid var(--color-spark-green);
   border-radius: 0.5rem;
-  background-color: color-mix(in srgb, var(--color-spark-bone) 8%, var(--color-spark-bg));
-  color: var(--color-spark-bone);
+  background-color: color-mix(in srgb, var(--color-spark-ink) 8%, var(--color-spark-bone));
+  color: var(--color-spark-ink);
   transition: all 0.2s;
   font-size: 1rem;
 }
@@ -862,46 +716,46 @@ body:has(#home-hero) {
 .form-input:focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
   outline-offset: var(--focus-ring-offset);
-  border-color: var(--color-spark-star);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-spark-star) 35%, transparent);
+  border-color: var(--color-spark-green);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-spark-green) 35%, transparent);
 }
 
 .form-input::placeholder {
-  color: color-mix(in srgb, var(--color-spark-earth) 72%, var(--color-spark-space));
+  color: color-mix(in srgb, var(--color-spark-ink) 72%, var(--color-spark-brass));
   opacity: 1;
 }
 
 /* Select dropdown specific styles */
 select.form-input {
   padding-right: 2.5rem;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232F0951'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23274536'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 1.25rem;
 }
 
 .form-input option {
-  background-color: var(--color-spark-bg);
-  color: var(--color-spark-bone);
+  background-color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
 }
 
 .form-input:user-invalid {
-  border-color: var(--color-spark-alert);
-  color: var(--color-spark-earth);
+  border-color: var(--color-spark-paint);
+  color: var(--color-spark-ink);
 }
 
 .form-input:focus:user-invalid {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-spark-alert) 35%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-spark-paint) 35%, transparent);
 }
 
 .form-label {
-  color: var(--color-spark-earth);
+  color: var(--color-spark-ink);
   font-weight: 600;
   font-size: 1rem;
 }
 
 .form-heading {
-  color: var(--color-spark-earth);
+  color: var(--color-spark-ink);
 }
 
 /* Pair with aria-invalid="true" and aria-describedby pointing at the matching .form-error id */
@@ -910,7 +764,7 @@ select.form-input {
   margin-top: 0.4rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--color-spark-earth);
+  color: var(--color-spark-ink);
 }
 
 .form-input:user-invalid + .form-error,
@@ -924,46 +778,45 @@ textarea.form-input:user-invalid + .form-error {
 .spark-text-input {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid color-mix(in srgb, var(--color-spark-star) 35%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-spark-green) 35%, transparent);
   border-radius: 0.75rem;
-  background-color: color-mix(in srgb, var(--color-spark-bone) 8%, var(--color-spark-bg));
-  color: var(--color-spark-bone);
+  background-color: color-mix(in srgb, var(--color-spark-ink) 8%, var(--color-spark-bone));
+  color: var(--color-spark-ink);
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .spark-text-input::placeholder {
-  color: color-mix(in srgb, var(--color-spark-earth) 72%, var(--color-spark-space));
+  color: color-mix(in srgb, var(--color-spark-ink) 72%, var(--color-spark-brass));
   opacity: 1;
 }
 
 .spark-text-input:focus,
 .spark-text-input:focus-visible {
   outline: none;
-  border-color: var(--color-spark-star);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-spark-star) 25%, transparent);
+  border-color: var(--color-spark-green);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-spark-green) 25%, transparent);
 }
 
 .spark-text-input:user-invalid,
 .spark-text-input[aria-invalid="true"] {
-  border-color: var(--color-spark-alert);
+  border-color: var(--color-spark-paint);
 }
 
 .spark-text-input:focus:user-invalid,
 .spark-text-input:focus[aria-invalid="true"] {
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-spark-alert) 35%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-spark-paint) 35%, transparent);
 }
 
 /* ============================================
    BUTTON STYLES
    ============================================ */
 
-/* Primary: outline style (dark text; border/background pick up blue on hover) */
+/* Primary: solid prairie-green fill with warm-bone text (the main-accent CTA) */
 .btn-primary {
-  border-width: 2px;
-  border-color: var(--color-spark-bone);
+  border: 2px solid var(--color-spark-green);
   color: var(--color-spark-bone);
-  background-color: transparent;
+  background-color: var(--color-spark-green);
   padding: 0.75rem 2rem;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -979,9 +832,9 @@ textarea.form-input:user-invalid + .form-error {
 
 .btn-primary:hover,
 .btn-primary:focus-visible {
-  border-color: var(--color-spark-star);
-  color: var(--color-spark-earth);
-  background-color: color-mix(in srgb, var(--color-spark-star) 18%, transparent);
+  border-color: color-mix(in srgb, var(--color-spark-green) 78%, black);
+  color: var(--color-spark-bone);
+  background-color: color-mix(in srgb, var(--color-spark-green) 88%, black);
 }
 
 .btn-primary:focus-visible {
@@ -989,11 +842,12 @@ textarea.form-input:user-invalid + .form-error {
   outline-offset: var(--focus-ring-offset);
 }
 
-/* Secondary: purple fill */
+/* Secondary: weathered-brass outline with charcoal text (charcoal-on-brass fill
+   lands at ~4.47:1, just under AA — an outline keeps text on bone at ~12:1) */
 .btn-secondary {
-  border: none;
-  background-color: var(--color-spark-purple);
-  color: var(--color-spark-bone);
+  border: 2px solid var(--color-spark-brass);
+  background-color: transparent;
+  color: var(--color-spark-ink);
   padding: 0.75rem 2rem;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -1001,12 +855,15 @@ textarea.form-input:user-invalid + .form-error {
   text-decoration: none;
 }
 
-.btn-secondary:hover,
+.btn-secondary:hover {
+  background-color: color-mix(in srgb, var(--color-spark-brass) 16%, transparent);
+  border-color: color-mix(in srgb, var(--color-spark-brass) 82%, black);
+  color: var(--color-spark-ink);
+}
+
 .btn-secondary:focus-visible {
-  background-color: color-mix(in srgb, var(--color-spark-purple) 78%, var(--color-spark-bg));
-  color: var(--color-spark-bone);
-  outline: 2px solid color-mix(in srgb, var(--color-spark-gold) 55%, transparent);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* Streamlined toolkit button variant */
@@ -1014,9 +871,9 @@ textarea.form-input:user-invalid + .form-error {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  border: 1px solid color-mix(in srgb, var(--color-spark-gold) 45%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-spark-green) 45%, transparent);
   background-color: transparent;
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
   padding: 0.55rem 1rem;
   border-radius: 9999px;
   font-weight: 600;
@@ -1033,8 +890,8 @@ textarea.form-input:user-invalid + .form-error {
 
 .btn-toolkit:hover,
 .btn-toolkit:focus-visible {
-  border-color: var(--color-spark-gold);
-  background-color: color-mix(in srgb, var(--color-spark-gold) 22%, var(--color-spark-bg));
+  border-color: var(--color-spark-green);
+  background-color: color-mix(in srgb, var(--color-spark-green) 22%, var(--color-spark-bone));
   transform: translateY(-1px);
   outline: none;
 }
@@ -1082,7 +939,7 @@ textarea.form-input:user-invalid + .form-error {
   left: 50%;
   translate: -50% 0;
   width: 0;
-  border-left: 2px dotted color-mix(in srgb, var(--color-spark-gold) 32%, transparent);
+  border-left: 2px dotted color-mix(in srgb, var(--color-spark-green) 32%, transparent);
   pointer-events: none;
 }
 
@@ -1146,9 +1003,9 @@ textarea.form-input:user-invalid + .form-error {
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 9999px;
-  background-color: color-mix(in srgb, var(--color-spark-bone) 88%, var(--color-spark-bg));
-  border: 2px solid color-mix(in srgb, var(--color-spark-gold) 45%, transparent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-spark-gold) 12%, transparent);
+  background-color: color-mix(in srgb, var(--color-spark-ink) 88%, var(--color-spark-bone));
+  border: 2px solid color-mix(in srgb, var(--color-spark-green) 45%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-spark-green) 12%, transparent);
 }
 
 .grow-timeline-connector {
@@ -1158,7 +1015,7 @@ textarea.form-input:user-invalid + .form-error {
   translate: 0 -50%;
   width: calc(50% - 0.375rem);
   height: 0;
-  border-top: 2px dotted color-mix(in srgb, var(--color-spark-gold) 32%, transparent);
+  border-top: 2px dotted color-mix(in srgb, var(--color-spark-green) 32%, transparent);
   pointer-events: none;
 }
 
@@ -1185,13 +1042,13 @@ textarea.form-input:user-invalid + .form-error {
 .pal-hero-highlight {
   display: block;
   margin-top: 0.35em;
-  color: var(--color-spark-gold);
+  color: var(--color-spark-green);
 }
 
 .pal-hero-subtitle {
   max-width: 42rem;
   margin: 0 auto;
-  color: color-mix(in srgb, var(--color-spark-bone) 72%, var(--color-spark-bg));
+  color: color-mix(in srgb, var(--color-spark-ink) 72%, var(--color-spark-bone));
 }
 
 .scroll-reveal {
@@ -1230,7 +1087,7 @@ textarea.form-input:user-invalid + .form-error {
 }
 
 .resource-gate-dialog::backdrop {
-  background: color-mix(in srgb, var(--color-spark-bg) 72%, transparent);
+  background: color-mix(in srgb, var(--color-spark-bone) 72%, transparent);
 }
 
 /* ============================================
@@ -1263,7 +1120,7 @@ textarea.form-input:user-invalid + .form-error {
 
 .cms-prose h4 {
   font-family: var(--font-body);
-  color: var(--color-spark-earth);
+  color: var(--color-spark-ink);
   font-size: 1.125rem; /* matches .heading-sm */
   font-weight: 600;
   line-height: 1.4;
@@ -1275,7 +1132,7 @@ textarea.form-input:user-invalid + .form-error {
 .cms-prose li {
   font-size: 1.25rem; /* matches .body-md */
   line-height: 1.6;
-  color: var(--color-spark-bone);
+  color: var(--color-spark-ink);
 }
 
 .cms-prose ul,
@@ -1296,7 +1153,7 @@ textarea.form-input:user-invalid + .form-error {
 }
 
 .cms-prose a {
-  color: var(--color-link-on-void);
+  color: var(--color-link);
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: opacity 0.2s;
@@ -1314,7 +1171,7 @@ textarea.form-input:user-invalid + .form-error {
 
 .cms-prose strong {
   font-weight: 700;
-  color: var(--color-spark-earth);
+  color: var(--color-spark-ink);
 }
 
 .cms-prose em {
@@ -1325,14 +1182,14 @@ textarea.form-input:user-invalid + .form-error {
   font-size: 1.25rem;
   line-height: 1.6;
   font-style: italic;
-  color: var(--color-spark-bone);
-  border-left: 4px solid var(--color-spark-gold);
+  color: var(--color-spark-ink);
+  border-left: 4px solid var(--color-spark-green);
   padding-left: 1.5rem;
 }
 
 .cms-prose hr {
   border: 0;
-  border-top: 1px solid color-mix(in srgb, var(--color-spark-gold) 32%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--color-spark-green) 32%, transparent);
   margin: 2.5rem 0;
 }
 
@@ -1346,6 +1203,6 @@ textarea.form-input:user-invalid + .form-error {
   margin-top: 0.5rem;
   font-size: 0.875rem;
   font-style: italic;
-  color: color-mix(in srgb, var(--color-spark-earth) 72%, var(--color-spark-void));
+  color: color-mix(in srgb, var(--color-spark-ink) 72%, var(--color-spark-bone));
 }
 

@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-2 text-center">
           <p className="footer-heading m-0 text-xl font-bold">
             TX*SPARK{' '}
-            <span className="font-normal text-spark-bone">/</span>{' '}
+            <span className="font-normal text-spark-ink">/</span>{' '}
             <span className="font-normal italic">Grassroots Tech for Texans</span>
           </p>
 
@@ -19,25 +19,25 @@ export default function Footer() {
             <Link href="/about/privacy" className="footer-link whitespace-nowrap">
               Privacy Policy
             </Link>
-            <span className="text-spark-red/40" aria-hidden>
+            <span className="text-spark-paint/40" aria-hidden>
               ·
             </span>
             <Link href="/about/terms" className="footer-link whitespace-nowrap">
               Terms of Use
             </Link>
-            <span className="text-spark-red/40" aria-hidden>
+            <span className="text-spark-paint/40" aria-hidden>
               ·
             </span>
             <a href="mailto:info@txspark.com" className="footer-link whitespace-nowrap">
               info@txspark.com
             </a>
-            <span className="text-spark-red/40" aria-hidden>
+            <span className="text-spark-paint/40" aria-hidden>
               ·
             </span>
             <span className="whitespace-nowrap">Austin, TX, US</span>
           </nav>
 
-          <div className="m-0 w-full border-t border-spark-purple/20 pt-0 text-center footer-text">
+          <div className="m-0 w-full border-t border-spark-brass/20 pt-0 text-center footer-text">
             © 2026 <BrandName /> PAC. Powered by{' '}
             <a
               href="https://www.b-59.com"

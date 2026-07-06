@@ -7,7 +7,6 @@ import {
   type HeaderNavItem,
   type NavMegaSection,
 } from '@/components/nav-config';
-import ThemeToggle from '@/components/ThemeToggle';
 
 export type { HeaderNavItem, NavMegaSection };
 
@@ -29,7 +28,7 @@ function ChevronDown({ className }: { className?: string }) {
 }
 
 function navDropdownSummaryClassName() {
-  return 'mt-0.5 block text-[0.8125rem] leading-snug font-normal italic text-spark-bone/75';
+  return 'mt-0.5 block text-[0.8125rem] leading-snug font-normal italic text-spark-ink/75';
 }
 
 function NavDropdown({
@@ -75,7 +74,7 @@ function NavDropdown({
               return (
                 <div
                   key={item.href}
-                  className="border-b border-spark-bone/10 pb-2 mb-2 flex flex-row items-start gap-1 last:mb-0 last:border-b-0 last:pb-0 sm:gap-2"
+                  className="border-b border-spark-ink/10 pb-2 mb-2 flex flex-row items-start gap-1 last:mb-0 last:border-b-0 last:pb-0 sm:gap-2"
                 >
                   <div className="shrink-0 w-[min(11rem,32vw)] px-3 py-2 sm:w-[11.5rem] md:w-[12.25rem] sm:px-4">
                     <Link href={item.href} className="nav-dropdown-link block rounded-md py-1" role="menuitem">
@@ -84,7 +83,7 @@ function NavDropdown({
                     </Link>
                   </div>
                   <ul
-                    className="min-w-0 flex-1 space-y-0.5 border-l border-spark-bone/10 py-2 pl-3 pr-3 sm:pl-4"
+                    className="min-w-0 flex-1 space-y-0.5 border-l border-spark-ink/10 py-2 pl-3 pr-3 sm:pl-4"
                     role="none"
                   >
                     {item.children.map((child) => (
@@ -108,7 +107,7 @@ function NavDropdown({
             return (
               <div
                 key={item.href}
-                className="border-b border-spark-bone/10 pb-2 mb-2 flex flex-row items-start gap-1 last:mb-0 last:border-b-0 last:pb-0 sm:gap-2"
+                className="border-b border-spark-ink/10 pb-2 mb-2 flex flex-row items-start gap-1 last:mb-0 last:border-b-0 last:pb-0 sm:gap-2"
               >
                 <div className="shrink-0 w-[min(11rem,32vw)] px-3 py-2 sm:w-[11.5rem] md:w-[12.25rem] sm:px-4">
                   <Link href={item.href} className="nav-dropdown-link block rounded-md py-1" role="menuitem">
@@ -117,7 +116,7 @@ function NavDropdown({
                   </Link>
                 </div>
                 <div
-                  className="min-w-0 flex-1 border-l border-spark-bone/10 py-2 pl-3 pr-3 sm:pl-4"
+                  className="min-w-0 flex-1 border-l border-spark-ink/10 py-2 pl-3 pr-3 sm:pl-4"
                   aria-hidden
                 />
               </div>
@@ -133,7 +132,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
 
-  const navTone = 'header-nav header-nav--photo-slice';
+  const navTone = 'header-nav';
 
   const closeMobile = () => {
     setMobileMenuOpen(false);
@@ -143,7 +142,6 @@ export default function Header() {
   return (
     <header className="fixed top-4 inset-x-0 z-50 mx-auto w-[95%] max-w-7xl">
       <nav className={navTone}>
-        <div className="header-nav-photo-layer" aria-hidden />
         <div className="header-nav-frost">
           <div className="relative z-10 px-4 sm:px-6 lg:px-8">
             <div className="flex items-center h-[4.8rem] min-w-0 gap-5 lg:gap-7">
@@ -165,8 +163,6 @@ export default function Header() {
               </div>
 
               <div className="flex-1 min-w-0" aria-hidden />
-
-              <ThemeToggle />
 
               {/* Login Link */}
               <Link
@@ -199,14 +195,14 @@ export default function Header() {
 
             {/* Mobile Navigation */}
             {mobileMenuOpen && (
-              <div className="relative z-10 md:hidden py-4 space-y-1 border-t border-spark-purple/20 mt-2">
-                <div className="flex items-stretch gap-0 rounded-lg border border-spark-purple/15 overflow-hidden">
+              <div className="relative z-10 md:hidden py-4 space-y-1 border-t border-spark-brass/20 mt-2">
+                <div className="flex items-stretch gap-0 rounded-lg border border-spark-brass/15 overflow-hidden">
                   <Link href="/about" className="nav-mobile-link flex-1 rounded-none" onClick={closeMobile}>
                     About
                   </Link>
                   <button
                     type="button"
-                    className="mobile-menu-btn shrink-0 px-3 border-l border-spark-purple/15"
+                    className="mobile-menu-btn shrink-0 px-3 border-l border-spark-brass/15"
                     aria-expanded={mobileAboutOpen}
                     aria-label={mobileAboutOpen ? 'Collapse About sections' : 'Expand About sections'}
                     onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
@@ -217,7 +213,7 @@ export default function Header() {
                   </button>
                 </div>
                 {mobileAboutOpen && (
-                  <div className="pl-4 ml-2 border-l border-spark-purple/20 space-y-0.5 pb-1">
+                  <div className="pl-4 ml-2 border-l border-spark-brass/20 space-y-0.5 pb-1">
                     {ABOUT_NAV_SECTIONS.map((item) => (
                       <Link
                         key={item.href}

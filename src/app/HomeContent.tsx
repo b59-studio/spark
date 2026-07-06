@@ -6,6 +6,7 @@ import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import { useEffect, useId, useState } from "react";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import BrandName, { renderBrand } from "@/components/BrandName";
+import QuiltDivider from "@/components/QuiltDivider";
 import { siteImages } from "@/lib/site-visuals";
 
 const HOME_VALUE_TABS = [
@@ -13,11 +14,11 @@ const HOME_VALUE_TABS = [
     id: "build-community",
     title: "Build Community",
     summary:
-      "Shared infrastructure and customizable tools meet campaign and legislative rhythms so coalitions coordinate faster and local leadership can grow for the long haul. We don't reinvent the wheel every cycle. We preserve institutional knowledge and pass the torch without losing momentum.",
+      "You shouldn't have to build everything from scratch every election. We keep the shared tools and hard-won know-how in one place, so the next campaign picks up where the last one left off — and the people who show up cycle after cycle finally get some backup. We're here to support the folks already doing the work, not to replace them.",
     features: [
-      "Shared infrastructure and tools built to outlast individual campaign cycles",
-      "Aligned to campaign and legislative rhythms",
-      "Support-first community model. We supplement partners, never supplant them",
+      "Tools and know-how that don't get tossed when the campaign ends",
+      "Built around how organizing actually runs — election season and the long stretch between",
+      "We back up local partners. We don't take over.",
     ],
     cta: { href: "/about/partners", label: "Partner with TX*SPARK" },
   },
@@ -25,11 +26,11 @@ const HOME_VALUE_TABS = [
     id: "take-action",
     title: "Take Action",
     summary:
-      "Guided toolkits and plain-language civic guides help you start confidently, grow relationships, recruit volunteers, and move neighbors without drowning in jargon. Understand your district without a political science degree. Clear paths, real tools, no inside baseball required.",
+      "Not sure where to start? Our toolkits walk you through it — meeting your neighbors, signing up volunteers, getting people to the polls — one clear step at a time, minus the jargon. You don't need a political science degree to understand your own district.",
     features: [
-      "Clear paths for newcomers and experienced organizers alike",
-      "Guided organizing toolkits aligned to electoral calendars",
-      "Plain-language civic resources that translate analytics into action",
+      "A clear first step, whether it's your first door or your thousandth",
+      "Guided toolkits that follow the real rhythm of an election year",
+      "Plain-language guides that turn data into something you can actually use",
     ],
     cta: { href: "/toolkits", label: "Explore Free Tools" },
   },
@@ -37,21 +38,21 @@ const HOME_VALUE_TABS = [
     id: "track-movements",
     title: "Track Movements",
     summary:
-      "Tracking the legislation that affects your community is part of the same year-round cycle. Plain-language bill summaries and movement tracking let you spot what's changing and compare versions without living inside raw government portals. Public information should actually be public. Data people can actually use, kept current so your Capitol and field views never drift apart.",
+      "Keeping tabs on the bills that hit your community shouldn't mean living inside a government website. We put the legislation in plain English, show you what's actually moving, and keep it current — so what you hear at the Capitol and what you see on the ground don't drift apart. Public information should actually be public.",
     features: [
-      "Plain-language tracking of the bills that affect your community, updated daily",
-      "Readable bill movement tracking. No inside baseball required",
-      "Regularly updated legislative data you can trust in the field",
+      "Plain-language summaries of the bills that affect your community, updated daily",
+      "See what's really moving — no inside baseball required",
+      "Legislative data kept current enough to trust when you're knocking doors",
     ],
     cta: { href: "/toolkits", label: "Explore Toolkits" },
-    secondaryCta: { href: "/about/data", label: "How we keep data reliable" },
+    secondaryCta: { href: "/about/data", label: "How we keep the data honest" },
   },
 ] as const;
 
 function TabIconBubble() {
   return (
     <span
-      className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--color-spark-gold)_42%,transparent)] shadow-[inset_0_0_0_2px_color-mix(in_srgb,var(--color-spark-gold)_70%,transparent),0_0_0_1px_color-mix(in_srgb,var(--color-spark-gold)_25%,transparent)] sm:size-9 md:size-10"
+      className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--color-spark-green)_42%,transparent)] shadow-[inset_0_0_0_2px_color-mix(in_srgb,var(--color-spark-green)_70%,transparent),0_0_0_1px_color-mix(in_srgb,var(--color-spark-green)_25%,transparent)] sm:size-9 md:size-10"
       aria-hidden
     >
       <Image
@@ -115,16 +116,16 @@ function HomeValueTabs() {
               }}
               className={[
                 "flex min-h-[3.25rem] min-w-0 items-center gap-2.5 rounded-2xl border py-2.5 text-left transition-[background-color,border-color,box-shadow] duration-200 sm:gap-3 sm:py-3",
-                "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold",
+                "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-green",
                 selected
-                  ? "min-w-0 flex-1 border-[color-mix(in_srgb,var(--color-spark-gold)_55%,transparent)] bg-[color-mix(in_srgb,var(--color-spark-gold)_14%,var(--color-spark-bg))] px-3 shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--color-spark-gold)_35%,transparent)] sm:px-4 md:flex-1"
-                  : "shrink-0 justify-center border-[color-mix(in_srgb,var(--color-spark-purple)_40%,transparent)] bg-[color-mix(in_srgb,var(--color-spark-purple)_10%,var(--color-spark-bg))] px-2.5 hover:border-[color-mix(in_srgb,var(--color-spark-gold)_38%,transparent)] md:flex-1 md:justify-start md:px-4",
+                  ? "min-w-0 flex-1 border-[color-mix(in_srgb,var(--color-spark-green)_55%,transparent)] bg-[color-mix(in_srgb,var(--color-spark-green)_14%,var(--color-spark-bone))] px-3 shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--color-spark-green)_35%,transparent)] sm:px-4 md:flex-1"
+                  : "shrink-0 justify-center border-[color-mix(in_srgb,var(--color-spark-brass)_40%,transparent)] bg-[color-mix(in_srgb,var(--color-spark-brass)_10%,var(--color-spark-bone))] px-2.5 hover:border-[color-mix(in_srgb,var(--color-spark-green)_38%,transparent)] md:flex-1 md:justify-start md:px-4",
               ].join(" ")}
             >
               <TabIconBubble />
               <span
                 className={[
-                  "body-md min-w-0 font-semibold leading-snug text-spark-bone sm:text-[1.05rem]",
+                  "body-md min-w-0 font-semibold leading-snug text-spark-ink sm:text-[1.05rem]",
                   selected
                     ? "flex-1"
                     : "max-md:sr-only md:flex-1 md:min-w-0",
@@ -155,7 +156,7 @@ function HomeValueTabs() {
                 <div className="min-w-0 flex-1">
                   <h2 className="heading-lg mb-4 text-balance">{tab.title}</h2>
                   <p className="body-md mb-5 text-pretty">{tab.summary}</p>
-                  <h3 className="heading-md mb-3 text-spark-gold">
+                  <h3 className="heading-md mb-3 text-spark-green">
                     Highlights
                   </h3>
                   <ul className="body-md list-disc space-y-2 pl-5 sm:pl-6">
@@ -230,16 +231,18 @@ export default function HomeContent() {
         <HomeValueTabs />
       </section>
 
-      <section className="mt-14 scroll-reveal" data-reveal>
+      <QuiltDivider className="mt-16" />
+
+      <section className="mt-12 scroll-reveal" data-reveal>
         <h2 className="heading-lg mb-3 text-center">Stay in the loop</h2>
         <p className="body-md mx-auto max-w-4xl text-left">
-          Subscribe for occasional emails from <BrandName />: new organizing toolkits, advocacy signals worth watching, and ways to show up locally. Rugged, practical updates from the people keeping the lights on after everyone else leaves. No clutter. Unsubscribe anytime.
+          Every so often, <BrandName /> will drop you an email: new toolkits, legislation worth watching, and real ways to show up where you live. No clutter, no consultant-speak — just the people keeping the lights on after everyone else heads home. Unsubscribe anytime.
         </p>
         <NewsletterSignup
           variant="panel"
           className="mt-6 max-w-4xl"
           signupSource="home"
-          description="We’ll send toolkit releases, legislative tracking updates, and event news as they go live. Plain language, no consultant-speak."
+          description="Toolkit releases, bill-tracking updates, and event news as they happen. Plain language, no consultant-speak."
         />
       </section>
     </div>

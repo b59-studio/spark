@@ -19,7 +19,7 @@ export default function ProductCard({ product }: { product: WooCommerceProduct }
       href={`/shop/${product.slug}`}
       className="spark-panel spark-framed group flex flex-col overflow-hidden rounded-2xl transition-transform duration-150 hover:-translate-y-1 focus-visible:-translate-y-1"
     >
-      <div className="aspect-square w-full overflow-hidden bg-spark-purple/20">
+      <div className="aspect-square w-full overflow-hidden bg-spark-brass/20">
         {image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img

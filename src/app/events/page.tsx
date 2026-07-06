@@ -74,7 +74,7 @@ function EventsFallback() {
               Stay up to date with upcoming <BrandName /> meet-ups, canvasses, and workshops. You can view events here and add them to your personal calendar.
             </p>
             {hasEmbedCalendar ? (
-              <div className="overflow-hidden rounded-xl border border-spark-gold/30 bg-[color-mix(in_srgb,var(--color-spark-bone)_6%,var(--color-spark-bg))] mb-5">
+              <div className="overflow-hidden rounded-xl border border-spark-green/30 bg-[color-mix(in_srgb,var(--color-spark-ink)_6%,var(--color-spark-bone))] mb-5">
                 <iframe
                   title="TX*SPARK organization calendar"
                   src={ORG_CALENDAR_EMBED_URL}
@@ -88,13 +88,13 @@ function EventsFallback() {
                 <summary className="btn-primary inline-flex cursor-pointer list-none items-center gap-2 [&::-webkit-details-marker]:hidden">
                   Add to calendar
                 </summary>
-                <div className="absolute left-0 z-10 mt-2 min-w-64 rounded-xl border border-spark-gold/30 bg-[var(--color-spark-bg)] p-2 shadow-lg">
+                <div className="absolute left-0 z-10 mt-2 min-w-64 rounded-xl border border-spark-green/30 bg-[var(--color-spark-bone)] p-2 shadow-lg">
                   {hasAddCalendarLink ? (
                     <a
                       href={ORG_CALENDAR_ADD_URL}
                       target="_blank"
                       rel="noreferrer"
-                      className="block rounded-lg px-3 py-2 body-sm hover:bg-[color-mix(in_srgb,var(--color-spark-bone)_10%,var(--color-spark-bg))]"
+                      className="block rounded-lg px-3 py-2 body-sm hover:bg-[color-mix(in_srgb,var(--color-spark-ink)_10%,var(--color-spark-bone))]"
                     >
                       Google Calendar
                     </a>
@@ -104,7 +104,7 @@ function EventsFallback() {
                       href={ORG_CALENDAR_ICAL_URL}
                       target="_blank"
                       rel="noreferrer"
-                      className="block rounded-lg px-3 py-2 body-sm hover:bg-[color-mix(in_srgb,var(--color-spark-bone)_10%,var(--color-spark-bg))]"
+                      className="block rounded-lg px-3 py-2 body-sm hover:bg-[color-mix(in_srgb,var(--color-spark-ink)_10%,var(--color-spark-bone))]"
                     >
                       iCal (.ics) for Apple/Outlook
                     </a>

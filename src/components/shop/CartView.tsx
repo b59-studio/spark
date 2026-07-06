@@ -83,7 +83,7 @@ export default function CartView({
               </dd>
             </div>
           ) : null}
-          <div className="flex items-center justify-between border-t border-spark-gold/30 pt-2">
+          <div className="flex items-center justify-between border-t border-spark-green/30 pt-2">
             <dt className="heading-sm">Total</dt>
             <dd className="heading-sm">
               {formatMinorUnits(cart.totals.total_price, minorUnit, currency)}
@@ -132,7 +132,7 @@ function CartLine({
           loading="lazy"
         />
       ) : (
-        <div className="h-16 w-16 shrink-0 rounded-lg bg-spark-purple/30" aria-hidden />
+        <div className="h-16 w-16 shrink-0 rounded-lg bg-spark-brass/30" aria-hidden />
       )}
 
       <div className="min-w-0 flex-1">

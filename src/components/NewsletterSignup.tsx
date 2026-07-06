@@ -76,7 +76,7 @@ export default function NewsletterSignup({
       <p
         className={[
           isCompact ? "body-sm" : "body-md",
-          "text-spark-gold",
+          "text-spark-green",
           className,
         ]
           .filter(Boolean)
@@ -126,7 +126,7 @@ export default function NewsletterSignup({
           }}
         />
         {error ? (
-          <p id={emailErrorId} className="body-sm text-spark-red" role="alert">
+          <p id={emailErrorId} className="body-sm text-spark-paint" role="alert">
             {error}
           </p>
         ) : null}
