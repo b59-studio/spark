@@ -89,12 +89,12 @@ const StripePaymentSection = forwardRef<StripePaymentHandle, object>(
           // Match the form-input palette so the card field looks native.
           style: {
             base: {
-              color: "#f4dcb6",
+              color: "#2c2a27",
               fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
               fontSize: "16px",
-              "::placeholder": { color: "#a68f6a" },
+              "::placeholder": { color: "#8a7f6d" },
             },
-            invalid: { color: "#f4541f" },
+            invalid: { color: "#c85b42" },
           },
         });
         card.on("change", (event: unknown) => {
@@ -168,12 +168,12 @@ const StripePaymentSection = forwardRef<StripePaymentHandle, object>(
           className="form-input flex min-h-[2.75rem] items-center"
         />
         {loadError ? (
-          <p className="body-sm text-spark-red mt-2" role="alert">
+          <p className="body-sm text-spark-paint mt-2" role="alert">
             {loadError}
           </p>
         ) : null}
         {cardError ? (
-          <p className="body-sm text-spark-red mt-2" role="alert">
+          <p className="body-sm text-spark-paint mt-2" role="alert">
             {cardError}
           </p>
         ) : null}
