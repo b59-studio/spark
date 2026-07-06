@@ -1,0 +1,30 @@
+# Generic Gitleaks config for b-59 / the-department repos.
+# Extends the full default ruleset and adds a NARROW allowlist for the
+# false-positive classes confirmed during the 2026-07-05 secret audit.
+# Keep additions tight — a broad allowlist defeats the point of scanning.
+
+title = "b59-secret-scan"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Confirmed false-positive classes from the 2026-07-05 audit."
+
+# Paths that legitimately contain non-secret or generated key-like strings.
+paths = [
+  '''(^|/)\.next/''',              # Next.js build artifacts (regenerated preview-mode keys)
+  '''(^|/)evals/cases/''',         # agent eval fixtures deliberately contain fake secrets
+  '''.*\.test\.(ts|tsx|js|py)$''', # test fixtures / mock keys
+  '''(^|/)docs/''',                # documentation examples (curl -H "Authorization: ...")
+]
+
+regexes = [
+  # Firebase *web* config apiKeys are public client identifiers, not secrets.
+  '''AIza[0-9A-Za-z_\-]{35}''',
+  # Election-key literals like '2024-primary-regular' (property named `key`).
+  '''\b(19|20)\d{2}-(primary|general|local|special|amendment|runoff)-(regular|runoff|presidential|midterm)\b''',
+]
+
+# NOTE: allowlisting is for confirmed FPs only. Do NOT add a rule here to
+# silence a real committed secret — rotate it and purge history instead.

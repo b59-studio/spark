@@ -1,0 +1,30 @@
+name: Security Scanning
+
+# Framework-agnostic secret scan. Drop-in for any repo (Node, Python, static).
+# Scans full history on push/PR to main and on a weekly schedule.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 7 * * 1" # Mondays 07:00 UTC — full-history baseline sweep
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    name: Gitleaks (secret scanning)
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # full history so the scan sees every commit
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
