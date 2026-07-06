@@ -1,11 +1,11 @@
 # TX\*SPARK — design system
 
 > **Shared design language** for the TX\*SPARK repos (`spark`, `spark-admin`, `seamus-core`).
-> Source of truth lives in the-department at `design-systems/txspark/`; it is synced into each
-> member repo's `docs/design/design-system.md` (see `design-systems/README.md` for the tier).
-> This is **not** a universal standard — it applies only to the repos in
-> `design-systems/txspark/targets.conf`. Read it before building or editing any UI in a member
-> repo. Pairs with `standards/25-product-taste.md` (generic, project-neutral design philosophy)
+> This file is synced from a shared upstream source of truth into each member repo's
+> `docs/design/design-system.md` — treat this copy as read-only and make changes upstream so
+> all member repos stay identical. This is **not** a universal standard — it applies only to
+> the TX\*SPARK member repos. Read it before building or editing any UI in a member repo.
+> Pairs with `standards/25-product-taste.md` (generic, project-neutral design philosophy)
 > and `docs/txspark-brand-tokens.md` (brand context).
 
 ---
