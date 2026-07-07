@@ -25,6 +25,8 @@ where applicable.
 
 ### Changed
 
+- Site favicon: refreshed spark mark now sits on the warm-bone (`#f6f0e7`)
+  ground instead of a transparent background.
 - Analytics and core user linking use single `DATABASE_URL` (replaces
   `ANALYTICS_DATABASE_URL` and `CORE_DATABASE_URL`).
 - MailPoet subscribe captures `mailpoet_subscriber_id` on analytics signup events.
