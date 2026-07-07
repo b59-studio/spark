@@ -1,0 +1,50 @@
+name: Mirror to tx-spark
+
+# Keeps tx-spark/spark-website an exact reflection of this repo (the primary).
+# Branches and tags are force-synced with --prune, so deletions here propagate
+# there. The mirror is read-only downstream — never push to it directly; any
+# ref it holds that is absent here will be pruned on the next run.
+#
+# Auth: pushes over SSH using a write-enabled deploy key stored on the mirror
+# repo, whose private half lives in the MIRROR_DEPLOY_KEY secret on this repo.
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["**"]
+  delete: # propagate branch/tag deletions to the mirror via --prune
+  workflow_dispatch: # allow a manual re-sync from the Actions tab
+
+# Serialize runs so two pushes can't race on the mirror's refs.
+concurrency:
+  group: mirror-to-txspark
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    name: Push branches + tags to mirror
+    steps:
+      - name: Configure deploy key
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.MIRROR_DEPLOY_KEY }}" > ~/.ssh/mirror_key
+          chmod 600 ~/.ssh/mirror_key
+          ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Mirror push (heads + tags, pruned)
+        env:
+          GIT_SSH_COMMAND: "ssh -i ~/.ssh/mirror_key -o IdentitiesOnly=yes"
+        run: |
+          # Bare clone brings refs/heads/* and tags but NOT refs/pull/* — the
+          # hidden PR refs that GitHub rejects and that --mirror would choke on.
+          git clone --bare \
+            "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" \
+            repo.git
+          cd repo.git
+          git push --prune git@github.com:tx-spark/spark-website.git \
+            "+refs/heads/*:refs/heads/*" \
+            "+refs/tags/*:refs/tags/*"
