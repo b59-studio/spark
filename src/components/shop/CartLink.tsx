@@ -21,7 +21,7 @@ export default function CartLink({ className = "" }: { className?: string }) {
       <span>Cart</span>
       {showBadge ? (
         <span
-          className="inline-flex min-w-5 items-center justify-center rounded-full bg-spark-green px-1.5 text-xs font-bold text-spark-bone"
+          className="inline-flex min-w-5 items-center justify-center rounded-full bg-spark-gold px-1.5 text-xs font-bold text-spark-void"
           aria-label={`${itemCount} item${itemCount === 1 ? "" : "s"} in cart`}
         >
           {itemCount}

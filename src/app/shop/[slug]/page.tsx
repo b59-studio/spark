@@ -61,7 +61,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       </Link>
 
       <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
-        <div className="overflow-hidden rounded-2xl bg-spark-brass/20">
+        <div className="overflow-hidden rounded-2xl bg-spark-purple/20">
           {image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img

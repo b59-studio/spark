@@ -14,6 +14,12 @@ type CmsPageProps = {
   fallback: ReactNode;
   /** Page shell width; defaults to the standard `spark-page`. */
   shell?: PageShell;
+  /**
+   * In-code content rendered between the page title and the CMS body — for a
+   * route that needs an interactive block the editors can't author in WP.
+   * The `fallback` owns its own copy, since it renders instead of this shell.
+   */
+  afterTitle?: ReactNode;
 };
 
 /**
@@ -31,6 +37,7 @@ export default async function CmsPage({
   slug,
   fallback,
   shell = "spark-page",
+  afterTitle,
 }: CmsPageProps) {
   const config = getWordPressConfig();
   if (!config) return <>{fallback}</>;
@@ -54,6 +61,7 @@ export default async function CmsPage({
         className="heading-xl mb-6"
         dangerouslySetInnerHTML={{ __html: page.title.rendered }}
       />
+      {afterTitle}
       <div
         className="cms-prose"
         dangerouslySetInnerHTML={{ __html: page.content.rendered }}

@@ -25,8 +25,15 @@ where applicable.
 
 ### Changed
 
-- Site favicon: refreshed spark mark now sits on the warm-bone (`#f6f0e7`)
-  ground instead of a transparent background.
+- Reverted the v3 heritage-quilt repaint: the site is back on the dark cosmic
+  palette (`spark-void` ground, `spark-star` gold accents) with the light theme
+  available via the header toggle. Restores the cosmic-era wordmark and spark
+  artwork; removes the quilt-band divider and the bone-ground favicon.
+- Toolkits: the six-step organizing cycle is shown again as a scroll-snap
+  carousel with dot navigation, sitting directly under the `/toolkits` title and
+  above the prose. The CMS copy is unchanged and still editable in WordPress.
+- `CmsPage` takes an optional `afterTitle` slot, for a route that needs an
+  in-code block between the CMS page title and the CMS body.
 - Analytics and core user linking use single `DATABASE_URL` (replaces
   `ANALYTICS_DATABASE_URL` and `CORE_DATABASE_URL`).
 - MailPoet subscribe captures `mailpoet_subscriber_id` on analytics signup events.

@@ -11,7 +11,7 @@ import CartLink from "@/components/shop/CartLink";
 export default function ShopLayout({ children }: { children: ReactNode }) {
   return (
     <CartProvider>
-      <div className="border-b border-spark-green/20">
+      <div className="border-b border-spark-gold/20">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <Link href="/shop" className="nav-link font-semibold">
             Shop

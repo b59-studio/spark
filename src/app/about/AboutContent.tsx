@@ -107,19 +107,19 @@ function AboutPillarCards() {
                 className={[
                   "spark-panel relative w-full rounded-xl border p-4 text-left transition-[background-color,box-shadow,border-color] duration-200",
                   "border-[color-mix(in_srgb,var(--color-spark-sky)_42%,transparent)]",
-                  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-green",
+                  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold",
                   isOpen
-                    ? "border-[color-mix(in_srgb,var(--color-spark-sky)_72%,transparent)] bg-[color-mix(in_srgb,var(--color-spark-green)_8%,var(--color-spark-bone))] shadow-[0_8px_28px_color-mix(in_srgb,var(--color-spark-brass)_18%,transparent)]"
+                    ? "border-[color-mix(in_srgb,var(--color-spark-sky)_72%,transparent)] bg-[color-mix(in_srgb,var(--color-spark-gold)_8%,var(--color-spark-bg))] shadow-[0_8px_28px_color-mix(in_srgb,var(--color-spark-purple)_18%,transparent)]"
                     : "hover:border-[color-mix(in_srgb,var(--color-spark-sky)_58%,transparent)] hover:brightness-[0.97]",
                 ].join(" ")}
               >
                 <span className="flex items-center justify-between gap-2">
-                  <span className="text-3xl font-bold text-spark-ink">
+                  <span className="text-3xl font-bold text-spark-bone">
                     {pillar.title}
                   </span>
                   <span
                     className={[
-                      "body-sm shrink-0 text-spark-green transition-transform duration-300 ease-out",
+                      "body-sm shrink-0 text-spark-gold transition-transform duration-300 ease-out",
                       isOpen ? "rotate-180" : "",
                     ].join(" ")}
                     aria-hidden
@@ -140,7 +140,7 @@ function AboutPillarCards() {
                     : "invisible -translate-y-1 opacity-0 pointer-events-none",
                 ].join(" ")}
               >
-                <div className="spark-panel rounded-xl border border-[color-mix(in_srgb,var(--color-spark-sky)_55%,transparent)] p-4 shadow-[0_12px_40px_color-mix(in_srgb,var(--color-spark-brass)_28%,transparent)]">
+                <div className="spark-panel rounded-xl border border-[color-mix(in_srgb,var(--color-spark-sky)_55%,transparent)] p-4 shadow-[0_12px_40px_color-mix(in_srgb,var(--color-spark-purple)_28%,transparent)]">
                   <p className="body-md">{renderBrand(pillar.detail)}</p>
                 </div>
               </div>
@@ -206,7 +206,7 @@ export default function AboutContent() {
             {ABOUT_SECTIONS.map((item) => (
               <li key={item.href}>
                 <div className="spark-framed spark-panel rounded-2xl p-6 sm:p-8 transition hover:-translate-y-0.5 hover:brightness-[0.97]">
-                  <span className="heading-md text-spark-ink">{item.title}</span>
+                  <span className="heading-md text-spark-bone">{item.title}</span>
                   <p className="body-md mt-3">{item.summary}</p>
                   <Link
                     href={item.href}

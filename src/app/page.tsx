@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     absolute: "TX*SPARK",
   },
   description:
-    "Free, plain-language organizing tools for Texans — the kind of civic data people can actually use, built to outlast any one campaign. No inside baseball required.",
+    "TX*SPARK fills civic infrastructure gaps with free, plain-language tools, training, and coalition support. Data people can actually use, built to outlast individual campaign cycles.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "TX*SPARK | Grassroots Tech for Texans",
@@ -22,8 +22,8 @@ export default function Home() {
     <>
       <HomeHero>
         <h1 className="home-hero-heading heading-xl text-balance">
-          For the Texans who do the organizing.
-          <span className="block text-spark-green">Built to outlast the cycle.</span>
+          Infrastructure for Texas Organizers.
+          <span className="block text-spark-gold">Built to Outlast the Cycle.</span>
         </h1>
       </HomeHero>
       <HomeContent />
