@@ -38,8 +38,8 @@ add_action('template_redirect', function () {
     // bare CMS domain straight to the dashboard — an anonymous visitor simply
     // gets the WordPress login. This is what lets the team open the CMS by typing
     // the domain alone, no /wp-admin/ suffix. admin_url() tracks the WordPress
-    // Site Address, so this keeps working across the domain change
-    // (cms.jfseamus.com → cms.texasspark.org) with no edit here.
+    // Site Address, so this keeps working across a domain change with no edit
+    // here — it followed the move to cms.texasspark.org on its own.
     wp_redirect(admin_url(), 302);
     exit;
 

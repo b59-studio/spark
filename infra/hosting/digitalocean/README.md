@@ -1,6 +1,6 @@
 # DigitalOcean — WordPress CMS template
 
-> **Live setup note:** the production `cms.jfseamus.com` droplet
+> **Live setup note:** the production `cms.texasspark.org` droplet
 > (`167.99.224.49`) runs **Caddy v2 + php-fpm 8.3** serving WordPress from
 > `/var/www/html`, behind Cloudflare with a Cloudflare Origin Certificate — see
 > [`Caddyfile.example`](./Caddyfile.example). The nginx steps below are the

@@ -5,8 +5,8 @@ editors; the developer-only bits are clearly marked **(dev)**. Where you see a
 link, you can click straight through.
 
 **The two key places:**
-- 🌐 Public website: **<https://jfseamus.com>** — what visitors see.
-- 🔐 Content admin (WordPress): **<https://cms.jfseamus.com/wp-admin/>** — where you log in to edit.
+- 🌐 Public website: **<https://texasspark.org>** — what visitors see.
+- 🔐 Content admin (WordPress): **<https://cms.texasspark.org/wp-admin/>** — where you log in to edit.
 
 You edit in WordPress → the public site updates on its own (about a minute later).
 No developer needed for everyday content.
@@ -15,11 +15,11 @@ No developer needed for everyday content.
 
 ## 1. Logging in
 
-1. Go to **<https://cms.jfseamus.com/wp-admin/>** (bookmark it — keep the trailing slash; without it the left-menu links break).
+1. Go to **<https://cms.texasspark.org/wp-admin/>** (bookmark it — keep the trailing slash; without it the left-menu links break).
 2. Sign in with your WordPress username and password.
 3. Left menu → **Pages** to edit content, **Products** for the shop, **MailPoet** for the newsletter.
 
-> The plain site at <https://cms.jfseamus.com> is just the engine room — visitors
+> The plain site at <https://cms.texasspark.org> is just the engine room — visitors
 > are auto-redirected away from it. Ignore it; always work in **/wp-admin/**.
 
 ---
@@ -33,16 +33,16 @@ No developer needed for everyday content.
 
 | Web page | WordPress page |
 | --- | --- |
-| [/about](https://jfseamus.com/about) | About TX*SPARK |
-| [/about/mission](https://jfseamus.com/about/mission) | Mission |
-| [/about/people](https://jfseamus.com/about/people) | People |
-| [/about/partners](https://jfseamus.com/about/partners) | Partners |
-| [/about/data](https://jfseamus.com/about/data) | Data integrity |
-| [/about/privacy](https://jfseamus.com/about/privacy) | Privacy Policy |
-| [/about/terms](https://jfseamus.com/about/terms) | Terms of Use |
-| [/work](https://jfseamus.com/work) | Work |
-| [/toolkits](https://jfseamus.com/toolkits) | Toolkits |
-| [/events](https://jfseamus.com/events) | Events *(draft)* |
+| [/about](https://texasspark.org/about) | About TX*SPARK |
+| [/about/mission](https://texasspark.org/about/mission) | Mission |
+| [/about/people](https://texasspark.org/about/people) | People |
+| [/about/partners](https://texasspark.org/about/partners) | Partners |
+| [/about/data](https://texasspark.org/about/data) | Data integrity |
+| [/about/privacy](https://texasspark.org/about/privacy) | Privacy Policy |
+| [/about/terms](https://texasspark.org/about/terms) | Terms of Use |
+| [/work](https://texasspark.org/work) | Work |
+| [/toolkits](https://texasspark.org/toolkits) | Toolkits |
+| [/events](https://texasspark.org/events) | Events *(draft)* |
 | Each toolkit | "Get To Know Your Precinct", etc. *(drafts)* |
 
 **Adding a link:** select the text → click the **link icon** (🔗) in the toolbar →
@@ -75,7 +75,7 @@ Upload images to WordPress and reuse them by URL:
 1. WordPress → **Media → Add New** → upload the image.
 2. Click the uploaded image → on the right, use **"Copy URL to clipboard"** (or
    copy the **File URL**). It looks like
-   `https://cms.jfseamus.com/wp-content/uploads/2026/06/sticker.jpg`.
+   `https://cms.texasspark.org/wp-content/uploads/2026/06/sticker.jpg`.
 3. Use that URL wherever a URL is asked for (e.g., the product spreadsheet), or
    just insert the image directly into a page with the **Image** block.
 
@@ -86,7 +86,7 @@ WordPress — there's nothing else to sign up for.
 
 ## 4. The shop & products (WooCommerce)
 
-Products are managed in WordPress and appear at **[/shop](https://jfseamus.com/shop)**.
+Products are managed in WordPress and appear at **[/shop](https://texasspark.org/shop)**.
 
 **Adding products — three ways, easiest first:**
 1. **One at a time:** Products → **Add New** → fill in name, price, description,
@@ -137,7 +137,7 @@ team once set.
 
 ## 6. Donations (Stripe)
 
-The **[/donate](https://jfseamus.com/donate)** page takes donations on-site (the
+The **[/donate](https://texasspark.org/donate)** page takes donations on-site (the
 donor never leaves the site), powered by **[Stripe](https://dashboard.stripe.com)**.
 Preset amounts plus a custom amount, one-time, with an email receipt.
 
@@ -166,7 +166,7 @@ one):
 3. **Donations:** replace `STRIPE_SECRET_KEY` and
    `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` in Doppler/Vercel with Spark's keys;
    recreate the webhook in Spark's Stripe dashboard pointing at
-   `https://jfseamus.com/api/webhooks/stripe` (event `payment_intent.succeeded`)
+   `https://texasspark.org/api/webhooks/stripe` (event `payment_intent.succeeded`)
    and update `STRIPE_WEBHOOK_SECRET`; redeploy.
 4. **Store:** WordPress → WooCommerce → Settings → Payments → Stripe → enter
    Spark's keys and reconfigure its webhook.
@@ -178,7 +178,7 @@ one):
 
 ## 7. Toolkits (year-round organizing)
 
-The **[/toolkits](https://jfseamus.com/toolkits)** section introduces the
+The **[/toolkits](https://texasspark.org/toolkits)** section introduces the
 year-round organizing model and lists the **9 toolkits**. Each toolkit has its own
 WordPress page, started as a **draft** for the team to write and **Publish** when
 ready. (PAL is being split into three of those toolkits.) Edit them like any other
@@ -195,33 +195,32 @@ page; publish when they're ready to go live.
 
 ---
 
-## 9. Migrating the domain (jfseamus.com → texasspark.org)
+## 9. Where the site lives (dev)
 
-The product is moving wholesale to **texasspark.org** as its primary domain, and
-`jfseamus.com` is being handed back to its owner — **no redirect**. This is a
-coordinated cutover; the authoritative, ordered runbook lives in the infra repo
-(`seamus-backbone: docs/texasspark-migration-cutover.md`). The spark-side pieces:
+The site is on **texasspark.org**, the CMS on **cms.texasspark.org**. DNS is in
+**Cloudflare** (the nameservers point there), *not* DigitalOcean; the front end
+is a [Vercel](https://vercel.com) project and the CMS is a DigitalOcean droplet
+running **Caddy v2 + php-fpm** with a Cloudflare Origin Certificate.
 
-- **Domain + DNS:** DNS is in **Cloudflare** (nameservers point there), *not*
-  DigitalOcean. Attach `texasspark.org` (+ `www`) to the [Vercel](https://vercel.com)
-  `spark` project and set it primary; `jfseamus.com` is removed, not redirected.
-- **Site URL setting:** `NEXT_PUBLIC_SITE_URL` → `https://texasspark.org` (drives
-  canonical links, social previews, the sitemap). *(Currently pinned to the live
-  value `https://jfseamus.com`; it flips at cutover.)*
-- **Login link:** `NEXT_PUBLIC_LOGIN_URL` → `https://login.texasspark.org`.
-- **Stripe webhook URL** → `https://texasspark.org/api/webhooks/stripe`.
-- **WooCommerce order webhook** delivery URL → `https://texasspark.org/api/webhooks/woocommerce`.
-- **Email "from" address / domain** (newsletter + receipts): re-verify
-  `texasspark.org` in Resend (new DNS records) and switch the from-address.
-- **Internal links in WordPress content:** any that hard-code `https://jfseamus.com`
-  (relative links like `/about` are fine and need no change).
-- **CMS → `cms.texasspark.org`:** the CMS is a **DigitalOcean droplet** (nginx +
-  Dockerized WordPress). Moving it = the Cloudflare `cms` record + on the droplet:
-  nginx `server_name`, a new `certbot` cert, and WordPress **Site Address**; then
-  point `WORDPRESS_API_URL` / `WOOCOMMERCE_API_URL` / `MAILPOET_API_BASE_URL` at it.
-- **Reaching the CMS:** `headless-redirect.php` now sends the bare CMS domain
-  straight to the dashboard (the WordPress login if you're signed out), so you open
-  it by typing the domain alone — no `/wp-admin/` needed.
+Settings that carry the domain, and what each one drives:
+
+- **`NEXT_PUBLIC_SITE_URL`** = `https://texasspark.org` — canonical links, social
+  previews, the sitemap.
+- **`NEXT_PUBLIC_LOGIN_URL`** = `https://login.texasspark.org` — the header Log In link.
+- **`WORDPRESS_API_URL`** / **`WOOCOMMERCE_API_URL`** / **`MAILPOET_API_BASE_URL`**
+  = `https://cms.texasspark.org` — every call the front end makes into the CMS.
+- **Stripe webhook** → `https://texasspark.org/api/webhooks/stripe`;
+  **WooCommerce order webhook** → `https://texasspark.org/api/webhooks/woocommerce`.
+  Both are dormant until payments are turned on.
+- **Email "from" domain** (newsletter + receipts): `texasspark.org`, verified in
+  Resend via its own DNS records.
+
+All of these live in **Doppler** (synced to Vercel), never in a file here — see
+section 10.
+
+- **Reaching the CMS:** `headless-redirect.php` sends the bare CMS domain straight
+  to the dashboard (the WordPress login if you're signed out), so you open it by
+  typing the domain alone — no `/wp-admin/` needed.
 
 ---
 
@@ -238,10 +237,10 @@ Doppler. (A rotation checklist from setup lives in the team's internal notes.)
 
 | What | Link |
 | --- | --- |
-| Public website | <https://jfseamus.com> |
-| Edit content (WordPress admin) | <https://cms.jfseamus.com/wp-admin/> |
-| Donate page | <https://jfseamus.com/donate> |
-| Shop | <https://jfseamus.com/shop> |
+| Public website | <https://texasspark.org> |
+| Edit content (WordPress admin) | <https://cms.texasspark.org/wp-admin/> |
+| Donate page | <https://texasspark.org/donate> |
+| Shop | <https://texasspark.org/shop> |
 | Stripe (payments) | <https://dashboard.stripe.com> |
 | Hosting (Vercel) | <https://vercel.com> |
 | Email (Resend) | <https://resend.com> |

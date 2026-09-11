@@ -4,7 +4,7 @@ import type { NextConfig } from "next";
 // the same value the CMS client reads to build /wp-json requests. Falls back to
 // the known prod host so local builds without the env still redirect correctly.
 const WORDPRESS_ORIGIN = (
-  process.env.WORDPRESS_API_URL ?? "https://cms.jfseamus.com"
+  process.env.WORDPRESS_API_URL ?? "https://cms.texasspark.org"
 ).replace(/\/+$/, "");
 
 const nextConfig: NextConfig = {

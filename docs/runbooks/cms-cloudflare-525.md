@@ -1,6 +1,6 @@
-# Runbook: Fix Cloudflare 525 on the CMS (`cms.jfseamus.com`)
+# Runbook: Fix Cloudflare 525 on the CMS (`cms.texasspark.org`)
 
-**Symptom:** Visiting `https://cms.jfseamus.com` returns a Cloudflare
+**Symptom:** Visiting `https://cms.texasspark.org` returns a Cloudflare
 **Error 525 — "SSL handshake failed"** between Cloudflare and the origin.
 
 **Origin droplet:** `167.99.224.49` (DigitalOcean, WordPress on **Caddy v2 +
@@ -8,12 +8,12 @@ php-fpm 8.3**, not nginx — the cert/reload steps below use Caddy).
 
 ## Diagnosis (confirmed)
 
-`cms.jfseamus.com` is proxied through Cloudflare (orange-cloud). Cloudflare
+`cms.texasspark.org` is proxied through Cloudflare (orange-cloud). Cloudflare
 reaches the origin over HTTPS (SSL/TLS mode Full or Full (Strict)).
 
 - Connecting to the origin **without SNI / by raw IP** → handshake completes,
   origin presents a valid Let's Encrypt cert (TLS 1.3). The default vhost is fine.
-- Connecting **with SNI `cms.jfseamus.com`** → origin returns a TLS
+- Connecting **with SNI `cms.texasspark.org`** → origin returns a TLS
   `internal_error` alert (alert 80) and **no certificate** → handshake fails →
   Cloudflare surfaces **525**.
 
@@ -21,14 +21,14 @@ Reproduce the failure (from any machine):
 
 ```bash
 # Fails today with: tlsv1 alert internal error
-curl -I --resolve cms.jfseamus.com:443:167.99.224.49 https://cms.jfseamus.com/
+curl -I --resolve cms.texasspark.org:443:167.99.224.49 https://cms.texasspark.org/
 
 # Works today (proves origin TLS itself is healthy on the default vhost):
 echo | openssl s_client -connect 167.99.224.49:443 2>&1 | grep -i issuer
 ```
 
 **Root cause:** The site originally had a Let's Encrypt cert for
-`cms.jfseamus.com`. After the domain was placed behind the Cloudflare proxy,
+`cms.texasspark.org`. After the domain was placed behind the Cloudflare proxy,
 Let's Encrypt's HTTP-01 renewal challenge is intercepted by Cloudflare and
 fails. The cert expired / was removed, leaving the nginx vhost bound to a dead
 certificate, so every Cloudflare origin pull fails the TLS handshake.
@@ -39,25 +39,25 @@ This avoids the HTTP-01 renewal trap (Origin Certs are valid 15 years and need
 no ACME challenge).
 
 1. **Cloudflare dashboard → SSL/TLS → Origin Server → Create Certificate.**
-   - Hostnames: `cms.jfseamus.com` and `*.jfseamus.com`.
+   - Hostnames: `cms.texasspark.org` and `*.texasspark.org`.
    - Copy the **Origin Certificate** and **Private Key**.
 
 2. **On the droplet**, install them:
 
    ```bash
    sudo mkdir -p /etc/ssl/cloudflare
-   sudo nano /etc/ssl/cloudflare/jfseamus.pem   # paste Origin Certificate
-   sudo nano /etc/ssl/cloudflare/jfseamus.key   # paste Private Key
-   sudo chmod 600 /etc/ssl/cloudflare/jfseamus.key
+   sudo nano /etc/ssl/cloudflare/texasspark.pem   # paste Origin Certificate
+   sudo nano /etc/ssl/cloudflare/texasspark.key   # paste Private Key
+   sudo chmod 600 /etc/ssl/cloudflare/texasspark.key
    ```
 
-3. **Point the `cms.jfseamus.com` Caddy site block at the new cert** in
+3. **Point the `cms.texasspark.org` Caddy site block at the new cert** in
    `/etc/caddy/Caddyfile` (Caddy serves WordPress directly via `php_fastcgi` — see
    [`../../infra/hosting/digitalocean/Caddyfile.example`](../../infra/hosting/digitalocean/Caddyfile.example)):
 
    ```caddy
-   cms.jfseamus.com {
-       tls /etc/ssl/cloudflare/jfseamus.pem /etc/ssl/cloudflare/jfseamus.key
+   cms.texasspark.org {
+       tls /etc/ssl/cloudflare/texasspark.pem /etc/ssl/cloudflare/texasspark.key
 
        root * /var/www/html
        php_fastcgi unix//run/php/php8.3-fpm.sock
@@ -78,11 +78,11 @@ no ACME challenge).
 6. Verify the origin pull now succeeds:
 
    ```bash
-   curl -I --resolve cms.jfseamus.com:443:167.99.224.49 https://cms.jfseamus.com/
+   curl -I --resolve cms.texasspark.org:443:167.99.224.49 https://cms.texasspark.org/
    # Expect HTTP/2 200 (or a redirect), not a TLS error.
    ```
 
-   Then load `https://cms.jfseamus.com` in a browser — the 525 should be gone.
+   Then load `https://cms.texasspark.org` in a browser — the 525 should be gone.
 
 ## Do NOT use Cloudflare "Flexible" mode as a shortcut
 
@@ -97,7 +97,7 @@ WordPress **pretty permalinks are currently disabled**, so `/wp-json/...` (what
 the Next.js clients call) is intercepted and serves the homepage instead of JSON.
 
 - WP Admin → **Settings → Permalinks → Post name → Save.**
-- Verify: `curl -s 'https://cms.jfseamus.com/wp-json/wp/v2/pages?per_page=1'`
+- Verify: `curl -s 'https://cms.texasspark.org/wp-json/wp/v2/pages?per_page=1'`
   should return JSON, not HTML.
 
 ## After the fix — wire the app
@@ -105,9 +105,9 @@ the Next.js clients call) is intercepted and serves the homepage instead of JSON
 Once both blockers clear, set on the Next.js host (currently Vercel):
 
 ```
-WORDPRESS_API_URL=https://cms.jfseamus.com
-MAILPOET_API_BASE_URL=https://cms.jfseamus.com   # after MailPoet installed
-WOOCOMMERCE_API_URL=https://cms.jfseamus.com      # after WooCommerce installed
+WORDPRESS_API_URL=https://cms.texasspark.org
+MAILPOET_API_BASE_URL=https://cms.texasspark.org   # after MailPoet installed
+WOOCOMMERCE_API_URL=https://cms.texasspark.org      # after WooCommerce installed
 ```
 
 See `wordpress/CLOUDWAYS-GO-LIVE.md` for the full plugin/key/webhook checklist
@@ -119,7 +119,7 @@ See `wordpress/CLOUDWAYS-GO-LIVE.md` for the full plugin/key/webhook checklist
 
 **Symptom:** In `wp-admin`, clicking a left-menu item (Users, Pages, Plugins…)
 lands on a page that doesn't exist — it drops the `/wp-admin/` prefix and hits
-`cms.jfseamus.com/users.php`, which 404s or bounces to the marketing site.
+`cms.texasspark.org/users.php`, which 404s or bounces to the marketing site.
 Deep-linking with the full `/wp-admin/...` path works.
 
 **Root cause:** The WP admin menu uses **relative** links (`users.php`,
@@ -129,16 +129,16 @@ base URL is `/`, so those links resolve to the site root instead of under
 (the canonical directory slash), but **behind the Cloudflare proxy that origin
 redirect never reaches the browser**, so the admin loads with the wrong base.
 
-**Fix (live): Cloudflare Redirect Rule.** Dashboard → `jfseamus.com` zone →
+**Fix (live): Cloudflare Redirect Rule.** Dashboard → `texasspark.org` zone →
 **Rules → Redirect Rules → Create rule**:
 
 - **Name:** `wp-admin trailing slash`
 - **When incoming requests match** → *Custom filter expression*:
   ```
-  (http.host eq "cms.jfseamus.com" and http.request.uri.path eq "/wp-admin")
+  (http.host eq "cms.texasspark.org" and http.request.uri.path eq "/wp-admin")
   ```
 - **Then... → URL redirect → Static:**
-  - **URL:** `https://cms.jfseamus.com/wp-admin/`
+  - **URL:** `https://cms.texasspark.org/wp-admin/`
   - **Status code:** `301`
   - **Preserve query string:** **On**
 
@@ -146,8 +146,8 @@ The exact-path match (`eq "/wp-admin"`) never touches `/wp-admin/` or deep links
 like `/wp-admin/users.php`, so there is no redirect loop. Verify:
 
 ```bash
-curl -sS -o /dev/null -D - "https://cms.jfseamus.com/wp-admin" | grep -iE "^(HTTP|location)"
-# Expect: HTTP/2 301  +  location: https://cms.jfseamus.com/wp-admin/
+curl -sS -o /dev/null -D - "https://cms.texasspark.org/wp-admin" | grep -iE "^(HTTP|location)"
+# Expect: HTTP/2 301  +  location: https://cms.texasspark.org/wp-admin/
 ```
 
 **Alternatives (same one-line redirect, different layer), if you ever move off

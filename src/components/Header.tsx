@@ -170,7 +170,7 @@ export default function Header() {
 
               {/* Login Link */}
               <Link
-                href={process.env.NEXT_PUBLIC_LOGIN_URL || "https://login.jfseamus.com"}
+                href={process.env.NEXT_PUBLIC_LOGIN_URL || "https://login.texasspark.org"}
                 className="nav-link whitespace-nowrap text-sm md:text-base"
               >
                 Log In

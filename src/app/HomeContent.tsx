@@ -114,7 +114,7 @@ function HomeValueTabs() {
                 });
               }}
               className={[
-                "flex min-h-[3.25rem] min-w-0 items-center gap-2.5 rounded-2xl border py-2.5 text-left transition-[background-color,border-color,box-shadow] duration-200 sm:gap-3 sm:py-3",
+                "home-value-tab flex min-h-[3.25rem] min-w-0 items-center gap-2.5 rounded-2xl border py-2.5 text-left transition-[background-color,border-color,box-shadow] duration-200 sm:gap-3 sm:py-3",
                 "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-spark-gold",
                 selected
                   ? "min-w-0 flex-1 border-[color-mix(in_srgb,var(--color-spark-gold)_55%,transparent)] bg-[color-mix(in_srgb,var(--color-spark-gold)_14%,var(--color-spark-bg))] px-3 shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--color-spark-gold)_35%,transparent)] sm:px-4 md:flex-1"
@@ -124,7 +124,7 @@ function HomeValueTabs() {
               <TabIconBubble />
               <span
                 className={[
-                  "body-md min-w-0 font-semibold leading-snug text-spark-bone sm:text-[1.05rem]",
+                  "home-value-tab-label body-md min-w-0 font-semibold leading-snug text-spark-bone sm:text-[1.05rem]",
                   selected
                     ? "flex-1"
                     : "max-md:sr-only md:flex-1 md:min-w-0",

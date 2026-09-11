@@ -25,6 +25,11 @@ where applicable.
 
 ### Fixed
 
+- Favicon paths disagreed after the palette revert: `/favicon.ico` served the
+  gold spark, but `src/app/icon.png` (Next's auto icon, served at `/icon.png`)
+  held the stock Next.js placeholder and `public/images/brand/favicon.ico` had
+  been dropped. Both now carry the gold spark, matching the other two paths.
+  The icon the site serves from `/favicon.ico` is unchanged.
 - Mobile header: the wordmark claimed 60vw of the bar and pushed the menu button
   clean off a 375px screen, so phone visitors had no way to open the navigation.
   The wordmark now yields to the bar's controls at any width, Log In no longer
@@ -39,6 +44,17 @@ where applicable.
 
 ### Changed
 
+- Light theme: panels, callouts and form fields are white on the paper page
+  instead of the warm earth tan. Fields and the resting home-page tabs take a
+  purple hairline, since gold on white falls below the 3:1 contrast a control
+  boundary needs. The selected home-page tab fills purple. Dark theme unchanged.
+- Every reference to `jfseamus.com` now points at `texasspark.org` /
+  `cms.texasspark.org` / `login.texasspark.org`, including the three live
+  fallbacks (`next.config.ts`, `Header.tsx`, `.mcp.json`). The handbook's
+  "Migrating the domain" section is now "Where the site lives" and records the
+  finished state. **The runtime values still live in Doppler:**
+  `NEXT_PUBLIC_LOGIN_URL` and `WOOCOMMERCE_API_URL` both still hold jfseamus
+  hosts and must be updated there before the domain is handed back.
 - Reverted the v3 heritage-quilt repaint: the site is back on the dark cosmic
   palette (`spark-void` ground, `spark-star` gold accents) with the light theme
   available via the header toggle. Restores the cosmic-era wordmark and spark
