@@ -13,7 +13,10 @@ export default function ShopLayout({ children }: { children: ReactNode }) {
     <CartProvider>
       <div className="border-b border-spark-gold/20">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          <Link href="/shop" className="nav-link font-semibold">
+          <Link
+            href="/shop"
+            className="nav-link inline-flex min-h-11 items-center px-1 font-semibold"
+          >
             Shop
           </Link>
           <CartLink />

@@ -16,19 +16,19 @@ export default function Footer() {
             className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 footer-text"
             aria-label="Footer"
           >
-            <Link href="/about/privacy" className="footer-link whitespace-nowrap">
+            <Link href="/about/privacy" className="footer-link footer-link--standalone whitespace-nowrap">
               Privacy Policy
             </Link>
             <span className="text-spark-red/40" aria-hidden>
               ·
             </span>
-            <Link href="/about/terms" className="footer-link whitespace-nowrap">
+            <Link href="/about/terms" className="footer-link footer-link--standalone whitespace-nowrap">
               Terms of Use
             </Link>
             <span className="text-spark-red/40" aria-hidden>
               ·
             </span>
-            <a href="mailto:info@txspark.com" className="footer-link whitespace-nowrap">
+            <a href="mailto:info@txspark.com" className="footer-link footer-link--standalone whitespace-nowrap">
               info@txspark.com
             </a>
             <span className="text-spark-red/40" aria-hidden>

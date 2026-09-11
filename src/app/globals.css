@@ -71,7 +71,7 @@ h3,
   /* Captions under hero / inline figures (matches events page Francesca image) */
   .spark-figure-caption {
     @apply mt-3 italic text-spark-star;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     line-height: 1.5;
   }
 
@@ -201,7 +201,7 @@ h1 {
 }
 
 .body-sm {
-  font-size: 0.75rem; /* 12px */
+  font-size: 0.875rem; /* 14px — the type floor is 0.8rem/12.8px */
   line-height: 1.5;
   color: var(--color-spark-bone);
 }
@@ -423,6 +423,9 @@ h1 {
 
   /* Accessible text on void — star is decorative at large sizes; links use a darker mix */
   --color-link-on-void: color-mix(in srgb, var(--color-spark-star) 72%, var(--color-spark-space));
+  /* Icon-only controls (theme toggle, menu button). Gold on the dark bar; see
+     the light scope for the paper value. Pinned by header-icon-contrast.test.ts. */
+  --color-icon-accent: var(--color-spark-star);
 
   /* ----------------------------------------------------------------
      LIGHT THEME — brand colors on a white page.
@@ -463,6 +466,7 @@ h1 {
   --color-spark-alert: var(--light-spark-alert);
   --focus-ring-color: var(--light-focus-ring);
   --color-link-on-void: var(--light-link);
+  --color-icon-accent: var(--light-link);
   /* Light-theme art — see note above; mirror site-visuals.ts. */
   --header-hero-photo: url("/images/content/pexels-enginakyurt-7085605.jpg");
   --wordmark-image: url("/images/brand/sparkwordfilledv1.png");
@@ -768,7 +772,6 @@ body:has(#home-hero) {
 
 .nav-dropdown-panel {
   border-radius: 0.75rem;
-  border: 1px solid color-mix(in srgb, var(--color-spark-gold) 22%, transparent);
   background-color: color-mix(in srgb, var(--color-spark-bg) 94%, var(--color-spark-purple));
   box-shadow: 0 10px 28px color-mix(in srgb, black 40%, transparent);
   backdrop-filter: none;
@@ -800,7 +803,7 @@ body:has(#home-hero) {
 }
 
 .mobile-menu-btn {
-  color: var(--color-spark-bone);
+  color: var(--color-icon-accent);
   font-size: 1.2rem;
   transition: color 0.2s;
 }
@@ -824,11 +827,13 @@ body:has(#home-hero) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.35rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.625rem;
   border: none;
   border-radius: 0.5rem;
   background: transparent;
-  color: var(--color-spark-bone);
+  color: var(--color-icon-accent);
   cursor: pointer;
   transition: color 0.2s, background-color 0.2s;
 }
@@ -912,6 +917,16 @@ body:has(#home-hero) {
 
 .footer-link.footer-link--gold {
   color: var(--color-spark-gold);
+}
+
+/* Standalone footer links are their own targets, so they take the 44px floor.
+   A link inside a sentence (the B-59 credit) is exempt under WCAG 2.5.8's
+   inline exception and must NOT get this — padding it would break the line. */
+.footer-link--standalone {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-inline: 0.25rem;
 }
 
 .footer-text {
@@ -1027,6 +1042,40 @@ textarea.form-input:user-invalid + .form-error {
 .spark-text-input:focus:user-invalid,
 .spark-text-input:focus[aria-invalid="true"] {
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-spark-alert) 35%, transparent);
+}
+
+/* Cart quantity stepper. Replaces a native <select> (standards 42/47): the
+   target is built from min-height rather than a fixed height so it survives a
+   larger text size, and meets the 44px touch floor. */
+.qty-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  border-radius: 0.5rem;
+  background-color: color-mix(in srgb, var(--color-spark-bone) 8%, var(--color-spark-bg));
+  color: var(--color-spark-bone);
+  font-size: 1.125rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.qty-step:hover:not(:disabled),
+.qty-step:focus-visible:not(:disabled) {
+  background-color: color-mix(in srgb, var(--color-spark-star) 14%, var(--color-spark-bg));
+  color: var(--color-spark-star);
+}
+
+.qty-step:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.qty-step:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 /* ============================================

@@ -14,7 +14,10 @@ export default function CartLink({ className = "" }: { className?: string }) {
   return (
     <Link
       href="/shop/cart"
-      className={["nav-link relative inline-flex items-center gap-2", className]
+      className={[
+        "nav-link relative inline-flex min-h-11 min-w-11 items-center gap-2 px-1",
+        className,
+      ]
         .filter(Boolean)
         .join(" ")}
     >
