@@ -44,5 +44,5 @@ add_action('template_redirect', function () {
     exit;
 
     // Prefer sending strays to the public marketing site instead? Replace the two
-    // lines above with:  wp_redirect('https://texasspark.org', 302); exit;
+    // lines above with:  wp_redirect('https://www.texasspark.org', 302); exit;
 });

@@ -5,7 +5,7 @@ editors; the developer-only bits are clearly marked **(dev)**. Where you see a
 link, you can click straight through.
 
 **The two key places:**
-- 🌐 Public website: **<https://texasspark.org>** — what visitors see.
+- 🌐 Public website: **<https://www.texasspark.org>** — what visitors see.
 - 🔐 Content admin (WordPress): **<https://cms.texasspark.org/wp-admin/>** — where you log in to edit.
 
 You edit in WordPress → the public site updates on its own (about a minute later).
@@ -33,16 +33,16 @@ No developer needed for everyday content.
 
 | Web page | WordPress page |
 | --- | --- |
-| [/about](https://texasspark.org/about) | About TX*SPARK |
-| [/about/mission](https://texasspark.org/about/mission) | Mission |
-| [/about/people](https://texasspark.org/about/people) | People |
-| [/about/partners](https://texasspark.org/about/partners) | Partners |
-| [/about/data](https://texasspark.org/about/data) | Data integrity |
-| [/about/privacy](https://texasspark.org/about/privacy) | Privacy Policy |
-| [/about/terms](https://texasspark.org/about/terms) | Terms of Use |
-| [/work](https://texasspark.org/work) | Work |
-| [/toolkits](https://texasspark.org/toolkits) | Toolkits |
-| [/events](https://texasspark.org/events) | Events *(draft)* |
+| [/about](https://www.texasspark.org/about) | About TX*SPARK |
+| [/about/mission](https://www.texasspark.org/about/mission) | Mission |
+| [/about/people](https://www.texasspark.org/about/people) | People |
+| [/about/partners](https://www.texasspark.org/about/partners) | Partners |
+| [/about/data](https://www.texasspark.org/about/data) | Data integrity |
+| [/about/privacy](https://www.texasspark.org/about/privacy) | Privacy Policy |
+| [/about/terms](https://www.texasspark.org/about/terms) | Terms of Use |
+| [/work](https://www.texasspark.org/work) | Work |
+| [/toolkits](https://www.texasspark.org/toolkits) | Toolkits |
+| [/events](https://www.texasspark.org/events) | Events *(draft)* |
 | Each toolkit | "Get To Know Your Precinct", etc. *(drafts)* |
 
 **Adding a link:** select the text → click the **link icon** (🔗) in the toolbar →
@@ -86,7 +86,7 @@ WordPress — there's nothing else to sign up for.
 
 ## 4. The shop & products (WooCommerce)
 
-Products are managed in WordPress and appear at **[/shop](https://texasspark.org/shop)**.
+Products are managed in WordPress and appear at **[/shop](https://www.texasspark.org/shop)**.
 
 **Adding products — three ways, easiest first:**
 1. **One at a time:** Products → **Add New** → fill in name, price, description,
@@ -137,7 +137,7 @@ team once set.
 
 ## 6. Donations (Stripe)
 
-The **[/donate](https://texasspark.org/donate)** page takes donations on-site (the
+The **[/donate](https://www.texasspark.org/donate)** page takes donations on-site (the
 donor never leaves the site), powered by **[Stripe](https://dashboard.stripe.com)**.
 Preset amounts plus a custom amount, one-time, with an email receipt.
 
@@ -166,7 +166,7 @@ one):
 3. **Donations:** replace `STRIPE_SECRET_KEY` and
    `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` in Doppler/Vercel with Spark's keys;
    recreate the webhook in Spark's Stripe dashboard pointing at
-   `https://texasspark.org/api/webhooks/stripe` (event `payment_intent.succeeded`)
+   `https://www.texasspark.org/api/webhooks/stripe` (event `payment_intent.succeeded`)
    and update `STRIPE_WEBHOOK_SECRET`; redeploy.
 4. **Store:** WordPress → WooCommerce → Settings → Payments → Stripe → enter
    Spark's keys and reconfigure its webhook.
@@ -178,7 +178,7 @@ one):
 
 ## 7. Toolkits (year-round organizing)
 
-The **[/toolkits](https://texasspark.org/toolkits)** section introduces the
+The **[/toolkits](https://www.texasspark.org/toolkits)** section introduces the
 year-round organizing model and lists the **9 toolkits**. Each toolkit has its own
 WordPress page, started as a **draft** for the team to write and **Publish** when
 ready. (PAL is being split into three of those toolkits.) Edit them like any other
@@ -204,13 +204,13 @@ running **Caddy v2 + php-fpm** with a Cloudflare Origin Certificate.
 
 Settings that carry the domain, and what each one drives:
 
-- **`NEXT_PUBLIC_SITE_URL`** = `https://texasspark.org` — canonical links, social
+- **`NEXT_PUBLIC_SITE_URL`** = `https://www.texasspark.org` — canonical links, social
   previews, the sitemap.
 - **`NEXT_PUBLIC_LOGIN_URL`** = `https://login.texasspark.org` — the header Log In link.
 - **`WORDPRESS_API_URL`** / **`WOOCOMMERCE_API_URL`** / **`MAILPOET_API_BASE_URL`**
   = `https://cms.texasspark.org` — every call the front end makes into the CMS.
-- **Stripe webhook** → `https://texasspark.org/api/webhooks/stripe`;
-  **WooCommerce order webhook** → `https://texasspark.org/api/webhooks/woocommerce`.
+- **Stripe webhook** → `https://www.texasspark.org/api/webhooks/stripe`;
+  **WooCommerce order webhook** → `https://www.texasspark.org/api/webhooks/woocommerce`.
   Both are dormant until payments are turned on.
 - **Email "from" domain** (newsletter + receipts): `texasspark.org`, verified in
   Resend via its own DNS records.
@@ -237,10 +237,10 @@ Doppler. (A rotation checklist from setup lives in the team's internal notes.)
 
 | What | Link |
 | --- | --- |
-| Public website | <https://texasspark.org> |
+| Public website | <https://www.texasspark.org> |
 | Edit content (WordPress admin) | <https://cms.texasspark.org/wp-admin/> |
-| Donate page | <https://texasspark.org/donate> |
-| Shop | <https://texasspark.org/shop> |
+| Donate page | <https://www.texasspark.org/donate> |
+| Shop | <https://www.texasspark.org/shop> |
 | Stripe (payments) | <https://dashboard.stripe.com> |
 | Hosting (Vercel) | <https://vercel.com> |
 | Email (Resend) | <https://resend.com> |

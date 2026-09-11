@@ -10,6 +10,9 @@ where applicable.
 
 ### Added
 
+- `docs/runbooks/jfseamus-decommission.md` — the ordered decommission plan for
+  the reclaimed domain, with the surveyed state of every host and which access
+  each remaining step needs.
 - Cloudways go-live runbook: `wordpress/CLOUDWAYS-GO-LIVE.md` (plugins, webhooks,
   Neon migrations, core user linking).
 - Analytics migration `002_plugin_external_ids.sql` (MailPoet subscriber id,
@@ -48,7 +51,10 @@ where applicable.
   instead of the warm earth tan. Fields and the resting home-page tabs take a
   purple hairline, since gold on white falls below the 3:1 contrast a control
   boundary needs. The selected home-page tab fills purple. Dark theme unchanged.
-- Every reference to `jfseamus.com` now points at `texasspark.org` /
+- Canonical host is `www.texasspark.org`: the apex 307s to `www`, so the
+  `NEXT_PUBLIC_SITE_URL` fallback in `layout.tsx`, `robots.ts` and `sitemap.ts`
+  no longer generates canonical links and sitemap entries that redirect.
+- Every reference to `jfseamus.com` now points at `www.texasspark.org` /
   `cms.texasspark.org` / `login.texasspark.org`, including the three live
   fallbacks (`next.config.ts`, `Header.tsx`, `.mcp.json`). The handbook's
   "Migrating the domain" section is now "Where the site lives" and records the
