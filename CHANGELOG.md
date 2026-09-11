@@ -47,7 +47,12 @@ where applicable.
 
 ### Changed
 
-- Light theme: panels, callouts and form fields are white on the paper page
+- Light theme: the page background is white too, not the warm paper
+  (`#f7f1e6`). Page and panel are now the same white, so fill can no longer
+  separate them and the border does the whole job — the four panels that
+  carried no frame class of their own (events, cart) get a hairline so they
+  still read as cards.
+- Light theme: panels, callouts and form fields are white on the page
   instead of the warm earth tan. Fields and the resting home-page tabs take a
   purple hairline, since gold on white falls below the 3:1 contrast a control
   boundary needs. The selected home-page tab fills purple. Dark theme unchanged.
