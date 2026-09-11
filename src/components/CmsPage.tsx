@@ -23,6 +23,10 @@ type CmsPageProps = {
 };
 
 /**
+ * Currently unwired: every prose route renders its own in-code layout instead,
+ * because WordPress flattens the framed panels, card grids, and CTAs those pages
+ * are built from. Re-enable a route by wrapping its body as `fallback` again.
+ *
  * Renders a headless-WordPress Page inside the site chrome, falling back to
  * in-code content whenever the CMS can't be reached. Content edited in WP admin
  * appears within the ISR window (see `revalidate` in the WordPress client) — no

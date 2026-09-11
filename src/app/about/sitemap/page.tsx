@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import CmsPage from "@/components/CmsPage";
 import Link from "next/link";
 import BrandName from "@/components/BrandName";
 
@@ -16,17 +15,12 @@ export const metadata: Metadata = {
 };
 
 export default function SiteMap() {
-  return <CmsPage slug="sitemap" shell="spark-page-wide" fallback={<SiteMapFallback />} />;
-}
-
-function SiteMapFallback() {
   const primaryRoutes = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/events", label: "Events" },
     { href: "/toolkits", label: "Toolkits" },
     { href: "/work", label: "Our Work" },
-    { href: "/contact", label: "Contact" },
   ];
 
   const aboutSubRoutes = [
@@ -110,7 +104,7 @@ function SiteMapFallback() {
       </div>
 
       <div className="flex gap-4 justify-center flex-wrap mt-14">
-        <a href="/contact" className="btn-secondary">
+        <a href="mailto:info@txspark.com" className="btn-secondary">
           Talk to Us
         </a>
         <a href="/about" className="btn-primary">

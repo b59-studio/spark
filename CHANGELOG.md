@@ -23,6 +23,20 @@ where applicable.
   ingestion.
 - GROW toolkits data module and nav wiring via `nav-config.ts`.
 
+### Fixed
+
+- Mobile header: the wordmark claimed 60vw of the bar and pushed the menu button
+  clean off a 375px screen, so phone visitors had no way to open the navigation.
+  The wordmark now yields to the bar's controls at any width, Log In no longer
+  wraps to two lines, and the menu button has a 44x44 hit area instead of 24x24.
+- `/toolkits` could be swiped ~1380px sideways into blank space on a phone: the
+  carousel's slides inflated the document's scroll width, which `main`'s
+  `overflow-x: hidden` does not prevent. Paint containment on the scroller stops
+  it; the carousel scrolls exactly as before.
+- `/contact` served an empty page while `sitemap.xml` and `/about/sitemap` both
+  advertised it. The route now returns 404, is out of both sitemaps, and the
+  sitemap page's "Talk to Us" button points at the contact address.
+
 ### Changed
 
 - Reverted the v3 heritage-quilt repaint: the site is back on the dark cosmic
@@ -31,7 +45,16 @@ where applicable.
   artwork; removes the quilt-band divider and the bone-ground favicon.
 - Toolkits: the six-step organizing cycle is shown again as a scroll-snap
   carousel with dot navigation, sitting directly under the `/toolkits` title and
-  above the prose. The CMS copy is unchanged and still editable in WordPress.
+  above the prose.
+- The eleven prose routes (`/about`, `/about/mission`, `/about/people`,
+  `/about/partners`, `/about/data`, `/about/sitemap`, `/about/privacy`,
+  `/about/terms`, `/work`, `/events`, `/toolkits`) render their in-code layouts
+  again instead of WordPress page bodies. WordPress returned the same copy
+  flattened into plain prose, which dropped the framed panels, card grids,
+  toolkit carousel, calendar embed, newsletter form, and call-to-action buttons
+  those pages are built from. The routes now prerender as static HTML with no
+  per-revalidation CMS fetch. `CmsPage` stays in the tree, unwired, so a route
+  can be handed back to the CMS one line at a time.
 - `CmsPage` takes an optional `afterTitle` slot, for a route that needs an
   in-code block between the CMS page title and the CMS body.
 - Analytics and core user linking use single `DATABASE_URL` (replaces

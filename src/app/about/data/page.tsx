@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import CmsPage from "@/components/CmsPage";
 import Link from "next/link";
 import BrandName from "@/components/BrandName";
 
@@ -17,10 +16,6 @@ export const metadata: Metadata = {
 };
 
 export default function AboutDataPage() {
-  return <CmsPage slug="data" fallback={<AboutDataFallback />} />;
-}
-
-function AboutDataFallback() {
   return (
     <div className="spark-page">
       <div className="space-y-12 sm:space-y-14">

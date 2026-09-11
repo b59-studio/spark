@@ -146,8 +146,8 @@ export default function Header() {
         <div className="header-nav-photo-layer" aria-hidden />
         <div className="header-nav-frost">
           <div className="relative z-10 px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center h-[4.8rem] min-w-0 gap-5 lg:gap-7">
-              <Link href="/" className="relative z-10 flex items-center shrink-0 min-w-0 self-center">
+            <div className="flex items-center h-[4.8rem] min-w-0 gap-3 sm:gap-5 lg:gap-7">
+              <Link href="/" className="relative z-10 flex items-center min-w-0 self-center">
                 <div className="logo-container header-logo-lockup" />
               </Link>
 
@@ -171,7 +171,7 @@ export default function Header() {
               {/* Login Link */}
               <Link
                 href={process.env.NEXT_PUBLIC_LOGIN_URL || "https://login.jfseamus.com"}
-                className="nav-link text-sm md:text-base"
+                className="nav-link whitespace-nowrap text-sm md:text-base"
               >
                 Log In
               </Link>
@@ -180,7 +180,7 @@ export default function Header() {
               <div className="relative z-10 md:hidden flex items-center gap-2 shrink-0 self-center">
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="mobile-menu-btn"
+                  className="mobile-menu-btn -mr-2.5 inline-flex h-11 w-11 items-center justify-center"
                   aria-label="Toggle menu"
                   aria-expanded={mobileMenuOpen}
                 >

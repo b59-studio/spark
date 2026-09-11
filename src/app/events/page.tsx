@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import CmsPage from "@/components/CmsPage";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import BrandName from "@/components/BrandName";
 
@@ -24,10 +23,6 @@ const ORG_CALENDAR_ICAL_URL =
   "https://calendar.google.com/calendar/ical/c_fca2789d8a01a4c303fb3ca31b3e8835f7cdb3af9ddd4e1a4633de0a166b15a6%40group.calendar.google.com/public/basic.ics";
 
 export default function EventsPage() {
-  return <CmsPage slug="events" shell="spark-page-wide" fallback={<EventsFallback />} />;
-}
-
-function EventsFallback() {
   const hasEmbedCalendar = ORG_CALENDAR_EMBED_URL.trim().length > 0;
   const hasAddCalendarLink = ORG_CALENDAR_ADD_URL.trim().length > 0;
   const hasIcalLink = ORG_CALENDAR_ICAL_URL.trim().length > 0;

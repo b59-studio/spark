@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 /* Contact page temporarily disabled — restore below.
 
 import type { Metadata } from "next";
@@ -36,6 +38,12 @@ export default function Contact() {
 
 */
 
+/**
+ * Disabled pending a working form endpoint (ADR 0001 follow-up). 404 rather
+ * than an empty shell: the route is also out of sitemap.ts and /about/sitemap,
+ * so nothing on the site or in search results points here. Restore by
+ * uncommenting the block above.
+ */
 export default function Contact() {
-  return null;
+  notFound();
 }

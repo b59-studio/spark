@@ -19,12 +19,12 @@ The website is two pieces that work together:
    logs in to edit content. Visitors never go here.
 
 ```
-  You edit in WordPress  ──▶  the public marketing site updates (~1 min, no deploy)
+  You edit in WordPress  ──▶  the newsletter list and the shop catalogue update
 ```
 
-You are responsible for **content** (editing pages, newsletter, products). A
-developer is responsible for **code** (design, new features, the home page,
-turning the commerce features on).
+You are responsible for the **newsletter list** and the **shop products**. A
+developer is responsible for **code** — design, page wording, new features, and
+turning the commerce features on.
 
 ---
 
@@ -33,8 +33,11 @@ turning the commerce features on).
 Full instructions are in **[CLIENT-ONBOARDING.md](./CLIENT-ONBOARDING.md)**. In short:
 
 1. Log in at `https://cms.jfseamus.com/wp-admin/` (keep the trailing slash) or the shortcut `/(your site)/admin`, which adds it for you.
-2. **Pages** → pick a page → edit → **Update**.
-3. The public page updates within about a minute.
+2. **MailPoet** for the mailing list; **WooCommerce → Products** for the shop.
+3. Shop changes appear on the public site within about two minutes.
+
+Marketing page wording is **not** edited here — see CLIENT-ONBOARDING.md for why
+and for what to send your developer instead.
 
 ---
 
@@ -48,7 +51,7 @@ Full instructions are in **[CLIENT-ONBOARDING.md](./CLIENT-ONBOARDING.md)**. In 
 
 | Feature | Status | What it needs to go live | Who runs it after |
 | --- | --- | --- | --- |
-| **Content pages** (About, Mission, Toolkits, etc.) | ✅ Live & editable | Nothing | Your team, in WordPress |
+| **Content pages** (About, Mission, Toolkits, etc.) | ✅ Live, custom-designed in code | Nothing | Your developer — send them the wording |
 | **Newsletter** (MailPoet) | 🟡 Code ready | MailPoet plugin active + API key set | Your team manages the list in WordPress |
 | **Donations** (Stripe) | 🟡 Code ready, dormant | Stripe account + keys + webhook | Mostly automatic; reports in Stripe |
 | **Shop** (WooCommerce) | 🟡 Code ready, dormant | WooCommerce + Stripe gateway plugins + keys | Your team adds products in WordPress |
@@ -127,8 +130,13 @@ the site's host (Vercel) and redeploy.
 - **Toolkit lead-capture removed.** The old toolkit pages gated downloads behind
   an email signup; that's gone (resources are open). A signup box can be re-added
   later if you want to collect emails there.
-- **Toolkit pages + Events are drafts** in WordPress — develop and publish them
-  when ready. The Toolkits section currently shows the year-round overview.
+- **Page copy is back in code.** Routing the marketing prose through WordPress
+  flattened every page into plain paragraphs — panels, card grids, the toolkit
+  carousel, the events calendar, and the CTAs all vanished. `CmsPage` is still in
+  the tree but unwired; a route can be handed back to the CMS one line at a time
+  if a page ever genuinely wants editor-authored prose.
+- **The nine toolkit guides are still to be written.** The Toolkits section
+  currently shows the organizing-cycle carousel and the year-round overview.
 - **Commerce needs live verification.** The donation and shop code is complete
   and builds, but the on-site WooCommerce checkout must be tested against a real
   store + Stripe gateway before launch (see §4 Shop, step 6).
