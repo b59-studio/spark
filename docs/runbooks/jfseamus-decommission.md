@@ -114,7 +114,24 @@ once the zone leaves the account, so reissue the origin cert for
 [`cms-cloudflare-525.md`](./cms-cloudflare-525.md), whose cert paths already
 assume the texasspark names.
 
-## 7. Optional — the hub's repo list
+## 7. Not part of this — `txspark.com`
+
+Worth writing down so nobody re-investigates it. `txspark.com` is registered in
+the b59-studio Vercel account but **attached to no project**; its DNS lives at
+Google Domains and `www` is a `CNAME` to `ext-sq.squarespace.com` — a separate
+Squarespace site, which is why its `sitemap.xml` still lists retired routes like
+`/grow` and `/contact`. `vercel project ls` printing `www.txspark.com` as the
+`spark` project's "Latest Production URL" is misleading: this repo deploys to
+`www.texasspark.org`.
+
+Nothing here is "backed by" txspark.com and there is nothing to detach. The one
+live tie is mail: `txspark.com` holds the only working mailbox of the four
+domains (Google Workspace MX), which is why the public contact address stays
+`info@txspark.com` on the privacy, terms, partners and sitemap pages and in the
+footer. `texasspark.org` has **no MX record**, so moving that address before mail
+is set up would bounce privacy and partner enquiries.
+
+## 8. Optional — the hub's repo list
 
 `.claude/skills/dedup-check/` names a GitHub repo `jfseamus`. That is a repo
 name, not the domain, and the directory is a projection synced from
