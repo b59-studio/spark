@@ -55,7 +55,7 @@ export default function SiteMap() {
           <ul className="space-y-2 body-md">
             {primaryRoutes.map((route) => (
               <li key={route.href}>
-                <Link href={route.href} className="text-link">
+                <Link href={route.href} className="text-link inline-flex min-h-11 min-w-11 items-center">
                   {route.label}
                 </Link>
               </li>
@@ -68,7 +68,7 @@ export default function SiteMap() {
           <ul className="space-y-2 body-md">
             {aboutSubRoutes.map((route) => (
               <li key={route.href}>
-                <Link href={route.href} className="text-link">
+                <Link href={route.href} className="text-link inline-flex min-h-11 min-w-11 items-center">
                   {route.label}
                 </Link>
               </li>
@@ -81,7 +81,7 @@ export default function SiteMap() {
           <ul className="space-y-2 body-md">
             {solutionRoutes.map((route) => (
               <li key={route.href}>
-                <Link href={route.href} className="text-link">
+                <Link href={route.href} className="text-link inline-flex min-h-11 min-w-11 items-center">
                   {route.label}
                 </Link>
               </li>
@@ -94,7 +94,7 @@ export default function SiteMap() {
           <ul className="space-y-2 body-md sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0">
             {legalRoutes.map((route) => (
               <li key={route.href}>
-                <Link href={route.href} className="text-link">
+                <Link href={route.href} className="text-link inline-flex min-h-11 min-w-11 items-center">
                   {route.label}
                 </Link>
               </li>

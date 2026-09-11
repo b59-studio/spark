@@ -8,7 +8,29 @@ where applicable.
 
 ## [Unreleased]
 
+### Changed
+
+- Design standards pass against standards 42/44/47/53/54. `.body-sm` raised from
+  12px to 14px (it carries sentences, and the type floor is 12.8px); the theme
+  toggle, "Log In", footer links, shop breadcrumbs and sitemap link lists now
+  meet the 44px touch floor; icon-only controls carry a contrast-safe accent
+  token (`--color-icon-accent`) rather than raw gold, which reads at 1.6:1 on
+  the light bar; the nav dropdown panel loses the border it carried alongside
+  its shadow.
+- Cart quantity picker is a stepper instead of a native `<select>`, whose
+  option list the OS draws — a modal wheel on iOS, unstyleable elsewhere.
+- Nav dropdowns no longer use `role="menu"`/`menuitem`; they are navigation
+  disclosure, not application menus.
+- The theme toggle's native `title` tooltip is removed (it duplicated the
+  `aria-label` and had no touch equivalent).
+
 ### Added
+
+- `src/app/header-icon-contrast.test.ts` — pins header icon contrast at 3:1 in
+  both themes, which axe cannot check because its contrast rule reads text
+  nodes and an SVG stroke is not one.
+- Design system: the 4px spacing scale, the six text roles, and the target
+  floor rules (`docs/design/design-system.md`).
 
 - `docs/runbooks/jfseamus-decommission.md` — the ordered decommission plan for
   the reclaimed domain, with the surveyed state of every host and which access

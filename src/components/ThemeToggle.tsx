@@ -63,7 +63,6 @@ export default function ThemeToggle() {
       type="button"
       className="theme-toggle"
       aria-label="Toggle light and dark theme"
-      title="Toggle light and dark theme"
       onClick={() => applyTheme(resolveActiveTheme() === "dark" ? "light" : "dark")}
     >
       <SunIcon />

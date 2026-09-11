@@ -53,8 +53,6 @@ function NavDropdown({
         className={`pointer-events-none invisible absolute left-0 top-full z-[60] pt-2 opacity-0 transition-[opacity,visibility] duration-150 group-hover/nav-dd:pointer-events-auto group-hover/nav-dd:visible group-hover/nav-dd:opacity-100 group-focus-within/nav-dd:pointer-events-auto group-focus-within/nav-dd:visible group-focus-within/nav-dd:opacity-100 ${
           wideMega ? 'w-[min(40rem,calc(100vw-2.5rem))]' : 'w-max min-w-[13rem]'
         }`}
-        role="menu"
-        aria-label={`${label} sections`}
       >
         <div className="nav-dropdown-panel py-2">
           {sections.map((item) => {
@@ -65,7 +63,6 @@ function NavDropdown({
                   key={item.href}
                   href={item.href}
                   className="nav-dropdown-link block px-4 py-2.5"
-                  role="menuitem"
                 >
                   {item.label}
                 </Link>
@@ -78,21 +75,19 @@ function NavDropdown({
                   className="border-b border-spark-bone/10 pb-2 mb-2 flex flex-row items-start gap-1 last:mb-0 last:border-b-0 last:pb-0 sm:gap-2"
                 >
                   <div className="shrink-0 w-[min(11rem,32vw)] px-3 py-2 sm:w-[11.5rem] md:w-[12.25rem] sm:px-4">
-                    <Link href={item.href} className="nav-dropdown-link block rounded-md py-1" role="menuitem">
+                    <Link href={item.href} className="nav-dropdown-link block rounded-md py-1">
                       <span className="font-medium">{item.label}</span>
                       {item.summary ? <span className={navDropdownSummaryClassName()}>{item.summary}</span> : null}
                     </Link>
                   </div>
                   <ul
                     className="min-w-0 flex-1 space-y-0.5 border-l border-spark-bone/10 py-2 pl-3 pr-3 sm:pl-4"
-                    role="none"
                   >
                     {item.children.map((child) => (
-                      <li key={child.href} role="none">
+                      <li key={child.href}>
                         <Link
                           href={child.href}
                           className="nav-dropdown-link block rounded-md px-2 py-1.5 sm:px-3"
-                          role="menuitem"
                         >
                           <span className="text-[0.95rem]">{child.label}</span>
                           {child.summary ? (
@@ -111,7 +106,7 @@ function NavDropdown({
                 className="border-b border-spark-bone/10 pb-2 mb-2 flex flex-row items-start gap-1 last:mb-0 last:border-b-0 last:pb-0 sm:gap-2"
               >
                 <div className="shrink-0 w-[min(11rem,32vw)] px-3 py-2 sm:w-[11.5rem] md:w-[12.25rem] sm:px-4">
-                  <Link href={item.href} className="nav-dropdown-link block rounded-md py-1" role="menuitem">
+                  <Link href={item.href} className="nav-dropdown-link block rounded-md py-1">
                     <span className="font-medium">{item.label}</span>
                     {item.summary ? <span className={navDropdownSummaryClassName()}>{item.summary}</span> : null}
                   </Link>
@@ -171,7 +166,7 @@ export default function Header() {
               {/* Login Link */}
               <Link
                 href={process.env.NEXT_PUBLIC_LOGIN_URL || "https://login.texasspark.org"}
-                className="nav-link whitespace-nowrap text-sm md:text-base"
+                className="nav-link inline-flex min-h-11 items-center whitespace-nowrap px-2 text-sm md:text-base"
               >
                 Log In
               </Link>

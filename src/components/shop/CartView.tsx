@@ -141,25 +141,14 @@ function CartLine({
       </div>
 
       <div className="flex items-center gap-3">
-        <label className="sr-only" htmlFor={`qty-${item.key}`}>
-          Quantity for {item.name}
-        </label>
-        <select
-          id={`qty-${item.key}`}
-          className="form-input py-1"
-          value={item.quantity}
-          disabled={busy}
-          onChange={(e) => onUpdate(item.key, Number(e.target.value))}
-        >
-          {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
-            <option key={n} value={n}>
-              {n}
-            </option>
-          ))}
-        </select>
+        <QuantityStepper
+          item={item}
+          busy={busy}
+          onUpdate={onUpdate}
+        />
         <button
           type="button"
-          className="text-link body-sm"
+          className="text-link body-sm inline-flex min-h-11 items-center px-1"
           disabled={busy}
           onClick={() => onRemove(item.key)}
         >
@@ -167,5 +156,58 @@ function CartLine({
         </button>
       </div>
     </li>
+  );
+}
+
+const MAX_QUANTITY = 10;
+
+/**
+ * Quantity control for a cart line. A stepper rather than a dropdown: a native
+ * `<select>` hands its option list to the OS, which draws a modal wheel on iOS
+ * and an unstyleable list elsewhere, and a quantity is adjusted far more often
+ * by one step than set to an arbitrary value.
+ *
+ * The live value is a real `<output>` so assistive tech is told the new
+ * quantity when a step lands, without moving focus off the button being pressed.
+ */
+function QuantityStepper({
+  item,
+  busy,
+  onUpdate,
+}: {
+  item: StoreCartItem;
+  busy: boolean;
+  onUpdate: (key: string, quantity: number) => Promise<boolean>;
+}) {
+  const atMin = item.quantity <= 1;
+  const atMax = item.quantity >= MAX_QUANTITY;
+
+  return (
+    <div className="flex items-center gap-1">
+      <button
+        type="button"
+        className="qty-step"
+        disabled={busy || atMin}
+        aria-label={`Decrease quantity of ${item.name}`}
+        onClick={() => onUpdate(item.key, item.quantity - 1)}
+      >
+        <span aria-hidden>&minus;</span>
+      </button>
+      <output
+        className="min-w-8 text-center tabular-nums"
+        aria-label={`Quantity of ${item.name}`}
+      >
+        {item.quantity}
+      </output>
+      <button
+        type="button"
+        className="qty-step"
+        disabled={busy || atMax}
+        aria-label={`Increase quantity of ${item.name}`}
+        onClick={() => onUpdate(item.key, item.quantity + 1)}
+      >
+        <span aria-hidden>+</span>
+      </button>
+    </div>
   );
 }

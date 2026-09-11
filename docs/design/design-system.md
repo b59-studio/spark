@@ -111,11 +111,90 @@ All sizes follow a consistent ratio. **Do not introduce arbitrary intermediate s
 | `.heading-sm` | 1.125rem (18px) | 600 | 1.4 | Large text ✓ |
 | `.body-lg` | 1.75rem (28px) | 400 | 1.45 | — |
 | `.body-md` | 1.25rem (20px) | 400 | 1.6 | — |
-| `.body-sm` | 0.75rem (12px) | 400 | 1.5 | — |
+| `.body-sm` | 0.875rem (14px) | 400 | 1.5 | — |
 
 **WCAG note:** Large text (≥24px or ≥18pt bold) can use lower contrast ratios
 (3:1 vs 4.5:1). All headings meet this threshold to relax contrast requirements
 without compromising readability.
+
+**Hard floor: 0.8rem (12.8px).** Nothing ships below it. `.body-sm` sat at
+0.75rem and was raised — it carries sentences on the shop, about and events
+pages, not incidental marks.
+
+**Inputs are 1rem minimum on any surface a phone can open.** iOS Safari zooms
+the page when focus lands on a field under 16px and does not reliably zoom back
+out. `.form-input` and `.spark-text-input` are both 1rem; keep them there.
+
+**Delete, don't shrink.** A caption that only earns its place by being
+whisper-quiet is a caption the surface does not need. Fix the control, or move
+the words into the label, before reaching for a smaller size.
+
+### Text roles
+
+A scale says how big. It does not say what for, and a scale without roles
+produces surfaces that each pick a plausible size independently. Every piece of
+text is exactly one of these six:
+
+| Role | Treatment | What it is |
+|------|-----------|------------|
+| **Page title** | `.heading-xl` / `.heading-lg` on interior pages | the `h1`. One per surface. |
+| **Section heading** | `.heading-md` | names a block. Same size as body is fine — weight and colour separate them. |
+| **Field label** | `.form-label` | names one control. Never an `h*`. |
+| **Body** | `.body-md` | sentences. The default. |
+| **Meta** | `.body-sm` | a row's date, a hint under a field. |
+| **Eyebrow** | uppercase micro-caps | a **repeated** marker — a column header, a chip's category. **Not a section heading.** |
+
+**Weight does the outranking, not size.** Size is the expensive channel — there
+are six steps and two are already spent above body. Two treatments one pixel
+apart (19px beside 20px) read as sloppiness, not rank.
+
+**The outline is a second axis.** Visual role decides how a line looks; document
+position decides its `h*` level. A section heading set at body size is still an
+`h2`. An eyebrow is never an `h*`.
+
+---
+
+## Spacing scale
+
+**4px base, seven steps, nothing between them.** Pick a step by reading the
+right-hand column, not by looking at the screen and deciding what feels right.
+
+| Step | Value | The relationship it expresses |
+|------|-------|------------------------------|
+| 1 | 4px | inside one control — icon to its own label |
+| 2 | 8px | siblings that belong together — a field and its caption |
+| 3 | 12px | between fields in one group |
+| 4 | 16px | between groups inside one card |
+| 5 | 24px | between cards or blocks in a column |
+| 6 | 32px | between sections of a page |
+| 7 | 48px | above a major heading |
+
+Governs margin, padding and gap only — not border widths, radii, line-height,
+icon dimensions, or a 1px optical nudge.
+
+**A value off the scale in new code is a review finding.** Existing ad-hoc
+values convert by surface, not by grep: take one screen and convert all of it,
+so the screen actually gains rhythm.
+
+### Targets
+
+- **44×44 is the floor** for anything tappable. This site is a responsive web
+  app, so it is a touch surface at every width — a wide viewport is not a
+  licence to shrink. WCAG 2.2 SC 2.5.8's 24×24 is the law; 44 is ours.
+- **Build the size from padding, not a fixed height**, so a label that wraps
+  can grow.
+- **The hit area may be larger than the ink.** A 22px icon in a 44px pressable
+  is correct; do not inflate the glyph to reach the number.
+
+### No boxes
+
+An outline drawn around content is not a grouping tool. Group with space, with
+type, and with background. Carve-outs: focus rings, a control that must read as
+a control, a genuinely floating plane, data grids, author-supplied content.
+
+**A floating plane gets elevation *or* an edge, not both.** `.nav-dropdown-panel`
+carried a fill, a 28px shadow and a border at once; the border was furniture and
+has been removed.
 
 ---
 
