@@ -15,7 +15,7 @@ The website is two pieces that work together:
 1. **The public marketing site** — a Next.js app hosted on **Vercel**. This is
    what visitors see. The design and structure are code; the *words on the
    pages* come from WordPress.
-2. **WordPress (the CMS)** — at **`https://cms.jfseamus.com`**, where your team
+2. **WordPress (the CMS)** — at **`https://cms.texasspark.org`**, where your team
    logs in to edit content. Visitors never go here.
 
 ```
@@ -32,7 +32,7 @@ turning the commerce features on.
 
 Full instructions are in **[CLIENT-ONBOARDING.md](./CLIENT-ONBOARDING.md)**. In short:
 
-1. Log in at `https://cms.jfseamus.com/wp-admin/` (keep the trailing slash) or the shortcut `/(your site)/admin`, which adds it for you.
+1. Log in at `https://cms.texasspark.org/wp-admin/` (keep the trailing slash) or the shortcut `/(your site)/admin`, which adds it for you.
 2. **MailPoet** for the mailing list; **WooCommerce → Products** for the shop.
 3. Shop changes appear on the public site within about two minutes.
 
@@ -71,7 +71,7 @@ the site's host (Vercel) and redeploy.
 ### Newsletter (MailPoet)
 1. In WordPress, install + activate **MailPoet**; enable its API
    (Settings → Advanced).
-2. Set `MAILPOET_API_KEY` and `MAILPOET_API_BASE_URL=https://cms.jfseamus.com`.
+2. Set `MAILPOET_API_KEY` and `MAILPOET_API_BASE_URL=https://cms.texasspark.org`.
 3. Done — the signup boxes already post to it. Test one signup; it should appear
    in your MailPoet list (and in the Neon `analytics` DB if configured).
 
@@ -107,7 +107,7 @@ the site's host (Vercel) and redeploy.
 | Thing | Where |
 | --- | --- |
 | Public site code | GitHub `b59-studio/spark`, deployed on **Vercel** (project `spark`) |
-| WordPress CMS | DigitalOcean droplet `167.99.224.49`, served by **Caddy**, fronted by **Cloudflare**, at `cms.jfseamus.com` |
+| WordPress CMS | DigitalOcean droplet `167.99.224.49`, served by **Caddy**, fronted by **Cloudflare**, at `cms.texasspark.org` |
 | Analytics database | **Neon** Postgres, `analytics` schema (newsletter / donation / order events) |
 | Secrets / env vars | Vercel project env (optionally managed via Doppler) |
 | TLS for the CMS | Cloudflare Origin Certificate in Caddy — see [runbook](../docs/runbooks/cms-cloudflare-525.md) |

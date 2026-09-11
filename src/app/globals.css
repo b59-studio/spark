@@ -100,9 +100,9 @@ h3,
 
 /* Muted surface on page background — callouts, highlights, gated panels.
    Dark: a faint purple wash on the void, so panels read a touch lighter than
-   the page. Light: the page is paper white and panels take the warm earth tan,
-   so they read a touch warmer than the page — the same subtle figure↔ground
-   the dark panels have. */
+   the page. Light: the page is warm paper and panels are plain white, so they
+   read as raised cards against it — the same subtle figure↔ground the dark
+   panels have. */
 .spark-panel {
   background-color: color-mix(in srgb, var(--color-spark-purple) 16%, var(--color-spark-bg));
 }
@@ -419,9 +419,9 @@ h1 {
   /* ----------------------------------------------------------------
      LIGHT THEME — brand colors plus spark-admin's "paper" page white.
        void  → paper   (#f7f1e6, the spark-admin light page background)
-       panel → earth   (#f4dcb6, the warm tan that used to be the page, now
-                        the subtle callout / panel surface — the same
-                        figure↔ground relationship the dark panels have)
+       panel → white   (#ffffff, brighter than the paper page, so a panel
+                        reads as a raised card — the same figure↔ground
+                        separation the dark panels have, inverted)
        earth → void    (#14081e, darkest brand color, now body ink)
        space           stays #2f0951 — purple trim and emphasis
        sky             stays #a9c7cc — accent only (borders, highlights)
@@ -437,7 +437,7 @@ h1 {
   --light-spark-earth: #14081e;  /* void — darkest brand color, now body ink */
   --light-spark-sky: #a9c7cc;    /* sky — brand blue, accent only */
   --light-spark-alert: #f4541f;  /* alert — unchanged (functional only) */
-  --light-spark-panel: #f4dcb6;  /* earth tan — the warm callout / panel surface */
+  --light-spark-panel: #ffffff;  /* white — the callout / panel surface on paper */
   --light-focus-ring: #2f0951;   /* space — dark ring, reads on paper */
   --light-link: #2f0951;         /* space — dark link on paper; underline also distinguishes */
 }
@@ -523,6 +523,68 @@ h1 {
 :root[data-theme="light"] :is(
     .btn-secondary, .btn-secondary:hover, .btn-secondary:focus-visible
   ) {
+  color: var(--color-spark-void);
+}
+
+/* Light-mode boxes are white, like the panels: a gold wash that reads as a
+   gentle tint on the dark void turns into a flat yellow block on paper. The
+   gold keeps its job as the left rule and the border, which is what marks the
+   box in the first place. `.callout-alert` is excluded — its red wash is
+   functional, not decorative. */
+:root[data-theme="light"] :is(
+    .callout-blue, .callout-gray, .callout-plum, .privacy-summary
+  ) {
+  background-color: var(--light-spark-panel);
+}
+
+/* Fields on light: the bone-tint fill that separates a field from the dark void
+   turns into a tan block once the panel behind it is white, so the fill goes
+   white too and the boundary moves entirely into the border. Gold cannot carry
+   that job here — #edc973 on white is about 1.5:1 — so fields take the same
+   purple hairline as the resting tabs above. */
+:root[data-theme="light"] :is(.form-input, .spark-text-input) {
+  background-color: var(--light-spark-panel);
+  border-color: color-mix(in srgb, var(--color-spark-space) 55%, transparent);
+}
+
+:root[data-theme="light"] :is(
+    .form-input:focus, .form-input:focus-visible,
+    .spark-text-input:focus, .spark-text-input:focus-visible
+  ) {
+  border-color: var(--color-spark-space);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-spark-space) 22%, transparent);
+}
+
+/* Invalid stays red — the alert color is functional and reads on white as-is. */
+:root[data-theme="light"] :is(
+    .form-input:user-invalid, .spark-text-input:user-invalid,
+    .spark-text-input[aria-invalid="true"]
+  ) {
+  border-color: var(--color-spark-alert);
+}
+
+/* Home value tabs on light: the two resting tabs sit on the same white as the
+   panel below them, so the selected tab is the only filled shape in the group —
+   purple fill, paper text. Gold trim is kept as the selected marker; on white
+   the resting tabs take a purple hairline instead of the dark theme's gold
+   hover, which has too little contrast against white to read as a state. */
+:root[data-theme="light"] .home-value-tab {
+  background-color: var(--light-spark-panel);
+  /* 55% is the floor that keeps this hairline at 3:1 against the white fill
+     (WCAG 1.4.11) — a resting tab has no other edge to identify it. */
+  border-color: color-mix(in srgb, var(--color-spark-space) 55%, transparent);
+}
+
+:root[data-theme="light"] .home-value-tab:hover {
+  border-color: var(--color-spark-space);
+}
+
+:root[data-theme="light"] .home-value-tab[aria-selected="true"] {
+  background-color: var(--color-spark-space);
+  border-color: color-mix(in srgb, var(--color-spark-star) 70%, transparent);
+}
+
+:root[data-theme="light"] .home-value-tab[aria-selected="true"] .home-value-tab-label {
   color: var(--color-spark-void);
 }
 

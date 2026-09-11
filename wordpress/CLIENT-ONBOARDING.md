@@ -13,7 +13,7 @@ There are two parts:
    custom-designed in code: panels, card grids, the toolkit carousel, the events
    calendar, the signup boxes.
 2. **WordPress** — where you manage the **mailing list** and the **shop
-   products**. It lives at **`https://cms.jfseamus.com/wp-admin/`**.
+   products**. It lives at **`https://cms.texasspark.org/wp-admin/`**.
 
 **Page wording is not edited in WordPress.** It was for a while, and the result
 was that every page lost its design — WordPress can only send over plain
@@ -21,7 +21,7 @@ paragraphs, so the framed panels, the card grids, the toolkit carousel, the
 events calendar, and the buttons all disappeared behind flat text. The custom
 designs are back, and page copy changes go through your developer.
 
-> WordPress also has its own plain-looking website at `cms.jfseamus.com`. Ignore
+> WordPress also has its own plain-looking website at `cms.texasspark.org`. Ignore
 > it — visitors are automatically redirected away from it. It's just the engine
 > room; the public never sees it.
 
@@ -29,7 +29,7 @@ designs are back, and page copy changes go through your developer.
 
 ## Logging in
 
-1. Go to **`https://cms.jfseamus.com/wp-admin/`**.
+1. Go to **`https://cms.texasspark.org/wp-admin/`**.
 2. Sign in with your WordPress username and password.
 
 ---

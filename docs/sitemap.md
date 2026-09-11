@@ -21,7 +21,7 @@ graph LR
         papi["Public API<br/>/api/newsletter · /api/webhooks/*"]
     end
 
-    subgraph admin["Spark-admin — login.jfseamus.com · auth required"]
+    subgraph admin["Spark-admin — login.texasspark.org · auth required"]
         login["/login"]
         console["/admin/*<br/>console · maps · dashboards"]
         aapi["Authed API<br/>/api/auth · /api/admin · /api/map · /api/me"]
@@ -42,7 +42,7 @@ graph LR
 The crossing (`-.->|Login link|`) is the entire interface between the two
 apps from the user's side. It is configured in
 [`Header.tsx`](../src/components/Header.tsx) via `NEXT_PUBLIC_LOGIN_URL`
-(default `https://login.jfseamus.com`). Server-side, the apps also touch
+(default `https://login.texasspark.org`). Server-side, the apps also touch
 through integrations (WordPress / MailPoet / WooCommerce on Spark; the
 `/api/seamus/[...path]` proxy on Spark-admin), but those are not routes a
 user navigates.
@@ -87,7 +87,7 @@ user navigates.
 
 ## Spark-admin — authenticated app
 
-`login.jfseamus.com` · session required · **not indexed** (`sitemap.ts` is a
+`login.texasspark.org` · session required · **not indexed** (`sitemap.ts` is a
 stub by design)
 
 Access is gated by a session cookie in middleware. `/admin/users` and

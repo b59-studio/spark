@@ -11,7 +11,7 @@ Cloudways.
 | Application URL | Application dashboard | `WORDPRESS_API_URL`, `MAILPOET_API_BASE_URL`, `WOOCOMMERCE_API_URL` |
 | SFTP / SSH (optional) | Server → Master Credentials | Manual plugin install if admin UI is slow |
 | MySQL host/user/pass | Application → Access Details | WordPress only (not in Next.js `.env`) |
-| Custom domain (later) | Domain Management | e.g. `cms.txspark.org` — update all three `*_URL` vars |
+| Custom domain (later) | Domain Management | e.g. `cms.texasspark.org` — update all three `*_URL` vars |
 
 ## What you will need from Neon
 

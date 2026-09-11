@@ -5,7 +5,7 @@
  *
  * Credentials come from the environment — nothing secret lives in this file.
  *
- *   WP_API_URL=https://cms.jfseamus.com \
+ *   WP_API_URL=https://cms.texasspark.org \
  *   WP_USER=<your wp username> \
  *   WP_APP_PASSWORD='xxxx xxxx xxxx xxxx xxxx xxxx' \
  *   node scripts/seed-wp-pages.mjs [--force] [--check]

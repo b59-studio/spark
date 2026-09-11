@@ -4,7 +4,7 @@
       "command": "npx",
       "args": ["-y", "@automattic/mcp-wordpress-remote@latest"],
       "env": {
-        "WP_API_URL": "https://cms.jfseamus.com/wp-json/mcp/mcp-adapter-default-server",
+        "WP_API_URL": "https://cms.texasspark.org/wp-json/mcp/mcp-adapter-default-server",
         "WP_API_USERNAME": "${WP_USER}",
         "WP_API_PASSWORD": "${WP_APP_PASSWORD}"
       }

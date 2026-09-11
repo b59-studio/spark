@@ -1,7 +1,7 @@
 # /etc/caddy/Caddyfile  —  what the live CMS droplet actually runs.
 #
-# The production origin (cms.jfseamus.com, migrating to cms.texasspark.org) is
-# Caddy v2 + php-fpm serving WordPress from /var/www/html, behind Cloudflare
+# The production origin (cms.texasspark.org) is Caddy v2 + php-fpm serving
+# WordPress from /var/www/html, behind Cloudflare
 # (orange-cloud) with a Cloudflare Origin Certificate. This file is the sanitized
 # reference for that setup. The nginx-cms.conf.example alongside it is a legacy
 # alternative and is NOT what is deployed.
