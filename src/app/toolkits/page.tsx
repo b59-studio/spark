@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import CmsPage from "@/components/CmsPage";
 import BrandName from "@/components/BrandName";
 import ToolkitCarousel from "./ToolkitCarousel";
 
@@ -16,10 +15,7 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * The six-step organizing cycle. Sits directly under the page title in both the
- * CMS and fallback paths, so it reads as the overview the prose then expands on.
- */
+// The six-step organizing cycle — the overview the prose below expands on.
 function ToolkitCycle() {
   return (
     <section className="mb-10" aria-labelledby="toolkit-cycle">
@@ -31,7 +27,7 @@ function ToolkitCycle() {
   );
 }
 
-function ToolkitsFallback() {
+export default function ToolkitsPage() {
   return (
     <div className="spark-page">
       <h1 className="heading-xl mb-6">Toolkits</h1>
@@ -48,15 +44,5 @@ function ToolkitsFallback() {
         </p>
       </div>
     </div>
-  );
-}
-
-export default function ToolkitsPage() {
-  return (
-    <CmsPage
-      slug="toolkits"
-      afterTitle={<ToolkitCycle />}
-      fallback={<ToolkitsFallback />}
-    />
   );
 }

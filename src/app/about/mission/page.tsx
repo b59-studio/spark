@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import CmsPage from "@/components/CmsPage";
 import BrandName from "@/components/BrandName";
 
 export const metadata: Metadata = {
@@ -16,13 +15,7 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * In-code fallback shown when WordPress is unconfigured, unreachable, or has no
- * published `mission` page. Mirrors the original static layout so the route
- * always renders. Edit copy in WP admin once the CMS is live; this stays as the
- * safety net.
- */
-function MissionFallback() {
+export default function AboutMissionPage() {
   return (
     <div className="spark-page">
       <div className="space-y-12 sm:space-y-14">
@@ -73,8 +66,4 @@ function MissionFallback() {
       </div>
     </div>
   );
-}
-
-export default function AboutMissionPage() {
-  return <CmsPage slug="mission" fallback={<MissionFallback />} />;
 }

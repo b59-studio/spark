@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import CmsPage from "@/components/CmsPage";
 import BrandName from "@/components/BrandName";
 
 export const metadata: Metadata = {
@@ -20,10 +19,6 @@ export const metadata: Metadata = {
 };
 
 export default function Terms() {
-  return <CmsPage slug="terms" shell="spark-page-narrow" fallback={<TermsFallback />} />;
-}
-
-function TermsFallback() {
   return (
     <div className="spark-page-narrow">
       <h1 className="heading-xl mb-6 text-center">

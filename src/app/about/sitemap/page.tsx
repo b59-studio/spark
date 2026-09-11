@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import CmsPage from "@/components/CmsPage";
 import Link from "next/link";
 import BrandName from "@/components/BrandName";
 
@@ -16,10 +15,6 @@ export const metadata: Metadata = {
 };
 
 export default function SiteMap() {
-  return <CmsPage slug="sitemap" shell="spark-page-wide" fallback={<SiteMapFallback />} />;
-}
-
-function SiteMapFallback() {
   const primaryRoutes = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
