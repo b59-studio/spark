@@ -21,7 +21,6 @@ export default function SiteMap() {
     { href: "/events", label: "Events" },
     { href: "/toolkits", label: "Toolkits" },
     { href: "/work", label: "Our Work" },
-    { href: "/contact", label: "Contact" },
   ];
 
   const aboutSubRoutes = [
@@ -105,7 +104,7 @@ export default function SiteMap() {
       </div>
 
       <div className="flex gap-4 justify-center flex-wrap mt-14">
-        <a href="/contact" className="btn-secondary">
+        <a href="mailto:info@txspark.com" className="btn-secondary">
           Talk to Us
         </a>
         <a href="/about" className="btn-primary">

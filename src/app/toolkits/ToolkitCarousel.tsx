@@ -94,6 +94,10 @@ export default function ToolkitCarousel() {
         className={[
           "flex min-w-0 items-stretch gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth pb-1 pt-1 sm:gap-4",
           "snap-x snap-mandatory px-1 sm:px-0",
+          // Without paint containment the scroller's 2000px of slides inflate the
+          // document's own scroll width, letting the whole page swipe sideways
+          // into blank space on a phone. `main`'s overflow-x:hidden does not stop it.
+          "[contain:paint]",
           "[scrollbar-width:thin]",
         ].join(" ")}
         role="region"

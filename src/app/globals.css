@@ -632,7 +632,12 @@ body:has(#home-hero) {
 .header-logo-lockup {
   height: 3.75732421875rem !important;
   width: 14.501953125rem;
-  max-width: min(14.501953125rem, 60.64453125vw);
+  /* The bar also carries the theme toggle, Log In, and the phone menu button.
+     Yielding to them at any width beats guessing a vw cap — `background-size:
+     contain` scales the wordmark down rather than cropping it. The min-width is
+     the legibility floor. */
+  max-width: 100%;
+  min-width: 6.5rem;
 }
 
 .header-nav--photo-slice .nav-link,

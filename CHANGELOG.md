@@ -23,6 +23,20 @@ where applicable.
   ingestion.
 - GROW toolkits data module and nav wiring via `nav-config.ts`.
 
+### Fixed
+
+- Mobile header: the wordmark claimed 60vw of the bar and pushed the menu button
+  clean off a 375px screen, so phone visitors had no way to open the navigation.
+  The wordmark now yields to the bar's controls at any width, Log In no longer
+  wraps to two lines, and the menu button has a 44x44 hit area instead of 24x24.
+- `/toolkits` could be swiped ~1380px sideways into blank space on a phone: the
+  carousel's slides inflated the document's scroll width, which `main`'s
+  `overflow-x: hidden` does not prevent. Paint containment on the scroller stops
+  it; the carousel scrolls exactly as before.
+- `/contact` served an empty page while `sitemap.xml` and `/about/sitemap` both
+  advertised it. The route now returns 404, is out of both sitemaps, and the
+  sitemap page's "Talk to Us" button points at the contact address.
+
 ### Changed
 
 - Reverted the v3 heritage-quilt repaint: the site is back on the dark cosmic
