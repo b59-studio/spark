@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CmsPage from "@/components/CmsPage";
 import BrandName from "@/components/BrandName";
+import ToolkitCarousel from "./ToolkitCarousel";
 
 export const metadata: Metadata = {
   title: "Toolkits",
@@ -35,5 +36,15 @@ function ToolkitsFallback() {
 }
 
 export default function ToolkitsPage() {
-  return <CmsPage slug="toolkits" fallback={<ToolkitsFallback />} />;
+  return (
+    <>
+      <CmsPage slug="toolkits" fallback={<ToolkitsFallback />} />
+      <section className="spark-page-wide pt-0" aria-labelledby="toolkit-cycle">
+        <h2 id="toolkit-cycle" className="heading-lg mb-6 text-center">
+          The organizing cycle
+        </h2>
+        <ToolkitCarousel />
+      </section>
+    </>
+  );
 }

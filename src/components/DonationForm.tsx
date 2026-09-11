@@ -104,7 +104,7 @@ export default function DonationForm({ publishableKey }: DonationFormProps) {
         <h2 className="heading-md mb-3">Thank you for your support</h2>
         <p className="body-md">
           Your donation went through. A receipt is on its way to{" "}
-          <span className="text-spark-green">{email.trim()}</span>.
+          <span className="text-spark-gold">{email.trim()}</span>.
         </p>
       </div>
     );
@@ -116,7 +116,7 @@ export default function DonationForm({ publishableKey }: DonationFormProps) {
         <h2 className="heading-md mb-1">Complete your donation</h2>
         <p className="body-sm mb-5">
           Donating{" "}
-          <span className="text-spark-green">
+          <span className="text-spark-gold">
             ${((selectedCents ?? 0) / 100).toFixed(2)}
           </span>
           . Your card details stay on this page.
@@ -160,8 +160,8 @@ export default function DonationForm({ publishableKey }: DonationFormProps) {
                 className={[
                   "rounded-xl border-2 px-4 py-3 text-lg font-semibold transition-colors",
                   active
-                    ? "border-spark-green bg-[color-mix(in_srgb,var(--color-spark-green)_18%,transparent)] text-spark-ink"
-                    : "border-[color-mix(in_srgb,var(--color-spark-green)_35%,transparent)] text-spark-ink hover:border-spark-green",
+                    ? "border-spark-gold bg-[color-mix(in_srgb,var(--color-spark-gold)_18%,transparent)] text-spark-earth"
+                    : "border-[color-mix(in_srgb,var(--color-spark-gold)_35%,transparent)] text-spark-bone hover:border-spark-gold",
                 ].join(" ")}
               >
                 ${amount}
@@ -177,7 +177,7 @@ export default function DonationForm({ publishableKey }: DonationFormProps) {
         </label>
         <div className="relative">
           <span
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-spark-ink"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-spark-bone"
             aria-hidden
           >
             $
@@ -224,7 +224,7 @@ export default function DonationForm({ publishableKey }: DonationFormProps) {
       </div>
 
       {error ? (
-        <p id={errorId} className="body-sm mb-4 text-spark-paint" role="alert">
+        <p id={errorId} className="body-sm mb-4 text-spark-red" role="alert">
           {error}
         </p>
       ) : null}
@@ -280,7 +280,7 @@ function PaymentStep({
     <form onSubmit={confirm} className="flex flex-col gap-5">
       <PaymentElement />
       {error ? (
-        <p className="body-sm text-spark-paint" role="alert">
+        <p className="body-sm text-spark-red" role="alert">
           {error}
         </p>
       ) : null}
