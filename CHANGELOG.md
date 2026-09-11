@@ -30,9 +30,10 @@ where applicable.
   available via the header toggle. Restores the cosmic-era wordmark and spark
   artwork; removes the quilt-band divider and the bone-ground favicon.
 - Toolkits: the six-step organizing cycle is shown again as a scroll-snap
-  carousel with dot navigation, mounted below the CMS-editable prose on
-  `/toolkits`. The CMS copy above it is unchanged and still editable in
-  WordPress.
+  carousel with dot navigation, sitting directly under the `/toolkits` title and
+  above the prose. The CMS copy is unchanged and still editable in WordPress.
+- `CmsPage` takes an optional `afterTitle` slot, for a route that needs an
+  in-code block between the CMS page title and the CMS body.
 - Analytics and core user linking use single `DATABASE_URL` (replaces
   `ANALYTICS_DATABASE_URL` and `CORE_DATABASE_URL`).
 - MailPoet subscribe captures `mailpoet_subscriber_id` on analytics signup events.

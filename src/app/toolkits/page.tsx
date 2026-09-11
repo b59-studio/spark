@@ -16,10 +16,26 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * The six-step organizing cycle. Sits directly under the page title in both the
+ * CMS and fallback paths, so it reads as the overview the prose then expands on.
+ */
+function ToolkitCycle() {
+  return (
+    <section className="mb-10" aria-labelledby="toolkit-cycle">
+      <h2 id="toolkit-cycle" className="sr-only">
+        The organizing cycle
+      </h2>
+      <ToolkitCarousel />
+    </section>
+  );
+}
+
 function ToolkitsFallback() {
   return (
     <div className="spark-page">
       <h1 className="heading-xl mb-6">Toolkits</h1>
+      <ToolkitCycle />
       <div className="space-y-6 max-w-3xl">
         <p className="body-md">
           <BrandName /> organizing runs year-round, not just in the weeks before an election. Our model breaks the work into clear, repeatable steps so local teams always know what to do next, whatever the calendar says, and so the relationships and know-how built in one cycle carry into the next instead of starting over every campaign.
@@ -37,14 +53,10 @@ function ToolkitsFallback() {
 
 export default function ToolkitsPage() {
   return (
-    <>
-      <CmsPage slug="toolkits" fallback={<ToolkitsFallback />} />
-      <section className="spark-page-wide pt-0" aria-labelledby="toolkit-cycle">
-        <h2 id="toolkit-cycle" className="heading-lg mb-6 text-center">
-          The organizing cycle
-        </h2>
-        <ToolkitCarousel />
-      </section>
-    </>
+    <CmsPage
+      slug="toolkits"
+      afterTitle={<ToolkitCycle />}
+      fallback={<ToolkitsFallback />}
+    />
   );
 }
