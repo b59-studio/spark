@@ -100,15 +100,23 @@ h3,
 
 /* Muted surface on page background — callouts, highlights, gated panels.
    Dark: a faint purple wash on the void, so panels read a touch lighter than
-   the page. Light: the page is warm paper and panels are plain white, so they
-   read as raised cards against it — the same subtle figure↔ground the dark
-   panels have. */
+   the page. Light: page and panel are both white, so fill cannot separate them
+   and the border has to do the whole job — the light scope below gives every
+   panel a hairline, including the few that carry no frame class of their own. */
 .spark-panel {
   background-color: color-mix(in srgb, var(--color-spark-purple) 16%, var(--color-spark-bg));
 }
 
 :root[data-theme="light"] .spark-panel {
   background-color: var(--light-spark-panel);
+}
+
+/* A panel that carries no frame class of its own relied on its fill to be seen.
+   On a white page that fill is the page, so give those a hairline — the framed
+   ones already have one and are left alone. Container, not control, so this sits
+   below the 3:1 a control boundary needs and only has to read as an edge. */
+:root[data-theme="light"] .spark-panel:not(.spark-framed):not(.spark-carousel-slide-outline):not(.callout-blue):not(.callout-gray):not(.callout-plum) {
+  border: 1px solid color-mix(in srgb, var(--color-spark-space) 22%, transparent);
 }
 
 /* Purple frame + thin inset gold line (about sections, accent boxes, carousel slides) */
@@ -417,11 +425,11 @@ h1 {
   --color-link-on-void: color-mix(in srgb, var(--color-spark-star) 72%, var(--color-spark-space));
 
   /* ----------------------------------------------------------------
-     LIGHT THEME — brand colors plus spark-admin's "paper" page white.
-       void  → paper   (#f7f1e6, the spark-admin light page background)
-       panel → white   (#ffffff, brighter than the paper page, so a panel
-                        reads as a raised card — the same figure↔ground
-                        separation the dark panels have, inverted)
+     LIGHT THEME — brand colors on a white page.
+       void  → white   (#ffffff, the light page background)
+       panel → white   (#ffffff, the same white: on light there is no
+                        figure↔ground fill difference, so a panel is marked
+                        by its border alone — see `.spark-panel` below)
        earth → void    (#14081e, darkest brand color, now body ink)
        space           stays #2f0951 — purple trim and emphasis
        sky             stays #a9c7cc — accent only (borders, highlights)
@@ -431,7 +439,7 @@ h1 {
      from one place. Body text is ink; gold text becomes space (purple) on
      light — gold is too light on paper for text, so gold is reserved for trim
      and the logo. */
-  --light-spark-void: #f7f1e6;   /* paper — spark-admin's light page background */
+  --light-spark-void: #ffffff;   /* white — the light page background */
   --light-spark-space: #2f0951;  /* space — purple stays purple in light */
   --light-spark-star: #edc973;   /* star — gold accent unchanged (trim + logo) */
   --light-spark-earth: #14081e;  /* void — darkest brand color, now body ink */
