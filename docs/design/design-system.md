@@ -1,6 +1,7 @@
 # TX\*SPARK — design system
 
-> **Shared design language** for the TX\*SPARK repos (`spark`, `spark-admin`, `seamus-core`).
+> **Shared design language** for the TX\*SPARK repos (currently `spark`; `spark-admin` and
+> `seamus-core` moved to the `seamus` design system in 2026-07).
 > This file is synced from a shared upstream source of truth into each member repo's
 > `docs/design/design-system.md` — treat this copy as read-only and make changes upstream so
 > all member repos stay identical. This is **not** a universal standard — it applies only to
@@ -10,7 +11,7 @@
 
 ---
 
-## Single design system, three deployment contexts
+## Single design system
 
 Every TX*SPARK product uses identical canonical color tokens, typography scale,
 and component utilities. Different repos may omit specialized components
@@ -25,10 +26,12 @@ a token fixes it everywhere.
 
 ## Canonical source
 
-**`globals.css` is law.** All three repos (`spark/src/app/globals.css`,
-`spark-admin/src/app/globals.css`, `seamus-core/apps/login/src/globals.css`)
-are identical up to the component layer. Differences below that are OK
-(e.g., login omits header/footer styles); differences above that are violations.
+**`globals.css` is law.** The canonical implementation is
+`spark/src/app/globals.css`; any future member repo must match it up to the
+component layer. Differences below that are OK (e.g., a login app omits
+header/footer styles); differences above that are violations.
+(`spark-admin` and `seamus-core` globals no longer track this file — they
+follow the `seamus` design system.)
 
 ---
 
